@@ -1,0 +1,160 @@
+body{
+    margin:0;
+    background:#f4f7fb;
+    font-family:'Segoe UI',sans-serif;
+}
+
+.page{
+
+    width:90%;
+    max-width:1200px;
+
+    margin:40px auto;
+
+}
+
+.upload-card{
+
+    background:#fff;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+
+}
+
+.upload-card h1{
+
+    margin-bottom:10px;
+
+}
+
+.upload-card p{
+
+    color:#777;
+
+    margin-bottom:30px;
+
+}
+
+.preview img{
+
+    width:250px;
+
+    border-radius:12px;
+
+    margin:20px 0;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+}
+
+.upload-btn{
+
+    background:#4F46E5;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+.upload-btn:hover{
+
+    background:#3730A3;
+
+}
+
+.gallery-title{
+
+    text-align:center;
+
+    margin:50px 0 30px;
+
+}
+
+.gallery{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+
+    gap:30px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.card img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+}
+
+.card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.delete-btn{
+
+    width:100%;
+
+    border:none;
+
+    padding:15px;
+
+    background:#ef4444;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.delete-btn:hover{
+
+    background:#dc2626;
+
+}

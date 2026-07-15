@@ -57,6 +57,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+           "options": {
+            "port": 2626
+          },
           "configurations": {
             "production": {
               "buildTarget": "image-upload-web:build:production"
