@@ -1,45 +1,84 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, interval, forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VersionServiceService {
 
-   private currentVersion = '';
-   constructor(private http: HttpClient) {}
+  private frontendVersion = '';
+  private backendVersion = '';
 
-     startVersionCheck(): void {
+  showToast = new BehaviorSubject<boolean>(false);
+  countdown = new BehaviorSubject<number>(5);
 
-    // Read current version once
-    this.http.get<any>('/version.json').subscribe(version => {
-      this.currentVersion = version.version;
-      console.log('Current Version:', this.currentVersion);
+  private timerStarted = false;
+
+  constructor(private http: HttpClient) {}
+
+  startVersionCheck(): void {
+
+    // Read both versions once
+    forkJoin({
+      frontend: this.http.get<any>('/version.json'),
+      backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version')
+    }).subscribe(res => {
+
+      this.frontendVersion = res.frontend.version;
+      this.backendVersion = res.backend.version;
+
+      console.log('Frontend Version:', this.frontendVersion);
+      console.log('Backend Version:', this.backendVersion);
+
     });
 
     // Check every 30 seconds
-    interval(30000).subscribe(() => {
+    interval(10000).subscribe(() => {
 
-      this.http.get<any>('/version.json?ts=' + new Date().getTime())
-        .subscribe(version => {
+      forkJoin({
+        frontend: this.http.get<any>('/version.json?ts=' + Date.now()),
+        backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version?ts=' + Date.now())
+      }).subscribe(res => {
 
-          if (
-            this.currentVersion &&
-            version.version !== this.currentVersion
-          ) {
+        const frontendChanged =
+          res.frontend.version !== this.frontendVersion;
 
-            alert('🚀 New version deployed. Refreshing...');
+        const backendChanged =
+          res.backend.version !== this.backendVersion;
 
-            setTimeout(() => {
+        if ((frontendChanged || backendChanged) && !this.timerStarted) {
+
+          this.timerStarted = true;
+
+          this.showToast.next(true);
+
+          let seconds = 5;
+
+          this.countdown.next(seconds);
+
+          const timer = setInterval(() => {
+
+            seconds--;
+
+            this.countdown.next(seconds);
+
+            if (seconds <= 0) {
+
+              clearInterval(timer);
+
               window.location.reload();
-            }, 5000);
 
-          }
+            }
 
-        });
+          }, 1000);
+
+        }
+
+      });
 
     });
 
   }
+
 }

@@ -1,0 +1,38 @@
+<div class="toast-container" *ngIf="visible">
+
+    <div class="toast-header">
+
+        <span class="icon">🚀</span>
+
+        <div>
+            <h3>Application Updated</h3>
+            <p>A new version has been deployed.</p>
+        </div>
+
+        <button
+            class="close-btn"
+            (click)="close.emit()">
+            ✕
+        </button>
+
+    </div>
+
+    <div class="countdown">
+
+        Reloading in
+
+        <span>{{ countdown }}</span>
+
+        seconds...
+
+    </div>
+
+    <button
+        class="reload-btn"
+        (click)="reloadNow.emit()">
+
+        Reload Now
+
+    </button>
+
+</div>
