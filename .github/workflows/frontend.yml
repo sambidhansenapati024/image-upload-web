@@ -6,10 +6,12 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
+
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -36,3 +38,14 @@ jobs:
 
       - name: Push Docker Image
         run: docker push sambidhan026/image-upload-web:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ec2-user
+            docker-compose pull
+            docker-compose up -d
