@@ -1,6 +1,6 @@
 body{
     margin:0;
-    background:#f4f7fb;
+    background:#111111;
     font-family:'Segoe UI',sans-serif;
 }
 
@@ -15,7 +15,7 @@ body{
 
 .upload-card{
 
-    background:#fff;
+    background:#0a0a0a;
 
     padding:40px;
 
@@ -35,7 +35,7 @@ body{
 
 .upload-card p{
 
-    color:#777;
+    color:#fbf7f7;
 
     margin-bottom:30px;
 
