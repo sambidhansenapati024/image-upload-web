@@ -26,7 +26,7 @@ jobs:
 
       - name: Generate version.json
         run: |
-          cat > src/assets/version.json <<EOF
+          cat > public/version.json <<EOF
           {
             "version": "${{ github.sha }}",
             "buildTime": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
