@@ -6,28 +6,33 @@ on:
       - main
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-      - run: npm run build
+      - name: Build Angular Application
+        run: npm run build
 
-      - uses: docker/login-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - run: docker build -t sambidhan026/image-upload-web:latest .
+      - name: Build Docker Image
+        run: docker build -t sambidhan026/image-upload-web:latest .
 
-      - run: docker push sambidhan026/image-upload-web:latest
+      - name: Push Docker Image
+        run: docker push sambidhan026/image-upload-web:latest
