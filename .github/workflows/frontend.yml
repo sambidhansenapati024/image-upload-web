@@ -24,6 +24,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Generate version.json
+        run: |
+          cat > src/assets/version.json <<EOF
+          {
+            "version": "${{ github.sha }}",
+            "buildTime": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          }
+          EOF
+
       - name: Build Angular Application
         run: npm run build
 
@@ -40,7 +49,7 @@ jobs:
         run: docker push sambidhan026/image-upload-web:latest
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
