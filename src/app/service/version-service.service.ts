@@ -53,7 +53,7 @@ export class VersionServiceService {
 
           this.showToast.next(true);
 
-          let seconds = 5;
+          let seconds = 10;
 
           this.countdown.next(seconds);
 

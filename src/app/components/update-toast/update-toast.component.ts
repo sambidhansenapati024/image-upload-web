@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 })
 export class UpdateToastComponent {
    @Input() visible = false;
-  @Input() countdown = 5;
+  @Input() countdown = 10;
 
   @Output() reloadNow = new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   visible = false;
 
-  countdown = 5;
+  countdown = 10;
 
   constructor(public versionService: VersionServiceService){}
 
