@@ -28,11 +28,11 @@ download = new EventEmitter<string>();
         itemImageSrc: image,
         thumbnailImageSrc: image
     }));
-
+     console.log(this.galleryImages);
 }
 
 openImage(image: string) {
-
+ console.log("Clicked:", image);
     this.activeIndex = this.images.indexOf(image);
 
     this.display = true;

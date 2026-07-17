@@ -38,4 +38,13 @@
     [showThumbnails]="false"
     [showItemNavigators]="true"
     [circular]="true">
+
+    <ng-template pTemplate="item" let-item>
+
+        <img
+            [src]="item.itemImageSrc"
+            style="width:100%; display:block; object-fit:contain;">
+
+    </ng-template>
+
 </p-galleria>
