@@ -1,0 +1,21 @@
+.gallery-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:40px 0 20px;
+
+}
+
+.gallery{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+
+    gap:25px;
+
+}

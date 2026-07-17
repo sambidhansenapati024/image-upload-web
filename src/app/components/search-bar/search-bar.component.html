@@ -1,0 +1,21 @@
+<div class="search-container">
+
+    <p-iconfield>
+
+        <p-inputicon
+            class="pi pi-search">
+        </p-inputicon>
+
+        <input
+
+            pInputText
+
+            placeholder="Search images..."
+
+            [(ngModel)]="search"
+
+            (input)="searchChange.emit(search)"/>
+
+    </p-iconfield>
+
+</div>

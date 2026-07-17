@@ -1,0 +1,29 @@
+.search-container{
+
+    margin:30px 0;
+
+}
+
+:host ::ng-deep .p-inputtext{
+
+    width:100%;
+
+    background:#1E293B;
+
+    border:1px solid #334155;
+
+    color:white;
+
+    border-radius:14px;
+
+    padding:14px;
+
+}
+
+:host ::ng-deep .p-inputtext:focus{
+
+    border-color:#3B82F6;
+
+    box-shadow:0 0 15px rgba(37,99,235,.3);
+
+}

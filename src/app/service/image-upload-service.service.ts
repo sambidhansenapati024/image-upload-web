@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DashboardStats } from '../modal/dashboard-stats';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageUploadServiceService {
-  private api = environment.apiUrl + '/image-upload';
+  private readonly api = environment.apiUrl + '/image-upload';
 
   constructor(private http : HttpClient) { }
 
@@ -29,11 +30,34 @@ export class ImageUploadServiceService {
     return this.http.get<string[]>(`${this.api}/getAll`)
   }
 
-  deleteImage(fileName: string){
-    return this.http.delete(`${this.api}/${fileName}`,{
-      responseType :'text'
-    });
+  deleteImage(fileName: string): Observable<string> {
+
+    return this.http.delete(
+      `${this.api}/${fileName}`,
+      {
+        responseType: 'text'
+      }
+    );
+
   }
 
+  getDashboardStats() {
+
+    return this.http.get<DashboardStats>(
+        this.api + "/stats"
+    );
+
+}
+
+downloadImage(fileName: string) {
+
+  return this.http.get(
+    `${this.api}/${fileName}`,
+    {
+      responseType: 'blob'
+    }
+  );
+
+}
 
 }

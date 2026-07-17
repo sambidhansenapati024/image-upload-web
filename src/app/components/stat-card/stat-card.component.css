@@ -1,0 +1,67 @@
+::ng-deep .stat-card{
+
+    background:#1E293B !important;
+
+    border:1px solid #334155 !important;
+
+    border-radius:18px !important;
+
+    transition:.3s;
+
+}
+
+::ng-deep .stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+}
+
+.card-content{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+.title{
+
+    color:#94A3B8;
+
+    font-size:15px;
+
+}
+
+.value{
+
+    font-size:26px;
+
+    font-weight:700;
+
+    margin-top:5px;
+
+}

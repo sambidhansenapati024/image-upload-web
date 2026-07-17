@@ -1,1 +1,62 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    height:100%;
+
+    font-family:Inter,Segoe UI,sans-serif;
+
+    background:#0F172A;
+
+    color:#F8FAFC;
+
+}
+
+body{
+
+    overflow-x:hidden;
+
+}
+
+.container{
+
+    width:min(1400px,95%);
+    margin:auto;
+
+}
+
+.page{
+
+    padding:30px;
+
+}
+
+.section-title{
+
+    font-size:30px;
+    font-weight:700;
+
+}
+
+.subtitle{
+
+    color:#94A3B8;
+
+}
+
+:root{
+
+    --primary:#2563EB;
+    --surface:#1E293B;
+    --surface-light:#334155;
+    --danger:#EF4444;
+    --success:#22C55E;
+}
