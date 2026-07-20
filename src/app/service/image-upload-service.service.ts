@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DashboardStats } from '../modal/dashboard-stats';
+import { DashboardStats } from '../shared/modal/dashboard-stats';
+import { ImageResponse } from '../shared/modal/image-response';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,11 @@ export class ImageUploadServiceService {
     );
   }
 
-  getAllImage():Observable<string[]>{
-    return this.http.get<string[]>(`${this.api}/getAll`)
-  }
+getAllImage(): Observable<ImageResponse[]> {
+
+    return this.http.get<ImageResponse[]>(`${this.api}/getAll`);
+
+}
 
   deleteImage(fileName: string): Observable<string> {
 

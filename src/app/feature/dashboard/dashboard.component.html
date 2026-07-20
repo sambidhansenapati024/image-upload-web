@@ -1,0 +1,39 @@
+<div class="container">
+
+    <p-toast></p-toast>
+
+<p-confirmDialog></p-confirmDialog>
+
+    <div class="stats">
+
+        <app-stat-card title="Images" [value]="stats?.totalImages || 0" icon="pi pi-images" color="#2563EB">
+
+        </app-stat-card>
+
+        <app-stat-card title="Storage"  [value]="formatBytes(stats?.totalStorage || 0)" icon="pi pi-database" color="#8B5CF6">
+
+        </app-stat-card>
+
+        <app-stat-card title="Version" value="v1.0.4" icon="pi pi-github" color="#F59E0B">
+
+        </app-stat-card>
+
+        <app-stat-card title="AWS" value="Connected" icon="pi pi-cloud" color="#10B981">
+
+        </app-stat-card>
+
+    </div>
+
+    <app-upload-area (uploadCompleted)="refreshDashboard()">
+    </app-upload-area>
+
+    <app-search-bar (searchChange)="searchImages($event)">
+    
+    </app-search-bar>
+    <app-gallery
+    [images]="filteredImages"
+    (delete)="deleteImage($event)"
+    (download)="downloadImage($event)">
+</app-gallery>
+
+</div>

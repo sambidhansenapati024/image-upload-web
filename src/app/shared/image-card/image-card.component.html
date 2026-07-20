@@ -1,0 +1,40 @@
+<p-card styleClass="image-card">
+
+    <img [src]="image.imageUrl" class="image">
+
+    <div class="footer">
+
+        <p>
+
+            {{ image.originalFileName }}
+
+        </p>
+
+        <div class="buttons">
+
+            <p-button
+                icon="pi pi-eye"
+                severity="secondary"
+                rounded="true"
+                (onClick)="view.emit(image)">
+            </p-button>
+
+            <p-button
+                icon="pi pi-download"
+                severity="success"
+                rounded="true"
+                (onClick)="download.emit(image.key)">
+            </p-button>
+
+            <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                rounded="true"
+                (onClick)="delete.emit(image.key)">
+            </p-button>
+
+        </div>
+
+    </div>
+
+</p-card>

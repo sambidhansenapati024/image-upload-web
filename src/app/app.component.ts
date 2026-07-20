@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { VersionServiceService } from './service/version-service.service';
-import { UpdateToastComponent } from "./components/update-toast/update-toast.component";
-import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { UpdateToastComponent } from "./shared/update-toast/update-toast.component";
+import { DashboardComponent } from "./feature/dashboard/dashboard.component";
 
 @Component({
   selector: 'app-root',
-  imports: [ImageUploadComponent, UpdateToastComponent, DashboardComponent],
+  imports: [ RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

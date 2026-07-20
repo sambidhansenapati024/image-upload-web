@@ -1,0 +1,59 @@
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f9;
+    padding: 20px;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 430px;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+}
+
+.header h2 {
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+.header p {
+    color: gray;
+}
+
+.field {
+    margin-bottom: 28px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.error {
+    color: #ef4444;
+    display: block;
+    margin-top: 6px;
+}
+
+.server-error {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer a {
+    margin-left: 5px;
+    text-decoration: none;
+    font-weight: 600;
+}

@@ -1,0 +1,51 @@
+<p-card styleClass="navbar-card">
+      <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
+
+
+    <div class="navbar">
+
+        <div class="left">
+
+            <div class="logo">
+
+                ☁️
+
+            </div>
+
+            <div>
+
+                <h2>CloudVault</h2>
+
+                <p>Secure Cloud Image Storage</p>
+
+            </div>
+
+        </div>
+
+        <div class="right">
+
+            <p-tag
+                severity="success"
+                value="Connected">
+            </p-tag>
+
+            <p-tag
+                severity="info"
+                [value]="version">
+            </p-tag>
+
+            <p-button
+                label="Logout"
+                icon="pi pi-sign-out"
+                severity="danger"
+                outlined="true"
+                (onClick)="logout()">
+            </p-button>
+
+
+        </div>
+
+    </div>
+
+</p-card>

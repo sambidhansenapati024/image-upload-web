@@ -1,0 +1,174 @@
+<p-toast></p-toast>
+
+<div class="register-container">
+
+    <p-card class="register-card">
+
+        <ng-template pTemplate="header">
+
+            <div class="header">
+
+                <h2>CloudVault</h2>
+
+                <p>Create your account</p>
+
+            </div>
+
+        </ng-template>
+
+        <form
+            [formGroup]="registerForm"
+            (ngSubmit)="register()">
+
+            <!-- Full Name -->
+            <div class="field">
+
+                <p-floatlabel>
+
+                    <input
+                        pInputText
+                        id="fullName"
+                        formControlName="fullName"
+                        class="w-full">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                </p-floatlabel>
+
+                @if(registerForm.get('fullName')?.touched &&
+                registerForm.get('fullName')?.invalid){
+
+                <small class="error">
+                    Full Name is required.
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Email -->
+
+            <div class="field">
+
+                <p-floatlabel>
+
+                    <input
+                        pInputText
+                        id="email"
+                        formControlName="email"
+                        class="w-full">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                </p-floatlabel>
+
+                @if(registerForm.get('email')?.touched &&
+                registerForm.get('email')?.invalid){
+
+                <small class="error">
+
+                    @if(registerForm.get('email')?.errors?.['required']){
+
+                    Email is required.
+
+                    }
+
+                    @if(registerForm.get('email')?.errors?.['email']){
+
+                    Invalid email.
+
+                    }
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Password -->
+
+            <div class="field">
+
+                <p-floatlabel>
+
+                    <p-password
+                        inputId="password"
+                        formControlName="password"
+                        [feedback]="true"
+                        [toggleMask]="true"
+                        styleClass="w-full">
+                    </p-password>
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                </p-floatlabel>
+
+            </div>
+
+            <!-- Confirm Password -->
+
+            <div class="field">
+
+                <p-floatlabel>
+
+                    <p-password
+                        inputId="confirmPassword"
+                        formControlName="confirmPassword"
+                        [feedback]="false"
+                        [toggleMask]="true"
+                        styleClass="w-full">
+                    </p-password>
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                </p-floatlabel>
+
+            </div>
+
+            @if(registerForm.errors?.['passwordMismatch']){
+
+            <small class="error">
+
+                Passwords do not match.
+
+            </small>
+
+            }
+
+            <button
+                pButton
+                label="Register"
+                icon="pi pi-user-plus"
+                class="w-full"
+                [loading]="loading">
+            </button>
+
+        </form>
+
+        <ng-template pTemplate="footer">
+
+            <div class="footer">
+
+                Already have an account?
+
+                <a routerLink="/login">
+
+                    Login
+
+                </a>
+
+            </div>
+
+        </ng-template>
+
+    </p-card>
+
+</div>

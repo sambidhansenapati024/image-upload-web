@@ -1,0 +1,50 @@
+<div class="gallery-header">
+
+    <h2>
+
+        Uploaded Images
+
+    </h2>
+
+    <span>
+
+        {{images.length}} Images
+
+    </span>
+
+</div>
+
+<div class="gallery">
+
+<app-image-card
+
+*ngFor="let image of images"
+
+[image]="image"
+
+(delete)="delete.emit($event)"
+(download)="download.emit($event)"
+
+(view)="openImage(image)">
+
+</app-image-card>
+
+</div>
+<p-galleria
+    [(visible)]="display"
+    [(activeIndex)]="activeIndex"
+    [value]="galleryImages"
+    [fullScreen]="true"
+    [showThumbnails]="false"
+    [showItemNavigators]="true"
+    [circular]="true">
+
+    <ng-template pTemplate="item" let-item>
+
+        <img
+            [src]="item.itemImageSrc"
+            style="width:100%; display:block; object-fit:contain;">
+
+    </ng-template>
+
+</p-galleria>
