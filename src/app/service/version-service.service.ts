@@ -19,66 +19,69 @@ export class VersionServiceService {
 
   startVersionCheck(): void {
 
-    // Read both versions once
-    forkJoin({
-      frontend: this.http.get<any>('/version.json'),
-      backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version')
-    }).subscribe(res => {
+  // Read both versions once
+  forkJoin({
+    frontend: this.http.get<any>('/version.json'),
+    backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version')
+  }).subscribe(res => {
 
-      this.frontendVersion = res.frontend.version;
-      this.backendVersion = res.backend.version;
+    this.frontendVersion = res.frontend.version;
+    this.backendVersion = res.backend.version;
 
-      console.log('Frontend Version:', this.frontendVersion);
-      console.log('Backend Version:', this.backendVersion);
+  });
 
-    });
+  // Check every 5 minutes
+  interval(5 * 60 * 1000).subscribe(() => {
 
-    // Check every 30 seconds
-    interval(10000).subscribe(() => {
+    this.checkVersion();
 
-      forkJoin({
-        frontend: this.http.get<any>('/version.json?ts=' + Date.now()),
-        backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version?ts=' + Date.now())
-      }).subscribe(res => {
+  });
 
-        const frontendChanged =
-          res.frontend.version !== this.frontendVersion;
+}
 
-        const backendChanged =
-          res.backend.version !== this.backendVersion;
+private checkVersion(): void {
 
-        if ((frontendChanged || backendChanged) && !this.timerStarted) {
+  forkJoin({
+    frontend: this.http.get<any>('/version.json?ts=' + Date.now()),
+    backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version?ts=' + Date.now())
+  }).subscribe(res => {
 
-          this.timerStarted = true;
+    const frontendChanged =
+      res.frontend.version !== this.frontendVersion;
 
-          this.showToast.next(true);
+    const backendChanged =
+      res.backend.version !== this.backendVersion;
 
-          let seconds = 10;
+    if ((frontendChanged || backendChanged) && !this.timerStarted) {
 
-          this.countdown.next(seconds);
+      this.timerStarted = true;
 
-          const timer = setInterval(() => {
+      this.showToast.next(true);
 
-            seconds--;
+      let seconds = 10;
 
-            this.countdown.next(seconds);
+      this.countdown.next(seconds);
 
-            if (seconds <= 0) {
+      const timer = setInterval(() => {
 
-              clearInterval(timer);
+        seconds--;
 
-              window.location.reload();
+        this.countdown.next(seconds);
 
-            }
+        if (seconds <= 0) {
 
-          }, 1000);
+          clearInterval(timer);
+
+          window.location.reload();
 
         }
 
-      });
+      }, 1000);
 
-    });
+    }
 
-  }
+  });
+
+}
 
 }

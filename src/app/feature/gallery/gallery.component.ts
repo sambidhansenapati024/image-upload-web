@@ -29,7 +29,6 @@ this.galleryImages = this.images.map(image => ({
     itemImageSrc: image.imageUrl,
     thumbnailImageSrc: image.imageUrl
 }));
-     console.log(this.galleryImages);
 }
 
 openImage(image: ImageResponse) {
