@@ -31,7 +31,7 @@ export class VersionServiceService {
   });
 
   // Check every 5 minutes
-  interval(5 * 60 * 1000).subscribe(() => {
+  interval(10 * 60 * 1000).subscribe(() => {
 
     this.checkVersion();
 
