@@ -10,6 +10,8 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DashboardStats } from '../../shared/modal/dashboard-stats';
 import { ImageResponse } from '../../shared/modal/image-response';
+import { SortDropdownComponent } from '../../shared/sort-dropdown/sort-dropdown.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,7 +19,7 @@ import { ImageResponse } from '../../shared/modal/image-response';
         ConfirmationService,
         MessageService
     ],
-    imports: [ StatCardComponent, UploadAreaComponent, GalleryComponent, SearchBarComponent, ToastModule, ConfirmDialogModule],
+    imports: [ StatCardComponent, CommonModule, SortDropdownComponent, UploadAreaComponent, GalleryComponent, SearchBarComponent, ToastModule, ConfirmDialogModule],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
@@ -28,6 +30,14 @@ export class DashboardComponent implements OnInit {
     stats!: DashboardStats;
     images: ImageResponse[] = [];
     filteredImages: ImageResponse[] = [];
+    page = 0;
+    size = 2;
+    sortOption = 'newest';
+    totalPages = 0;
+    totalElements = 0;
+
+    sortBy = 'uploadedAt';
+    direction = 'desc';
 
     constructor(
         private imageService: ImageUploadServiceService,
@@ -39,31 +49,33 @@ export class DashboardComponent implements OnInit {
         this.loadDashboardStats();
     }
 
-    loadImages() {
+loadImages() {
 
-        this.imageService.getAllImage()
+    this.imageService.getImages(
+        this.page,
+        this.size,
+        this.searchText,
+        this.sortBy,
+        this.direction
+    ).subscribe(response => {
 
-            .subscribe(images => {
+        this.images = response.content;
 
-                this.images = images;
+        this.totalPages = response.totalPages;
 
-                this.filteredImages = images;
+        this.totalElements = response.totalElements;
 
-            });
+    });
 
-    }
+}
 
 searchImages(value: string) {
 
     this.searchText = value;
 
-    this.filteredImages = this.images.filter(image =>
+    this.page = 0;
 
-        image.originalFileName
-            .toLowerCase()
-            .includes(value.toLowerCase())
-
-    );
+    this.loadImages();
 
 }
     deleteImage(key: string) {
@@ -195,6 +207,108 @@ refreshDashboard(): void {
     this.loadImages();
 
     this.loadDashboardStats();
+
+}
+
+previousPage() {
+
+    if (this.page > 0) {
+
+        this.page--;
+
+        this.loadImages();
+
+    }
+
+}
+
+nextPage() {
+
+    if (this.page < this.totalPages - 1) {
+
+        this.page++;
+
+        this.loadImages();
+
+    }
+
+}
+
+onSortChange(value: string) {
+
+    this.sortOption = value;
+
+    switch (value) {
+
+        case 'newest':
+            this.sortBy = 'uploadedAt';
+            this.direction = 'desc';
+            break;
+
+        case 'oldest':
+            this.sortBy = 'uploadedAt';
+            this.direction = 'asc';
+            break;
+
+        case 'nameAsc':
+            this.sortBy = 'originalFileName';
+            this.direction = 'asc';
+            break;
+
+        case 'nameDesc':
+            this.sortBy = 'originalFileName';
+            this.direction = 'desc';
+            break;
+
+        case 'sizeAsc':
+            this.sortBy = 'fileSize';
+            this.direction = 'asc';
+            break;
+
+        case 'sizeDesc':
+            this.sortBy = 'fileSize';
+            this.direction = 'desc';
+            break;
+    }
+
+    this.page = 0;
+
+    this.loadImages();
+
+}
+
+get pageNumbers(): number[] {
+
+    return Array.from(
+        { length: this.totalPages },
+        (_, i) => i
+    );
+
+}
+
+goToPage(page: number) {
+
+    if (page === this.page) {
+
+        return;
+
+    }
+
+    this.page = page;
+
+    this.loadImages();
+
+}
+
+get endImage(): number {
+
+    return Math.min(
+
+        (this.page + 1) * this.size,
+
+        this.totalElements
+
+    );
 
 }
 

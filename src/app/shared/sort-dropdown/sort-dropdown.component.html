@@ -1,0 +1,7 @@
+<p-select
+    [options]="options"
+    optionLabel="label"
+    optionValue="value"
+    [(ngModel)]="selected"
+    (onChange)="sortChange.emit(selected)">
+</p-select>

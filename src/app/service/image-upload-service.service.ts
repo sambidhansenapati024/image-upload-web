@@ -4,6 +4,8 @@ import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DashboardStats } from '../shared/modal/dashboard-stats';
 import { ImageResponse } from '../shared/modal/image-response';
+import { HttpParams } from '@angular/common/http';
+import { PageResponse } from '../shared/modal/page-response';
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +15,46 @@ export class ImageUploadServiceService {
 
   constructor(private http : HttpClient) { }
 
-  upload(file : File ): Observable<HttpEvent<any>>{
-    const formData = new FormData;
-    formData.append('file',file);
+upload(files: File[]): Observable<HttpEvent<any>> {
 
-    return this.http.post<any>(
-      `${this.api}/upload`,
-      formData,
-      {
-        observe:'events',
-        reportProgress:true
-      }
-    );
-  }
+  const formData = new FormData();
 
-getAllImage(): Observable<ImageResponse[]> {
+  files.forEach(file => {
 
-    return this.http.get<ImageResponse[]>(`${this.api}/getAll`);
+    formData.append('file', file);
+
+  });
+
+  return this.http.post<any>(
+    `${this.api}/upload`,
+    formData,
+    {
+      observe: 'events',
+      reportProgress: true
+    }
+  );
+
+}
+
+getImages(
+  page: number,
+  size: number,
+  search: string,
+  sortBy: string,
+  direction: string
+): Observable<PageResponse<ImageResponse>> {
+
+  const params = new HttpParams()
+    .set('page', page)
+    .set('size', size)
+    .set('search', search)
+    .set('sortBy', sortBy)
+    .set('direction', direction);
+
+  return this.http.get<PageResponse<ImageResponse>>(
+    this.api,
+    { params }
+  );
 
 }
 

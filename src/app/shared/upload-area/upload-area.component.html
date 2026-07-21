@@ -1,133 +1,194 @@
 <p-card styleClass="upload-card">
 
-  <div
-    class="upload-zone"
-    *ngIf="!preview"
-    [class.dragging]="isDragging"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
-    (drop)="onDrop($event)">
+    <div class="success-box" *ngIf="showSuccessMessage">
 
+        <i class="pi pi-check-circle success-icon-big"></i>
+
+        <h2>
+
+            {{uploadedCount}}
+
+            {{uploadedCount === 1 ? 'Image' : 'Images'}}
+
+            Uploaded Successfully
+
+        </h2>
+
+    </div>
+
+    <!-- Upload Area -->
+    <div class="upload-zone" *ngIf="uploadItems.length === 0 && !showSuccessMessage" [class.dragging]="isDragging"
+        (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
 
         <i class="pi pi-cloud-upload upload-icon"></i>
 
         <h2 *ngIf="!isDragging">
-
             Drag & Drop Images Here
-
         </h2>
 
         <h2 *ngIf="isDragging">
-
-            Drop Image Here
-
+            Drop Images Here
         </h2>
 
-        <p *ngIf="!isDragging">
-
+        <p>
             JPG • PNG • JPEG • WEBP
-
         </p>
 
-        <p *ngIf="isDragging">
-
-            Release mouse to upload
-
-        </p>
-
-        <input #fileInput hidden type="file" accept="image/*" (change)="onFileSelected($event)">
+        <input #fileInput hidden multiple type="file" accept="image/*" (change)="onFileSelected($event)">
 
         <p-button label="Browse Files" icon="pi pi-folder-open" (onClick)="fileInput.click()">
-
         </p-button>
 
     </div>
 
-    <div class="preview" *ngIf="preview">
+    <!-- Upload Queue -->
 
-        <img [src]="preview">
+    <div class="queue" *ngIf="uploadItems.length > 0">
+<div class="queue-header">
 
-        <h3>
+    <h3>
 
-            {{selectedFile?.name}}
+        Upload Queue
 
-        </h3>
+    </h3>
 
-        <div *ngIf="uploading">
+    <span>
 
-            <h3>
+        {{uploadItems.length}}
 
-                Uploading...
+        {{uploadItems.length === 1 ? 'File' : 'Files'}}
 
-            </h3>
-
-            <p>
-
-                {{selectedFile?.name}}
-
-            </p>
-
-            <p-progressBar [value]="progress">
-            </p-progressBar>
-
-            <div class="upload-info">
-
-                <div>
-
-                    {{progress}}%
-
-                </div>
-
-                <div>
-
-                    {{uploadedSize}}
-
-                    /
-
-                    {{totalSize}}
-
-                </div>
-
-            </div>
-
-            <div class="upload-info">
-
-                <div>
-
-                    Remaining
-
-                    {{remainingTime}}
-
-                </div>
-
-                <div>
-
-                    {{uploadSpeed}}
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <br>
-       <div class="preview-buttons">
-
-    <p-button
-        label="Upload Image"
-        icon="pi pi-upload"
-        (onClick)="upload()">
-    </p-button>
-
-    <p-button
-        label="Cancel"
-        icon="pi pi-times"
-        severity="secondary"
-        outlined="true"
-        (onClick)="cancelSelection()">
-    </p-button>
+    </span>
 
 </div>
+
+        <div class="upload-item" *ngFor="let item of uploadItems">
+
+            <img [src]="item.preview" class="preview-image">
+
+            <div class="details">
+
+                <h4>
+                    {{item.file.name}}
+                </h4>
+
+                <small>
+
+                    {{formatBytes(item.file.size)}}
+
+                </small>
+
+               <div *ngIf="item.uploading">
+
+    <p-progressBar
+        [value]="item.progress">
+    </p-progressBar>
+
+    <div class="upload-info">
+
+        <span>{{item.progress}}%</span>
+
+        <span>
+
+            {{item.uploadedSize}}
+
+            /
+
+            {{item.totalSize}}
+
+        </span>
+
+    </div>
+
+    <div class="upload-info">
+
+        <span>{{item.remainingTime}}</span>
+
+        <span>{{item.uploadSpeed}}</span>
+
+    </div>
+
+</div>
+
+                <div class="upload-info">
+
+                    <span>
+
+                        {{item.progress}}%
+
+                    </span>
+
+                    <span>
+
+                        {{item.uploadedSize}}
+
+                        /
+
+                        {{item.totalSize}}
+
+                    </span>
+
+                </div>
+
+                <div class="upload-info">
+
+                    <span>
+
+                        {{item.remainingTime}}
+
+                    </span>
+
+                    <span>
+
+                        {{item.uploadSpeed}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <span *ngIf="item.uploading" class="status uploading">
+
+                    Uploading...
+
+                </span>
+
+                <span *ngIf="item.uploaded" class="status uploaded">
+
+                    Uploaded
+
+                </span>
+
+                <span *ngIf="item.failed" class="status failed">
+
+                    Failed
+
+                </span>
+
+                <p-button *ngIf="item.failed" label="Retry" icon="pi pi-refresh" severity="warn"
+                    (onClick)="retry(item)">
+                </p-button>
+
+                <p-button *ngIf="!item.uploading && !item.uploaded && !item.failed" icon="pi pi-times" severity="danger"
+                    outlined="true" (onClick)="remove(item)">
+                </p-button>
+
+            </div>
+        </div>
+
+        <div class="queue-buttons">
+
+            <p-button *ngIf="!isUploading()" label="Upload All" icon="pi pi-upload" (onClick)="upload()">
+            </p-button>
+
+            <p-button label="Clear" icon="pi pi-trash" severity="secondary" outlined="true"
+                (onClick)="cancelSelection()">
+            </p-button>
+
+        </div>
 
     </div>
 

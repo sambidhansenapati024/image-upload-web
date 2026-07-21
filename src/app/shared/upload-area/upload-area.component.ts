@@ -5,6 +5,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { CardModule } from 'primeng/card';
 import { ImageUploadServiceService } from '../../service/image-upload-service.service';
 import { HttpEventType } from '@angular/common/http';
+import { UploadItem } from '../modal/upload-item';
 
 @Component({
   selector: 'app-upload-area',
@@ -13,48 +14,25 @@ import { HttpEventType } from '@angular/common/http';
   styleUrl: './upload-area.component.css'
 })
 export class UploadAreaComponent {
-
   @Output()
   uploadCompleted = new EventEmitter<void>();
-  preview: string | null = null;
-
-  progress = 0;
   isDragging = false;
-
-  selectedFile?: File;
-
-  uploading = false;
-
-  remainingTime = '';
-
-  uploadedSize = '';
-
-  totalSize = '';
-
-  uploadSpeed = '';
-
-  startTime = 0;
+  uploadItems: UploadItem[] = [];
+  showSuccessMessage = false;
+  uploadedCount = 0;
 
   constructor(
     private imageService: ImageUploadServiceService) { }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any): void {
 
-    const file = event.target.files[0];
+    const files = event.target.files;
 
-    if (!file) return;
-
-    this.selectedFile = file;
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-
-      this.preview = reader.result as string;
-
+    if (!files || files.length === 0) {
+      return;
     }
 
-    reader.readAsDataURL(file);
+    this.addFiles(Array.from(files));
 
   }
   onDragOver(event: DragEvent) {
@@ -73,7 +51,7 @@ export class UploadAreaComponent {
 
   }
 
-  onDrop(event: DragEvent) {
+  onDrop(event: DragEvent): void {
 
     event.preventDefault();
 
@@ -82,114 +60,122 @@ export class UploadAreaComponent {
     const files = event.dataTransfer?.files;
 
     if (!files || files.length === 0) {
-
       return;
-
     }
 
-    this.selectedFile = files[0];
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-
-      this.preview = reader.result as string;
-
-    }
-
-    reader.readAsDataURL(this.selectedFile);
+    this.addFiles(Array.from(files));
 
   }
 
-  upload() {
+  upload(): void {
 
-    if (!this.selectedFile) {
-      return;
-    }
+    this.uploadItems.forEach(item => {
 
-    this.uploading = true;
+      if (!item.uploaded && !item.uploading) {
 
-    this.progress = 0;
+        this.uploadItem(item);
 
-    this.startTime = Date.now();
+      }
 
-    this.imageService.upload(this.selectedFile)
-      .subscribe({
+    });
 
-        next: event => {
+  }
 
-          if (event.type === HttpEventType.UploadProgress) {
+  uploadItem(item: UploadItem): void {
 
-            const loaded = event.loaded;
+    item.uploading = true;
 
-            const total = event.total ?? 1;
+    item.failed = false;
 
-            this.progress =
-              Math.round((loaded / total) * 100);
+    item.progress = 0;
 
-            //------------------------------------
+    item.startTime = Date.now();
 
-            this.uploadedSize =
-              this.formatBytes(loaded);
+    this.imageService.upload([item.file]).subscribe({
 
-            this.totalSize =
-              this.formatBytes(total);
+      next: event => {
 
-            //------------------------------------
+        if (event.type === HttpEventType.UploadProgress) {
 
-            const elapsed =
-              (Date.now() - this.startTime) / 1000;
+          const loaded = event.loaded;
 
-            const speed =
-              loaded / elapsed;
+          const total = event.total ?? 1;
 
-            this.uploadSpeed =
-              this.formatBytes(speed) + "/s";
+          item.progress = Math.round((loaded / total) * 100);
 
-            //------------------------------------
+          item.uploadedSize = this.formatBytes(loaded);
 
-            const remainingBytes =
-              total - loaded;
+          item.totalSize = this.formatBytes(total);
 
-            const remainingSeconds =
-              remainingBytes / speed;
+          const elapsed = (Date.now() - item.startTime) / 1000;
 
-            this.remainingTime =
-              remainingSeconds.toFixed(1) + " sec";
+          const speed = elapsed > 0 ? loaded / elapsed : 0;
 
-          }
+          item.uploadSpeed = this.formatBytes(speed) + "/s";
 
-          if (event.type === HttpEventType.Response) {
+          const remainingBytes = total - loaded;
 
-            this.progress = 100;
+          const remainingSeconds = speed > 0 ? remainingBytes / speed : 0;
 
-            this.uploading = false;
-
-            this.uploadCompleted.emit();
-
-            // Reset UI
-            this.selectedFile = undefined;
-            this.preview = null;
-
-            this.progress = 0;
-
-            this.remainingTime = '';
-            this.uploadSpeed = '';
-            this.uploadedSize = '';
-            this.totalSize = '';
-
-          }
-
-
-        },
-
-        error: () => {
-
-          this.uploading = false;
+          item.remainingTime = remainingSeconds.toFixed(1) + " sec";
 
         }
 
-      });
+        if (event.type === HttpEventType.Response) {
+
+          item.progress = 100;
+
+          item.uploading = false;
+
+          item.uploaded = true;
+
+          this.checkCompleted();
+
+        }
+
+      },
+
+      error: () => {
+
+        item.uploading = false;
+
+        item.failed = true;
+
+      }
+
+    });
+
+  }
+
+private checkCompleted(): void {
+
+  const completed = this.uploadItems.every(item => item.uploaded);
+
+  if (!completed) {
+    return;
+  }
+
+  this.uploadedCount = this.uploadItems.length;
+
+  this.showSuccessMessage = true;
+
+  this.uploadCompleted.emit();
+
+  setTimeout(() => {
+
+    this.uploadItems = [];
+
+    this.showSuccessMessage = false;
+
+    this.uploadedCount = 0;
+
+  }, 2000);
+
+}
+
+  retry(item: UploadItem): void {
+
+    this.uploadItem(item);
 
   }
 
@@ -235,21 +221,80 @@ export class UploadAreaComponent {
 
   cancelSelection(): void {
 
-    this.selectedFile = undefined;
-
-    this.preview = null;
-
-    this.progress = 0;
-
-    this.remainingTime = '';
-
-    this.uploadSpeed = '';
-
-    this.uploadedSize = '';
-
-    this.totalSize = '';
+    this.uploadItems = [];
 
   }
+
+  private addFiles(files: File[]): void {
+
+    files.forEach(file => {
+
+      const alreadyExists = this.uploadItems.some(
+        item =>
+          item.file.name === file.name &&
+          item.file.size === file.size
+      );
+
+      if (alreadyExists) {
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+
+        this.uploadItems.push({
+
+          file,
+
+          preview: reader.result as string,
+
+          progress: 0,
+
+          uploading: false,
+
+          uploaded: false,
+
+          failed: false,
+
+          uploadedSize: '',
+
+          totalSize: this.formatBytes(file.size),
+
+          uploadSpeed: '',
+
+          remainingTime: '',
+
+          startTime: 0
+
+        });
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+  }
+
+  remove(item: UploadItem): void {
+
+    if (item.uploading) {
+
+      return;
+
+    }
+
+    this.uploadItems =
+      this.uploadItems.filter(i => i !== item);
+
+  }
+
+  isUploading(): boolean {
+
+  return this.uploadItems.some(item => item.uploading);
+
+}
 
 
 }

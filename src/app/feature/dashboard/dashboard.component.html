@@ -2,7 +2,7 @@
 
     <p-toast></p-toast>
 
-<p-confirmDialog></p-confirmDialog>
+    <p-confirmDialog></p-confirmDialog>
 
     <div class="stats">
 
@@ -10,7 +10,8 @@
 
         </app-stat-card>
 
-        <app-stat-card title="Storage"  [value]="formatBytes(stats?.totalStorage || 0)" icon="pi pi-database" color="#8B5CF6">
+        <app-stat-card title="Storage" [value]="formatBytes(stats?.totalStorage || 0)" icon="pi pi-database"
+            color="#8B5CF6">
 
         </app-stat-card>
 
@@ -27,13 +28,75 @@
     <app-upload-area (uploadCompleted)="refreshDashboard()">
     </app-upload-area>
 
-    <app-search-bar (searchChange)="searchImages($event)">
-    
-    </app-search-bar>
-    <app-gallery
-    [images]="filteredImages"
-    (delete)="deleteImage($event)"
-    (download)="downloadImage($event)">
-</app-gallery>
+    <div class="gallery-toolbar">
+
+        <app-search-bar (searchChange)="searchImages($event)">
+        </app-search-bar>
+
+        <app-sort-dropdown (sortChange)="onSortChange($event)">
+        </app-sort-dropdown>
+
+    </div>
+    <app-gallery [images]="images" (delete)="deleteImage($event)" (download)="downloadImage($event)">
+    </app-gallery>
+
+    <div class="gallery-info">
+
+    Showing
+
+    {{ page * size + 1 }}
+
+    -
+
+    {{ endImage }}
+
+    of
+
+    {{ totalElements }}
+
+    Images
+
+</div>
+    <div class="pagination">
+
+    <button
+
+        class="page-btn"
+
+        (click)="previousPage()"
+
+        [disabled]="page === 0">
+
+        Previous
+
+    </button>
+
+    <button
+
+        class="page-number"
+
+        *ngFor="let p of pageNumbers"
+
+        [class.active]="p === page"
+
+        (click)="goToPage(p)">
+
+        {{ p + 1 }}
+
+    </button>
+
+    <button
+
+        class="page-btn"
+
+        (click)="nextPage()"
+
+        [disabled]="page === totalPages - 1">
+
+        Next
+
+    </button>
+
+</div>
 
 </div>
