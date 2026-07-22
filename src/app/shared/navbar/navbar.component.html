@@ -1,28 +1,11 @@
 <p-card styleClass="navbar-card">
-      <p-confirmDialog></p-confirmDialog>
-    <p-toast></p-toast>
 
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast></p-toast>
 
     <div class="navbar">
 
-        <div class="left">
-
-            <div class="logo">
-
-                ☁️
-
-            </div>
-
-            <div>
-
-                <h2>CloudVault</h2>
-
-                <p>Secure Cloud Image Storage</p>
-
-            </div>
-
-        </div>
-
+        <!-- Right Section -->
         <div class="right">
 
             <p-tag
@@ -35,14 +18,29 @@
                 [value]="version">
             </p-tag>
 
+            <div class="user">
+
+                <div class="avatar">
+                    S
+                </div>
+
+                <div>
+
+                    <h4>Sambidhan</h4>
+
+                    <small>Software Engineer</small>
+
+                </div>
+
+            </div>
+
             <p-button
-                label="Logout"
                 icon="pi pi-sign-out"
                 severity="danger"
-                outlined="true"
+                [rounded]="true"
+                [text]="true"
                 (onClick)="logout()">
             </p-button>
-
 
         </div>
 

@@ -1,0 +1,38 @@
+<div class="toolbar">
+
+    <div class="toolbar-title">
+
+        <h2>{{ title }}</h2>
+
+        <span>{{ subtitle }}</span>
+
+    </div>
+
+    <div class="toolbar-actions">
+
+        <p-iconfield class="toolbar-search">
+
+            <p-inputicon class="pi pi-search"></p-inputicon>
+
+            <input
+                pInputText
+                placeholder="Search..."
+                [(ngModel)]="searchText"
+                (input)="onSearch()">
+
+        </p-iconfield>
+
+        @if (showSort) {
+
+            <p-select
+                [options]="sortOptions"
+                [(ngModel)]="selectedSort"
+                optionLabel="label"
+                (onChange)="onSortChange()">
+            </p-select>
+
+        }
+
+    </div>
+
+</div>

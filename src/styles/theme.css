@@ -1,0 +1,49 @@
+:root {
+
+    /* Primary Colors */
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-light: #DBEAFE;
+
+    /* Success */
+    --success: #10B981;
+
+    /* Warning */
+    --warning: #F59E0B;
+
+    /* Danger */
+    --danger: #EF4444;
+
+    /* Layout */
+    --sidebar-bg: #1E293B;
+    --navbar-bg: #1E293B;
+
+    --page-bg: #F5F8FD;
+
+    --card-bg: #FFFFFF;
+
+    /* Text */
+
+    --text-primary: #0F172A;
+
+    --text-secondary: #64748B;
+
+    /* Border */
+
+    --border-color: #E2E8F0;
+
+    /* Radius */
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    /* Shadow */
+
+    --shadow-sm: 0 4px 10px rgba(15,23,42,.05);
+
+    --shadow-md: 0 12px 30px rgba(15,23,42,.08);
+
+    --shadow-lg: 0 20px 60px rgba(15,23,42,.12);
+
+}

@@ -88,4 +88,38 @@ downloadImage(fileName: string) {
 
 }
 
+getDeletedImages(
+  page: number,
+  size: number,
+  search: string,
+  sortBy: string,
+  direction: string
+) {
+  return this.http.get<any>(
+    `${this.api}/recycle-bin`,
+    {
+      params: {
+        page,
+        size,
+        search,
+        sortBy,
+        direction
+      }
+    }
+  );
+}
+
+restoreImage(id: number) {
+  return this.http.put(
+    `${this.api}/restore/${id}`,
+    {}
+  );
+}
+
+permanentlyDelete(id: number) {
+  return this.http.delete(
+    `${this.api}/permanent/${id}`
+  );
+}
+
 }

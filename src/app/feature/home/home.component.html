@@ -1,0 +1,254 @@
+<div class="dashboard">
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>Welcome back 👋</h1>
+
+            <p>
+                Manage your cloud images, monitor storage usage and access
+                your files securely.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="images-icon">
+                <i class="pi pi-images"></i>
+            </div>
+
+            <div>
+                <h2>{{ stats?.totalImages ?? 0 }}</h2>
+                <span>Total Images</span>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="storage-icon">
+                <i class="pi pi-cloud"></i>
+            </div>
+
+            <div>
+
+                <span>Storage Used</span>
+
+                <h2>{{ formatStorage(stats?.totalStorage ?? 0) }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="upload-icon">
+                <i class="pi pi-upload"></i>
+            </div>
+
+            <div>
+
+                <span>Uploads Today</span>
+
+                <h2>12</h2>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="aws-icon">
+                <i class="pi pi-check-circle"></i>
+            </div>
+
+            <div>
+
+                <span>AWS Status</span>
+
+                <h2>Online</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-content">
+
+        <div class="quick-actions-panel">
+
+            <h2>Quick Actions</h2>
+
+            <div class="action-item" routerLink="/upload">
+
+                <div class="action-left">
+
+                    <div class="action-icon">
+                        <i class="pi pi-upload"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Upload Images</h4>
+
+                        <small>Add new files to CloudVault</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
+
+            <div class="action-item" routerLink="/gallery">
+
+                <div class="action-left">
+
+                    <div class="action-icon">
+                        <i class="pi pi-images"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Open Gallery</h4>
+
+                        <small>Browse all uploaded images</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
+
+            <div class="action-item" routerLink="/recycle-bin">
+
+                <div class="action-left">
+
+                    <div class="action-icon">
+                        <i class="pi pi-trash"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Recycle Bin</h4>
+
+                        <small>Restore deleted images</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
+
+        </div>
+
+        <div class="recent-uploads-panel">
+
+            <div class="panel-header">
+
+                <h2>Recent Uploads</h2>
+
+               <a routerLink="/gallery">View All</a>
+
+            </div>
+            <div class="upload-list">
+
+                @for (image of recentUploads; track image.id) {
+
+                <div class="upload-item">
+
+                    <div class="upload-thumbnail">
+                        <img [src]="image.imageUrl" [alt]="image.originalFileName">
+                    </div>
+
+                    <div class="upload-info">
+
+                        <h4>{{ image.originalFileName }}</h4>
+
+                        <div class="upload-meta">
+
+                            <span>{{ formatStorage(image.fileSize) }}</span>
+                            <span>•</span>
+                            <span>{{ getTimeAgo(image.uploadedAt) }}</span>
+
+                            
+
+                        </div>
+
+                    </div>
+
+                   <i class="pi pi-ellipsis-v upload-menu"></i>
+
+                </div>
+
+                }
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="storage-overview-card">
+
+        <h2>Storage Overview</h2>
+
+        <div class="storage-progress">
+
+            <div class="storage-progress-fill" [style.width.%]="getStorageUsagePercentage()">
+            </div>
+
+        </div>
+
+        <div class="storage-text">
+            {{ storageUsed }}
+            of
+            {{ formatStorage(MAX_STORAGE) }}
+            Used
+
+        </div>
+
+        <div class="storage-stats">
+
+            <div class="storage-stat">
+
+                <span>Remaining</span>
+
+                <h3>{{ remainingStorage }}</h3>
+
+            </div>
+
+            <div class="storage-stat">
+
+                <span>Images</span>
+
+                <h2>{{ stats?.totalImages ?? 0 }}</h2>
+
+            </div>
+
+            <div class="storage-stat">
+
+                <span>Usage</span>
+
+                <h3>{{ usagePercentage | number:'1.0-1' }}%</h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

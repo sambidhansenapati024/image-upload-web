@@ -1,0 +1,62 @@
+
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<app-gallery-toolbar
+    title="Recycle Bin"
+    [subtitle]="totalRecords + ' Deleted Images'"
+    searchPlaceholder="Search deleted images..."
+    [(searchText)]="searchText"
+    (searchTextChange)="onSearch()"
+    [showSort]="true"
+    [sortOptions]="sortOptions"
+    [(selectedSort)]="selectedSort"
+    (selectedSortChange)="onSortChange()">
+</app-gallery-toolbar>
+@if(images.length > 0){
+
+    <div class="recycle-grid">
+
+        @for (image of images; track image.id) {
+
+            <app-image-card
+                [image]="image"
+                mode="recycle"
+                (restore)="restoreImage($event)"
+                (deleteForever)="deleteForever($event)">
+            </app-image-card>
+
+        }
+
+    </div>
+
+}
+@else{
+
+    <div class="empty-gallery">
+
+        <i class="pi pi-trash"></i>
+
+        <h2>Recycle Bin is Empty</h2>
+
+        <p>
+
+            Deleted images will appear here.
+
+        </p>
+
+    </div>
+
+}
+
+<div class="recycle-pagination">
+
+    <p-paginator
+        [rows]="size"
+        [totalRecords]="totalRecords"
+        [first]="page * size"
+         [rowsPerPageOptions]="[2, 4, 6]"
+        (onPageChange)="onPageChange($event)">
+    </p-paginator>
+
+</div>

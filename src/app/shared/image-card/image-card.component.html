@@ -1,39 +1,51 @@
 <p-card styleClass="image-card">
 
-    <img [src]="image.imageUrl" class="image">
+    <div class="image-container">
 
+        <img [src]="image.imageUrl" class="image">
+        <div class="image-overlay">
+
+            <div class="overlay-buttons">
+                @if (mode === 'gallery') {
+
+                <p-button icon="pi pi-eye" severity="contrast" rounded="true" (click)="view.emit(image)">
+                </p-button>
+
+                <p-button icon="pi pi-download" severity="contrast" rounded="true" (click)="download.emit(image.key)">
+                </p-button>
+
+                <p-button icon="pi pi-trash" severity="danger" rounded="true" (click)="delete.emit(image.key)">
+                </p-button>
+
+                } @else {
+
+                <p-button icon="pi pi-refresh" severity="success" rounded="true" (onClick)="restore.emit(image.id)">
+                </p-button>
+
+                <p-button icon="pi pi-times" severity="danger" rounded="true" (onClick)="deleteForever.emit(image.id)">
+                </p-button>
+
+                }
+            </div>
+
+        </div>
+
+    </div>
     <div class="footer">
 
-        <p>
+        <p class="file-name">
 
             {{ image.originalFileName }}
 
         </p>
 
-        <div class="buttons">
+        <span class="file-meta">
 
-            <p-button
-                icon="pi pi-eye"
-                severity="secondary"
-                rounded="true"
-                (onClick)="view.emit(image)">
-            </p-button>
+            {{ formatFileSize(image.fileSize) }}
+            •
+            {{ getTimeAgo(image.uploadedAt) }}
 
-            <p-button
-                icon="pi pi-download"
-                severity="success"
-                rounded="true"
-                (onClick)="download.emit(image.key)">
-            </p-button>
-
-            <p-button
-                icon="pi pi-trash"
-                severity="danger"
-                rounded="true"
-                (onClick)="delete.emit(image.key)">
-            </p-button>
-
-        </div>
+        </span>
 
     </div>
 

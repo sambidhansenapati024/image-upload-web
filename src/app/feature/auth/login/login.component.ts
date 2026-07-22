@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
 
           if (response.success) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/home']);
           } else {
             this.errorMessage = response.message;
           }

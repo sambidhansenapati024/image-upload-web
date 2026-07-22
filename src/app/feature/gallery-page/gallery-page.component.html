@@ -1,0 +1,132 @@
+<p-toast></p-toast>
+
+<p-confirmDialog></p-confirmDialog>
+
+<div class="gallery-page">
+    <app-gallery-toolbar
+    title="Uploaded Images"
+    [subtitle]="totalRecords + ' Images'"
+    [(searchText)]="searchText"
+    (searchTextChange)="onSearch()"
+    [showSort]="true"
+    [sortOptions]="sortOptions"
+    [(selectedSort)]="selectedSort"
+    (selectedSortChange)="onSortChange()">
+</app-gallery-toolbar>
+
+    @if(loading){
+
+    <div class="gallery">
+
+        @for(item of [1,2,3,4,5,6,7,8]; track item){
+
+        <div class="skeleton-card">
+
+            <p-skeleton width="100%" height="230px">
+            </p-skeleton>
+
+            <div class="skeleton-footer">
+
+                <p-skeleton width="70%" height="16px">
+                </p-skeleton>
+
+                <p-skeleton width="40%" height="12px">
+                </p-skeleton>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+    }
+    @else if(images.length > 0){
+
+    <div class="gallery">
+
+        @for(image of images; track image.id){
+
+<app-image-card
+    [image]="image"
+    mode="gallery"
+   (delete)="deleteImage($event)"
+    (download)="downloadImage($event)"
+    (view)="openImage($event)">
+</app-image-card>
+
+        }
+
+    </div>
+
+    }
+    @else {
+
+    <div class="empty-gallery">
+
+        <i class="pi pi-images"></i>
+
+        <h2>No Images Yet</h2>
+
+        <p>
+
+            Upload your first image to start building your gallery.
+
+        </p>
+
+    </div>
+
+    }
+</div>
+
+<div class="gallery-pagination">
+
+    <p-paginator
+        [rows]="size"
+        [totalRecords]="totalRecords"
+        [first]="page * size"
+         [rowsPerPageOptions]="[2, 4, 6]"
+        (onPageChange)="onPageChange($event)">
+    </p-paginator>
+
+</div>
+<p-galleria [(visible)]="display" [(activeIndex)]="activeIndex" [value]="galleryImages" [fullScreen]="true"
+    [showThumbnails]="false" [showItemNavigators]="true" [circular]="true">
+
+    <ng-template pTemplate="item" let-item>
+
+        <div class="preview-container">
+
+            <img [src]="item.itemImageSrc" class="preview-image">
+
+            <div class="preview-info">
+
+                <h3>{{ item.originalFileName }}</h3>
+
+                <span>
+
+                    {{ formatFileSize(item.fileSize) }}
+                    •
+                    {{ getTimeAgo(item.uploadedAt) }}
+
+                </span>
+
+                <div class="preview-actions">
+
+                    <!-- <p-button icon="pi pi-download" label="Download" severity="success"
+                        (onClick)="downloadImage($event)">
+                    </p-button> -->
+
+                    <!-- <p-button icon="pi pi-trash" label="Delete" severity="danger" (onClick)="deleteCurrentImage()">
+                    </p-button> -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </ng-template>
+
+</p-galleria>

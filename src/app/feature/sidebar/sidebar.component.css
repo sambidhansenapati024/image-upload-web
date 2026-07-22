@@ -1,0 +1,154 @@
+.sidebar {
+
+    width: 260px;
+    height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background: var(--sidebar-bg);
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    box-shadow: var(--shadow-md);
+}
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.08);
+
+    font-size: 28px;
+}
+
+.logo h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+}
+
+.logo p {
+
+    margin-top: 5px;
+
+    color: #CBD5E1;
+
+    font-size: 13px;
+}
+
+.menu {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.menu a {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px 18px;
+
+    border-radius: 14px;
+
+    color: #CBD5E1;
+
+    transition: .25s;
+
+    font-weight: 500;
+}
+
+.menu a:hover {
+
+    background: rgba(255,255,255,.08);
+
+    color: white;
+}
+
+.menu a.active {
+
+    background: var(--primary);
+
+    color: white;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.storage {
+
+    margin-top: auto;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+
+    padding-top: 25px;
+}
+
+.storage h4 {
+
+    margin-bottom: 12px;
+
+    font-size: 15px;
+}
+
+.progress {
+
+    height: 10px;
+
+    background: rgba(255,255,255,.12);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+
+    width: 35%;
+
+    height: 100%;
+
+    background: var(--primary);
+
+    border-radius: inherit;
+}
+
+.storage small {
+
+    color: #CBD5E1;
+}
