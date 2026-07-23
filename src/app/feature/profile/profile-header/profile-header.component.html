@@ -1,0 +1,72 @@
+<div class="profile-header">
+
+    <div class="profile-left">
+
+        <div class="avatar" (mouseenter)="isHovering = true"
+    (mouseleave)="isHovering = false">
+
+            <div class="avatar-content">
+
+                <img *ngIf="profileImage" [src]="profileImage" alt="Profile">
+
+                <span *ngIf="!profileImage" class="initials">
+
+                    SS
+
+                </span>
+
+            </div>
+
+            <div class="avatar-overlay"  [class.show]="isHovering" (click)="fileInput.click()">
+
+                <i class="pi pi-camera"></i>
+
+            </div>
+
+            <span class="verified-badge">
+
+                <i class="pi pi-check"></i>
+
+            </span>
+
+        </div>
+
+        <div class="profile-details">
+
+            <h2>Sambidhan Senapati</h2>
+
+            <div class="profile-meta">
+
+                <div>
+
+                    <i class="pi pi-envelope"></i>
+
+                    <span>sambidhangmail.com</span>
+
+                </div>
+
+                <div>
+
+                    <i class="pi pi-calendar"></i>
+
+                    <span>Joined July 2026</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <button pButton icon="pi pi-pencil" label="Edit Profile" class="edit-btn">
+    </button>
+
+</div>
+
+<input
+    #fileInput
+    type="file"
+    accept="image/*"
+    hidden
+    (change)="onProfileImageSelected($event)">

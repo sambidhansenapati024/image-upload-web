@@ -1,0 +1,31 @@
+.profile-page{
+
+    max-width:1200px;
+
+    margin:40px auto;
+
+    padding:0 20px;
+
+}
+
+.profile-grid{
+
+    margin-top:24px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+
+}
+
+@media (max-width:768px){
+
+    .profile-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

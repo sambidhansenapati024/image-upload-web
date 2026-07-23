@@ -10,6 +10,7 @@ import { RecycleBinComponent } from './feature/recycle-bin/recycle-bin.component
 import { HomeComponent } from './feature/home/home.component';
 import { UploadComponent } from './feature/upload/upload.component';
 import { GalleryPageComponent } from './feature/gallery-page/gallery-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 export const routes: Routes = [
 
@@ -65,6 +66,10 @@ export const routes: Routes = [
             {
                 path: 'recycle-bin',
                 component: RecycleBinComponent
+            },
+            {
+                path: 'profile',
+                component: ProfilePageComponent
             }
 
         ]
