@@ -1,59 +1,498 @@
-.register-container {
+.register-page {
+
     min-height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 1fr 620px;
+
+    background: #0F172A;
+
+     position: relative;
+
+}
+
+.left-panel {
+
     display: flex;
-    justify-content: center;
+
     align-items: center;
-    background: #f4f6f9;
-    padding: 20px;
+
+    padding: 60px;
+
+    color: white;
+
+     margin-left: 50px;
+
 }
 
 .register-card {
     width: 100%;
-    max-width: 430px;
+    max-width: 780px;  
 }
 
-.header {
-    text-align: center;
-    padding: 20px;
+.form-header {
+
+    margin-bottom: 35px;
+
 }
 
-.header h2 {
-    margin-bottom: 10px;
-    color: #2563eb;
+.form-header h2 {
+
+    margin: 0;
+
+        font-size:30px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    color: white;
+
+}
+
+.form-header p {
+
+    margin-top: 10px;
+
+    color: #94A3B8;
+
+}
+
+.logo {
+
+    width: 80px;
+
+    height: 80px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(135deg,#2563EB,#3B82F6);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 20px 40px rgba(37,99,235,.35);
+
+}
+
+.logo i {
+
+    color: white;
+
+    font-size: 36px;
+
+}
+
+.brand h1 {
+
+    margin: 0;
+
+    font-size: 58px;
+
+    color: white;
+
+    font-weight: 800;
+
+}
+
+.tagline {
+
+    display: block;
+
+    margin-top: 12px;
+
+    color: #60A5FA;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+}
+
+.brand p {
+
+    margin-top: 28px;
+
+    max-width: 500px;
+
+    color: #94A3B8;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+}
+
+.feature-list {
+
+    margin-top: 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+}
+
+.feature-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    color: white;
+
+    font-size: 17px;
+
+}
+
+.feature-item i {
+
+    color: #22C55E;
+
+    font-size: 18px;
+
+}
+
+.right-panel {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px;
+
 }
 
 .header p {
-    color: gray;
+
+    margin-top: 10px;
+
+    color: #6b7280;
+
+    line-height: 1.5;
+
 }
 
 .field {
-    margin-bottom: 28px;
+
+    margin-bottom: 22px;
+
 }
 
 .w-full {
+
     width: 100%;
+
 }
 
-.error {
-    color: #ef4444;
-    display: block;
-    margin-top: 6px;
+.error{
+
+    display:block;
+
+    margin-top:6px;
+
+    color:#F87171;
+
+    font-size:13px;
+
 }
 
-.server-error {
-    background: #fee2e2;
-    color: #b91c1c;
-    padding: 10px;
-    border-radius: 6px;
+.hint{
+
+    display:block;
+
+    margin-top:6px;
+
+    color:#94A3B8;
+
+    font-size:13px;
+
+}
+
+.register-btn,
+.register-btn.p-button{
+
+    width:100%;
+     grid-column: 1 / -1;
+
+    margin-top:12px;
+
+    height:50px;
+
+    background:#2563EB !important;
+
+    border:none !important;
+
+    border-radius:10px;
+
+    color:white !important;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.register-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#1D4ED8 !important;
+
+}
+
+.footer{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#94A3B8;
+
+}
+
+.footer span {
+
+    color: #6b7280;
+
+}
+
+.footer a{
+
+    color:#60A5FA;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+.footer a:hover {
+
+    text-decoration: underline;
+
+}
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+.register-card ::ng-deep .p-card {
+
+    background: #1E293B;
+
+    border: 1px solid #334155;
+
+    border-radius: 20px;
+
+    color: white;
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.45);
+
+}
+
+.register-card ::ng-deep .p-card-body {
+
+    padding:28px 32px;
+
+}
+
+.field ::ng-deep .p-inputtext{
+
+    width:100%;
+
+    background:#0F172A !important;
+
+    color:#F8FAFC !important;
+
+    border:1px solid #334155 !important;
+
+    border-radius:10px;
+
+    padding:10px 14px;    
+
+    font-size:14px; 
+
+    transition:.2s;
+
+}
+
+.field ::ng-deep .p-inputtext:focus{
+
+    border-color:#2563EB !important;
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.18);
+
+}
+
+.field ::ng-deep .p-password{
+
+    width:100%;
+
+    display:block;
+
+}
+
+.field ::ng-deep .p-password-input{
+
+    width:100%;
+
+    background:#0F172A !important;
+
+    color:#F8FAFC !important;
+
+    border:1px solid #334155 !important;
+
+    border-radius:10px;
+
+    padding:10px 14px;    
+
+    font-size:14px;
+
+}
+
+.field ::ng-deep .p-password-toggle-mask-icon{
+
+    color:#94A3B8;
+
+}
+
+.field ::ng-deep .p-password-toggle-icon{
+
+    color:#94A3B8;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+.field ::ng-deep .p-floatlabel label{
+
+    color:#94A3B8;
+
+}
+
+.field ::ng-deep .p-floatlabel:has(input:focus) label{
+
+    color:#60A5FA;
+
+}
+.register-card ::ng-deep .p-card-header{
+
+     padding:32px 32px 0;
+
+}
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px 20px;
+
     margin-bottom: 20px;
+
 }
 
-.footer {
-    text-align: center;
+.field-hint{
+
+    grid-column: 1 / -1;
+    margin-top: -1px;
+    margin-left: 3px;
+
 }
 
-.footer a {
-    margin-left: 5px;
-    text-decoration: none;
-    font-weight: 600;
+.bg-orbs {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+}
+
+.orb-1 {
+    width: 420px;
+    height: 420px;
+    background: #2563EB;
+    top: -100px;
+    left: -80px;
+    animation: floatOrb1 12s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 350px;
+    height: 350px;
+    background: #3B82F6;
+    bottom: -120px;
+    right: 10%;
+    animation: floatOrb2 14s ease-in-out infinite;
+}
+
+.orb-3 {
+    width: 280px;
+    height: 280px;
+    background: #22C55E;
+    top: 40%;
+    left: 45%;
+    opacity: 0.15;
+    animation: floatOrb3 16s ease-in-out infinite;
+}
+
+@keyframes floatOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, 40px) scale(1.1); }
+}
+
+@keyframes floatOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-50px, -30px) scale(1.15); }
+}
+
+@keyframes floatOrb3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -50px); }
+}
+
+/* Make sure content sits above the orbs */
+.left-panel,
+.right-panel {
+    position: relative;
+    z-index: 1;
 }

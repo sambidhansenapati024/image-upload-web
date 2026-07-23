@@ -1,118 +1,195 @@
-<div class="login-container">
+<div class="login-page">
 
-    <!-- Decorative gradient blobs -->
-    <div class="blob-scene">
-        <div class="blob blob--main"></div>
-        <div class="orb orb--1"></div>
-        <div class="orb orb--2"></div>
-        <div class="orb orb--3"></div>
-        <div class="orb orb--4"></div>
-        <div class="orb orb--5"></div>
+     <div class="bg-orbs">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
     </div>
 
-    <p-card class="login-card">
+    <div class="left-panel">
 
-        <ng-template pTemplate="header">
-            <div class="header">
-                <h2>Login</h2>
+        <div class="brand">
+
+            <div class="logo">
+
+                <i class="pi pi-cloud"></i>
+
             </div>
-        </ng-template>
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <h1>CloudVault</h1>
 
-            <!-- Email -->
-            <div class="field">
+            <span class="tagline">
 
-                <label for="email">Username or email:</label>
+                Secure Cloud Storage
 
-                <input
-                    pInputText
-                    id="email"
-                    type="email"
-                    formControlName="email"
-                    class="w-full">
+            </span>
 
-                @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+        </div>
+        <div class="features">
+
+            <div class="feature">
+
+                <i class="pi pi-shield"></i>
+
+                <div>
+
+                    <h4>Enterprise Security</h4>
+
+                    <p>Your files are encrypted and protected.</p>
+
+                </div>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="pi pi-cloud-upload"></i>
+
+                <div>
+
+                    <h4>Lightning Fast Uploads</h4>
+
+                    <p>Upload files in seconds with live progress.</p>
+
+                </div>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="pi pi-desktop"></i>
+
+                <div>
+
+                    <h4>Access Anywhere</h4>
+
+                    <p>Desktop, mobile or tablet — always available.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="right-panel">
+
+        <p-card class="login-card">
+
+            <div class="header">
+
+                <h2>Welcome Back</h2>
+
+                <p>
+
+                    Sign in to continue to CloudVault.
+
+                </p>
+
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <!-- Email -->
+                <div class="field">
+
+                    <p-floatlabel>
+
+                        <input pInputText id="email" type="email" formControlName="email" class="w-full">
+
+                        <label for="email">
+
+                            Username or Email
+
+                        </label>
+
+                    </p-floatlabel>
+
+                    @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
 
                     <small class="error">
 
                         @if (loginForm.get('email')?.errors?.['required']) {
-                            Email is required.
+                        Email is required.
                         }
 
                         @if (loginForm.get('email')?.errors?.['email']) {
-                            Please enter a valid email.
+                        Please enter a valid email.
                         }
 
                     </small>
 
-                }
+                    }
 
-            </div>
+                </div>
 
-            <!-- Password -->
-            <div class="field">
+                <!-- Password -->
+                <div class="field">
 
-                <p-password
-                    inputId="password"
-                    formControlName="password"
-                    [toggleMask]="true"
-                    [feedback]="false"
-                    styleClass="w-full">
-                </p-password>
+                    <p-floatlabel>
 
-                @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+                        <p-password inputId="password" formControlName="password" [toggleMask]="true" [feedback]="false"
+                            styleClass="w-full">
+                        </p-password>
+
+                        <label for="password">
+
+                            Password
+
+                        </label>
+
+                    </p-floatlabel>
+
+                    @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
 
                     <small class="error">
 
                         @if (loginForm.get('password')?.errors?.['required']) {
-                            Password is required.
+                        Password is required.
                         }
 
                         @if (loginForm.get('password')?.errors?.['minlength']) {
-                            Minimum 8 characters required.
+                        Minimum 8 characters required.
                         }
 
                     </small>
 
-                }
+                    }
 
-            </div>
+                </div>
 
-            <!-- Server Error -->
-            @if (errorMessage) {
+                <!-- Server Error -->
+                @if (errorMessage) {
 
                 <div class="server-error">
                     {{ errorMessage }}
                 </div>
 
-            }
+                }
 
-            <!-- Button -->
-            <button
-                pButton
-                type="submit"
-                label="Login"
-                [loading]="loading"
-                class="w-full login-btn">
-            </button>
+                <!-- Button -->
+                <button pButton type="submit" label="Login" [loading]="loading" class="w-full login-btn">
+                </button>
 
-        </form>
+            </form>
 
-        <ng-template pTemplate="footer">
+            <ng-template pTemplate="footer">
 
-            <div class="footer">
+                <div class="footer">
 
-                Don't have an account?
+                    Don't have an account?
 
-                <a routerLink="/register">
-                    Sign up
-                </a>
+                    <a routerLink="/register">
+                        Sign up
+                    </a>
 
-            </div>
+                </div>
 
-        </ng-template>
+            </ng-template>
 
-    </p-card>
+        </p-card>
+
+    </div>
 
 </div>
