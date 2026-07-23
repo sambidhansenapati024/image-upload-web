@@ -1,59 +1,221 @@
 .login-container {
     min-height: 100vh;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f4f6f9;
     padding: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e0247d 0%, #8b2fc9 45%, #4c2fd6 100%);
 }
 
+/* ---------- Decorative blob scene ---------- */
+.blob-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob--main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 640px;
+    height: 460px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #2ea8e0 0%, #1f6fe0 55%, #3a2fbf 100%);
+    border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+    filter: blur(2px);
+    opacity: 0.9;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #4fc3f7 0%, #1565c0 55%, #0d1b6b 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.orb--1 { width: 70px;  height: 70px;  top: 12%; left: 34%; }
+.orb--2 { width: 40px;  height: 40px;  top: 14%; left: 47%; }
+.orb--3 { width: 90px;  height: 90px;  top: 24%; right: 15%; }
+.orb--4 { width: 60px;  height: 60px;  bottom: 18%; left: 20%; }
+.orb--5 { width: 65px;  height: 65px;  bottom: 12%; right: 22%; }
+
+.crown-badge {
+    position: absolute;
+    top: 36px;
+    left: 36px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #5a1f4f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.crown-badge i {
+    color: #ffb020;
+    font-size: 1.3rem;
+}
+
+/* ---------- Glass card ---------- */
 .login-card {
+    position: relative;
+    z-index: 1;
     width: 100%;
-    max-width: 430px;
+    max-width: 400px;
+    border-radius: 22px !important;
+    box-shadow: 0 20px 45px rgba(20, 10, 60, 0.35);
+    overflow: hidden;
+}
+
+/* Pierce into PrimeNG's internal card markup — this is the fix */
+.login-card ::ng-deep .p-card {
+    background: rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 22px !important;
+    color: #fff;
+    /* Newer PrimeNG (Aura theme) reads background from this var */
+    --p-card-background: rgba(255, 255, 255, 0.14);
+    --p-card-color: #fff;
+}
+
+.login-card ::ng-deep .p-card-body,
+.login-card ::ng-deep .p-card-content,
+.login-card ::ng-deep .p-card-caption,
+.login-card ::ng-deep .p-card-title,
+.login-card ::ng-deep .p-card-subtitle,
+.login-card ::ng-deep .p-card-footer {
+    background: transparent !important;
+    color: #fff;
 }
 
 .header {
     text-align: center;
-    padding: 20px;
+    padding: 28px 20px 4px;
 }
 
 .header h2 {
-    margin-bottom: 10px;
-    color: #2563eb;
-}
-
-.header p {
-    color: gray;
+    margin: 0;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.9rem;
 }
 
 .field {
-    margin-bottom: 28px;
+    margin-bottom: 20px;
+    padding: 0 28px;
+}
+
+.field label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 6px;
+}
+
+.password-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-link {
+    font-size: 0.75rem;
+    color: #ffc94d;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .w-full {
     width: 100%;
 }
 
+/* translucent inputs — plain input + PrimeNG password's internal input */
+.field input,
+.field ::ng-deep .p-password input,
+.field ::ng-deep .p-inputtext {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    --p-inputtext-background: rgba(255, 255, 255, 0.18);
+    --p-inputtext-color: #fff;
+    --p-inputtext-border-color: rgba(255, 255, 255, 0.3);
+}
+
+.field input::placeholder,
+.field ::ng-deep .p-inputtext::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.field ::ng-deep .p-password {
+    width: 100%;
+}
+
+.field ::ng-deep .p-password-toggle-icon {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.remember-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 28px;
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.remember-row ::ng-deep .p-checkbox-box {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
 .error {
-    color: #ef4444;
+    color: #ffb3b3;
     display: block;
     margin-top: 6px;
 }
 
 .server-error {
-    background: #fee2e2;
-    color: #b91c1c;
+    background: rgba(239, 68, 68, 0.25);
+    color: #ffe1e1;
     padding: 10px;
     border-radius: 6px;
-    margin-bottom: 20px;
+    margin: 0 28px 20px;
+}
+
+/* Yellow CTA button */
+.login-btn,
+.login-btn.p-button {
+    margin: 0 28px;
+    width: calc(100% - 56px);
+    background: linear-gradient(135deg, #ffc94d, #ff9d00) !important;
+    border: none !important;
+    color: #2a1a4a !important;
+    font-weight: 700;
+    border-radius: 10px !important;
+    padding: 12px !important;
 }
 
 .footer {
     text-align: center;
+    padding: 18px 20px 26px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .footer a {
     margin-left: 5px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+    color: #ffc94d;
 }

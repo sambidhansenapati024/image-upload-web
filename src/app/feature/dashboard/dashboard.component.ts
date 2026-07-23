@@ -6,7 +6,6 @@ import { ImageUploadServiceService } from '../../service/image-upload-service.se
 import { GalleryComponent } from '../gallery/gallery.component';
 import { SearchBarComponent } from "../../shared/search-bar/search-bar.component";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DashboardStats } from '../../shared/modal/dashboard-stats';
 import { ImageResponse } from '../../shared/modal/image-response';
@@ -15,11 +14,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
-    providers: [
-        ConfirmationService,
-        MessageService
-    ],
-    imports: [ StatCardComponent, CommonModule, SortDropdownComponent, UploadAreaComponent, GalleryComponent, SearchBarComponent, ToastModule, ConfirmDialogModule],
+    imports: [ StatCardComponent, CommonModule, SortDropdownComponent, UploadAreaComponent, GalleryComponent, SearchBarComponent, ConfirmDialogModule],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })

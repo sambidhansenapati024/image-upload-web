@@ -16,7 +16,6 @@ import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { ToastModule } from 'primeng/toast';
 
 import { MessageService } from 'primeng/api';
 
@@ -51,7 +50,6 @@ export const passwordMatchValidator: ValidatorFn =
         PasswordModule,
         InputTextModule,
         FloatLabelModule,
-        ToastModule
     ],
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']

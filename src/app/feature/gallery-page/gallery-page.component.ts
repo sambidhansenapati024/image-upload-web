@@ -16,17 +16,12 @@ import { IconField } from "primeng/iconfield";
 import { InputIcon } from "primeng/inputicon";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
 import { GalleryToolbarComponent } from "../../shared/gallery-toolbar/gallery-toolbar.component";
 
 
 @Component({
   selector: 'app-gallery-page',
-  providers: [
-        ConfirmationService,
-        MessageService
-    ],
-  imports: [CommonModule, ImageCardComponent, GalleriaModule, Button, InputTextModule, FormsModule, Select, Paginator, SkeletonModule, IconField, InputIcon, ConfirmDialogModule, ToastModule, GalleryToolbarComponent],
+  imports: [CommonModule, ImageCardComponent, GalleriaModule, Button, InputTextModule, FormsModule, Select, Paginator, SkeletonModule, IconField, InputIcon, ConfirmDialogModule, GalleryToolbarComponent],
   templateUrl: './gallery-page.component.html',
   styleUrl: './gallery-page.component.css'
 })

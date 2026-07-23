@@ -1,10 +1,13 @@
+
 <p-card styleClass="upload-card">
 
-    <div
-    class="success-box"
-    *ngIf="showSuccessMessage">
+  <div class="success-box" *ngIf="showSuccessMessage">
 
-    <i class="pi pi-check-circle success-icon-big"></i>
+  <div class="success-animation">
+
+    <i class="pi pi-check-circle"></i>
+
+</div>
 
     <h2>
 
@@ -18,9 +21,27 @@
 
     <p>
 
-        Returning to upload...
+        Your images are now available in the gallery.
 
     </p>
+
+    <div class="success-actions">
+
+        <p-button
+            label="View Gallery"
+            icon="pi pi-images"
+            (onClick)="goToGallery()">
+        </p-button>
+
+        <p-button
+            label="Upload More"
+            severity="secondary"
+            [outlined]="true"
+            icon="pi pi-plus"
+            (onClick)="uploadMore()">
+        </p-button>
+
+    </div>
 
 </div>
 

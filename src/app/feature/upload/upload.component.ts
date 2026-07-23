@@ -8,6 +8,7 @@ import { HttpEventType } from '@angular/common/http';
 import { ImageUploadServiceService } from '../../service/image-upload-service.service';
 import { ProgressBar } from "primeng/progressbar";
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -17,19 +18,29 @@ import { Router } from '@angular/router';
   styleUrl: './upload.component.css'
 })
 export class UploadComponent {
-  
+
+  private readonly MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+
+  private readonly ALLOWED_TYPES = [
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'image/jpg'
+  ];
+
   isDragging = false;
   uploadItems: UploadItem[] = [];
   isUploading = false;
   showSuccessMessage = false;
 
-uploadedCount = 0;
+  uploadedCount = 0;
 
   currentUploadIndex = 0;
 
   constructor(
     private imageService: ImageUploadServiceService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   onDragOver(event: DragEvent) {
@@ -74,7 +85,38 @@ uploadedCount = 0;
         item.file.size === file.size
       );
 
+      if (!this.ALLOWED_TYPES.includes(file.type)) {
+
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Unsupported File',
+          detail: `${file.name} is not a supported image.`
+        });
+
+        return;
+
+      }
+
+      if (file.size > this.MAX_FILE_SIZE) {
+
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'File Too Large',
+          detail: `${file.name} exceeds the 10 MB limit.`
+        });
+
+        return;
+
+      }
+
       if (alreadyExists) {
+
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Duplicate File',
+          detail: `${file.name} is already in the upload queue.`
+        });
+
         return;
       }
 
@@ -157,6 +199,16 @@ uploadedCount = 0;
     if (this.isUploading) {
       return;
     }
+      if (this.uploadItems.length === 0) {
+
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'No Files Selected',
+      detail: 'Please select at least one image to upload.'
+    });
+
+    return;
+  }
 
     this.isUploading = true;
 
@@ -249,36 +301,56 @@ uploadedCount = 0;
 
         item.failed = true;
 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Upload Failed',
+          detail: `${item.file.name} could not be uploaded.`
+        });
+
       }
 
     });
 
   }
 
-private checkCompleted(): void {
+  private checkCompleted(): void {
 
-  const completed = this.uploadItems.every(item => item.uploaded);
+    const completed = this.uploadItems.every(item => item.uploaded);
 
-  if (!completed) {
-    return;
+    if (!completed) {
+      return;
+    }
+
+    this.isUploading = false;
+
+    this.uploadedCount = this.uploadItems.length;
+
+    this.showSuccessMessage = true;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Upload Complete',
+      detail: `${this.uploadedCount} image${this.uploadedCount > 1 ? 's' : ''} uploaded successfully.`
+    })
+
   }
 
-  this.isUploading = false;
+  goToGallery(): void {
+    this.router.navigate(['/gallery']);
+  }
 
-  this.uploadedCount = this.uploadItems.length;
+  resetUpload(): void {
+    this.uploadItems = [];
+    this.showSuccessMessage = false;
+    this.uploadedCount = 0;
+  }
 
-  this.showSuccessMessage = true;
-
-  setTimeout(() => {
+  uploadMore(): void {
 
     this.uploadItems = [];
 
     this.showSuccessMessage = false;
 
     this.uploadedCount = 0;
-     this.router.navigate(['/gallery']);
 
-  }, 500);
-
-}
+  }
 }

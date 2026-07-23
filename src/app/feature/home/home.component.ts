@@ -8,7 +8,7 @@ import { ImageResponse } from '../../shared/modal/image-response';
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, RouterLink, DecimalPipe, DatePipe],
+  imports: [ButtonModule, RouterLink, DecimalPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

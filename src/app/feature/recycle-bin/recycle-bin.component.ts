@@ -3,10 +3,7 @@ import { ImageResponse } from '../../shared/modal/image-response';
 import { ImageUploadServiceService } from '../../service/image-upload-service.service';
 import { ImageCardComponent } from "../../shared/image-card/image-card.component";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { IconField } from "primeng/iconfield";
-import { InputIcon } from "primeng/inputicon";
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -15,11 +12,7 @@ import { Paginator } from "primeng/paginator";
 
 @Component({
   selector: 'app-recycle-bin',
-  imports: [ImageCardComponent, ToastModule, ConfirmDialogModule, IconField, InputIcon, FormsModule, GalleryToolbarComponent, Paginator],
-    providers: [
-    ConfirmationService,
-    MessageService
-  ],
+  imports: [ImageCardComponent, ConfirmDialogModule, FormsModule, GalleryToolbarComponent, Paginator],
   templateUrl: './recycle-bin.component.html',
   styleUrl: './recycle-bin.component.css'
 })

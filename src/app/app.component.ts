@@ -3,10 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { VersionServiceService } from './service/version-service.service';
 import { UpdateToastComponent } from "./shared/update-toast/update-toast.component";
 import { DashboardComponent } from "./feature/dashboard/dashboard.component";
+import { Toast } from "primeng/toast";
+import { ConfirmDialog } from "primeng/confirmdialog";
 
 @Component({
   selector: 'app-root',
-  imports: [ RouterOutlet],
+  imports: [RouterOutlet, Toast, ConfirmDialog],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
