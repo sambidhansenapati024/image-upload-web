@@ -1,45 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { Profile } from '../../../shared/modal/profile';
 
 @Component({
-  selector: 'app-profile-header',
-  imports: [ButtonModule, CommonModule, FormsModule],
-  templateUrl: './profile-header.component.html',
-  styleUrl: './profile-header.component.css'
+    selector: 'app-profile-header',
+    imports: [ButtonModule, CommonModule, FormsModule],
+    templateUrl: './profile-header.component.html',
+    styleUrl: './profile-header.component.css'
 })
 export class ProfileHeaderComponent {
-  profileImage: string | null = null;
-  isHovering = false;
-onProfileImageSelected(event: Event): void {
 
-    const input = event.target as HTMLInputElement;
+    @Input({ required: true })
+    profile!: Profile;
 
-    if (!input.files || input.files.length === 0) {
+    @Output()
+    editProfile = new EventEmitter<void>();
+    @Output()
+    imageSelected = new EventEmitter<File>();
 
-        return;
+    profileImage: string | null = null;
+    isHovering = false;
+   
 
+    onEditProfile(): void {
+        this.editProfile.emit();
     }
 
-    const file = input.files[0];
-    if (!file.type.startsWith('image/')) {
+   onProfileImageSelected(event: Event): void {
 
-    return;
+        const input = event.target as HTMLInputElement;
 
-}
+        if (!input.files || input.files.length === 0) {
+            return;
+        }
 
-    const reader = new FileReader();
+        this.imageSelected.emit(input.files[0]);
 
-    reader.onload = () => {
+        input.value = '';
 
-        this.profileImage = reader.result as string;
-         this.isHovering = false;
-
-    };
-
-    reader.readAsDataURL(file);
-
-}
+    }
 
 }

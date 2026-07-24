@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -6,6 +6,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Button } from "primeng/button";
+import { Profile } from '../modal/profile';
+import { CurrentUserService } from '../../service/current-user.service';
+import { VersionServiceService } from '../../service/version-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,15 +18,29 @@ import { Button } from "primeng/button";
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   @Input() version = 'v1.0.0';
+
+  user: Profile | null = null;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private currentUserService: CurrentUserService,
+    public versionService: VersionServiceService
 ) {}
+
+ngOnInit(): void {
+
+  this.currentUserService.currentUser$.subscribe(user => {
+
+    this.user = user;
+
+  });
+
+}
 
 logout(): void {
 

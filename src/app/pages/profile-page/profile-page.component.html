@@ -1,13 +1,29 @@
 <div class="profile-page">
 
-    <app-profile-header></app-profile-header>
+<app-profile-header
+    *ngIf="profile"
+    [profile]="profile"
+    (editProfile)="openEditDialog()"
+    (imageSelected)="uploadProfileImage($event)">
+</app-profile-header>
 
-    <div class="profile-grid">
+<div class="profile-grid">
 
-        <app-profile-info-card></app-profile-info-card>
+    <app-profile-info-card
+        *ngIf="profile"
+        [profile]="profile">
+    </app-profile-info-card>
 
-        <app-storage-stats-card></app-storage-stats-card>
-
-    </div>
+    <app-storage-stats-card>
+    </app-storage-stats-card>
 
 </div>
+</div>
+
+<app-profile-edit-dialog
+    *ngIf="profile"
+    [visible]="showEditDialog"
+    [profile]="profile"
+    (visibleChange)="showEditDialog = $event"
+    (save)="updateProfile($event)">
+</app-profile-edit-dialog>

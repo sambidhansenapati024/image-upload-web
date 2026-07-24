@@ -7,13 +7,14 @@
 
             <div class="avatar-content">
 
-                <img *ngIf="profileImage" [src]="profileImage" alt="Profile">
+                <img
+    *ngIf="profile.profileImageUrl"
+    [src]="profile.profileImageUrl"
+    alt="Profile">
 
-                <span *ngIf="!profileImage" class="initials">
-
-                    SS
-
-                </span>
+             <span *ngIf="!profile.profileImageUrl" class="initials">
+    {{ profile.fullName.charAt(0) }}
+</span>
 
             </div>
 
@@ -33,7 +34,7 @@
 
         <div class="profile-details">
 
-            <h2>Sambidhan Senapati</h2>
+            <h2>{{ profile.fullName }}</h2>
 
             <div class="profile-meta">
 
@@ -41,7 +42,7 @@
 
                     <i class="pi pi-envelope"></i>
 
-                    <span>sambidhangmail.com</span>
+                    <span>{{ profile.email }}</span>
 
                 </div>
 
@@ -49,7 +50,7 @@
 
                     <i class="pi pi-calendar"></i>
 
-                    <span>Joined July 2026</span>
+                    <span>Joined {{ profile.joinedOn | date:'MMMM yyyy' }}</span>
 
                 </div>
 
@@ -59,7 +60,7 @@
 
     </div>
 
-    <button pButton icon="pi pi-pencil" label="Edit Profile" class="edit-btn">
+    <button pButton icon="pi pi-pencil" label="Edit Profile" class="edit-btn" (click)="onEditProfile()">
     </button>
 
 </div>

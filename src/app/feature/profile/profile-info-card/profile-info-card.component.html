@@ -9,7 +9,7 @@
         </div>
 
         <div class="value">
-            Sambidhan Senapati
+           {{profile.fullName}}
         </div>
 
     </div>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="value">
-            sambidhangmail.com
+            {{profile.email}}
         </div>
 
     </div>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="value">
-            +91 9876543210
+           {{ profile.phone || '-' }}
         </div>
 
     </div>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="value">
-            23 Jul 2026
+            {{ profile.joinedOn | date:'dd MMM yyyy' }}
         </div>
 
     </div>

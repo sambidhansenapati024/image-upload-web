@@ -5,6 +5,8 @@ import { UpdateToastComponent } from "./shared/update-toast/update-toast.compone
 import { DashboardComponent } from "./feature/dashboard/dashboard.component";
 import { Toast } from "primeng/toast";
 import { ConfirmDialog } from "primeng/confirmdialog";
+import { CurrentUserService } from './service/current-user.service';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +21,17 @@ export class AppComponent implements OnInit {
 
   countdown = 10;
 
-  constructor(public versionService: VersionServiceService){}
+  constructor(public versionService: VersionServiceService,
+    private authService: AuthService,
+  private currentUserService: CurrentUserService
+  ){}
 
   ngOnInit(){
 
+      if (this.authService.isLoggedIn()) {
+    this.currentUserService.loadCurrentUser();
+  }
+  
     this.versionService.startVersionCheck();
 
     this.versionService.showToast.subscribe(v => {

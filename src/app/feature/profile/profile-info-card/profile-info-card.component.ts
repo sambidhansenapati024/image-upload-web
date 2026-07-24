@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
+import { Profile } from '../../../shared/modal/profile';
 
 @Component({
   selector: 'app-profile-info-card',
@@ -10,5 +11,8 @@ import { CardModule } from 'primeng/card';
   styleUrl: './profile-info-card.component.css'
 })
 export class ProfileInfoCardComponent {
+
+  @Input({ required: true })
+profile!: Profile;
 
 }

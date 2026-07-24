@@ -1,0 +1,149 @@
+:host {
+    --cv-bg: #0b1120;          /* dialog surface */
+    --cv-bg-input: #111827;    /* input/textarea bg */
+    --cv-border: #2d3748;
+    --cv-border-input: #374151;
+    --cv-text: #f9fafb;
+    --cv-label: #9ca3af;
+    --cv-accent: #10b981;
+    --cv-accent-glow: rgba(16,185,129,.18);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 4px;
+}
+
+.field { width: 100%; }
+.full-width { grid-column: 1 / -1; }
+
+/* Inputs */
+.field ::ng-deep .p-inputtext,
+.field ::ng-deep .p-inputtextarea,
+.field ::ng-deep textarea.p-inputtextarea,
+.field ::ng-deep textarea {
+    width: 100%;
+    background: var(--cv-bg-input) !important;
+    color: var(--cv-text) !important;
+    border: 1px solid var(--cv-border-input) !important;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.field ::ng-deep .p-inputtext:enabled:focus,
+.field ::ng-deep textarea.p-inputtextarea:focus,
+.field ::ng-deep textarea:focus {
+    border-color: var(--cv-accent) !important;
+    box-shadow: 0 0 0 3px var(--cv-accent-glow) !important;
+    outline: none;
+}
+
+/* Float label text color, incl. when floated up */
+.field ::ng-deep .p-float-label label,
+.field ::ng-deep label {
+    color: var(--cv-label) !important;
+    font-size: 14px;
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--cv-label);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+:host ::ng-deep textarea.p-inputtextarea {
+    min-height: 130px;
+    padding: .75rem;
+    resize: vertical;
+}
+
+/* Dialog shell */
+:host ::ng-deep .p-dialog {
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--cv-bg);
+    border: 1px solid var(--cv-border);
+}
+
+:host ::ng-deep .p-dialog-header {
+    padding: 1.5rem 1.75rem;
+    background: var(--cv-bg);
+    border-bottom: 1px solid var(--cv-border);
+}
+
+:host ::ng-deep .p-dialog-title {
+    color: var(--cv-text);
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+:host ::ng-deep .p-dialog-header-icon {
+    color: var(--cv-label);
+}
+:host ::ng-deep .p-dialog-header-icon:hover {
+    color: var(--cv-text);
+    background: rgba(255,255,255,.06);
+}
+
+:host ::ng-deep .p-dialog-content {
+    padding: 1.75rem;
+    background: var(--cv-bg);
+}
+
+:host ::ng-deep .p-dialog-footer {
+    padding: 1.25rem 1.75rem;
+    background: var(--cv-bg);
+    border-top: 1px solid var(--cv-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Buttons */
+:host ::ng-deep .p-dialog-footer .p-button {
+    border-radius: 10px;
+    padding: .6rem 1.2rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+:host ::ng-deep .p-dialog-footer .p-button-secondary {
+    background: #1f2937;
+    border: 1px solid var(--cv-border-input);
+    color: var(--cv-text);
+}
+:host ::ng-deep .p-dialog-footer .p-button-secondary:hover {
+    background: #26313f;
+}
+
+:host ::ng-deep .p-dialog-footer .p-button:not(.p-button-secondary) {
+    background: var(--cv-accent);
+    border: 1px solid var(--cv-accent);
+    color: #06281f;
+}
+:host ::ng-deep .p-dialog-footer .p-button:not(.p-button-secondary):hover {
+    background: #0ea975;
+}
+
+/* Modal backdrop */
+:host ::ng-deep .p-dialog-mask {
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(2px);
+}
+
+:host ::ng-deep textarea.p-inputtextarea,
+:host ::ng-deep .field textarea {
+    min-height: 130px;
+    padding: 12px 14px;      /* was too tight / missing — pushes text off the top edge */
+    line-height: 1.5;
+    resize: none;             /* disables the drag-to-expand handle */
+    background: var(--cv-bg-input) !important;
+    color: var(--cv-text) !important;
+    border: 1px solid var(--cv-border-input) !important;
+    border-radius: 10px;
+    box-sizing: border-box;
+}

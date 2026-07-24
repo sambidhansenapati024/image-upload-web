@@ -10,22 +10,22 @@
                 value="Connected">
             </p-tag>
 
-            <p-tag
-                severity="info"
-                [value]="version">
-            </p-tag>
+<p-tag
+    severity="info"
+    [value]="versionService.frontendInfo?.displayVersion">
+</p-tag>
 
             <div class="user">
 
                 <div class="avatar">
-                    S
+                   {{ user?.fullName?.charAt(0) }}
                 </div>
 
                 <div>
 
-                    <h4>Sambidhan</h4>
+                    <h4><h4>{{ user?.fullName }}</h4></h4>
 
-                    <small>Software Engineer</small>
+                    <small><small>{{ user?.email }}</small></small>
 
                 </div>
 

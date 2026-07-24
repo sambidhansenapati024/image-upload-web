@@ -7,6 +7,7 @@ import { LoginResponse } from '../../shared/modal/login-response';
 import { Observable, tap } from 'rxjs';
 import { RegisterRequest } from '../../shared/modal/register-request';
 import { RegisterResponse } from '../../shared/modal/register-response';
+import { CurrentUserService } from '../../service/current-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
  private readonly AUTH_API = `${environment.apiUrl}/auth`;
 
   constructor( private http: HttpClient,
-    private tokenService: TokenService) { }
+    private tokenService: TokenService,
+   private currentUserService: CurrentUserService) { }
 
      register(request: RegisterRequest): Observable<RegisterResponse> {
 
@@ -36,13 +38,15 @@ export class AuthService {
 
       tap(response => {
 
-        if (response.success) {
+  if (response.success) {
 
-          this.tokenService.saveToken(response.token);
+    this.tokenService.saveToken(response.token);
 
-        }
+    this.currentUserService.loadCurrentUser();
 
-      })
+  }
+
+})
 
     );
 

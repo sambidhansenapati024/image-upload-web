@@ -1,0 +1,99 @@
+<p-dialog
+    header="Edit Profile"
+    [(visible)]="visible"
+    (visibleChange)="visibleChange.emit($event)"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{ width: '720px' }"
+    [breakpoints]="{
+        '960px':'90vw',
+        '640px':'95vw'
+    }">
+
+    <form [formGroup]="profileForm">
+
+        <div class="form-grid">
+
+            <div class="field">
+
+                <p-floatLabel>
+
+                    <input
+                        pInputText
+                        id="phone"
+                        formControlName="phone">
+
+                    <label for="phone">Phone</label>
+
+                </p-floatLabel>
+
+            </div>
+
+            <div class="field">
+
+                <p-floatLabel>
+
+                    <input
+                        pInputText
+                        id="country"
+                        formControlName="country">
+
+                    <label for="country">Country</label>
+
+                </p-floatLabel>
+
+            </div>
+
+            <div class="field full-width">
+
+    <p-floatLabel>
+
+        <input
+            pInputText
+            id="timezone"
+            formControlName="timezone">
+
+        <label for="timezone">Timezone</label>
+
+    </p-floatLabel>
+
+</div>
+
+           <div class="field full-width">
+
+    <label class="field-label" for="bio">Bio</label>
+
+    <textarea 
+          pTextarea
+        id="bio"
+        rows="5"
+        formControlName="bio">
+    </textarea>
+
+</div>
+
+        </div>
+
+    </form>
+
+    <ng-template pTemplate="footer">
+
+        <button
+            pButton
+            type="button"
+            label="Cancel"
+            severity="secondary"
+            (click)="onCancel()">
+        </button>
+
+        <button
+            pButton
+            type="button"
+            label="Save Changes"
+            (click)="onSave()">
+        </button>
+
+    </ng-template>
+
+</p-dialog>
