@@ -1,0 +1,25 @@
+<div class="docs-sidebar">
+
+    <h3>Documentation</h3>
+
+    <nav>
+
+    @for (topic of filteredTopics; track topic.id) {
+
+        <a
+
+            [class.active]="currentTopic === topic.id"
+
+            (click)="selectTopic(topic.id)">
+
+            <i [class]="topic.icon"></i>
+
+            {{ topic.label }}
+
+        </a>
+
+    }
+
+</nav>
+
+</div>

@@ -8,6 +8,9 @@ import { Observable, tap } from 'rxjs';
 import { RegisterRequest } from '../../shared/modal/register-request';
 import { RegisterResponse } from '../../shared/modal/register-response';
 import { CurrentUserService } from '../../service/current-user.service';
+import { ChangePasswordRequest } from '../../shared/modal/change-password-request';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +21,9 @@ export class AuthService {
 
   constructor( private http: HttpClient,
     private tokenService: TokenService,
-   private currentUserService: CurrentUserService) { }
+   private currentUserService: CurrentUserService,
+   private router: Router,
+  private messageService: MessageService) { }
 
      register(request: RegisterRequest): Observable<RegisterResponse> {
 
@@ -52,9 +57,12 @@ export class AuthService {
 
   }
 
-logout(): void {
+logout(showMessage: boolean = true): void {
 
   this.tokenService.clearToken();
+   this.currentUserService.clearCurrentUser();
+
+  this.router.navigate(['/login']);
 
 }
 
@@ -69,4 +77,16 @@ isLoggedIn(): boolean {
     return this.tokenService.getToken();
 
   }
+
+  changePassword(request: ChangePasswordRequest): Observable<string> {
+
+  return this.http.post(
+    `${environment.apiUrl}/users/change-password`,
+    request,
+    {
+      responseType: 'text'
+    }
+  );
+
+}
 }

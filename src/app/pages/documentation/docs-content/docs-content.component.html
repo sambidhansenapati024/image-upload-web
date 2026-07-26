@@ -1,0 +1,51 @@
+<div class="docs-content">
+
+    <div class="content-header">
+
+    <span class="category">Documentation</span>
+
+    <h1>{{ topic.title }}</h1>
+
+    <p>{{ topic.description }}</p>
+
+</div>
+
+<div class="doc-body">
+
+    @for (section of topic.sections; track section.heading) {
+
+        <section class="doc-section" [id]="getSectionId(section.heading)">
+
+            <h2>{{ section.heading }}</h2>
+
+            <p>{{ section.content }}</p>
+
+        </section>
+
+    }
+
+</div>
+
+    <div class="doc-navigation">
+
+<button
+    pButton
+    label="Previous"
+    severity="secondary"
+    variant="outlined"
+    [disabled]="!previousTopic"
+    (click)="goPrevious()">
+</button>
+
+<button
+    pButton
+    label="Next"
+    icon="pi pi-arrow-right"
+    iconPos="right"
+    [disabled]="!nextTopic"
+    (click)="goNext()">
+</button>
+
+    </div>
+
+</div>

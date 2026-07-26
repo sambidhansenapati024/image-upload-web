@@ -1,0 +1,21 @@
+<div class="docs-toc">
+
+    <h3>On this page</h3>
+
+    <nav>
+
+        @if (topic) {
+
+            @for (section of topic.sections; track section.heading) {
+
+<a (click)="scrollToSection(section.heading)">
+    {{ section.heading }}
+</a>
+
+            }
+
+        }
+
+    </nav>
+
+</div>

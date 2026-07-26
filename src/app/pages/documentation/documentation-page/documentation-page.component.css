@@ -1,0 +1,66 @@
+:host {
+    display: block;
+}
+
+.documentation-page {
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.page-header {
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+
+.page-header h2 {
+
+    margin: 0;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+
+}
+
+.page-header p {
+
+    color: #94A3B8;
+
+}
+
+.docs-layout {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 24px;
+
+}
+
+app-docs-toc {
+
+    width: 240px;
+
+    flex-shrink: 0;
+
+}
+
+app-docs-sidebar {
+
+    width: 320px;
+    flex-shrink: 0;
+
+}
+
+app-docs-content {
+
+    flex: 1;
+    min-width: 0;
+
+}

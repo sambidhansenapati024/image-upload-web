@@ -1,0 +1,37 @@
+:host{
+    display:block;
+}
+
+.docs-search{
+
+    width:320px;
+
+}
+
+.docs-search .p-input-icon-left{
+
+    width:100%;
+
+}
+
+:host ::ng-deep input{
+
+    width:100%;
+
+    background:#111827;
+
+    color:white;
+
+    border:1px solid #334155;
+
+    border-radius:10px;
+
+}
+
+:host ::ng-deep input:focus{
+
+    border-color:#3B82F6;
+
+    box-shadow:none;
+
+}

@@ -1,0 +1,133 @@
+:host {
+    display: block;
+}
+
+.storage-card {
+
+    background: var(--sidebar-bg);
+
+    border: 1px solid #334155;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+}
+
+.card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+
+}
+
+.card-header i {
+
+    font-size: 22px;
+
+    color: #3B82F6;
+
+}
+
+.card-header h3 {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+}
+
+.card-header p {
+
+    margin-top: 4px;
+
+    color: #94A3B8;
+
+    font-size: 13px;
+
+}
+
+.storage-summary {
+
+    margin-bottom: 18px;
+
+}
+
+.used-storage {
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: white;
+
+}
+
+.total-storage {
+
+    color: #94A3B8;
+
+    margin-left: 8px;
+
+}
+
+.storage-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 14px;
+
+    color: #94A3B8;
+
+    font-size: 13px;
+
+}
+
+.plan-badge {
+
+    background: rgba(59,130,246,.15);
+
+    color: #60A5FA;
+
+    padding: 5px 12px;
+
+    border-radius: 999px;
+
+    font-weight: 600;
+
+}
+
+:host ::ng-deep .p-progressbar {
+
+    height: 10px;
+
+    border-radius: 999px;
+
+    background: #334155;
+
+}
+
+:host ::ng-deep .p-progressbar-value {
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        90deg,
+        #3B82F6,
+        #38BDF8
+    );
+
+}

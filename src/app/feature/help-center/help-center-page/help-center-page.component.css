@@ -1,0 +1,37 @@
+:host{
+    display:block;
+}
+
+.help-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+}
+
+.page-header h2{
+
+    margin:0;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:600;
+
+}
+
+.page-header p{
+
+    margin-top:8px;
+
+    color:#94A3B8;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+}

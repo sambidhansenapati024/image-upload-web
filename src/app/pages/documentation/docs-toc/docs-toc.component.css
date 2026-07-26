@@ -1,0 +1,56 @@
+:host{
+    display:block;
+}
+
+.docs-toc{
+
+    position:sticky;
+
+    top:20px;
+
+    background:var(--sidebar-bg);
+
+    border:1px solid #334155;
+
+    border-radius:16px;
+
+    padding:20px;
+
+}
+
+.docs-toc h3{
+
+    margin:0 0 18px;
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+.docs-toc nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.docs-toc a{
+
+    color:#94A3B8;
+
+    text-decoration:none;
+
+    transition:.2s;
+    cursor: pointer;
+
+}
+
+.docs-toc a:hover{
+
+    color:#3B82F6;
+
+}

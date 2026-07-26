@@ -1,0 +1,46 @@
+@if (user$ | async; as user) {
+
+<div class="account-card">
+
+    <div class="card-header">
+
+        <i class="pi pi-user"></i>
+
+        <h3>Account</h3>
+
+    </div>
+
+    <div class="card-content">
+
+        <div class="info-row">
+
+            <span class="label">Email</span>
+
+            <span class="value">{{ user.email }}</span>
+
+        </div>
+
+        <div class="info-row">
+
+    <span class="label">Member Since</span>
+
+    <span class="value">-</span>
+
+</div>
+
+       <div class="info-row">
+
+    <span class="label">Storage Plan</span>
+
+    <span class="value">
+        <span class="plan-badge">Free</span>
+    </span>
+
+</div>
+
+
+    </div>
+
+</div>
+
+}

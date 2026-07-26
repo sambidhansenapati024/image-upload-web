@@ -1,0 +1,101 @@
+:host {
+    display: block;
+}
+
+.security-card {
+
+    background: var(--sidebar-bg);
+
+    border: 1px solid #334155;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+}
+
+.card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+
+}
+
+.card-header i {
+
+    color: #3B82F6;
+
+    font-size: 22px;
+
+}
+
+.card-header h3 {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+}
+
+.card-header p {
+
+    margin-top: 4px;
+
+    color: #94A3B8;
+
+}
+
+.security-content {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.status {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+}
+
+.label {
+
+    color: #94A3B8;
+
+    font-size: 14px;
+
+}
+
+.coming-soon-badge {
+
+    width: fit-content;
+
+    padding: 4px 12px;
+
+    border-radius: 999px;
+
+    background: rgba(245,158,11,.15);
+
+    color: #FBBF24;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}

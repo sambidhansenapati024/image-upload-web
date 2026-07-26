@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,ViewChild  } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -9,11 +9,12 @@ import { Button } from "primeng/button";
 import { Profile } from '../modal/profile';
 import { CurrentUserService } from '../../service/current-user.service';
 import { VersionServiceService } from '../../service/version-service.service';
+import { Popover, PopoverModule } from 'primeng/popover';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CardModule, TagModule, ConfirmDialogModule, Button],
+  imports: [CardModule, TagModule, ConfirmDialogModule, Button, PopoverModule],
 
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -22,6 +23,8 @@ export class NavbarComponent implements OnInit {
   @Input() version = 'v1.0.0';
 
   user: Profile | null = null;
+@ViewChild('userPopover')
+userPopover!: Popover;
 
   constructor(
     private authService: AuthService,
@@ -39,6 +42,38 @@ ngOnInit(): void {
     this.user = user;
 
   });
+
+}
+
+goToProfile(): void {
+
+  this.userPopover.hide();
+
+  this.router.navigate(['/profile']);
+
+}
+
+goToSettings(): void {
+
+  this.userPopover.hide();
+
+  this.router.navigate(['/settings']);
+
+}
+
+goToSecurity(): void {
+
+  this.userPopover.hide();
+
+  this.router.navigate(['/security']);
+
+}
+
+goToHelp(): void {
+
+  this.userPopover.hide();
+
+  this.router.navigate(['/help']);
 
 }
 

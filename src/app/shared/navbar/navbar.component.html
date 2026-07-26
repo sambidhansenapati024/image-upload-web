@@ -5,42 +5,131 @@
         <!-- Right Section -->
         <div class="right">
 
-            <p-tag
-                severity="success"
-                value="Connected">
+            <p-tag severity="success" value="Connected">
             </p-tag>
 
-<p-tag
-    severity="info"
-    [value]="versionService.frontendInfo?.displayVersion">
-</p-tag>
+            <p-tag severity="info" [value]="versionService.frontendInfo?.displayVersion">
+            </p-tag>
 
-            <div class="user">
+            <div class="user" (click)="userPopover.toggle($event)">
 
                 <div class="avatar">
-                   {{ user?.fullName?.charAt(0) }}
+
+                    @if(user?.profileImageUrl){
+
+                    <img [src]="user?.profileImageUrl" [alt]="user?.fullName">
+
+                    } @else {
+
+                    {{ user?.fullName?.charAt(0) }}
+
+                    }
+
                 </div>
 
                 <div>
 
-                    <h4><h4>{{ user?.fullName }}</h4></h4>
+                    <h4>
+                        <h4>{{ user?.fullName }}</h4>
+                    </h4>
 
                     <small><small>{{ user?.email }}</small></small>
+                    <i class="pi pi-angle-down"></i>
 
                 </div>
 
             </div>
-
-            <p-button
-                icon="pi pi-sign-out"
-                severity="danger"
-                [rounded]="true"
-                [text]="true"
-                (onClick)="logout()">
-            </p-button>
 
         </div>
 
     </div>
 
 </p-card>
+
+<p-popover #userPopover>
+
+    <div class="user-menu">
+
+        <div class="user-menu-header">
+
+            <div class="avatar large">
+
+                @if(user?.profileImageUrl){
+
+                    <img
+                        [src]="user?.profileImageUrl"
+                        [alt]="user?.fullName">
+
+                } @else {
+
+                    {{ user?.fullName?.charAt(0) }}
+
+                }
+
+            </div>
+
+            <h3>{{ user?.fullName }}</h3>
+
+            <p>{{ user?.email }}</p>
+
+        </div>
+
+        <div class="user-menu-items">
+
+<button
+    class="menu-item"
+    (click)="goToProfile()">
+
+    <i class="pi pi-user"></i>
+
+    <span>My Profile</span>
+
+</button>
+
+<button
+    class="menu-item"
+    (click)="goToSettings()">
+
+    <i class="pi pi-cog"></i>
+
+    <span>Settings</span>
+
+</button>
+
+<button
+    class="menu-item"
+    (click)="goToSecurity()">
+
+    <i class="pi pi-shield"></i>
+
+    <span>Security</span>
+
+</button>
+
+<button
+    class="menu-item"
+    (click)="goToHelp()">
+
+    <i class="pi pi-question-circle"></i>
+
+    <span>Help & Support</span>
+
+</button>
+
+    <div class="menu-divider"></div>
+
+    <button
+        class="menu-item logout"
+        (click)="logout()">
+
+        <i class="pi pi-sign-out"></i>
+
+        <span>Logout</span>
+
+    </button>
+
+</div>
+
+    </div>
+
+</p-popover>

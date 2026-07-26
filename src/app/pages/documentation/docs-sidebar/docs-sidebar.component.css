@@ -1,0 +1,83 @@
+:host{
+    display:block;
+}
+
+.docs-sidebar{
+
+    background:var(--sidebar-bg);
+
+    border:1px solid #334155;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    position:sticky;
+
+    top:20px;
+
+}
+
+.docs-sidebar h3{
+
+    margin:0 0 20px;
+
+    color:white;
+
+    font-size:18px;
+
+}
+
+.docs-sidebar nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.docs-sidebar a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 14px;
+
+    border-radius:10px;
+
+    color:#CBD5E1;
+
+    text-decoration:none;
+
+    transition:.2s;
+
+}
+
+.docs-sidebar a:hover{
+
+    background:#1E293B;
+
+    color:white;
+
+}
+
+.docs-sidebar a.active{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+.docs-sidebar a i{
+
+    width:18px;
+
+    text-align:center;
+
+}

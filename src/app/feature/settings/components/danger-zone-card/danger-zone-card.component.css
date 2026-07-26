@@ -1,0 +1,85 @@
+:host {
+    display: block;
+}
+
+.danger-zone-card {
+
+    background: var(--sidebar-bg);
+
+    border: 1px solid rgba(239,68,68,.35);
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+}
+
+.card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+
+}
+
+.card-header i {
+
+    font-size: 22px;
+
+    color: #EF4444;
+
+}
+
+.card-header h3 {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 20px;
+
+}
+
+.card-header p {
+
+    margin-top: 4px;
+
+    color: #94A3B8;
+
+}
+
+.danger-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 24px;
+
+}
+
+.danger-item h4 {
+
+    margin: 0;
+
+    color: white;
+
+}
+
+.danger-item small {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #94A3B8;
+
+    line-height: 1.5;
+
+}

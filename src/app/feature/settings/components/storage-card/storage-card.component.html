@@ -1,0 +1,50 @@
+<div class="storage-card">
+
+    <div class="card-header">
+
+        <i class="pi pi-cloud"></i>
+
+        <div>
+
+            <h3>Storage</h3>
+
+            <p>Monitor your storage usage</p>
+
+        </div>
+
+    </div>
+
+    <div class="storage-summary">
+
+        <span class="used-storage">
+
+            {{ storageUsed }}
+
+        </span>
+
+        <span class="total-storage">
+
+            of {{ storageLimit }} used
+
+        </span>
+
+    </div>
+
+    <p-progressBar
+        [value]="storagePercentage"
+        [showValue]="false">
+    </p-progressBar>
+
+    <div class="storage-footer">
+
+        <span>{{ storagePercentage }}% Used</span>
+
+        <span class="plan-badge">
+
+            {{ storagePlan }}
+
+        </span>
+
+    </div>
+
+</div>

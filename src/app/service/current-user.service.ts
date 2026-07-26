@@ -31,6 +31,7 @@ export class CurrentUserService {
 
       error: (err) => {
 
+         this.currentUserSubject.next(null);
         console.error(err);
 
       }
@@ -44,5 +45,11 @@ export class CurrentUserService {
     this.loadCurrentUser();
 
   }
+
+  clearCurrentUser(): void {
+
+  this.currentUserSubject.next(null);
+
+}
 
 }

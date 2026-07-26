@@ -11,6 +11,10 @@ import { HomeComponent } from './feature/home/home.component';
 import { UploadComponent } from './feature/upload/upload.component';
 import { GalleryPageComponent } from './feature/gallery-page/gallery-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { SettingsPageComponent } from './feature/settings/settings-page/settings-page.component';
+import { SecurityPageComponent } from './feature/security/security-page/security-page.component';
+import { HelpCardComponent } from './feature/help-center/help-card/help-card.component';
+import { HelpCenterPageComponent } from './feature/help-center/help-center-page/help-center-page.component';
 
 export const routes: Routes = [
 
@@ -70,7 +74,25 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfilePageComponent
-            }
+            },
+            {
+                path: 'settings',
+                component: SettingsPageComponent
+            },
+            {
+                path: 'security',
+                component: SecurityPageComponent
+            },
+            {
+                path: 'help',
+                component: HelpCenterPageComponent
+            },
+            {
+                path: 'documentation',
+                loadComponent: () =>
+                    import('./pages/documentation/documentation-page/documentation-page.component')
+                        .then(m => m.DocumentationPageComponent)
+            },
 
         ]
     },
