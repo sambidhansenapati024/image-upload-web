@@ -89,4 +89,25 @@ isLoggedIn(): boolean {
   );
 
 }
+
+forgotPassword(email: string) {
+  return this.http.post(
+    `${environment.apiUrl}/auth/forgot-password`,
+    { email },
+    { responseType: 'text' }
+  );
+}
+
+resetPassword(token: string, password: string) {
+  return this.http.post(
+    `${environment.apiUrl}/auth/reset-password`,
+    {
+      token,
+      password
+    },
+    {
+      responseType: 'text'
+    }
+  );
+}
 }

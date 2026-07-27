@@ -25,7 +25,7 @@ import { GalleryToolbarComponent } from "../../shared/gallery-toolbar/gallery-to
   templateUrl: './gallery-page.component.html',
   styleUrl: './gallery-page.component.css'
 })
-export class GalleryPageComponent implements OnInit, OnChanges {
+export class GalleryPageComponent implements OnInit {
 
   display = false;
   activeIndex = 0;
@@ -96,22 +96,6 @@ export class GalleryPageComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges() {
-
-    this.galleryImages = this.images.map(image => ({
-
-      itemImageSrc: image.imageUrl,
-
-      thumbnailImageSrc: image.imageUrl,
-
-      originalFileName: image.originalFileName,
-
-      fileSize: image.fileSize,
-
-      uploadedAt: image.uploadedAt
-
-    }));
-  }
 
   openImage(image: ImageResponse) {
 
@@ -198,11 +182,19 @@ loadImages() {
 
         next: response => {
 
-            this.images = response.content;
+        this.images = response.content;
+        this.galleryImages = this.images.map(image => ({
+          itemImageSrc: image.imageUrl,
+          thumbnailImageSrc: image.imageUrl,
+          originalFileName: image.originalFileName,
+          fileSize: image.fileSize,
+          uploadedAt: image.uploadedAt
+        }));
 
-            this.totalRecords = response.totalElements;
 
-            this.loading = false;
+        this.totalRecords = response.totalElements;
+
+        this.loading = false;
 
         },
 

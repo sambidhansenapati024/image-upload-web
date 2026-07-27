@@ -15,6 +15,8 @@ import { SettingsPageComponent } from './feature/settings/settings-page/settings
 import { SecurityPageComponent } from './feature/security/security-page/security-page.component';
 import { HelpCardComponent } from './feature/help-center/help-card/help-card.component';
 import { HelpCenterPageComponent } from './feature/help-center/help-center-page/help-center-page.component';
+import { ForgotPasswordComponent } from './feature/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './feature/auth/reset-password/reset-password.component';
 
 export const routes: Routes = [
 
@@ -38,6 +40,17 @@ export const routes: Routes = [
             {
                 path: 'register',
                 component: RegisterComponent,
+                canActivate: [guestGuard]
+            },
+            
+            {
+                path: 'forgot-password',
+                component: ForgotPasswordComponent,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'reset-password',
+                component: ResetPasswordComponent,
                 canActivate: [guestGuard]
             }
 
@@ -93,6 +106,7 @@ export const routes: Routes = [
                     import('./pages/documentation/documentation-page/documentation-page.component')
                         .then(m => m.DocumentationPageComponent)
             },
+
 
         ]
     },
