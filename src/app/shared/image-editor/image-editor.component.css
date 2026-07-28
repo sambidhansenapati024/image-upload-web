@@ -1,0 +1,720 @@
+:host {
+
+    --cv-bg: #14161B;
+    --cv-panel: #1B1E24;
+    --cv-panel-raised: #232730;
+    --cv-panel-glass: rgba(27, 30, 36, 0.72);
+    --cv-hairline: #2B303A;
+    --cv-text: #EDEAE3;
+    --cv-text-muted: #8B90A0;
+
+    --cv-amber: #E3A63E;
+    --cv-amber-dim: rgba(227, 166, 62, 0.16);
+    --cv-cyan: #4FB0A8;
+    --cv-cyan-dim: rgba(79, 176, 168, 0.16);
+
+    --cv-font-display: 'Space Grotesk', 'Inter', sans-serif;
+    --cv-font-body: 'Inter', -apple-system, sans-serif;
+    --cv-font-mono: 'JetBrains Mono', 'SFMono-Regular', monospace;
+
+    --cv-radius-lg: 20px;
+    --cv-radius-md: 14px;
+    --cv-radius-sm: 9px;
+
+    font-family: var(--cv-font-body);
+}
+
+/* ---------- Dialog shell ---------- */
+
+::ng-deep .cv-dialog.p-dialog {
+    background: var(--cv-bg);
+    border: 1px solid var(--cv-hairline);
+    border-radius: var(--cv-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+}
+
+::ng-deep .cv-dialog .p-dialog-header {
+    background: linear-gradient(180deg, var(--cv-panel) 0%, rgba(27, 30, 36, 0.94) 100%);
+    border-bottom: 1px solid var(--cv-hairline);
+    padding: 0;
+}
+
+::ng-deep .cv-dialog .p-dialog-content {
+    background: var(--cv-bg);
+    padding: 0;
+}
+
+::ng-deep .cv-dialog .p-dialog-header-icon {
+    color: var(--cv-text-muted);
+    border-radius: 8px;
+    transition: color .15s ease, background .15s ease;
+}
+
+::ng-deep .cv-dialog .p-dialog-header-icon:hover {
+    color: var(--cv-text);
+    background: var(--cv-panel-raised);
+}
+
+::ng-deep .cv-dialog .p-dialog-footer {
+    background: linear-gradient(0deg, var(--cv-panel) 0%, rgba(27, 30, 36, 0.94) 100%);
+    border-top: 1px solid var(--cv-hairline);
+    padding: 14px 20px;
+}
+
+::ng-deep .p-dialog-mask {
+    backdrop-filter: blur(6px);
+    background: rgba(8, 9, 11, 0.72);
+}
+
+/* ---------- Header ---------- */
+
+.editor-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.brand-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(from 180deg, var(--cv-amber), var(--cv-cyan), var(--cv-amber));
+    flex-shrink: 0;
+    padding: 2px;
+}
+
+.brand-mark-core {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--cv-panel);
+    box-shadow: 0 0 12px rgba(227, 166, 62, 0.45) inset;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-eyebrow {
+    font-family: var(--cv-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cv-text-muted);
+}
+
+.brand-text h2 {
+    font-family: var(--cv-font-display);
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--cv-text);
+    margin: 2px 0 0;
+    letter-spacing: -0.01em;
+}
+
+.status-readout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--cv-font-mono);
+    font-size: 12px;
+    color: var(--cv-text-muted);
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    background: var(--cv-panel-raised);
+    border: 1px solid var(--cv-hairline);
+    border-radius: 999px;
+
+    i {
+        font-size: 11px;
+        opacity: .8;
+    }
+}
+
+.status-item--tool {
+    color: var(--cv-text);
+    border-color: rgba(227, 166, 62, 0.35);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cv-cyan);
+    box-shadow: 0 0 8px var(--cv-cyan);
+}
+
+/* ---------- Body layout ---------- */
+
+.editor-body {
+    display: flex;
+    height: 70vh;
+}
+
+/* ---------- Tool rail ---------- */
+
+.editor-rail {
+    width: 240px;
+    background: var(--cv-panel);
+    border-right: 1px solid var(--cv-hairline);
+    padding: 18px 12px;
+    overflow: auto;
+}
+
+.rail-eyebrow {
+    display: block;
+    font-family: var(--cv-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cv-text-muted);
+    padding: 4px 10px 16px;
+}
+
+::ng-deep .cv-rail-menu.p-panelmenu {
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+::ng-deep .cv-rail-menu .p-panelmenu-panel {
+    border-radius: var(--cv-radius-md);
+    overflow: hidden;
+    border: 1px solid var(--cv-hairline);
+    background: var(--cv-panel-raised);
+    transition: border-color .15s ease;
+}
+
+::ng-deep .cv-rail-menu .p-panelmenu-header-link {
+    background: transparent;
+    color: var(--cv-text);
+    padding: 12px 14px;
+    font-family: var(--cv-font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+::ng-deep .cv-rail-menu .p-panelmenu-panel:first-of-type .p-panelmenu-header-link .p-icon,
+::ng-deep .cv-rail-menu .p-panelmenu-panel:first-of-type .p-panelmenu-header-link .p-menuitem-icon {
+    color: var(--cv-cyan);
+}
+
+::ng-deep .cv-rail-menu .p-panelmenu-panel:not(:first-of-type) .p-panelmenu-header-link .p-icon,
+::ng-deep .cv-rail-menu .p-panelmenu-panel:not(:first-of-type) .p-panelmenu-header-link .p-menuitem-icon {
+    color: var(--cv-amber);
+}
+
+::ng-deep .cv-rail-menu .p-menuitem-link {
+    background: transparent;
+    color: var(--cv-text-muted);
+    padding: 9px 14px 9px 32px;
+    font-size: 13px;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+::ng-deep .cv-rail-menu .p-menuitem-link:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--cv-text);
+    border-left: 2px solid var(--cv-amber);
+}
+
+::ng-deep .cv-rail-menu .p-panelmenu-panel:first-of-type .p-menuitem-link:hover {
+    border-left: 2px solid var(--cv-cyan);
+}
+
+/* ---------- Stage ---------- */
+
+.editor-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.03) 0%, transparent 65%),
+        var(--cv-bg);
+    padding: 0;
+    position: relative;
+}
+
+.stage-canvas-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    padding: 36px;
+}
+
+canvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.sprocket {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 10px;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(to right,
+            var(--cv-hairline) 0,
+            var(--cv-hairline) 6px,
+            transparent 6px,
+            transparent 16px);
+    opacity: 0.4;
+}
+
+.sprocket--top {
+    top: 10px;
+}
+
+.sprocket--bottom {
+    bottom: 10px;
+}
+
+/* ---------- Docked context panel (right-hand side) ---------- */
+
+.editor-context {
+    width: 300px;
+    flex-shrink: 0;
+    background: var(--cv-panel);
+    border-left: 1px solid var(--cv-hairline);
+    padding: 20px 18px;
+    overflow-y: auto;
+    color: var(--cv-text);
+}
+
+.ctx-section {
+    padding-bottom: 20px;
+}
+
+.ctx-section--divided {
+    margin-top: 4px;
+    padding-top: 20px;
+    border-top: 1px solid var(--cv-hairline);
+}
+
+.ctx-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--cv-font-display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--cv-text);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+
+    i {
+        font-size: 12px;
+        color: var(--cv-amber);
+    }
+}
+
+.ctx-label--cyan i {
+    color: var(--cv-cyan);
+}
+
+.ctx-hint {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--cv-text-muted);
+    margin: -6px 0 16px;
+}
+
+.ctx-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.ctx-actions--stacked {
+    flex-direction: column;
+}
+
+.ctx-actions--stacked .btn-seg {
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.ctx-field {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.ctx-text-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    input {
+        width: 100%;
+    }
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.slider-row p-slider {
+    flex: 1;
+}
+
+.value-chip {
+    font-family: var(--cv-font-mono);
+    font-size: 12px;
+    min-width: 44px;
+    text-align: center;
+    padding: 4px 8px;
+    background: var(--cv-panel-raised);
+    border: 1px solid var(--cv-hairline);
+    border-radius: 6px;
+    color: var(--cv-amber);
+}
+
+/* Text tool inspector fields */
+
+.inspector-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    label {
+        font-family: var(--cv-font-mono);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--cv-text-muted);
+    }
+}
+
+.color-swatch {
+    width: 100%;
+    height: 34px;
+    padding: 2px;
+    border-radius: var(--cv-radius-sm);
+    border: 1px solid var(--cv-hairline);
+    background: var(--cv-panel-raised);
+    cursor: pointer;
+}
+
+.inspector-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* ---------- Inputs ---------- */
+
+::ng-deep .editor-context .p-inputtext {
+    background: var(--cv-panel-raised);
+    border: 1px solid var(--cv-hairline);
+    color: var(--cv-text);
+    border-radius: var(--cv-radius-sm);
+}
+
+::ng-deep .editor-context .p-inputtext:enabled:focus {
+    border-color: var(--cv-amber);
+    box-shadow: 0 0 0 3px var(--cv-amber-dim);
+}
+
+::ng-deep .editor-context .p-select {
+    width: 100%;
+    background: var(--cv-panel-raised);
+    border: 1px solid var(--cv-hairline);
+    border-radius: var(--cv-radius-sm);
+    color: var(--cv-text);
+}
+
+::ng-deep .editor-context .btn-save,
+::ng-deep .editor-context .btn-ghost,
+::ng-deep .editor-context .btn-outline {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ---------- Slider reskin (tone tools -> amber) ---------- */
+
+::ng-deep .slider-amber.p-slider {
+    background: var(--cv-hairline);
+    height: 4px;
+    border-radius: 999px;
+}
+
+::ng-deep .slider-amber .p-slider-range {
+    background: var(--cv-amber);
+    border-radius: 999px;
+}
+
+::ng-deep .slider-amber .p-slider-handle {
+    background: var(--cv-text);
+    border: 2px solid var(--cv-amber);
+    width: 15px;
+    height: 15px;
+    margin-top: -7px;
+    box-shadow: 0 0 0 4px var(--cv-amber-dim);
+}
+
+::ng-deep .slider-amber .p-slider-handle:focus {
+    box-shadow: 0 0 0 6px var(--cv-amber-dim);
+}
+
+/* ---------- Crop: viewfinder brackets ---------- */
+
+.crop-box {
+    position: absolute;
+    border: 1px dashed rgba(79, 176, 168, 0.55);
+    background: rgba(79, 176, 168, 0.06);
+    cursor: move;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.bracket {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--cv-cyan);
+    filter: drop-shadow(0 0 4px rgba(79, 176, 168, 0.5));
+}
+
+.top-left {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+    cursor: nw-resize;
+}
+
+.top-right {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+    cursor: ne-resize;
+}
+
+.bottom-left {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+    cursor: sw-resize;
+}
+
+.bottom-right {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+    cursor: se-resize;
+}
+
+/* ---------- Footer ---------- */
+
+.footer-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.footer-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-group--center {
+    padding: 4px;
+    background: var(--cv-panel-raised);
+    border: 1px solid var(--cv-hairline);
+    border-radius: 999px;
+}
+
+.footer-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--cv-hairline);
+}
+
+::ng-deep .btn-history.p-button {
+    background: transparent;
+    border: none;
+    color: var(--cv-text-muted);
+    border-radius: 999px;
+    padding: 8px 14px;
+}
+
+::ng-deep .btn-history.p-button:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--cv-text);
+}
+
+/* ---------- Buttons ---------- */
+
+::ng-deep .btn-save.p-button {
+    background: var(--cv-amber);
+    border: 1px solid var(--cv-amber);
+    color: #1A1408;
+    font-weight: 600;
+    border-radius: var(--cv-radius-sm);
+    box-shadow: 0 4px 14px rgba(227, 166, 62, 0.25);
+    transition: background .15s ease, transform .1s ease;
+}
+
+::ng-deep .btn-save.p-button:hover {
+    background: #f0b354;
+    border-color: #f0b354;
+    transform: translateY(-1px);
+}
+
+::ng-deep .btn-outline.p-button {
+    background: transparent;
+    border: 1px solid var(--cv-hairline);
+    color: var(--cv-text);
+    border-radius: var(--cv-radius-sm);
+}
+
+::ng-deep .btn-outline.p-button:hover {
+    background: var(--cv-panel-raised);
+    border-color: var(--cv-text-muted);
+}
+
+::ng-deep .btn-ghost.p-button {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--cv-text-muted);
+    border-radius: var(--cv-radius-sm);
+}
+
+::ng-deep .btn-ghost.p-button:hover {
+    background: var(--cv-panel-raised);
+    color: var(--cv-text);
+}
+
+::ng-deep .btn-sm.p-button {
+    padding: 7px 12px;
+    font-size: 12.5px;
+}
+
+::ng-deep .btn-seg.p-button {
+    background: transparent;
+    border: none;
+    color: var(--cv-text-muted);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 12.5px;
+}
+
+::ng-deep .btn-seg.p-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--cv-text);
+}
+
+/* ---------- Accessibility ---------- */
+
+::ng-deep .cv-dialog *:focus-visible {
+    outline: 2px solid var(--cv-cyan);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* ===========================
+   Save Dialog
+=========================== */
+
+::ng-deep .cv-save-dialog.p-dialog {
+    background: var(--cv-panel);
+    border: 1px solid var(--cv-hairline);
+    border-radius: var(--cv-radius-lg);
+    overflow: hidden;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.65),
+        0 0 0 1px rgba(255,255,255,.02) inset;
+}
+
+::ng-deep .cv-save-dialog .p-dialog-header {
+    background: var(--cv-panel);
+    color: var(--cv-text);
+    border-bottom: 1px solid var(--cv-hairline);
+    padding: 20px 24px;
+    font-family: var(--cv-font-display);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+::ng-deep .cv-save-dialog .p-dialog-content {
+    background: var(--cv-bg);
+    color: var(--cv-text);
+    padding: 22px 24px;
+}
+
+::ng-deep .cv-save-dialog .p-dialog-footer {
+    background: var(--cv-panel);
+    border-top: 1px solid var(--cv-hairline);
+    padding: 18px 24px;
+}
+
+::ng-deep .cv-save-dialog .field-radiobutton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+::ng-deep .cv-save-dialog label {
+    color: var(--cv-text);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+::ng-deep .cv-save-dialog .p-radiobutton-box {
+    background: var(--cv-panel-raised);
+    border: 2px solid var(--cv-hairline);
+}
+
+::ng-deep .cv-save-dialog .p-radiobutton-box.p-highlight {
+    border-color: var(--cv-cyan);
+    background: var(--cv-cyan);
+}
+
+::ng-deep .cv-save-dialog .p-radiobutton-icon {
+    background: white;
+}

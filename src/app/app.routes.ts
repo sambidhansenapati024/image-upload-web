@@ -64,11 +64,6 @@ export const routes: Routes = [
         children: [
 
             {
-                path: 'dashboard',
-                component: DashboardComponent
-            },
-
-            {
                 path: 'home',
                 component: HomeComponent
             },

@@ -1,0 +1,313 @@
+<p-dialog [(visible)]="visible" (visibleChange)="visibleChange.emit($event)" [modal]="true" [draggable]="false"
+    [resizable]="false" [maximizable]="true" [style]="{ width:'95vw', height:'95vh' }" styleClass="cv-dialog">
+
+    <ng-template pTemplate="header">
+
+        <div class="editor-header">
+
+            <div class="brand">
+                <span class="brand-mark">
+                    <span class="brand-mark-core"></span>
+                </span>
+                <div class="brand-text">
+                    <span class="brand-eyebrow">Editor</span>
+                    <h2>CloudVault</h2>
+                </div>
+            </div>
+
+            <div class="status-readout">
+                <span class="status-item status-item--tool" *ngIf="activeTool">
+                    <span class="status-dot"></span>{{ activeTool | titlecase }}
+                </span>
+                <span class="status-item">
+                    <i class="pi pi-search"></i>{{ viewportState.zoom | number:'1.1-1' }}&times;
+                </span>
+                <span class="status-item">
+                    <i class="pi pi-refresh"></i>{{ editorState.rotation }}&deg;
+                </span>
+            </div>
+
+        </div>
+
+    </ng-template>
+
+    <div class="editor-body">
+
+        <aside class="editor-rail">
+
+            <span class="rail-eyebrow">Tools</span>
+
+            <p-panelMenu [model]="tools" styleClass="cv-rail-menu">
+            </p-panelMenu>
+
+        </aside>
+
+        <section class="editor-stage">
+
+            <div class="stage-canvas-area" (mousemove)="moveCrop($event)" (mouseup)="stopCropDrag()"
+                (mouseleave)="stopCropDrag()">
+
+                <div class="sprocket sprocket--top" aria-hidden="true"></div>
+                <div class="sprocket sprocket--bottom" aria-hidden="true"></div>
+
+                <canvas #editorCanvas (mousedown)="startCanvasInteraction($event)"></canvas>
+
+                <div *ngIf="cropMode" class="crop-box" [style.left.px]="cropArea.x" [style.top.px]="cropArea.y"
+                    [style.width.px]="cropArea.width" [style.height.px]="cropArea.height"
+                    (mousedown)="startCropDrag($event)">
+
+                    <span class="bracket top-left"></span>
+                    <span class="bracket top-right"></span>
+                    <span class="bracket bottom-left"></span>
+                    <span class="bracket bottom-right" (mousedown)="startResize($event, 'bottom-right')">
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Docked context panel, right-hand side, alongside the image -->
+        <aside class="editor-context" *ngIf="activeTool">
+
+            <ng-container *ngIf="activeTool === 'crop'">
+
+                <div class="ctx-section">
+                    <span class="ctx-label ctx-label--cyan"><i class="pi pi-crop"></i>Crop</span>
+                    <p class="ctx-hint">Drag the corner handle over the image to resize the crop area.</p>
+                    <div class="ctx-actions">
+                        <button pButton label="Apply" icon="pi pi-check" class="btn-save" (click)="applyCrop()">
+                        </button>
+                        <button pButton label="Cancel" icon="pi pi-times" class="btn-ghost" (click)="cancelCrop()">
+                        </button>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="activeTool === 'brightness'">
+
+                <div class="ctx-section">
+                    <span class="ctx-label"><i class="pi pi-sun"></i>Brightness</span>
+                    <div class="slider-row">
+                        <p-slider class="slider-amber" [(ngModel)]="editorState.brightness" [min]="-100" [max]="100"
+                            (mousedown)="startSliderEdit()" (mouseup)="endSliderEdit()"
+                            (ngModelChange)="updateBrightness()">
+                        </p-slider>
+                        <span class="value-chip">{{ editorState.brightness > 0 ? '+' : '' }}{{
+                            editorState.brightness }}</span>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="activeTool === 'contrast'">
+
+                <div class="ctx-section">
+                    <span class="ctx-label"><i class="pi pi-circle-fill"></i>Contrast</span>
+                    <div class="slider-row">
+                        <p-slider class="slider-amber" [(ngModel)]="editorState.contrast" [min]="-100" [max]="100"
+                            (ngModelChange)="updateContrast()" (mousedown)="startSliderEdit()"
+                            (mouseup)="endSliderEdit()">
+                        </p-slider>
+                        <span class="value-chip">{{ editorState.contrast > 0 ? '+' : '' }}{{ editorState.contrast
+                            }}</span>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="activeTool === 'saturation'">
+
+                <div class="ctx-section">
+                    <span class="ctx-label"><i class="pi pi-palette"></i>Saturation</span>
+                    <div class="slider-row">
+                        <p-slider class="slider-amber" [(ngModel)]="editorState.saturation" [min]="-100" [max]="100"
+                            (ngModelChange)="updateSaturation()" (mousedown)="startSliderEdit()"
+                            (mouseup)="endSliderEdit()">
+                        </p-slider>
+                        <span class="value-chip">{{ editorState.saturation > 0 ? '+' : '' }}{{
+                            editorState.saturation }}</span>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="activeTool === 'filters'">
+
+                <div class="ctx-section">
+                    <span class="ctx-label"><i class="pi pi-images"></i>Filters</span>
+                    <div class="ctx-actions ctx-actions--stacked">
+                        <button pButton label="None" class="btn-seg" (click)="applyFilter('none')">
+                        </button>
+                        <button pButton label="Grayscale" class="btn-seg" (click)="applyFilter('grayscale')">
+                        </button>
+                        <button pButton label="Sepia" class="btn-seg" (click)="applyFilter('sepia')">
+                        </button>
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="activeTool === 'text'">
+
+                <div class="ctx-section">
+
+                    <span class="ctx-label"><i class="pi pi-pencil"></i>Add Text</span>
+
+                    <div class="ctx-text-input-group">
+                        <input pInputText [(ngModel)]="textInput" placeholder="Enter text">
+                        <button pButton label="Add" icon="pi pi-plus" class="btn-save btn-sm" (click)="addText()">
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="ctx-section ctx-section--divided" *ngIf="selectedText">
+
+                    <span class="ctx-label"><i class="pi pi-sliders-h"></i>Selected Text</span>
+
+                    <input pInputText class="ctx-field" [(ngModel)]="selectedText.text" (input)="refreshCanvas()">
+
+                    <div class="inspector-field">
+                        <label>Font size</label>
+                        <div class="slider-row">
+                            <p-slider class="slider-amber" [(ngModel)]="selectedText!.fontSize" [min]="10" [max]="100"
+                                (onSlideStart)="startSliderEdit()" (onSlideEnd)="endSliderEdit(); refreshCanvas()"
+                                (ngModelChange)="refreshCanvas()">
+                            </p-slider>
+                            <span class="value-chip">{{ selectedText!.fontSize }}px</span>
+                        </div>
+                    </div>
+
+                    <div class="inspector-field">
+                        <label>Color</label>
+                        <input class="color-swatch" type="color" [(ngModel)]="selectedText!.color"
+                            (mousedown)="startColorEdit()" (change)="endColorEdit()" (input)="refreshCanvas()">
+                    </div>
+
+                    <div class="inspector-field">
+                        <label>Font family</label>
+                        <p-select [options]="fontFamilies" [(ngModel)]="selectedText!.fontFamily"
+                            placeholder="Select Font" (onChange)="changeFontFamily()">
+                        </p-select>
+                    </div>
+
+                    <div class="inspector-actions">
+
+                        <p-button [label]="selectedText!.bold ? 'Unbold' : 'Bold'" [outlined]="!selectedText!.bold"
+                            icon="pi pi-bold" (onClick)="toggleBold()">
+                        </p-button>
+
+                        <p-button label="Delete Text" icon="pi pi-trash" severity="danger"
+                            (onClick)="deleteSelectedText()">
+                        </p-button>
+
+                    </div>
+
+                </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="activeTool === 'shapes' && selectedShapeId">
+
+                <div class="ctx-section">
+
+                    <span class="ctx-label">
+                        <i class="pi pi-stop"></i>
+                        Selected Shape
+                    </span>
+
+                    <div class="inspector-field">
+
+                        <label>Fill Color</label>
+
+                        <input class="color-swatch" type="color" [(ngModel)]="selectedShapeFillColor"
+                            (ngModelChange)="changeShapeFillColor($event)">
+
+                    </div>
+
+                    <div class="inspector-field">
+
+                        <label>Border Color</label>
+
+                        <input class="color-swatch" type="color" [(ngModel)]="selectedShapeStrokeColor"
+                            (ngModelChange)="changeShapeStrokeColor($event)">
+
+                    </div>
+
+                </div>
+
+            </ng-container>
+
+        </aside>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+
+        <div class="footer-bar">
+
+            <div class="footer-group footer-group--left">
+                <button pButton label="Reset" icon="pi pi-refresh" class="btn-ghost" (click)="resetEditor()">
+                </button>
+            </div>
+
+            <div class="footer-group footer-group--center">
+                <p-button icon="pi pi-undo" label="Undo" styleClass="btn-history" (onClick)="undo()">
+                </p-button>
+                <span class="footer-divider"></span>
+                <p-button icon="pi pi-redo" label="Redo" styleClass="btn-history" (onClick)="redo()">
+                </p-button>
+            </div>
+
+            <div class="footer-group footer-group--right">
+                <button pButton label="Cancel" class="btn-outline" (click)="close()">
+                </button>
+                <button pButton label="Save" icon="pi pi-check" class="btn-save" (click)="save()">
+                </button>
+            </div>
+
+        </div>
+
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog header="Save Image" [(visible)]="showSaveDialog" [modal]="true" [closable]="false" [draggable]="false"
+    [resizable]="false" [style]="{ width: '420px' }" styleClass="cv-save-dialog">
+
+    <p>
+        How would you like to save this edited image?
+    </p>
+
+    <div class="field-radiobutton">
+        <p-radioButton name="saveMode" value="COPY" [(ngModel)]="saveMode" inputId="copy">
+        </p-radioButton>
+
+        <label for="copy">
+            Save as a Copy
+        </label>
+    </div>
+
+    <div class="field-radiobutton">
+        <p-radioButton name="saveMode" value="REPLACE" [(ngModel)]="saveMode" inputId="replace">
+        </p-radioButton>
+
+        <label for="replace">
+            Replace Existing Image
+        </label>
+    </div>
+
+    <ng-template pTemplate="footer">
+
+        <button pButton label="Cancel" class="btn-outline" (click)="showSaveDialog = false">
+        </button>
+
+        <button pButton label="Continue" icon="pi pi-check" class="btn-save" (click)="confirmSave()">
+        </button>
+
+    </ng-template>
+
+</p-dialog>
