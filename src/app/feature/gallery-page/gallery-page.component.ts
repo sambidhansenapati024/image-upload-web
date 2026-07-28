@@ -17,11 +17,12 @@ import { InputIcon } from "primeng/inputicon";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GalleryToolbarComponent } from "../../shared/gallery-toolbar/gallery-toolbar.component";
+import { ImageEditorComponent } from '../../shared/image-editor/image-editor.component';
 
 
 @Component({
   selector: 'app-gallery-page',
-  imports: [CommonModule, ImageCardComponent, GalleriaModule, Button, InputTextModule, FormsModule, Select, Paginator, SkeletonModule, IconField, InputIcon, ConfirmDialogModule, GalleryToolbarComponent],
+  imports: [CommonModule, ImageCardComponent, GalleriaModule, Button, InputTextModule, FormsModule, Select, Paginator, SkeletonModule, IconField, InputIcon, ConfirmDialogModule, GalleryToolbarComponent, ImageEditorComponent],
   templateUrl: './gallery-page.component.html',
   styleUrl: './gallery-page.component.css'
 })
@@ -37,6 +38,9 @@ export class GalleryPageComponent implements OnInit {
   size = 2;
   loading = false;
   sortBy = 'uploadedAt';
+  showEditor = false;
+
+selectedImage!: ImageResponse;
   private searchSubject = new Subject<string>();
 
   direction = 'desc';
@@ -104,6 +108,22 @@ export class GalleryPageComponent implements OnInit {
     this.display = true;
 
   }
+
+  editImage(image: ImageResponse) {
+
+    this.selectedImage = image;
+
+    this.showEditor = true;
+
+}
+
+openEditor() {
+
+    this.selectedImage = this.images[this.activeIndex];
+
+    this.showEditor = true;
+
+}
 
   formatFileSize(bytes: number): string {
 

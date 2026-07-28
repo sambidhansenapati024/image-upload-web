@@ -111,14 +111,27 @@
 
                 <div class="preview-actions">
 
-                    <!-- <p-button icon="pi pi-download" label="Download" severity="success"
-                        (onClick)="downloadImage($event)">
-                    </p-button> -->
+    <p-button
+        icon="pi pi-pencil"
+        label="Edit"
+        (onClick)="openEditor()">
+    </p-button>
 
-                    <!-- <p-button icon="pi pi-trash" label="Delete" severity="danger" (onClick)="deleteCurrentImage()">
-                    </p-button> -->
+    <p-button
+        icon="pi pi-download"
+        label="Download"
+        severity="success"
+        (onClick)="downloadImage(images[activeIndex].key)">
+    </p-button>
 
-                </div>
+    <p-button
+        icon="pi pi-trash"
+        label="Delete"
+        severity="danger"
+        (onClick)="deleteImage(images[activeIndex].key)">
+    </p-button>
+
+</div>
 
             </div>
 
@@ -127,3 +140,9 @@
     </ng-template>
 
 </p-galleria>
+
+<app-image-editor
+    [(visible)]="showEditor"
+    [image]="selectedImage"
+    (saved)="loadImages()">
+</app-image-editor>

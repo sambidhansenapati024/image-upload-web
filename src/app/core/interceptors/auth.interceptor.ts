@@ -20,7 +20,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 const publicUrls = [
   '/auth/login',
-  '/auth/register'
+  '/auth/register',
+  '/image-upload/version'
 ];
 
 const isPublic = publicUrls.some(url => req.url.includes(url));

@@ -13,50 +13,50 @@ import { PageResponse } from '../shared/modal/page-response';
 export class ImageUploadServiceService {
   private readonly api = environment.apiUrl + '/image-upload';
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-upload(files: File[]): Observable<HttpEvent<any>> {
+  upload(files: File[]): Observable<HttpEvent<any>> {
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  files.forEach(file => {
+    files.forEach(file => {
 
-    formData.append('file', file);
+      formData.append('file', file);
 
-  });
+    });
 
-  return this.http.post<any>(
-    `${this.api}/upload`,
-    formData,
-    {
-      observe: 'events',
-      reportProgress: true
-    }
-  );
+    return this.http.post<any>(
+      `${this.api}/upload`,
+      formData,
+      {
+        observe: 'events',
+        reportProgress: true
+      }
+    );
 
-}
+  }
 
-getImages(
-  page: number,
-  size: number,
-  search: string,
-  sortBy: string,
-  direction: string
-): Observable<PageResponse<ImageResponse>> {
+  getImages(
+    page: number,
+    size: number,
+    search: string,
+    sortBy: string,
+    direction: string
+  ): Observable<PageResponse<ImageResponse>> {
 
-  const params = new HttpParams()
-    .set('page', page)
-    .set('size', size)
-    .set('search', search)
-    .set('sortBy', sortBy)
-    .set('direction', direction);
+    const params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
+      .set('search', search)
+      .set('sortBy', sortBy)
+      .set('direction', direction);
 
-  return this.http.get<PageResponse<ImageResponse>>(
-    this.api,
-    { params }
-  );
+    return this.http.get<PageResponse<ImageResponse>>(
+      this.api,
+      { params }
+    );
 
-}
+  }
 
   deleteImage(fileName: string): Observable<string> {
 
@@ -72,54 +72,92 @@ getImages(
   getDashboardStats() {
 
     return this.http.get<DashboardStats>(
-        this.api + "/stats"
+      this.api + "/stats"
     );
 
-}
+  }
 
-downloadImage(fileName: string) {
+  downloadImage(fileName: string) {
 
-  return this.http.get(
-    `${this.api}/${fileName}`,
-    {
-      responseType: 'blob'
-    }
-  );
-
-}
-
-getDeletedImages(
-  page: number,
-  size: number,
-  search: string,
-  sortBy: string,
-  direction: string
-) {
-  return this.http.get<any>(
-    `${this.api}/recycle-bin`,
-    {
-      params: {
-        page,
-        size,
-        search,
-        sortBy,
-        direction
+    return this.http.get(
+      `${this.api}/${fileName}`,
+      {
+        responseType: 'blob'
       }
-    }
+    );
+
+  }
+
+  getDeletedImages(
+    page: number,
+    size: number,
+    search: string,
+    sortBy: string,
+    direction: string
+  ) {
+    return this.http.get<any>(
+      `${this.api}/recycle-bin`,
+      {
+        params: {
+          page,
+          size,
+          search,
+          sortBy,
+          direction
+        }
+      }
+    );
+  }
+
+  restoreImage(id: number) {
+    return this.http.put(
+      `${this.api}/restore/${id}`,
+      {}
+    );
+  }
+
+  permanentlyDelete(id: number) {
+    return this.http.delete(
+      `${this.api}/permanent/${id}`
+    );
+  }
+
+  saveEditedImage(
+    imageId: number,
+    image: Blob
+  ): Observable<ImageResponse> {
+
+    const formData = new FormData();
+
+    formData.append(
+      'file',
+      image,
+      'edited-image.png'
+    );
+
+    return this.http.post<ImageResponse>(
+      `${this.api}/edit/${imageId}`,
+      formData
+    );
+
+  }
+
+  replaceImage(imageId: number, formData: FormData) {
+
+  return this.http.put<ImageResponse>(
+    `${this.api}/replace/${imageId}`,
+    formData
   );
+
 }
 
-restoreImage(id: number) {
-  return this.http.put(
-    `${this.api}/restore/${id}`,
-    {}
-  );
-}
+copyImage(imageId: number, formData: FormData) {
 
-permanentlyDelete(id: number) {
-  return this.http.delete(
-    `${this.api}/permanent/${id}`
+  return this.http.post<ImageResponse>(
+    `${this.api}/copy/${imageId}`,
+    formData
   );
+
 }
 
 }
