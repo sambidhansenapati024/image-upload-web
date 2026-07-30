@@ -11,6 +11,7 @@ import { CurrentUserService } from '../../service/current-user.service';
 import { ChangePasswordRequest } from '../../shared/modal/change-password-request';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { resetRedirectFlag } from '../interceptors/auth.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -60,9 +61,12 @@ export class AuthService {
 logout(showMessage: boolean = true): void {
 
   this.tokenService.clearToken();
-   this.currentUserService.clearCurrentUser();
+  this.currentUserService.clearCurrentUser();
 
-  this.router.navigate(['/login']);
+  this.router.navigate(['/login']).then(() => {
+    resetRedirectFlag();
+  });
+
 
 }
 
