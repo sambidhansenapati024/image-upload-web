@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     this.currentUserService.loadCurrentUser();
   }
   
-    this.versionService.startVersionCheck();
+    //this.versionService.startVersionCheck();
 
     this.versionService.showToast.subscribe(v => {
 
