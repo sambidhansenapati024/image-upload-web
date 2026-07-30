@@ -1,60 +1,63 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 
 import { TokenService } from '../services/token.service';
-import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
-import { MessageService } from 'primeng/api';
 import { AuthService } from '../services/auth.service';
+
+let isRedirecting = false;
+
+export function resetRedirectFlag() {
+  isRedirecting = false;
+}
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-  let isRedirecting = false;
-
   const tokenService = inject(TokenService);
-  const router = inject(Router);
-  const messageService = inject(MessageService);
   const authService = inject(AuthService);
 
   const token = tokenService.getToken();
 
-const publicUrls = [
-  '/auth/login',
-  '/auth/register',
-  '/image-upload/version'
-];
+  const publicUrls = [
+    '/auth/login',
+    '/auth/register',
+    '/image-upload/version'
+  ];
 
-const isPublic = publicUrls.some(url => req.url.includes(url));
+  const isPublic = publicUrls.some(url => req.url.includes(url));
 
-if (isPublic || !token) {
-  return next(req);
-}
+  let request = req;
 
-  // Add Authorization header
-  const authRequest = req.clone({
+  // Add Authorization header only for protected APIs
+  if (!isPublic && token) {
+    request = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 
-    setHeaders: {
-      Authorization: `Bearer ${token}`
-    }
+  return next(request).pipe(
 
-  });
+    catchError((error) => {
 
-  return next(authRequest).pipe(
+      if (
+        (error.status === 401 || error.status === 403 || error.status === 0)
+        && !isRedirecting
+      ) {
 
-  catchError((error) => {
+        console.log("Calling logout()");
 
-if (error.status === 401 && !isRedirecting) {
+        isRedirecting = true;
 
-  isRedirecting = true;
+        authService.logout(false);
 
-  authService.logout();
+      }
 
-}
+      return throwError(() => error);
 
-    return throwError(() => error);
+    })
 
-  })
-
-);
+  );
 
 };
