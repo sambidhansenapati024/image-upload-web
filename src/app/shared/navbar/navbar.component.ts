@@ -10,11 +10,12 @@ import { Profile } from '../modal/profile';
 import { CurrentUserService } from '../../service/current-user.service';
 import { VersionServiceService } from '../../service/version-service.service';
 import { Popover, PopoverModule } from 'primeng/popover';
+import { NotificationBellComponent } from "../notification-bell/notification-bell.component";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CardModule, TagModule, ConfirmDialogModule, Button, PopoverModule],
+  imports: [CardModule, TagModule, ConfirmDialogModule, Button, PopoverModule, NotificationBellComponent],
 
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'

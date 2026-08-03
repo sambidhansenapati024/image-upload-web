@@ -1,0 +1,149 @@
+<div class="notification-trigger" (click)="notificationPopover.toggle($event)">
+
+    <i class="pi pi-bell"></i>
+
+    @if (notificationService.getUnreadCount() > 0) {
+
+    <p-badge styleClass="notification-badge" [value]="notificationService.getUnreadCount()" severity="danger">
+    </p-badge>
+
+    }
+
+</div>
+
+<p-popover #notificationPopover styleClass="notification-popover">
+
+    <div class="notification-panel">
+
+        <div class="notification-header">
+
+            <div class="header-title">
+
+                <i class="pi pi-bell"></i>
+
+                <span>Notifications</span>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button pButton text rounded icon="pi pi-check" pTooltip="Mark all as read" (click)="markAllAsRead()">
+                </button>
+
+                <button pButton text rounded severity="danger" icon="pi pi-trash" pTooltip="Clear all"
+                    (click)="clearAll()">
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="notification-tabs">
+
+            <button [class.active]="activeTab === 'ALL'" (click)="activeTab = 'ALL'">
+
+                All ({{ notificationService.getNotifications().length }})
+
+            </button>
+
+            <button [class.active]="activeTab === 'UNREAD'" (click)="activeTab = 'UNREAD'">
+
+                Unread ({{ notificationService.getUnreadCount() }})
+
+            </button>
+
+            <button [class.active]="activeTab === 'READ'" (click)="activeTab = 'READ'">
+
+                Read ({{ notificationService.getNotifications().length - notificationService.getUnreadCount() }})
+
+            </button>
+
+        </div>
+
+        <div class="notification-list">
+
+           @for (notification of filteredNotifications; track notification.id) {
+
+            <div class="notification-card" [class.notification-card--unread]="!notification.read"
+                (click)="openNotification(notification)">
+
+                <button pButton text rounded severity="danger" icon="pi pi-times" class="delete-btn"
+                    pTooltip="Clear notification" (click)="removeNotification(notification.id, $event)">
+                </button>
+
+                <!-- Icon -->
+
+                <div class="notification-icon">
+                
+                    <i [class]="getNotificationIcon(notification.actionType)">
+                    </i>
+                
+                </div>
+
+                <!-- Content -->
+
+                <div class="notification-content">
+
+                    <div class="notification-top">
+
+                        <span class="notification-title">
+
+                              {{ getNotificationTitle(notification.actionType) }}
+
+                            @if (!notification.read) {
+                            <span class="unread-dot" aria-hidden="true"></span>
+                            }
+
+                        </span>
+
+                        <small class="notification-time">
+
+                           {{ getRelativeTime(notification.createdAt) }}
+
+                        </small>
+
+                    </div>
+
+                    <p class="notification-message">
+
+                        {{ notification.message }}
+
+                    </p>
+
+                    <!-- @if (notification.actionText) {
+
+                    <a [routerLink]="notification.actionUrl" class="notification-action">
+
+                        {{ notification.actionText }}
+
+                        <i class="pi pi-arrow-right"></i>
+
+                    </a>
+
+                    } -->
+
+                </div>
+
+            </div>
+
+            } @empty {
+
+            <div class="notification-empty">
+                <i class="pi pi-bell"></i>
+                <span>You're all caught up</span>
+            </div>
+
+            }
+
+        </div>
+
+        <div class="notification-footer">
+
+            View All Notifications
+            <i class="pi pi-arrow-right"></i>
+
+        </div>
+
+    </div>
+
+</p-popover>
