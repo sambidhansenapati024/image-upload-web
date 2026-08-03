@@ -5,42 +5,53 @@
         <!-- Right Section -->
         <div class="right">
 
-            <p-tag severity="success" value="Connected">
-            </p-tag>
+    <p-tag
+        severity="success"
+        value="Connected">
+    </p-tag>
 
-            <p-tag severity="info" [value]="versionService.frontendInfo?.displayVersion">
-            </p-tag>
+    <p-tag
+        severity="info"
+        [value]="versionService.frontendInfo?.displayVersion">
+    </p-tag>
 
-            <div class="user" (click)="userPopover.toggle($event)">
+    <!-- Notification Bell -->
+    <app-notification-bell></app-notification-bell>
 
-                <div class="avatar">
+    <!-- User -->
+    <div
+        class="user"
+        (click)="userPopover.toggle($event)">
 
-                    @if(user?.profileImageUrl){
+        <div class="avatar">
 
-                    <img [src]="user?.profileImageUrl" [alt]="user?.fullName">
+            @if(user?.profileImageUrl){
 
-                    } @else {
+                <img
+                    [src]="user?.profileImageUrl"
+                    [alt]="user?.fullName">
 
-                    {{ user?.fullName?.charAt(0) }}
+            } @else {
 
-                    }
+                {{ user?.fullName?.charAt(0) }}
 
-                </div>
-
-                <div>
-
-                    <h4>
-                        <h4>{{ user?.fullName }}</h4>
-                    </h4>
-
-                    <small><small>{{ user?.email }}</small></small>
-                    <i class="pi pi-angle-down"></i>
-
-                </div>
-
-            </div>
+            }
 
         </div>
+
+        <div>
+
+            <h4>{{ user?.fullName }}</h4>
+
+            <small>{{ user?.email }}</small>
+
+            <i class="pi pi-angle-down"></i>
+
+        </div>
+
+    </div>
+
+</div>
 
     </div>
 

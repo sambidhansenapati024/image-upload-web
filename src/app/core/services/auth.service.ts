@@ -12,6 +12,8 @@ import { ChangePasswordRequest } from '../../shared/modal/change-password-reques
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { resetRedirectFlag } from '../interceptors/auth.interceptor';
+import { NotificationWebsocketService } from '../../service/notification-websocket.service';
+import { NotificationService } from '../../service/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,10 @@ export class AuthService {
     private tokenService: TokenService,
    private currentUserService: CurrentUserService,
    private router: Router,
-  private messageService: MessageService) { }
+  private messageService: MessageService,
+private notificationWebSocketService : NotificationWebsocketService,
+ private notificationService: NotificationService,
+) { }
 
      register(request: RegisterRequest): Observable<RegisterResponse> {
 
@@ -49,6 +54,8 @@ export class AuthService {
     this.tokenService.saveToken(response.token);
 
     this.currentUserService.loadCurrentUser();
+    this.notificationService.loadNotifications();
+    this.notificationWebSocketService.connect();
 
   }
 
@@ -60,6 +67,7 @@ export class AuthService {
 
 logout(showMessage: boolean = true): void {
 
+  this.notificationWebSocketService.disconnect();
   this.tokenService.clearToken();
   this.currentUserService.clearCurrentUser();
 
