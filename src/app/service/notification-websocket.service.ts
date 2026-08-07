@@ -37,18 +37,18 @@ export class NotificationWebsocketService {
 
       reconnectDelay: 5000,
 
-      debug: (message) => console.log(message)
+      //debug: (message) => console.log(message)
 
     });
 
     this.client.onConnect = () => {
 
-      //console.log('WebSocket Connected');
+      ////console.log('WebSocket Connected');
 
       this.client.subscribe(
         '/user/queue/notifications',
         (message: IMessage) => {
-          //console.log('📩 WebSocket message received:', message.body);
+          ////console.log('📩 WebSocket message received:', message.body);
 
           this.notificationSubject.next(
             JSON.parse(message.body)
