@@ -16,6 +16,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { LoginRequest } from '../../../shared/modal/login-request';
+import { LoadingOverlayComponent } from "../../../shared/loading-overlay/loading-overlay.component";
 
 @Component({
   selector: 'app-login',
@@ -29,8 +30,9 @@ import { LoginRequest } from '../../../shared/modal/login-request';
     CardModule,
     FloatLabelModule,
     RouterModule,
-    RouterLink
-  ],
+    RouterLink,
+    LoadingOverlayComponent
+],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -77,7 +79,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
 
         next: (response) => {
-
+          setTimeout(() => {
           this.loading = false;
 
           if (response.success) {
@@ -85,6 +87,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.errorMessage = response.message;
           }
+          }, 1500);
 
         },
 

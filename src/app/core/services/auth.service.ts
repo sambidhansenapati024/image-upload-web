@@ -14,6 +14,9 @@ import { MessageService } from 'primeng/api';
 import { resetRedirectFlag } from '../interceptors/auth.interceptor';
 import { NotificationWebsocketService } from '../../service/notification-websocket.service';
 import { NotificationService } from '../../service/notification.service';
+import { OtpResponse } from '../../shared/modal/OtpResponse';
+import { CompleteRegistrationRequest } from '../../shared/modal/complete-registration-request';
+import { ResendOtpRequest } from '../../shared/modal/resend-otp-request';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +24,7 @@ import { NotificationService } from '../../service/notification.service';
 export class AuthService {
 
  private readonly AUTH_API = `${environment.apiUrl}/auth`;
+ private readonly OTP_API = `${environment.apiUrl}/otp`;
 
   constructor( private http: HttpClient,
     private tokenService: TokenService,
@@ -121,5 +125,32 @@ resetPassword(token: string, password: string) {
       responseType: 'text'
     }
   );
+}
+
+ sendOtp(request: RegisterRequest): Observable<OtpResponse> {
+
+  return this.http.post<OtpResponse>(
+    `${this.OTP_API}/send-otp`,
+    request
+  );
+
+}
+
+registerComplete(request: CompleteRegistrationRequest): Observable<RegisterResponse> {
+
+  return this.http.post<RegisterResponse>(
+    `${this.AUTH_API}/register`,
+    request
+  );
+
+}
+
+resendOtp(request: ResendOtpRequest): Observable<OtpResponse> {
+
+    return this.http.post<OtpResponse>(
+        `${this.OTP_API}/resend-otp`,
+        request
+    );
+
 }
 }

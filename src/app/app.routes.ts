@@ -17,6 +17,7 @@ import { HelpCardComponent } from './feature/help-center/help-card/help-card.com
 import { HelpCenterPageComponent } from './feature/help-center/help-center-page/help-center-page.component';
 import { ForgotPasswordComponent } from './feature/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './feature/auth/reset-password/reset-password.component';
+import { OtpVerificationComponent } from './shared/otp-verification/otp-verification.component';
 
 export const routes: Routes = [
 
@@ -51,6 +52,11 @@ export const routes: Routes = [
             {
                 path: 'reset-password',
                 component: ResetPasswordComponent,
+                canActivate: [guestGuard]
+            },
+             {
+                path: 'send-otp',
+                component: OtpVerificationComponent,
                 canActivate: [guestGuard]
             }
 

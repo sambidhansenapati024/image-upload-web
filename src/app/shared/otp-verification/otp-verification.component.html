@@ -1,0 +1,132 @@
+<div class="otp-overlay" [class.reveal-app]="phase === 'REVEAL' || phase === 'SUCCESS' || phase === 'EXIT'">
+
+  @if (showCard) {
+  <div class="otp-content" [class.absorb]="phase === 'ABSORB'">
+    <div class="otp-card">
+
+      <!-- Header -->
+      <div class="otp-header" [class.fade-away]="phase === 'MORPH' || phase === 'ABSORB'">
+        <div class="otp-icon-wrap">
+          <i class="pi pi-shield"></i>
+        </div>
+        <h1>{{ title }}</h1>
+        <p class="subtitle">{{ subtitle }}</p>
+        <p class="email">{{ email }}</p>
+      </div>
+
+      <!-- INPUT / SQUARE / SCAN / PULL / MORPH states -->
+      <div class="otp-inputs-wrapper">
+
+        <div class="otp-container" [class.square-mode-container]="isSquareMode"  [class.error]="isError">
+
+          @if (showScanner) {
+          <div class="scanner">
+
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
+
+            <!-- Wide/short bar, sweeps BOTTOM -> TOP -->
+            <div class="scan-beam horizontal" [class.start-horizontal]="phase === 'SCAN'"></div>
+
+            <!-- Tall/thin bar, sweeps LEFT -> RIGHT (runs at the same time) -->
+            <div class="scan-beam vertical" [class.start-vertical]="phase === 'SCAN'"></div>
+
+            <div class="energy-core" [class.show-energy]="phase === 'PULL'">
+              <div class="energy-halo" [class.show-halo]="phase === 'PULL'"></div>
+            </div>
+            <div class="energy-ripple" [class.expand-ripple]="phase === 'PULL'"></div>
+
+          </div>
+          }
+
+          @for (digit of otp; track $index) {
+          <div class="otp-node" [style.left.px]="nodes[$index].x" [style.top.px]="nodes[$index].y"
+               [style.opacity]="nodeOpacity[$index]" [style.scale]="nodeScale[$index]"
+               [class.node0]="$index === 0" [class.node1]="$index === 1"
+               [class.node2]="$index === 2" [class.node3]="$index === 3">
+            <input #otpInput class="otp-box"
+                    [class.error-box]="isError"
+                   [class.scanning]="scannedIndex === $index"
+                   [class.active]="focusedIndex === $index"
+                   [class.filled]="otp[$index] !== ''"
+                   [class.square-mode]="isSquareMode"
+                   type="text" maxlength="1" inputmode="numeric"
+                   [value]="otp[$index]"
+                   (focus)="focusedIndex = $index"
+                   (input)="onInput($event, $index)"
+                   (keydown)="onKeyDown($event, $index)"
+                   (paste)="onPaste($event)" />
+          </div>
+          }
+
+        </div>
+        @if(errorMessage){
+
+<div class="otp-error">
+
+    <i class="pi pi-times-circle"></i>
+
+    {{ errorMessage }}
+
+</div>
+
+}
+
+      </div>
+
+      <!-- Resend (only while the user is still entering the code) -->
+      @if (phase === 'INPUT') {
+   <div class="resend">
+
+    Didn't receive the code?
+
+    @if (canResend) {
+
+        <span
+            class="resend-link"
+            (click)="resendOtp()">
+
+            Resend OTP
+
+        </span>
+
+    } @else {
+
+        <span class="countdown">
+
+            Resend in {{ countdown }}s
+
+        </span>
+
+    }
+
+</div>
+      }
+
+      <button
+    type="button"
+    class="cancel-btn"
+    (click)="cancelVerification()">
+
+    Cancel
+
+</button>
+
+    </div>
+  </div>
+  }
+
+  @if (showMorphShield) {
+<div class="morph-shield show-shield"
+     [class.grow-shield]="phase === 'GROW' || phase === 'REVEAL' || phase === 'SUCCESS'">
+
+    <div class="screen-light"
+         [class.expand-light]="phase === 'GROW' || phase === 'REVEAL' || phase === 'SUCCESS'"></div>
+    <div class="shield-ring"></div>
+    <i class="pi pi-shield"></i>
+  </div>
+  }
+
+</div>

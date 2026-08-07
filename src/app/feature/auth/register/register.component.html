@@ -229,3 +229,22 @@
     </div>
 
 </div>
+@if (showOtpVerification) {
+
+<app-otp-verification
+
+    #otpModal
+
+    [email]="pendingRegisterRequest.email"
+
+    title="Verify your Email"
+
+    subtitle="We've sent a verification code to"
+
+    (verified)="onOtpVerified($event)"
+    (resendRequested)="onResendOtp()"
+    (cancel)="onOtpCancelled()">
+
+</app-otp-verification>
+
+}
