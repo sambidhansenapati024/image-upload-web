@@ -1,21 +1,35 @@
 .layout {
     display: flex;
-    min-height: 100vh;
+    height: 100vh; /* fixed viewport height, not min-height */
     background: #0F172A;
+    overflow: hidden; /* prevent the whole page from scrolling */
 }
 
 .main-content {
     flex: 1;
-    margin-left: 260px; /* Match the sidebar width */
+    margin-left: 260px;
+    height: 100vh; /* match layout height */
     display: flex;
     flex-direction: column;
     padding: 20px;
-    gap: 20px;
+    gap: 15px;
     background: #0F172A;
+    transition: margin-left .28s ease;
+    box-sizing: border-box;
+    overflow: hidden; /* main-content itself doesn't scroll */
+}
+
+.main-content.collapsed{
+
+    margin-left:72px;
+
 }
 
 .page-content {
     flex: 1;
     padding: 0;
+     min-height: 0;
     background: #0F172A;
+    overflow-y: auto;   /* only this area scrolls */
+    overflow-x: hidden;
 }

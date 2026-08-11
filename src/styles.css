@@ -33,3 +33,31 @@ button {
 .p-component {
     font-family: "Inter", sans-serif;
 }
+
+/* Themed scrollbar - Webkit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px;   /* wider overall track to make room for the gap */
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0F172A; /* matches your app background */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #334155; /* matches your border color used throughout */
+    border-radius: 10px;
+    border: 3px solid #0F172A;  /* creates the gap - must match track background */
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #475569;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #0F172A;
+}

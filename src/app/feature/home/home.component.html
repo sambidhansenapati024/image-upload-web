@@ -24,7 +24,7 @@
             </div>
 
             <div>
-                <h2>{{ stats.totalImages ?? 0 }}</h2>
+                <h2>{{ stats?.totalImages ?? 0 }}</h2>
                 <span>Total Images</span>
             </div>
 
@@ -40,7 +40,7 @@
 
                 <span>Storage Used</span>
 
-                <h2>{{ formatStorage(stats.totalStorage ?? 0) }}</h2>
+                <h2>{{ formatStorage(stats?.totalStorage ?? 0) }}</h2>
 
             </div>
 
@@ -80,17 +80,18 @@
 
     </div>
 
-    <div class="dashboard-content">
+    <!-- Quick Actions -->
+    <div class="quick-actions-panel">
 
-        <div class="quick-actions-panel">
+        <h2>Quick Actions</h2>
 
-            <h2>Quick Actions</h2>
+        <div class="action-grid">
 
             <div class="action-item" routerLink="/upload">
 
                 <div class="action-left">
 
-                    <div class="action-icon">
+                    <div class="action-icon icon-blue">
                         <i class="pi pi-upload"></i>
                     </div>
 
@@ -112,7 +113,7 @@
 
                 <div class="action-left">
 
-                    <div class="action-icon">
+                    <div class="action-icon icon-blue">
                         <i class="pi pi-images"></i>
                     </div>
 
@@ -134,7 +135,7 @@
 
                 <div class="action-left">
 
-                    <div class="action-icon">
+                    <div class="action-icon icon-blue">
                         <i class="pi pi-trash"></i>
                     </div>
 
@@ -152,100 +153,170 @@
 
             </div>
 
-        </div>
+            <div class="action-item" routerLink="/pdf-maker">
 
-        <div class="recent-uploads-panel">
+                <div class="action-left">
 
-            <div class="panel-header">
-
-                <h2>Recent Uploads</h2>
-
-               <a routerLink="/gallery">View All</a>
-
-            </div>
-            <div class="upload-list">
-
-                @for (image of recentUploads; track image.id) {
-
-                <div class="upload-item">
-
-                    <div class="upload-thumbnail">
-                        <img [src]="image.imageUrl" [alt]="image.originalFileName">
+                    <div class="action-icon icon-red">
+                        <i class="pi pi-file-pdf"></i>
                     </div>
 
-                    <div class="upload-info">
+                    <div>
 
-                        <h4>{{ image.originalFileName }}</h4>
+                        <h4>PDF Maker</h4>
 
-                        <div class="upload-meta">
-
-                            <span>{{ formatStorage(image.fileSize) }}</span>
-                            <span>•</span>
-                            <span>{{ getTimeAgo(image.uploadedAt) }}</span>
-
-                            
-
-                        </div>
+                        <small>Convert images into a PDF</small>
 
                     </div>
-
-                   <i class="pi pi-ellipsis-v upload-menu"></i>
 
                 </div>
 
-                }
+                <i class="pi pi-angle-right action-arrow"></i>
 
             </div>
 
+            <div class="action-item" routerLink="/image-editor">
+
+                <div class="action-left">
+
+                    <div class="action-icon icon-purple">
+                        <i class="pi pi-sliders-h"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Image Editor</h4>
+
+                        <small>Crop, resize & adjust images</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
+
+            <div class="action-item" routerLink="/format-converter">
+
+                <div class="action-left">
+
+                    <div class="action-icon icon-green">
+                        <i class="pi pi-sync"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Format Converter</h4>
+
+                        <small>PNG ⇄ JPEG & more formats</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
+
+            <div class="action-item" routerLink="/collage">
+
+                <div class="action-left">
+
+                    <div class="action-icon icon-orange">
+                        <i class="pi pi-th-large"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Collage Maker</h4>
+
+                        <small>Combine images into one layout</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
+
+            <div class="action-item" routerLink="/readme-generator">
+
+                <div class="action-left">
+
+                    <div class="action-icon icon-slate">
+                        <i class="pi pi-book"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>Git README Template</h4>
+
+                        <small>Generate a project README</small>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-angle-right action-arrow"></i>
+
+            </div>
 
         </div>
 
     </div>
 
-    <div class="storage-overview-card">
+    <!-- Recent Uploads -->
+    <div class="recent-uploads-panel">
 
-        <h2>Storage Overview</h2>
+        <div class="panel-header">
 
-        <div class="storage-progress">
+            <h2>Recent Uploads</h2>
 
-            <div class="storage-progress-fill" [style.width.%]="getStorageUsagePercentage()">
-            </div>
-
-        </div>
-
-        <div class="storage-text">
-            {{ storageUsed }}
-            of
-            {{ formatStorage(MAX_STORAGE) }}
-            Used
+            <a routerLink="/gallery">View All</a>
 
         </div>
 
-        <div class="storage-stats">
+        <div class="upload-list">
 
-            <div class="storage-stat">
+            @for (image of recentUploads; track image.id) {
 
-                <span>Remaining</span>
+            <div class="upload-item">
 
-                <h3>{{ remainingStorage }}</h3>
+                <div class="upload-thumbnail">
+                    <img [src]="image.imageUrl" [alt]="image.originalFileName">
+                </div>
+
+                <div class="upload-info">
+
+                    <h4>{{ image.originalFileName }}</h4>
+
+                    <div class="upload-meta">
+
+                        <span>{{ formatStorage(image.fileSize) }}</span>
+                        <span>•</span>
+                        <span>{{ getTimeAgo(image.uploadedAt) }}</span>
+
+                    </div>
+
+                </div>
+
+                <i class="pi pi-ellipsis-v upload-menu"></i>
 
             </div>
 
-            <div class="storage-stat">
+            } @empty {
 
-                <span>Images</span>
+            <div class="empty-state">
 
-                <h2>{{ stats.totalImages ?? 0 }}</h2>
+                <i class="pi pi-images"></i>
 
-            </div>
-
-            <div class="storage-stat">
-
-                <span>Usage</span>
-
-                <h3>{{ usagePercentage | number:'1.0-1' }}%</h3>
+                <p>No uploads yet</p>
 
             </div>
+
+            }
 
         </div>
 

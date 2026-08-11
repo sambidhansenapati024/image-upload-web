@@ -1,5 +1,11 @@
 :host {
     display: block;
+    flex-shrink: 0;
+}
+
+::ng-deep .navbar-card,
+::ng-deep p-card {
+    margin: 0 !important;
 }
 
 ::ng-deep .navbar-card {
@@ -191,6 +197,7 @@
 ::ng-deep .p-popover:before{
 
     border-bottom-color: #334155 !important;
+    display: none;
 
 }
 
