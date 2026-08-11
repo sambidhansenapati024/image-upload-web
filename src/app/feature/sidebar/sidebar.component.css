@@ -215,24 +215,24 @@
 
 }
 
-.menu-parent{
+.menu-parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    display:flex;
+    padding: 14px 18px;
 
-    align-items:center;
+    border-radius: 14px;
 
-    justify-content:space-between;
+    cursor: pointer;
 
-    padding:14px 18px;
+    color: #CBD5E1;
 
-    border-radius:14px;
+    transition: .25s;
 
-    cursor:pointer;
+    width: 100%;
 
-    color:#CBD5E1;
-
-    transition:.25s;
-
+    box-sizing: border-box;
 }
 
 .menu-parent:hover{
@@ -243,14 +243,60 @@
 
 }
 
-.menu-left{
+.menu-left {
+    display: flex;
 
-    display:flex;
+    align-items: center;
 
-    align-items:center;
+    gap: 14px;
 
-    gap:14px;
+    flex: 1;
+}
 
+.menu-parent .menu-left i {
+    font-size: 18px;
+
+    flex-shrink: 0;
+
+    width: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-left: 15px;
+}
+
+.menu-parent > .pi {
+    width: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.sidebar.collapsed .menu-parent {
+    width: 44px;
+
+    height: 44px;
+
+    padding: 0;
+
+    margin: 0 auto;
+
+    justify-content: center;
+}
+
+.sidebar.collapsed .menu-parent .menu-left {
+    justify-content: center;
+
+    flex: none;
+}
+
+.sidebar.collapsed .menu-parent .menu-left i {
+    margin-left: 0;
 }
 
 .submenu{

@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     this.notificationWebSocketService.connect();
   }
   
-    //this.versionService.startVersionCheck();
+    this.versionService.startVersionCheck();
 
     this.versionService.showToast.subscribe(v => {
 
