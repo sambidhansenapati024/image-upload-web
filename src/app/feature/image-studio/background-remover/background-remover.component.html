@@ -1,5 +1,78 @@
 <div class="background-remover-page">
 
+       @if (modelLoading) {
+
+        <div class="ai-loading-screen">
+
+            <div class="ai-loading-content">
+
+                <div class="ai-icon">
+                    ✨
+                </div>
+
+                <h2>
+                    Preparing AI
+                </h2>
+
+                <p>
+                    Setting up background removal...
+                </p>
+
+                <div class="ai-loader">
+
+                    <div class="ai-loader-bar"></div>
+
+                </div>
+
+                <small>
+                    The first setup may take a moment.
+                </small>
+
+            </div>
+
+        </div>
+
+    }
+
+
+    <!-- ================= MODEL ERROR ================= -->
+
+    @else if (modelError) {
+
+        <div class="ai-loading-screen">
+
+            <div class="ai-loading-content">
+
+                <div class="ai-error-icon">
+                    !
+                </div>
+
+                <h2>
+                    AI Setup Failed
+                </h2>
+
+                <p>
+                    We couldn't prepare the background
+                    removal AI.
+                </p>
+
+                <button
+                    type="button"
+                    class="retry-button"
+                    (click)="retryModelLoading()"
+                >
+
+                    Try Again
+
+                </button>
+
+            </div>
+
+        </div>
+
+    }
+  @else {
+
     <div class="background-workspace">
 
 
@@ -313,5 +386,7 @@
         }
 
     </div>
+
+}
 
 </div>
