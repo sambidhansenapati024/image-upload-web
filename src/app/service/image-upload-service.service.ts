@@ -12,6 +12,7 @@ import { PageResponse } from '../shared/modal/page-response';
 })
 export class ImageUploadServiceService {
   private readonly api = environment.apiUrl + '/image-upload';
+  private readonly image_studio_api = environment.apiUrl + '/collage';
 
   constructor(private http: HttpClient) { }
 
@@ -159,5 +160,30 @@ copyImage(imageId: number, formData: FormData) {
   );
 
 }
+
+   uploadCollage(file: File) {
+
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    return this.http.post(
+      `${this.image_studio_api}/upload`,
+      formData
+    );
+  }
+
+  uploadCompress(file: File) {
+
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    return this.http.post(
+      `${this.image_studio_api}/upload`,
+      formData
+    );
+  }
+  
 
 }

@@ -18,6 +18,9 @@ import { HelpCenterPageComponent } from './feature/help-center/help-center-page/
 import { ForgotPasswordComponent } from './feature/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './feature/auth/reset-password/reset-password.component';
 import { OtpVerificationComponent } from './shared/otp-verification/otp-verification.component';
+import { CollageComponent } from './feature/image-studio/collage/collage.component';
+import { CompressComponent } from './feature/image-studio/compress/compress.component';
+import { BackgroundRemoverComponent } from './feature/image-studio/background-remover/background-remover.component';
 
 export const routes: Routes = [
 
@@ -96,6 +99,18 @@ export const routes: Routes = [
             {
                 path: 'security',
                 component: SecurityPageComponent
+            },
+            {
+                path: 'collage',
+                component: CollageComponent
+            },
+            {
+                path: 'compress',
+                component: CompressComponent
+            },
+            {
+                path: 'background-remover',
+                component: BackgroundRemoverComponent
             },
             {
                 path: 'help',

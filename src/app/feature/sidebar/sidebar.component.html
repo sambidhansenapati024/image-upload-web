@@ -1,18 +1,32 @@
-<div class="sidebar">
+<div class="sidebar" [class.collapsed]="collapsed">
 
-    <!-- Logo -->
-    <div class="logo">
+<div class="logo">
+
+    <div class="logo-left">
 
         <div class="logo-icon">
+
             ☁️
+
         </div>
 
-        <div>
+        <div
+            class="logo-text"
+            [class.hide]="collapsed">
+
             <h2>CloudVault</h2>
+
             <p>Secure Cloud Storage</p>
+
         </div>
 
     </div>
+
+</div>
+
+     <button class="collapse-btn" (click)="toggleSidebar()">
+        <i class="pi" [ngClass]="collapsed ? 'pi-angle-right' : 'pi-angle-left'"></i>
+    </button>
 
     <!-- Navigation -->
     <nav class="menu">
@@ -22,7 +36,7 @@
 
             <i class="pi pi-home"></i>
 
-            <span>Dashboard</span>
+            <span  [class.hide]="collapsed">Dashboard</span>
 
         </a>
 
@@ -31,7 +45,7 @@
 
             <i class="pi pi-upload"></i>
 
-            <span>Upload</span>
+            <span  [class.hide]="collapsed">Upload</span>
 
         </a>
 
@@ -40,16 +54,83 @@
 
             <i class="pi pi-images"></i>
 
-            <span>Gallery</span>
+            <span  [class.hide]="collapsed">Gallery</span>
 
         </a>
+        <!-- Image Studio -->
+
+<div class="menu-group">
+
+    <div
+        class="menu-parent"
+        (click)="toggleImageStudio()">
+
+        <div class="menu-left">
+
+            <i class="pi pi-images"></i>
+
+            @if(!collapsed){
+
+                <span>Image Studio</span>
+
+            }
+
+        </div>
+
+        @if(!collapsed){
+
+            <i
+                class="pi"
+                [ngClass]="imageStudioExpanded ? 'pi-chevron-down' : 'pi-chevron-right'">
+            </i>
+
+        }
+
+    </div>
+
+    @if(imageStudioExpanded && !collapsed){
+
+        <div class="submenu">
+
+            <a routerLink="/collage"
+               routerLinkActive="active">
+
+                <i class="pi pi-th-large"></i>
+
+                <span>Collage Maker</span>
+
+            </a>
+
+            <a routerLink="/compress"
+               routerLinkActive="active">
+
+                <i class="pi pi-download"></i>
+
+                <span>Compress Image</span>
+
+            </a>
+
+            <a routerLink="/background-remover"
+               routerLinkActive="active">
+
+                <i class="pi pi-eraser"></i>
+
+                <span>BG Remover</span>
+
+            </a>
+
+        </div>
+
+    }
+
+</div>
 
         <a routerLink="/recycle-bin"
            routerLinkActive="active">
 
             <i class="pi pi-trash"></i>
 
-            <span>Recycle Bin</span>
+            <span  [class.hide]="collapsed">Recycle Bin</span>
 
         </a>
 
@@ -57,7 +138,7 @@
 
     <!-- Storage -->
 
-    <div class="storage">
+    <div class="storage"  [class.hide]="collapsed">
 
         <h4>Storage</h4>
 

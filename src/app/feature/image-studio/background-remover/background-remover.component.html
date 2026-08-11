@@ -1,0 +1,317 @@
+<div class="background-remover-page">
+
+    <div class="background-workspace">
+
+
+        <!-- ================= INITIAL UPLOAD ================= -->
+
+        @if (!originalPreview) {
+
+            <div class="upload-state">
+
+                <div class="upload-icon">
+                    ↑
+                </div>
+
+                <h2>
+                    Upload an image
+                </h2>
+
+                <p>
+                    Select an image to remove its background.
+                </p>
+
+                <label class="upload-button">
+
+                    Choose Image
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        (change)="onFileSelected($event)"
+                        hidden
+                    >
+
+                </label>
+
+
+                @if (validationMessage) {
+
+                    <div class="validation-error">
+
+                        {{ validationMessage }}
+
+                    </div>
+
+                }
+
+            </div>
+
+        }
+
+
+        <!-- ================= IMAGE WORKSPACE ================= -->
+
+        @if (originalPreview) {
+
+            <div class="image-workspace">
+
+
+                <!-- ================= PROCESSING ================= -->
+
+                @if (processing) {
+
+                    <div class="processing-view">
+
+                        <!-- Animated waves -->
+
+                        <div class="wave-container">
+
+                            <div class="wave wave-1"></div>
+
+                            <div class="wave wave-2"></div>
+
+                            <div class="wave wave-3"></div>
+
+                            <div class="wave wave-4"></div>
+
+
+                            <!-- Image -->
+
+                            <div class="processing-image-wrapper">
+
+                                <img
+                                    [src]="originalPreview"
+                                    alt="Processing image"
+                                    class="processing-image"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="processing-text">
+
+                            <h3>
+                                Removing background
+                            </h3>
+
+                            <p>
+                                AI is processing your image...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                }
+
+
+                <!-- ================= RESULT ================= -->
+
+                @else {
+
+                    <div class="result-view">
+
+
+                        <!-- Image -->
+
+                        <div
+                            class="result-image-container"
+                            [class.transparent-background]="backgroundRemovedPreview"
+                        >
+
+                            @if (backgroundRemovedPreview) {
+
+                                <img
+                                    [src]="backgroundRemovedPreview"
+                                    alt="Background removed"
+                                    class="result-image"
+                                >
+
+                            } @else {
+
+                                <img
+                                    [src]="originalPreview"
+                                    alt="Original image"
+                                    class="result-image"
+                                >
+
+                            }
+
+                        </div>
+
+
+                        <!-- Image Details -->
+
+                        <div class="result-details">
+
+                            @if (backgroundRemovedPreview) {
+
+                                <div class="result-title">
+
+                                    <h2>
+                                        Background Removed
+                                    </h2>
+
+                                </div>
+
+                                <div class="image-details">
+
+                                    <span>
+                                        {{ removedWidth }}
+                                        ×
+                                        {{ removedHeight }}
+                                        px
+                                    </span>
+
+                                    <span>
+                                        {{ formatFileSize(removedSize) }}
+                                    </span>
+
+                                </div>
+
+                            } @else {
+
+                                <div class="result-title">
+
+                                    <h2>
+                                        Your Image
+                                    </h2>
+
+                                </div>
+
+                                <div class="image-details">
+
+                                    <span>
+                                        {{ originalWidth }}
+                                        ×
+                                        {{ originalHeight }}
+                                        px
+                                    </span>
+
+                                    <span>
+                                        {{ formatFileSize(originalSize) }}
+                                    </span>
+
+                                </div>
+
+                            }
+
+                        </div>
+
+
+                        <!-- ================= ACTION ================= -->
+
+                        @if (!backgroundRemovedPreview) {
+
+                            <div class="remove-action">
+
+                                <button
+                                    type="button"
+                                    class="remove-button"
+                                    (click)="removeBackground()"
+                                    [disabled]="processing"
+                                >
+
+                                    Remove Background
+
+                                </button>
+
+                            </div>
+
+                        }
+
+
+                        <!-- ================= RESULT ACTIONS ================= -->
+
+                        @if (backgroundRemovedPreview) {
+
+                            <div class="result-actions">
+
+
+                                <!-- UNDO -->
+
+                                <button
+                                    type="button"
+                                    class="undo-button"
+                                    (click)="undo()"
+                                    [disabled]="!canUndo"
+                                >
+
+                                    ↶ Undo
+
+                                </button>
+
+
+                                <!-- REDO -->
+
+                                <button
+                                    type="button"
+                                    class="redo-button"
+                                    (click)="redo()"
+                                    [disabled]="!canRedo"
+                                >
+
+                                    ↷ Redo
+
+                                </button>
+
+
+                                <!-- DOWNLOAD -->
+
+                                <button
+                                    type="button"
+                                    class="download-button"
+                                    (click)="downloadBackgroundRemoved()"
+                                >
+
+                                    Download PNG
+
+                                </button>
+
+
+                                <!-- RESET -->
+
+                                <button
+                                    type="button"
+                                    class="reset-button"
+                                    (click)="reset()"
+                                >
+
+                                    Remove Another Image
+
+                                </button>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                }
+
+            </div>
+
+        }
+
+
+        <!-- ================= VALIDATION ================= -->
+
+        @if (
+            validationMessage &&
+            originalPreview
+        ) {
+
+            <div class="validation-error">
+
+                {{ validationMessage }}
+
+            </div>
+
+        }
+
+    </div>
+
+</div>
