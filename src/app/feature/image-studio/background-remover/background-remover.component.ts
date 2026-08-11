@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BackgroundRemovalService } from './service/background-removal.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { BackgroundRemovalService } from './service/background-removal.service';
   templateUrl: './background-remover.component.html',
   styleUrl: './background-remover.component.css'
 })
-export class BackgroundRemoverComponent {
+export class BackgroundRemoverComponent implements OnInit  {
 
    selectedFile: File | null = null;
    originalPreview: string | null = null;
@@ -20,6 +20,9 @@ historyIndex = -1;
 
   validationMessage = '';
   processing = false;
+  modelLoading = true;
+modelReady = false;
+modelError = false;
   originalSize = 0;
 
 originalWidth = 0;
@@ -33,6 +36,70 @@ removedHeight = 0;
   constructor(
     private backgroundRemovalService: BackgroundRemovalService
   ) {}
+
+  async ngOnInit(): Promise<void> {
+
+    console.log(
+        'Initializing background removal AI...'
+    );
+
+    this.modelLoading = true;
+    this.modelReady = false;
+    this.modelError = false;
+
+    try {
+
+        await this.backgroundRemovalService.loadModel();
+
+        this.modelReady = true;
+
+        console.log(
+            'Background removal AI is ready.'
+        );
+
+    } catch (error) {
+
+        console.error(
+            'Failed to initialize background removal AI:',
+            error
+        );
+
+        this.modelError = true;
+
+    } finally {
+
+        this.modelLoading = false;
+
+    }
+}
+
+async retryModelLoading(): Promise<void> {
+
+    this.modelLoading = true;
+    this.modelReady = false;
+    this.modelError = false;
+
+    try {
+
+        await this.backgroundRemovalService.loadModel();
+
+        this.modelReady = true;
+
+    } catch (error) {
+
+        console.error(
+            'Background removal AI retry failed:',
+            error
+        );
+
+        this.modelError = true;
+
+    } finally {
+
+        this.modelLoading = false;
+
+    }
+}
 
   onFileSelected(event: Event): void {
 
@@ -57,6 +124,15 @@ removedHeight = 0;
 
     this.selectedFile = file;
     this.originalSize = file.size;
+    this.backgroundRemovedPreview = null;
+this.downloadFile = null;
+
+this.history = [];
+this.historyIndex = -1;
+
+this.removedSize = 0;
+this.removedWidth = 0;
+this.removedHeight = 0;
 
 const image =
   new Image();
