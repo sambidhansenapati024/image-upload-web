@@ -28,7 +28,7 @@ export class VersionServiceService {
     // Read both versions once
     forkJoin({
       frontend: this.http.get<any>('/version.json'),
-      backend: this.http.get<any>('https://www.cloudv.net.in/image-upload/version')
+      backend: this.http.get<any>('https://api.cloudv.net.in/image-upload/version')
     }).subscribe(res => {
 
       this.frontendInfo = res.frontend;
@@ -50,7 +50,7 @@ export class VersionServiceService {
 
     forkJoin({
       frontend: this.http.get<any>('/version.json?ts=' + Date.now()),
-      backend: this.http.get<any>('https://www.cloudv.net.in/image-upload/version?ts=' + Date.now())
+      backend: this.http.get<any>('https://api.cloudv.net.in/image-upload/version?ts=' + Date.now())
     }).subscribe(res => {
 
       const frontendChanged =
