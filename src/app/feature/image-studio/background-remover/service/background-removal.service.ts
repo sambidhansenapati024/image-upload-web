@@ -52,21 +52,12 @@ export class BackgroundRemovalService {
       this.isWebGPUSupported();
 
 
-    console.log(
-      'WebGPU API available:',
-      webGPUSupported
-    );
-
 
     // ============================================
     // WEBGPU AVAILABLE
     // ============================================
 
     if (webGPUSupported) {
-
-      console.log(
-        'Attempting to load MODNet using WebGPU...'
-      );
 
 
       try {
@@ -87,12 +78,6 @@ export class BackgroundRemovalService {
         this.remover =
           await this.loadingPromise;
 
-
-        console.log(
-          'MODNet successfully loaded using WebGPU.'
-        );
-
-
         return this.remover;
 
 
@@ -104,11 +89,6 @@ export class BackgroundRemovalService {
         );
 
 
-        console.log(
-          'Falling back to WASM...'
-        );
-
-
         // Clear failed state
         this.remover = null;
         this.loadingPromise = null;
@@ -116,14 +96,6 @@ export class BackgroundRemovalService {
       }
 
     } else {
-
-      console.log(
-        'WebGPU is not available.'
-      );
-
-      console.log(
-        'Using WASM instead.'
-      );
 
     }
 
@@ -150,10 +122,6 @@ export class BackgroundRemovalService {
       this.remover =
         await this.loadingPromise;
 
-
-      console.log(
-        'MODNet successfully loaded using WASM.'
-      );
 
 
       return this.remover;
@@ -191,11 +159,6 @@ export class BackgroundRemovalService {
     const result =
       await remover(file);
 
-
-    console.log(
-      'Background removal result:',
-      result
-    );
 
 
     const blob =
