@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import {
-  pipeline
-} from '@huggingface/transformers';
-
+import { pipeline } from '@huggingface/transformers';
 
 @Injectable({
   providedIn: 'root'
@@ -19,96 +15,172 @@ export class BackgroundRemovalService {
 
   constructor() {}
 
+
+  // ============================================
+  // CHECK IF BROWSER EXPOSES WEBGPU
+  // ============================================
+
   private isWebGPUSupported(): boolean {
 
-  return (
-    typeof navigator !== 'undefined' &&
-    'gpu' in navigator
-  );
+    return (
+      typeof navigator !== 'undefined' &&
+      'gpu' in navigator
+    );
 
-}
+  }
 
+
+  // ============================================
+  // LOAD MODEL
+  // ============================================
 
   async loadModel(): Promise<any> {
 
-  if (this.remover) {
-    return this.remover;
-  }
-
-  if (this.loadingPromise) {
-    return this.loadingPromise;
-  }
+    // Already loaded
+    if (this.remover) {
+      return this.remover;
+    }
 
 
-  // =====================================
-  // CHECK WEBGPU SUPPORT
-  // =====================================
-
-  const webGPUSupported =
-    this.isWebGPUSupported();
+    // Already loading
+    if (this.loadingPromise) {
+      return this.loadingPromise;
+    }
 
 
-  console.log(
-    'WebGPU supported:',
-    webGPUSupported
-  );
-
-
-  const device =
-    webGPUSupported
-      ? 'webgpu'
-      : 'wasm';
-
-
-  console.log(
-    `Using ${device} for background removal.`
-  );
-
-
-  // =====================================
-  // LOAD MODEL
-  // =====================================
-
-  this.loadingPromise =
-    pipeline(
-      'background-removal',
-      'Xenova/modnet',
-      {
-        device
-      }
-    );
-
-
-  try {
-
-    this.remover =
-      await this.loadingPromise;
+    const webGPUSupported =
+      this.isWebGPUSupported();
 
 
     console.log(
-      `Background removal model loaded using ${device}.`
+      'WebGPU API available:',
+      webGPUSupported
     );
 
 
-    return this.remover;
+    // ============================================
+    // WEBGPU AVAILABLE
+    // ============================================
+
+    if (webGPUSupported) {
+
+      console.log(
+        'Attempting to load MODNet using WebGPU...'
+      );
 
 
-  } catch (error) {
+      try {
 
-    console.error(
-      `Failed to load model using ${device}:`,
-      error
-    );
+        this.device = 'webgpu';
 
 
-    this.loadingPromise = null;
+        this.loadingPromise =
+          pipeline(
+            'background-removal',
+            'Xenova/modnet',
+            {
+              device: 'webgpu'
+            }
+          );
 
 
-    throw error;
+        this.remover =
+          await this.loadingPromise;
+
+
+        console.log(
+          'MODNet successfully loaded using WebGPU.'
+        );
+
+
+        return this.remover;
+
+
+      } catch (webGpuError) {
+
+        console.warn(
+          'WebGPU model initialization failed.',
+          webGpuError
+        );
+
+
+        console.log(
+          'Falling back to WASM...'
+        );
+
+
+        // Clear failed state
+        this.remover = null;
+        this.loadingPromise = null;
+
+      }
+
+    } else {
+
+      console.log(
+        'WebGPU is not available.'
+      );
+
+      console.log(
+        'Using WASM instead.'
+      );
+
+    }
+
+
+    // ============================================
+    // WASM FALLBACK
+    // ============================================
+
+    try {
+
+      this.device = 'wasm';
+
+
+      this.loadingPromise =
+        pipeline(
+          'background-removal',
+          'Xenova/modnet',
+          {
+            device: 'wasm'
+          }
+        );
+
+
+      this.remover =
+        await this.loadingPromise;
+
+
+      console.log(
+        'MODNet successfully loaded using WASM.'
+      );
+
+
+      return this.remover;
+
+
+    } catch (wasmError) {
+
+      console.error(
+        'Failed to load MODNet using WASM.',
+        wasmError
+      );
+
+
+      this.remover = null;
+      this.loadingPromise = null;
+
+
+      throw wasmError;
+
+    }
 
   }
 
-}
+
+  // ============================================
+  // REMOVE BACKGROUND
+  // ============================================
 
   async removeBackground(file: File): Promise<Blob> {
 
@@ -131,5 +203,7 @@ export class BackgroundRemovalService {
 
 
     return blob;
+
   }
+
 }
