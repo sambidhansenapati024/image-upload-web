@@ -28,7 +28,7 @@ export class VersionServiceService {
     // Read both versions once
     forkJoin({
       frontend: this.http.get<any>('/version.json'),
-      backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version')
+      backend: this.http.get<any>('http://3.111.253.238:2627/image-upload/version')
     }).subscribe(res => {
 
       this.frontendInfo = res.frontend;
@@ -52,7 +52,7 @@ export class VersionServiceService {
 
     forkJoin({
       frontend: this.http.get<any>('/version.json?ts=' + Date.now()),
-      backend: this.http.get<any>('http://13.127.244.157:2627/image-upload/version?ts=' + Date.now())
+      backend: this.http.get<any>('http://3.111.253.238:2627/image-upload/version?ts=' + Date.now())
     }).subscribe(res => {
 
       const frontendChanged =
