@@ -17,6 +17,7 @@ import { NotificationService } from '../../service/notification.service';
 import { OtpResponse } from '../../shared/modal/OtpResponse';
 import { CompleteRegistrationRequest } from '../../shared/modal/complete-registration-request';
 import { ResendOtpRequest } from '../../shared/modal/resend-otp-request';
+import { RefreshTokenResponse } from '../../shared/modal/refresh-token-response';
 
 @Injectable({
   providedIn: 'root'
@@ -46,39 +47,96 @@ private notificationWebSocketService : NotificationWebsocketService,
 
   login(request: LoginRequest): Observable<LoginResponse> {
 
-    return this.http.post<LoginResponse>(
-      `${this.AUTH_API}/login`,
-      request
-    ).pipe(
+  return this.http.post<LoginResponse>(
+    `${this.AUTH_API}/login`,
+    request,
+    {
+      withCredentials: true
+    }
+  ).pipe(
 
-      tap(response => {
+    tap(response => {
 
-  if (response.success) {
+      if (response.success) {
 
-    this.tokenService.saveToken(response.token);
+        this.tokenService.saveToken(
+          response.token
+        );
 
-    this.currentUserService.loadCurrentUser();
-    this.notificationService.loadNotifications();
-    this.notificationWebSocketService.connect();
+        this.currentUserService.loadCurrentUser();
+        this.notificationService.loadNotifications();
+        this.notificationWebSocketService.connect();
 
-  }
+      }
 
-})
+    })
 
-    );
+  );
 
-  }
+}
 
 logout(showMessage: boolean = true): void {
 
-  this.notificationWebSocketService.disconnect();
-  this.tokenService.clearToken();
+    this.notificationWebSocketService.disconnect();
+
+    this.http.post(
+        `${this.AUTH_API}/logout`,
+        {},
+        {
+            withCredentials: true
+        }
+    ).subscribe({
+
+        next: () => {
+
+            console.log(
+                'Backend logout successful'
+            );
+
+            if (showMessage) {
+
+                this.messageService.add({
+
+                    severity: 'success',
+
+                    summary: 'Logged Out',
+
+                    detail:
+                        'You have been logged out successfully.'
+
+                });
+
+            }
+
+            this.completeLogout();
+
+        },
+
+        error: (error) => {
+
+            console.error(
+                'Backend logout failed:',
+                error
+            );
+
+            // Even if backend is unavailable,
+            // clear local authentication.
+            this.completeLogout();
+
+        }
+
+    });
+}
+
+private completeLogout(): void {
+ this.tokenService.clearToken();
   this.currentUserService.clearCurrentUser();
 
   this.router.navigate(['/login']).then(() => {
-    resetRedirectFlag();
-  });
 
+    resetRedirectFlag();
+
+  });
 
 }
 
@@ -153,4 +211,17 @@ resendOtp(request: ResendOtpRequest): Observable<OtpResponse> {
     );
 
 }
+
+refreshToken(): Observable<RefreshTokenResponse> {
+
+  return this.http.post<RefreshTokenResponse>(
+    `${this.AUTH_API}/refresh`,
+    {},
+    {
+      withCredentials: true
+    }
+  );
+
+}
+
 }
