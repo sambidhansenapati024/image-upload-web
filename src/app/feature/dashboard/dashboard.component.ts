@@ -1,20 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { StatCardComponent } from '../../shared/stat-card/stat-card.component';
-import { UploadAreaComponent } from '../../shared/upload-area/upload-area.component';
 import { ImageUploadServiceService } from '../../service/image-upload-service.service';
-import { GalleryComponent } from '../gallery/gallery.component';
-import { SearchBarComponent } from "../../shared/search-bar/search-bar.component";
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DashboardStats } from '../../shared/modal/dashboard-stats';
 import { ImageResponse } from '../../shared/modal/image-response';
-import { SortDropdownComponent } from '../../shared/sort-dropdown/sort-dropdown.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
-    imports: [ StatCardComponent, CommonModule, SortDropdownComponent, UploadAreaComponent, GalleryComponent, SearchBarComponent, ConfirmDialogModule],
+    imports: [  CommonModule, ConfirmDialogModule],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })

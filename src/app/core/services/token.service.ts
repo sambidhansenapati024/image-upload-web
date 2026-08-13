@@ -7,24 +7,45 @@ import { StorageService } from './storage.service';
 })
 export class TokenService {
 
-   private readonly TOKEN_KEY = STORAGE_KEYS.AUTH_TOKEN;
+  private readonly TOKEN_KEY = STORAGE_KEYS.AUTH_TOKEN;
 
-  constructor(private storageService: StorageService) { }
+  constructor(
+    private storageService: StorageService
+  ) {}
 
-   saveToken(token: string): void {
-    this.storageService.save(this.TOKEN_KEY, token);
+  // =========================
+  // ACCESS TOKEN
+  // =========================
+
+  saveToken(token: string): void {
+
+    this.storageService.save(
+      this.TOKEN_KEY,
+      token
+    );
+
   }
 
   getToken(): string | null {
-    return this.storageService.get(this.TOKEN_KEY);
+
+    return this.storageService.get(
+      this.TOKEN_KEY
+    );
+
   }
+
+  // =========================
+  // LOGIN CHECK
+  // =========================
 
   hasToken(): boolean {
+
     return this.getToken() !== null;
+
   }
 
-  clearToken(): void {
-    this.storageService.remove(this.TOKEN_KEY);
-  }
+  // =========================
+  // CLEAR TOKENS
+  // =========================
 
 }

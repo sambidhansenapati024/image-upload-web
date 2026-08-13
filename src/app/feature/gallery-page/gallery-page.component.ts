@@ -22,7 +22,7 @@ import { ImageEditorComponent } from '../../shared/image-editor/image-editor.com
 
 @Component({
   selector: 'app-gallery-page',
-  imports: [CommonModule, ImageCardComponent, GalleriaModule, Button, InputTextModule, FormsModule, Select, Paginator, SkeletonModule, IconField, InputIcon, ConfirmDialogModule, GalleryToolbarComponent, ImageEditorComponent],
+  imports: [CommonModule, ImageCardComponent, GalleriaModule, Button, InputTextModule, FormsModule, Paginator, SkeletonModule, ConfirmDialogModule, GalleryToolbarComponent, ImageEditorComponent],
   templateUrl: './gallery-page.component.html',
   styleUrl: './gallery-page.component.css'
 })
