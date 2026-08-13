@@ -129,7 +129,7 @@ logout(showMessage: boolean = true): void {
 }
 
 private completeLogout(): void {
-
+ this.tokenService.clearToken();
   this.currentUserService.clearCurrentUser();
 
   this.router.navigate(['/login']).then(() => {

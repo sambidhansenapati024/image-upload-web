@@ -48,4 +48,11 @@ export class TokenService {
   // CLEAR TOKENS
   // =========================
 
+  clearToken(): void {
+
+    this.storageService.remove(
+      this.TOKEN_KEY
+    );
+  }
+
 }
