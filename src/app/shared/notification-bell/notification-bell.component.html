@@ -17,11 +17,21 @@
 
         <div class="notification-header">
 
-            <div class="header-title">
+            <div class="header-left">
 
-                <i class="pi pi-bell"></i>
+                <div class="header-icon-ring">
+                    <i class="pi pi-bell"></i>
+                </div>
 
-                <span>Notifications</span>
+                <div class="header-text">
+
+                    <h3>Notifications</h3>
+
+                    <span class="header-sub">
+                        {{ notificationService.getUnreadCount() }} unread
+                    </span>
+
+                </div>
 
             </div>
 
@@ -60,35 +70,35 @@
 
         </div>
 
-        <div class="notification-list">
+        <div class="notification-timeline">
 
-           @for (notification of filteredNotifications; track notification.id) {
+            @for (notification of filteredNotifications; track notification.id) {
 
-            <div class="notification-card" [class.notification-card--unread]="!notification.read"
+            <div class="timeline-item" [class.unread]="!notification.read"
                 (click)="openNotification(notification)">
 
                 <button pButton text rounded severity="danger" icon="pi pi-times" class="delete-btn"
                     pTooltip="Clear notification" (click)="removeNotification(notification.id, $event)">
                 </button>
 
-                <!-- Icon -->
+                <!-- Node on the timeline. Color-variant classes (.success/.info/.warning/.error)
+                     are wired up in CSS but need a class binding here once there's a method
+                     that maps actionType -> severity, e.g. [class]="getNotificationSeverity(notification.actionType)" -->
+                <div class="timeline-node">
 
-                <div class="notification-icon">
-                
-                    <i [class]="getNotificationIcon(notification.actionType)">
-                    </i>
-                
+                    <i [class]="getNotificationIcon(notification.actionType)"></i>
+
                 </div>
 
                 <!-- Content -->
 
-                <div class="notification-content">
+                <div class="timeline-content">
 
-                    <div class="notification-top">
+                    <div class="timeline-top">
 
-                        <span class="notification-title">
+                        <span class="timeline-title">
 
-                              {{ getNotificationTitle(notification.actionType) }}
+                            {{ getNotificationTitle(notification.actionType) }}
 
                             @if (!notification.read) {
                             <span class="unread-dot" aria-hidden="true"></span>
@@ -96,15 +106,15 @@
 
                         </span>
 
-                        <small class="notification-time">
+                        <small class="timeline-time">
 
-                           {{ getRelativeTime(notification.createdAt) }}
+                            {{ getRelativeTime(notification.createdAt) }}
 
                         </small>
 
                     </div>
 
-                    <p class="notification-message">
+                    <p class="timeline-message">
 
                         {{ notification.message }}
 

@@ -1,87 +1,89 @@
-:host{
-    display:block;
+:host {
+    display: block;
 }
 
-.faq-card{
+.faq-card {
 
-    background:var(--sidebar-bg);
+    background: #FFFFFF;
 
-    border:1px solid #334155;
+    border: 1px solid #E9EAF4;
 
-    border-radius:16px;
+    border-radius: 16px;
 
-    padding:24px;
+    padding: 24px;
 
-}
-
-.card-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-
-    margin-bottom:20px;
+    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
 
 }
 
-.card-header i{
+.card-header {
 
-    font-size:22px;
+    display: flex;
 
-    color:#3B82F6;
+    align-items: center;
 
-}
+    gap: 14px;
 
-.card-header h3{
-
-    margin:0;
-
-    color:white;
+    margin-bottom: 20px;
 
 }
 
-.card-header p{
+.card-header i {
 
-    margin-top:4px;
+    font-size: 22px;
 
-    color:#94A3B8;
-
-}
-
-:host ::ng-deep .p-accordionpanel{
-
-    background:#111827;
-
-    border:1px solid #334155;
-
-    border-radius:12px;
-
-    margin-bottom:12px;
-
-    overflow:hidden;
+    color: #4F6EF7;
 
 }
 
-:host ::ng-deep .p-accordionheader{
+.card-header h3 {
 
-    background:#111827;
+    margin: 0;
 
-    color:white;
-
-}
-
-:host ::ng-deep .p-accordioncontent{
-
-    background:#111827;
-
-    color:#CBD5E1;
+    color: #171A2B;
 
 }
 
-:host ::ng-deep .p-accordionheader:hover{
+.card-header p {
 
-    background:#1E293B;
+    margin-top: 4px;
+
+    color: #767C93;
+
+}
+
+:host ::ng-deep .p-accordionpanel {
+
+    background: #F6F7FC;
+
+    border: 1px solid #E9EAF4;
+
+    border-radius: 12px;
+
+    margin-bottom: 12px;
+
+    overflow: hidden;
+
+}
+
+:host ::ng-deep .p-accordionheader {
+
+    background: #F6F7FC;
+
+    color: #171A2B;
+
+}
+
+:host ::ng-deep .p-accordioncontent {
+
+    background: #F6F7FC;
+
+    color: #4A4F63;
+
+}
+
+:host ::ng-deep .p-accordionheader:hover {
+
+    background: #EEF0FA;
 
 }

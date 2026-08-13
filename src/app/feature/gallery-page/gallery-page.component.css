@@ -1,299 +1,301 @@
-.gallery-page{
+.gallery-page {
 
-    width:100%;
+    width: 100%;
 
-    max-width:1450px;
+    max-width: 1450px;
 
-    margin:0 auto;
-
-}
-
-.gallery-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-end;
-
-    gap:20px;
-
-    margin:20px 0;
-
-    flex-wrap:wrap;
+    margin: 0 auto;
 
 }
 
-.gallery-title h2{
+.gallery-header {
 
-    margin:0;
+    display: flex;
 
-    color:white;
+    justify-content: space-between;
 
-        font-size:24px;
+    align-items: flex-end;
 
-    font-weight:700;
+    gap: 20px;
 
-}
+    margin: 20px 0;
 
-.gallery-title span{
-
-    display:block;
-
-    color:#94A3B8;
-    margin-top:4px;
-    font-size:13px;
+    flex-wrap: wrap;
 
 }
 
-.gallery{
+.gallery-title h2 {
 
-    display:grid;
+    margin: 0;
 
-       grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    color: #171A2B;
 
-    gap:20px;
+    font-size: 24px;
 
-}
-.empty-gallery{
-
-    height:400px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:#94A3B8;
-
-    border:2px dashed #334155;
-
-    border-radius:20px;
+    font-weight: 700;
 
 }
 
-.empty-gallery i{
+.gallery-title span {
 
-    font-size:70px;
+    display: block;
 
-    color:#2563EB;
-
-    margin-bottom:20px;
-
-}
-
-.empty-gallery h2{
-
-    color:white;
-
-    margin-bottom:10px;
+    color: #767C93;
+    margin-top: 4px;
+    font-size: 13px;
 
 }
 
-.preview-container{
+.gallery {
 
-    display:flex;
+    display: grid;
 
-    flex-direction:column;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-
-    background: #1E293B;
+    gap: 20px;
 
 }
 
-.preview-image{
+.empty-gallery {
 
-    max-height:75vh;
+    height: 400px;
 
-    max-width:100%;
+    display: flex;
 
-    object-fit:contain;
+    flex-direction: column;
 
-    border-radius:12px;
+    justify-content: center;
 
-}
+    align-items: center;
 
-.preview-info{
+    color: #767C93;
 
-    margin-top:20px;
+    border: 2px dashed #E9EAF4;
 
-    text-align:center;
-
-}
-
-.preview-info h3{
-
-    color:white;
-
-    margin-bottom:8px;
+    border-radius: 20px;
 
 }
 
-.preview-info span{
+.empty-gallery i {
 
-    color:#94A3B8;
+    font-size: 70px;
 
-    font-size:14px;
+    color: #4F6EF7;
 
-}
-
-.preview-actions{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:16px;
-
-    margin-top:20px;
-
-    flex-wrap:wrap;
+    margin-bottom: 20px;
 
 }
 
-.gallery-toolbar{
+.empty-gallery h2 {
 
-    display:flex;
+    color: #171A2B;
 
-    align-items:center;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-}
-.gallery-pagination{
-
-    margin-top:70px;
+    margin-bottom: 10px;
 
 }
 
+.preview-container {
 
-.skeleton-card{
+    display: flex;
 
-    background:#1E293B;
+    flex-direction: column;
 
-    border:1px solid #334155;
+    align-items: center;
 
-    border-radius:16px;
+    justify-content: center;
 
-    overflow:hidden;
+    padding: 20px;
 
-}
-
-.skeleton-footer{
-
-    padding:16px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
+    background: #F6F7FC;
 
 }
 
-.gallery-search{
+.preview-image {
 
-    width:320px;
+    max-height: 75vh;
 
-}
+    max-width: 100%;
 
-.gallery-search input{
+    object-fit: contain;
 
-    width:100%;
-
-    background:#1E293B;
-
-    border:1px solid #334155;
-
-    color:white;
-
-    border-radius:12px;
-
-    height:46px;
-
-    transition:all .25s ease;
+    border-radius: 12px;
 
 }
 
-.gallery-search input::placeholder{
+.preview-info {
 
-    color:#94A3B8;
+    margin-top: 20px;
 
-}
-
-.gallery-search input:hover{
-
-    border-color:#2563EB;
+    text-align: center;
 
 }
 
-.gallery-search input:focus{
+.preview-info h3 {
 
-    border-color:#2563EB;
+    color: #171A2B;
 
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+    margin-bottom: 8px;
 
 }
 
-.gallery-search .pi-search{
+.preview-info span {
 
-    color:#94A3B8;
+    color: #767C93;
+
+    font-size: 14px;
+
+}
+
+.preview-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 16px;
+
+    margin-top: 20px;
+
+    flex-wrap: wrap;
+
+}
+
+.gallery-toolbar {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+.gallery-pagination {
+
+    margin-top: 70px;
 
 }
 
 
-::ng-deep .p-select{
+.skeleton-card {
 
-    background:#1E293B !important;
+    background: #F6F7FC;
 
-    border:1px solid #334155 !important;
+    border: 1px solid #E9EAF4;
 
-    border-radius:12px;
+    border-radius: 16px;
 
-    min-width:190px;
-
-    height:46px;
+    overflow: hidden;
 
 }
 
-::ng-deep .p-select-label{
+.skeleton-footer {
 
-    color:white !important;
+    padding: 16px;
 
-}
+    display: flex;
 
-::ng-deep .p-select-dropdown{
+    flex-direction: column;
 
-    color:#94A3B8 !important;
-
-}
-
-::ng-deep .p-select:hover{
-
-    border-color:#2563EB !important;
+    gap: 10px;
 
 }
 
-::ng-deep .p-select.p-focus{
+.gallery-search {
 
-    border-color:#2563EB !important;
+    width: 320px;
 
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+.gallery-search input {
+
+    width: 100%;
+
+    background: #F6F7FC;
+
+    border: 1px solid #E9EAF4;
+
+    color: #171A2B;
+
+    border-radius: 12px;
+
+    height: 46px;
+
+    transition: all .25s ease;
+
+}
+
+.gallery-search input::placeholder {
+
+    color: #A2A8BD;
+
+}
+
+.gallery-search input:hover {
+
+    border-color: #4F6EF7;
+
+}
+
+.gallery-search input:focus {
+
+    border-color: #4F6EF7;
+
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, .15);
+
+}
+
+.gallery-search .pi-search {
+
+    color: #767C93;
 
 }
 
 
-::ng-deep .p-select{
+::ng-deep .p-select {
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-radius: 12px;
+
+    min-width: 190px;
+
+    height: 46px;
+
+}
+
+::ng-deep .p-select-label {
+
+    color: #171A2B !important;
+
+}
+
+::ng-deep .p-select-dropdown {
+
+    color: #767C93 !important;
+
+}
+
+::ng-deep .p-select:hover {
+
+    border-color: #4F6EF7 !important;
+
+}
+
+::ng-deep .p-select.p-focus {
+
+    border-color: #4F6EF7 !important;
+
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, .15);
+
+}
+
+
+::ng-deep .p-select {
 
     transition:
         border-color .25s,
@@ -302,66 +304,74 @@
 
 }
 
-::ng-deep .gallery-pagination .p-paginator{
+::ng-deep .gallery-pagination .p-paginator {
 
-    background:#1E293B;
+    background: #FFFFFF;
 
-    border:1px solid #334155;
+    border: 1px solid #E9EAF4;
 
-    border-radius:16px;
+    border-radius: 16px;
 
-    padding:16px 20px;
+    padding: 16px 20px;
 
-}
-::ng-deep .gallery-pagination .p-paginator-page{
-
-    width:40px;
-
-    height:40px;
-
-    border-radius:10px;
-
-    color:#CBD5E1;
-
-    transition:all .2s ease;
+    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
 
 }
-::ng-deep .gallery-pagination .p-paginator-page:hover{
 
-    background:#334155;
+::ng-deep .gallery-pagination .p-paginator-page {
 
-    color:white;
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 10px;
+
+    color: #4A4F63;
+
+    transition: all .2s ease;
 
 }
-::ng-deep .gallery-pagination .p-paginator-page.p-paginator-page-selected{
 
-    background:#2563EB;
+::ng-deep .gallery-pagination .p-paginator-page:hover {
 
-    color:white;
+    background: #F6F7FC;
+
+    color: #171A2B;
 
 }
+
+::ng-deep .gallery-pagination .p-paginator-page.p-paginator-page-selected {
+
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
+
+    color: white;
+
+}
+
 ::ng-deep .gallery-pagination .p-paginator-prev,
 ::ng-deep .gallery-pagination .p-paginator-next,
 ::ng-deep .gallery-pagination .p-paginator-first,
-::ng-deep .gallery-pagination .p-paginator-last{
+::ng-deep .gallery-pagination .p-paginator-last {
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    color:#CBD5E1;
+    color: #4A4F63;
 
 }
+
 ::ng-deep .gallery-pagination .p-paginator-prev:hover,
 ::ng-deep .gallery-pagination .p-paginator-next:hover,
 ::ng-deep .gallery-pagination .p-paginator-first:hover,
-::ng-deep .gallery-pagination .p-paginator-last:hover{
+::ng-deep .gallery-pagination .p-paginator-last:hover {
 
-    background:#334155;
+    background: #F6F7FC;
 
-    color:white;
+    color: #171A2B;
 
 }
-::ng-deep .gallery-pagination .p-select{
 
-    min-width:90px;
+::ng-deep .gallery-pagination .p-select {
+
+    min-width: 90px;
 
 }

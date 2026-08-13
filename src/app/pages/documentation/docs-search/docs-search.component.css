@@ -1,37 +1,37 @@
-:host{
-    display:block;
+:host {
+    display: block;
 }
 
-.docs-search{
+.docs-search {
 
-    width:320px;
-
-}
-
-.docs-search .p-input-icon-left{
-
-    width:100%;
+    width: 320px;
 
 }
 
-:host ::ng-deep input{
+.docs-search .p-input-icon-left {
 
-    width:100%;
-
-    background:#111827;
-
-    color:white;
-
-    border:1px solid #334155;
-
-    border-radius:10px;
+    width: 100%;
 
 }
 
-:host ::ng-deep input:focus{
+:host ::ng-deep input {
 
-    border-color:#3B82F6;
+    width: 100%;
 
-    box-shadow:none;
+    background: #F6F7FC;
+
+    color: #171A2B;
+
+    border: 1px solid #E9EAF4;
+
+    border-radius: 10px;
+
+}
+
+:host ::ng-deep input:focus {
+
+    border-color: #4F6EF7;
+
+    box-shadow: none;
 
 }

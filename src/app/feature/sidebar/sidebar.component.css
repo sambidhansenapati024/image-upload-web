@@ -102,7 +102,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 14px;
-    background: linear-gradient(135deg, rgba(79, 110, 247, .10), rgba(155, 92, 246, .10));
+    background: linear-gradient(135deg, rgb(21 54 196 / 14%), rgba(155, 92, 246, .10));
     font-size: 28px;
     flex-shrink: 0;
 }

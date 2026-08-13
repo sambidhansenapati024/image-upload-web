@@ -1,0 +1,45 @@
+/* =========================================================
+   APP COMPONENT
+   ========================================================= */
+
+/*
+ * Toast, ConfirmDialog and Notification Popover styles
+ * are intentionally kept in the global styles.css.
+ *
+ * These components are rendered through PrimeNG overlay
+ * containers and should therefore use global styling.
+ */
+
+
+/* =========================================================
+   APP HOST
+   ========================================================= */
+
+:host {
+    display: block;
+
+    width: 100%;
+    min-height: 100%;
+}
+
+
+/* =========================================================
+   APPLICATION ROOT
+   ========================================================= */
+
+:host ::ng-deep router-outlet {
+    display: contents;
+}
+
+
+/* =========================================================
+   RESPONSIVE APP HOST
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    :host {
+        width: 100%;
+    }
+
+}
