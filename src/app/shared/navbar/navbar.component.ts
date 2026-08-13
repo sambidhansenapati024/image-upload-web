@@ -15,7 +15,7 @@ import { NotificationBellComponent } from "../notification-bell/notification-bel
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CardModule, TagModule, ConfirmDialogModule, Button, PopoverModule, NotificationBellComponent],
+  imports: [CardModule, TagModule, ConfirmDialogModule, PopoverModule, NotificationBellComponent],
 
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -79,6 +79,7 @@ goToHelp(): void {
 }
 
 logout(): void {
+  console.log("NAV logout")
 
     this.confirmationService.confirm({
 
@@ -95,19 +96,6 @@ logout(): void {
         accept: () => {
 
             this.authService.logout();
-
-            this.messageService.add({
-
-                severity: 'success',
-
-                summary: 'Logged Out',
-
-                detail: 'You have been logged out successfully.'
-
-            });
-
-            this.router.navigate(['/login']);
-
         }
 
     });
