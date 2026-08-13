@@ -1,108 +1,110 @@
-.login-page{
-    height:100vh;
-    display:grid;
-    grid-template-columns:1fr 560px;
-    overflow:hidden;
-    background:#0F172A;
+.login-page {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 560px;
+    overflow: hidden;
+    background: #F6F7FC;
     position: relative;
 }
 
-.logo{
+.logo {
 
-    width:80px;
+    width: 80px;
 
-    height:80px;
+    height: 80px;
 
-    border-radius:22px;
+    border-radius: 22px;
 
-    background:linear-gradient(135deg,#2563EB,#3B82F6);
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
-    margin-bottom:25px;
+    margin-bottom: 25px;
 
-    box-shadow:0 20px 40px rgba(37,99,235,.35);
+    box-shadow: 0 20px 40px rgba(79, 110, 247, .3);
+
+}
+
+.logo i {
+
+    font-size: 38px;
+
+    color: white;
 
 }
 
-.logo i{
-
-    font-size:38px;
-
-    color:white;
-
-}
 .crown-badge i {
-    color: #ffb020;
+    color: #9B5CF6;
     font-size: 1.3rem;
 }
 
 /* ---------- Glass card ---------- */
-.login-card{
+.login-card {
 
-    width:100%;
+    width: 100%;
 
-    max-width:460px;
+    max-width: 460px;
 
-     /* animation:floatCard 5s ease-in-out infinite; */
-
-}
-
-.login-card ::ng-deep .p-card{
-
-    background:#1E293B;
-
-    border:1px solid #334155;
-
-    border-radius:20px;
-
-    color:white;
-
-    box-shadow:0 20px 50px rgba(0,0,0,.45);
-
-    overflow:hidden;
+    /* animation:floatCard 5s ease-in-out infinite; */
 
 }
 
-.login-card ::ng-deep .p-card-body{
+.login-card ::ng-deep .p-card {
 
-    padding:40px;
+    background: #FFFFFF;
+
+    border: 1px solid #E9EAF4;
+
+    border-radius: 22px;
+
+    color: #171A2B;
+
+    box-shadow: 0 20px 50px rgba(23, 26, 43, .12);
+
+    overflow: hidden;
+
+}
+
+.login-card ::ng-deep .p-card-body {
+
+    padding: 40px;
 
 }
 
 
-.header{
+.header {
 
-    text-align:left;
+    text-align: left;
 
-    padding:0;
+    padding: 0;
 
-    margin-bottom:35px;
+    margin-bottom: 35px;
+
+}
+
+.header h2 {
+
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    color: #171A2B;
 
 }
 
-.header h2{
+.header p {
 
-    margin:0;
+    margin-top: 10px;
 
-    font-size:34px;
+    color: #767C93;
 
-    font-weight:700;
-
-    color:#F8FAFC;
-
-}
-.header p{
-
-    margin-top:10px;
-
-    color:#94A3B8;
-
-    font-size:15px;
+    font-size: 15px;
 
 }
 
@@ -121,7 +123,7 @@
 
 .forgot-link {
     font-size: 0.75rem;
-    color: #ffc94d;
+    color: #4F6EF7;
     text-decoration: none;
     font-weight: 600;
 }
@@ -135,11 +137,11 @@
 
     width: 100%;
 
-    background: #0F172A !important;
+    background: #F6F7FC !important;
 
-    border: 1px solid #334155 !important;
+    border: 1px solid #E9EAF4 !important;
 
-    color: #F8FAFC !important;
+    color: #171A2B !important;
 
     border-radius: 10px !important;
 
@@ -150,45 +152,47 @@
 .field ::ng-deep .p-inputtext:focus,
 .field ::ng-deep .p-password-input:focus {
 
-    border-color: #2563EB !important;
+    border-color: #4F6EF7 !important;
 
-    box-shadow: 0 0 0 3px rgba(37,99,235,.18);
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, .15);
 
 }
 
 .field ::ng-deep .p-floatlabel:has(input:focus) label,
 .field ::ng-deep .p-floatlabel:has(.p-password-input:focus) label {
 
-    color: #60A5FA;
+    color: #4F6EF7;
 
 }
 
 .field input::placeholder,
-.field ::ng-deep .p-inputtext::placeholder{
+.field ::ng-deep .p-inputtext::placeholder {
 
-    color:#64748B;
-
-}
-.field ::ng-deep .p-password{
-
-    width:100%;
-    display:block;
+    color: #A2A8BD;
 
 }
-.field ::ng-deep .p-password-input{
 
-    width:100%;
+.field ::ng-deep .p-password {
 
-    background:#0F172A !important;
+    width: 100%;
+    display: block;
 
-    border:1px solid #334155 !important;
+}
 
-    color:#F8FAFC;
+.field ::ng-deep .p-password-input {
+
+    width: 100%;
+
+    background: #F6F7FC !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    color: #171A2B;
 
 }
 
 .field ::ng-deep .p-password-toggle-icon {
-    color: rgba(255, 255, 255, 0.75);
+    color: #767C93;
 }
 
 .remember-row {
@@ -198,54 +202,58 @@
     padding: 0 28px;
     margin-bottom: 24px;
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: #171A2B;
 }
 
 .remember-row ::ng-deep .p-checkbox-box {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: #FFFFFF;
+    border-color: #C7CBE6;
 }
 
 .error {
-    color: #ffb3b3;
+    color: #DC2626;
     display: block;
     margin-top: 6px;
 }
 
 .server-error {
-    background: rgba(239, 68, 68, 0.2);
-    color: #ffe1e1;
+    background: rgba(239, 68, 68, 0.08);
+    color: #DC2626;
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .login-btn,
-.login-btn.p-button{
+.login-btn.p-button {
 
-    width:100%;
+    width: 100%;
 
-    margin-top:10px;
+    margin-top: 10px;
 
-    background:#2563EB !important;
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6) !important;
 
-    border:none !important;
+    border: none !important;
 
-    color:white !important;
+    color: white !important;
 
-    font-weight:600;
+    font-weight: 600;
 
-    border-radius:10px !important;
+    border-radius: 10px !important;
 
-    padding:14px !important;
+    padding: 14px !important;
 
-    transition:.25s;
+    transition: .25s;
+
+    box-shadow: 0 10px 24px rgba(79, 110, 247, .25);
 
 }
 
-.login-btn:hover{
+.login-btn:hover {
 
-    transform:translateY(-2px);
+    transform: translateY(-2px);
+
+    box-shadow: 0 14px 30px rgba(79, 110, 247, .32);
 
 }
 
@@ -253,58 +261,60 @@
     text-align: center;
     margin-top: 25px;
     font-size: .9rem;
+    color: #767C93;
 }
 
 .footer a {
     margin-left: 5px;
     text-decoration: none;
     font-weight: 700;
-    color: #ffc94d;
+    color: #4F6EF7;
 }
 
-.left-panel{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:50px 60px;
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 60px;
     margin-left: 50px;
 }
 
-.brand h1{
+.brand h1 {
 
-    font-size:56px;
+    font-size: 56px;
 
-    margin:0;
+    margin: 0;
 
-    color:white;
+    color: #171A2B;
 
-    font-weight:800;
+    font-weight: 800;
 
-    letter-spacing:-1px;
-
-}
-
-.brand p{
-    margin-top:20px;
-    font-size:17px;
-    line-height:1.6;
-}
-
-.tagline{
-
-    display:block;
-
-    margin-top:10px;
-
-    color:#60A5FA;
-
-    font-size:18px;
-
-    font-weight:600;
+    letter-spacing: -1px;
 
 }
 
-.features{
+.brand p {
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #4A4F63;
+}
+
+.tagline {
+
+    display: block;
+
+    margin-top: 10px;
+
+    color: #4F6EF7;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+}
+
+.features {
 
     margin-top: 40px;
 
@@ -316,7 +326,7 @@
 
 }
 
-.feature{
+.feature {
 
     display: flex;
 
@@ -324,72 +334,88 @@
 
     gap: 16px;
 
-    color: white;
+    color: #171A2B;
 
     font-size: 17px;
 
 }
 
 
-.feature i{
+.feature i {
 
-    color: #22C55E;
+    color: #4F6EF7;
 
     font-size: 23px;
 
-}
+    width: 46px;
 
-.right-panel{
+    height: 46px;
 
-    display:flex;
+    display: flex;
 
-    justify-content:center;
+    align-items: center;
 
-    position:relative;
+    justify-content: center;
 
-    align-items:center;
+    border-radius: 14px;
 
-    padding:40px;
+    background: linear-gradient(135deg, rgba(79, 110, 247, .10), rgba(155, 92, 246, .10));
 
-}
-
-.feature h4{
-
-    margin:0;
-
-    color:white;
-
-    font-size:18px;
+    flex-shrink: 0;
 
 }
 
-.feature p{
+.right-panel {
 
-    margin-top:6px;
+    display: flex;
 
-    color:#94A3B8;
+    justify-content: center;
 
-    line-height:1.6;
+    position: relative;
+
+    align-items: center;
+
+    padding: 40px;
 
 }
 
-@keyframes floatCard{
+.feature h4 {
 
-    0%{
+    margin: 0;
 
-        transform:translateY(0px);
+    color: #171A2B;
+
+    font-size: 18px;
+
+}
+
+.feature p {
+
+    margin-top: 6px;
+
+    color: #767C93;
+
+    line-height: 1.6;
+
+}
+
+@keyframes floatCard {
+
+    0% {
+
+        transform: translateY(0px);
 
     }
 
-    50%{
+    50% {
 
-        transform:translateY(-8px);
+        transform: translateY(-8px);
 
     }
 
-    100%{
+    100% {
 
-        transform:translateY(0px);
+        transform: translateY(0px);
 
     }
 
@@ -403,7 +429,7 @@
 
 .field ::ng-deep .p-floatlabel label {
 
-    color: #94A3B8;
+    color: #767C93;
 
 }
 
@@ -426,7 +452,7 @@
 .orb-1 {
     width: 420px;
     height: 420px;
-    background: #2563EB;
+    background: #4F6EF7;
     top: -100px;
     left: -80px;
     animation: floatOrb1 12s ease-in-out infinite;
@@ -435,7 +461,7 @@
 .orb-2 {
     width: 350px;
     height: 350px;
-    background: #3B82F6;
+    background: #9B5CF6;
     bottom: -120px;
     right: 10%;
     animation: floatOrb2 14s ease-in-out infinite;
@@ -444,10 +470,10 @@
 .orb-3 {
     width: 280px;
     height: 280px;
-    background: #22C55E;
+    background: #4F6EF7;
     top: 40%;
     left: 45%;
-    opacity: 0.15;
+    opacity: 0.12;
     animation: floatOrb3 16s ease-in-out infinite;
 }
 

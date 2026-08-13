@@ -1,35 +1,35 @@
-:host{
+:host {
 
-    display:block;
-
-}
-
-.settings-page{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:24px;
+    display: block;
 
 }
 
-.page-header h2{
+.settings-page {
 
-    margin:0;
+    display: flex;
 
-    color:white;
+    flex-direction: column;
 
-    font-size:28px;
-
-    font-weight:700;
+    gap: 24px;
 
 }
 
-.page-header p{
+.page-header h2 {
 
-    margin-top:8px;
+    margin: 0;
 
-    color:#94A3B8;
+    color: #171A2B;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+}
+
+.page-header p {
+
+    margin-top: 8px;
+
+    color: #767C93;
 
 }

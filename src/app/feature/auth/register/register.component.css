@@ -6,9 +6,9 @@
 
     grid-template-columns: 1fr 620px;
 
-    background: #0F172A;
+    background: #F6F7FC;
 
-     position: relative;
+    position: relative;
 
 }
 
@@ -20,15 +20,15 @@
 
     padding: 60px;
 
-    color: white;
+    color: #171A2B;
 
-     margin-left: 50px;
+    margin-left: 50px;
 
 }
 
 .register-card {
     width: 100%;
-    max-width: 780px;  
+    max-width: 780px;
 }
 
 .form-header {
@@ -41,13 +41,13 @@
 
     margin: 0;
 
-        font-size:30px;
+    font-size: 30px;
 
-    font-weight:700;
+    font-weight: 700;
 
-    line-height:1.2;
+    line-height: 1.2;
 
-    color: white;
+    color: #171A2B;
 
 }
 
@@ -55,7 +55,7 @@
 
     margin-top: 10px;
 
-    color: #94A3B8;
+    color: #767C93;
 
 }
 
@@ -67,7 +67,7 @@
 
     border-radius: 20px;
 
-    background: linear-gradient(135deg,#2563EB,#3B82F6);
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
 
     display: flex;
 
@@ -77,7 +77,7 @@
 
     margin-bottom: 25px;
 
-    box-shadow: 0 20px 40px rgba(37,99,235,.35);
+    box-shadow: 0 20px 40px rgba(79, 110, 247, .3);
 
 }
 
@@ -95,7 +95,7 @@
 
     font-size: 58px;
 
-    color: white;
+    color: #171A2B;
 
     font-weight: 800;
 
@@ -107,7 +107,7 @@
 
     margin-top: 12px;
 
-    color: #60A5FA;
+    color: #4F6EF7;
 
     font-size: 18px;
 
@@ -121,7 +121,7 @@
 
     max-width: 500px;
 
-    color: #94A3B8;
+    color: #767C93;
 
     font-size: 18px;
 
@@ -149,7 +149,7 @@
 
     gap: 16px;
 
-    color: white;
+    color: #171A2B;
 
     font-size: 17px;
 
@@ -157,9 +157,25 @@
 
 .feature-item i {
 
-    color: #22C55E;
+    color: #4F6EF7;
 
     font-size: 18px;
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, rgba(79, 110, 247, .10), rgba(155, 92, 246, .10));
+
+    flex-shrink: 0;
 
 }
 
@@ -179,7 +195,7 @@
 
     margin-top: 10px;
 
-    color: #6b7280;
+    color: #767C93;
 
     line-height: 1.5;
 
@@ -197,85 +213,87 @@
 
 }
 
-.error{
+.error {
 
-    display:block;
+    display: block;
 
-    margin-top:6px;
+    margin-top: 6px;
 
-    color:#F87171;
+    color: #DC2626;
 
-    font-size:13px;
+    font-size: 13px;
 
 }
 
-.hint{
+.hint {
 
-    display:block;
+    display: block;
 
-    margin-top:6px;
+    margin-top: 6px;
 
-    color:#94A3B8;
+    color: #767C93;
 
-    font-size:13px;
+    font-size: 13px;
 
 }
 
 .register-btn,
-.register-btn.p-button{
+.register-btn.p-button {
 
-    width:100%;
-     grid-column: 1 / -1;
+    width: 100%;
+    grid-column: 1 / -1;
 
-    margin-top:12px;
+    margin-top: 12px;
 
-    height:50px;
+    height: 50px;
 
-    background:#2563EB !important;
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6) !important;
 
-    border:none !important;
+    border: none !important;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    color:white !important;
+    color: white !important;
 
-    font-weight:600;
+    font-weight: 600;
 
-    transition:.25s;
+    transition: .25s;
 
-}
-
-.register-btn:hover{
-
-    transform:translateY(-2px);
-
-    background:#1D4ED8 !important;
+    box-shadow: 0 10px 24px rgba(79, 110, 247, .25);
 
 }
 
-.footer{
+.register-btn:hover {
 
-    text-align:center;
+    transform: translateY(-2px);
 
-    margin-top:25px;
+    box-shadow: 0 14px 30px rgba(79, 110, 247, .32);
 
-    color:#94A3B8;
+}
+
+.footer {
+
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #767C93;
 
 }
 
 .footer span {
 
-    color: #6b7280;
+    color: #767C93;
 
 }
 
-.footer a{
+.footer a {
 
-    color:#60A5FA;
+    color: #4F6EF7;
 
-    font-weight:600;
+    font-weight: 600;
 
-    text-decoration:none;
+    text-decoration: none;
 
 }
 
@@ -307,108 +325,109 @@
 
 .register-card ::ng-deep .p-card {
 
-    background: #1E293B;
+    background: #FFFFFF;
 
-    border: 1px solid #334155;
+    border: 1px solid #E9EAF4;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
-    color: white;
+    color: #171A2B;
 
     overflow: hidden;
 
-    box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    box-shadow: 0 20px 50px rgba(23, 26, 43, .12);
 
 }
 
 .register-card ::ng-deep .p-card-body {
 
-    padding:28px 32px;
+    padding: 28px 32px;
 
 }
 
-.field ::ng-deep .p-inputtext{
+.field ::ng-deep .p-inputtext {
 
-    width:100%;
+    width: 100%;
 
-    background:#0F172A !important;
+    background: #F6F7FC !important;
 
-    color:#F8FAFC !important;
+    color: #171A2B !important;
 
-    border:1px solid #334155 !important;
+    border: 1px solid #E9EAF4 !important;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    padding:10px 14px;    
+    padding: 10px 14px;
 
-    font-size:14px; 
+    font-size: 14px;
 
-    transition:.2s;
-
-}
-
-.field ::ng-deep .p-inputtext:focus{
-
-    border-color:#2563EB !important;
-
-    box-shadow:0 0 0 3px rgba(37,99,235,.18);
+    transition: .2s;
 
 }
 
-.field ::ng-deep .p-password{
+.field ::ng-deep .p-inputtext:focus {
 
-    width:100%;
+    border-color: #4F6EF7 !important;
 
-    display:block;
-
-}
-
-.field ::ng-deep .p-password-input{
-
-    width:100%;
-
-    background:#0F172A !important;
-
-    color:#F8FAFC !important;
-
-    border:1px solid #334155 !important;
-
-    border-radius:10px;
-
-    padding:10px 14px;    
-
-    font-size:14px;
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, .15);
 
 }
 
-.field ::ng-deep .p-password-toggle-mask-icon{
+.field ::ng-deep .p-password {
 
-    color:#94A3B8;
+    width: 100%;
+
+    display: block;
 
 }
 
-.field ::ng-deep .p-password-toggle-icon{
+.field ::ng-deep .p-password-input {
 
-    color:#94A3B8;
+    width: 100%;
+
+    background: #F6F7FC !important;
+
+    color: #171A2B !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-radius: 10px;
+
+    padding: 10px 14px;
+
+    font-size: 14px;
+
+}
+
+.field ::ng-deep .p-password-toggle-mask-icon {
+
+    color: #767C93;
+
+}
+
+.field ::ng-deep .p-password-toggle-icon {
+
+    color: #767C93;
     top: 50%;
     transform: translateY(-50%);
 
 }
 
-.field ::ng-deep .p-floatlabel label{
+.field ::ng-deep .p-floatlabel label {
 
-    color:#94A3B8;
+    color: #767C93;
+
+}
+
+.field ::ng-deep .p-floatlabel:has(input:focus) label {
+
+    color: #4F6EF7;
 
 }
 
-.field ::ng-deep .p-floatlabel:has(input:focus) label{
+.register-card ::ng-deep .p-card-header {
 
-    color:#60A5FA;
-
-}
-.register-card ::ng-deep .p-card-header{
-
-     padding:32px 32px 0;
+    padding: 32px 32px 0;
 
 }
 
@@ -424,7 +443,7 @@
 
 }
 
-.field-hint{
+.field-hint {
 
     grid-column: 1 / -1;
     margin-top: -1px;
@@ -450,7 +469,7 @@
 .orb-1 {
     width: 420px;
     height: 420px;
-    background: #2563EB;
+    background: #4F6EF7;
     top: -100px;
     left: -80px;
     animation: floatOrb1 12s ease-in-out infinite;
@@ -459,7 +478,7 @@
 .orb-2 {
     width: 350px;
     height: 350px;
-    background: #3B82F6;
+    background: #9B5CF6;
     bottom: -120px;
     right: 10%;
     animation: floatOrb2 14s ease-in-out infinite;
@@ -468,10 +487,10 @@
 .orb-3 {
     width: 280px;
     height: 280px;
-    background: #22C55E;
+    background: #4F6EF7;
     top: 40%;
     left: 45%;
-    opacity: 0.15;
+    opacity: 0.12;
     animation: floatOrb3 16s ease-in-out infinite;
 }
 

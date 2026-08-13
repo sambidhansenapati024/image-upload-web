@@ -1,12 +1,13 @@
 :host {
-    --cv-bg: #0b1120;          /* dialog surface */
-    --cv-bg-input: #111827;    /* input/textarea bg */
-    --cv-border: #2d3748;
-    --cv-border-input: #374151;
-    --cv-text: #f9fafb;
-    --cv-label: #9ca3af;
-    --cv-accent: #10b981;
-    --cv-accent-glow: rgba(16,185,129,.18);
+    --cv-bg: #ffffff;          /* dialog surface */
+    --cv-bg-input: #f6f7fc;    /* input/textarea bg */
+    --cv-border: #e9eaf4;
+    --cv-border-input: #e9eaf4;
+    --cv-text: #171a2b;
+    --cv-label: #767c93;
+    --cv-accent: #4f6ef7;
+    --cv-accent-2: #9b5cf6;
+    --cv-accent-glow: rgba(79, 110, 247, .15);
 }
 
 .form-grid {
@@ -67,6 +68,7 @@
     overflow: hidden;
     background: var(--cv-bg);
     border: 1px solid var(--cv-border);
+    box-shadow: 0 20px 50px rgba(23, 26, 43, .16);
 }
 
 :host ::ng-deep .p-dialog-header {
@@ -86,7 +88,7 @@
 }
 :host ::ng-deep .p-dialog-header-icon:hover {
     color: var(--cv-text);
-    background: rgba(255,255,255,.06);
+    background: rgba(23, 26, 43, .06);
 }
 
 :host ::ng-deep .p-dialog-content {
@@ -112,26 +114,26 @@
 }
 
 :host ::ng-deep .p-dialog-footer .p-button-secondary {
-    background: #1f2937;
+    background: var(--cv-bg-input);
     border: 1px solid var(--cv-border-input);
     color: var(--cv-text);
 }
 :host ::ng-deep .p-dialog-footer .p-button-secondary:hover {
-    background: #26313f;
+    background: #eceefb;
 }
 
 :host ::ng-deep .p-dialog-footer .p-button:not(.p-button-secondary) {
-    background: var(--cv-accent);
-    border: 1px solid var(--cv-accent);
-    color: #06281f;
+    background: linear-gradient(135deg, var(--cv-accent), var(--cv-accent-2));
+    border: 1px solid transparent;
+    color: #ffffff;
 }
 :host ::ng-deep .p-dialog-footer .p-button:not(.p-button-secondary):hover {
-    background: #0ea975;
+    filter: brightness(1.06);
 }
 
 /* Modal backdrop */
 :host ::ng-deep .p-dialog-mask {
-    background: rgba(0,0,0,.6);
+    background: rgba(23, 26, 43, .45);
     backdrop-filter: blur(2px);
 }
 

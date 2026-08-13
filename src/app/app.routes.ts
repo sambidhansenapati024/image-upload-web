@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './feature/auth/login/login.component';
-import { DashboardComponent } from './feature/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
 import { RegisterComponent } from './feature/auth/register/register.component';

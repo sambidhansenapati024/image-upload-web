@@ -1,67 +1,71 @@
-::ng-deep .stat-card{
+::ng-deep .stat-card {
 
-    background:#1E293B !important;
+    background: #FFFFFF !important;
 
-    border:1px solid #334155 !important;
+    border: 1px solid #E9EAF4 !important;
 
-    border-radius:18px !important;
+    border-radius: 18px !important;
 
-    transition:.3s;
+    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
 
-}
-
-::ng-deep .stat-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 15px 35px rgba(37,99,235,.25);
+    transition: .3s;
 
 }
 
-.card-content{
+::ng-deep .stat-card:hover {
 
-    display:flex;
+    transform: translateY(-6px);
 
-    align-items:center;
-
-    gap:20px;
+    box-shadow: 0 15px 35px rgba(79, 110, 247, .18);
 
 }
 
-.icon{
+.card-content {
 
-    width:60px;
+    display: flex;
 
-    height:60px;
+    align-items: center;
 
-    border-radius:14px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:white;
-
-    font-size:24px;
+    gap: 20px;
 
 }
 
-.title{
+.icon {
 
-    color:#94A3B8;
+    width: 60px;
 
-    font-size:15px;
+    height: 60px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    font-size: 24px;
 
 }
 
-.value{
+.title {
 
-    font-size:26px;
+    color: #767C93;
 
-    font-weight:700;
+    font-size: 15px;
 
-    margin-top:5px;
+}
+
+.value {
+
+    color: #171A2B;
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+    margin-top: 5px;
 
 }

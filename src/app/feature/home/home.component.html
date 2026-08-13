@@ -1,322 +1,130 @@
 <div class="dashboard">
 
-    <div class="dashboard-header">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
 
-        <div>
+    <div class="grid">
 
+        <!-- Hero -->
+        <div class="card g1 panel hero">
+            <span class="hero-badge">✨ Workspace overview</span>
             <h1>Welcome back 👋</h1>
-
-            <p>
-                Manage your cloud images, monitor storage usage and access
-                your files securely.
-            </p>
-
+            <p>Manage your cloud images, monitor storage usage and access your files securely.</p>
         </div>
 
-    </div>
+        <!-- AWS status -->
+        <div class="card g2 panel status-card">
+            <div class="status-top"><span class="pulse-dot"></span>AWS Status</div>
+            <h2>Online</h2>
+            <small>All systems operational</small>
+        </div>
 
-    <div class="stats-grid">
-
-        <div class="stat-card">
-
-            <div class="images-icon">
-                <i class="pi pi-images"></i>
-            </div>
-
+        <!-- Stats -->
+        <div class="card g3 panel stat">
+            <div class="stat-icon"><i class="pi pi-images"></i></div>
             <div>
                 <h2>{{ stats?.totalImages ?? 0 }}</h2>
                 <span>Total Images</span>
             </div>
-
         </div>
 
-        <div class="stat-card">
-
-            <div class="storage-icon">
-                <i class="pi pi-cloud"></i>
-            </div>
-
+        <div class="card g3 panel stat">
+            <div class="stat-icon"><i class="pi pi-cloud"></i></div>
             <div>
-
-                <span>Storage Used</span>
-
                 <h2>{{ formatStorage(stats?.totalStorage ?? 0) }}</h2>
-
+                <span>Storage Used</span>
             </div>
-
         </div>
 
-        <div class="stat-card">
-
-            <div class="upload-icon">
-                <i class="pi pi-upload"></i>
-            </div>
-
+        <div class="card g3 panel stat">
+            <div class="stat-icon"><i class="pi pi-upload"></i></div>
             <div>
-
-                <span>Uploads Today</span>
-
                 <h2>12</h2>
+                <span>Uploads Today</span>
+            </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="card g4 panel actions-panel">
+
+            <div class="actions-head"><h3>Quick actions</h3></div>
+
+            <div class="action-grid">
+
+                <div class="action-item" routerLink="/upload">
+                    <div class="action-icon"><i class="pi pi-upload"></i></div>
+                    <span>Upload</span>
+                </div>
+
+                <div class="action-item" routerLink="/gallery">
+                    <div class="action-icon"><i class="pi pi-images"></i></div>
+                    <span>Gallery</span>
+                </div>
+
+                <div class="action-item" routerLink="/recycle-bin">
+                    <div class="action-icon"><i class="pi pi-trash"></i></div>
+                    <span>Recycle Bin</span>
+                </div>
+
+                <div class="action-item" routerLink="/pdf-maker">
+                    <div class="action-icon"><i class="pi pi-file-pdf"></i></div>
+                    <span>PDF Maker</span>
+                </div>
+
+                <div class="action-item" routerLink="/image-editor">
+                    <div class="action-icon"><i class="pi pi-sliders-h"></i></div>
+                    <span>Editor</span>
+                </div>
+
+                <div class="action-item" routerLink="/format-converter">
+                    <div class="action-icon"><i class="pi pi-sync"></i></div>
+                    <span>Convert</span>
+                </div>
+
+                <div class="action-item" routerLink="/collage">
+                    <div class="action-icon"><i class="pi pi-th-large"></i></div>
+                    <span>Collage</span>
+                </div>
+
+                <div class="action-item" routerLink="/readme-generator">
+                    <div class="action-icon"><i class="pi pi-book"></i></div>
+                    <span>README</span>
+                </div>
 
             </div>
 
         </div>
 
-        <div class="stat-card">
+        <!-- Recent uploads -->
+        <div class="card g4 panel uploads-panel">
 
-            <div class="aws-icon">
-                <i class="pi pi-check-circle"></i>
+            <div class="uploads-head">
+                <h3>Recent uploads</h3>
+                <a routerLink="/gallery">View all →</a>
             </div>
 
-            <div>
+            <div class="upload-scroll">
 
-                <span>AWS Status</span>
+                @for (image of recentUploads; track image.id) {
 
-                <h2>Online</h2>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions-panel">
-
-        <h2>Quick Actions</h2>
-
-        <div class="action-grid">
-
-            <div class="action-item" routerLink="/upload">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-blue">
-                        <i class="pi pi-upload"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Upload Images</h4>
-
-                        <small>Add new files to CloudVault</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/gallery">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-blue">
-                        <i class="pi pi-images"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Open Gallery</h4>
-
-                        <small>Browse all uploaded images</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/recycle-bin">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-blue">
-                        <i class="pi pi-trash"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Recycle Bin</h4>
-
-                        <small>Restore deleted images</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/pdf-maker">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-red">
-                        <i class="pi pi-file-pdf"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>PDF Maker</h4>
-
-                        <small>Convert images into a PDF</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/image-editor">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-purple">
-                        <i class="pi pi-sliders-h"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Image Editor</h4>
-
-                        <small>Crop, resize & adjust images</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/format-converter">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-green">
-                        <i class="pi pi-sync"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Format Converter</h4>
-
-                        <small>PNG ⇄ JPEG & more formats</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/collage">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-orange">
-                        <i class="pi pi-th-large"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Collage Maker</h4>
-
-                        <small>Combine images into one layout</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/readme-generator">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-slate">
-                        <i class="pi pi-book"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Git README Template</h4>
-
-                        <small>Generate a project README</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Recent Uploads -->
-    <div class="recent-uploads-panel">
-
-        <div class="panel-header">
-
-            <h2>Recent Uploads</h2>
-
-            <a routerLink="/gallery">View All</a>
-
-        </div>
-
-        <div class="upload-list">
-
-            @for (image of recentUploads; track image.id) {
-
-            <div class="upload-item">
-
-                <div class="upload-thumbnail">
+                <div class="upload-card">
                     <img [src]="image.imageUrl" [alt]="image.originalFileName">
-                </div>
-
-                <div class="upload-info">
-
-                    <h4>{{ image.originalFileName }}</h4>
-
-                    <div class="upload-meta">
-
-                        <span>{{ formatStorage(image.fileSize) }}</span>
-                        <span>•</span>
-                        <span>{{ getTimeAgo(image.uploadedAt) }}</span>
-
+                    <div class="upload-overlay">
+                        <span class="fname">{{ image.originalFileName }}</span>
+                        <span class="fsub">{{ formatStorage(image.fileSize) }} · {{ getTimeAgo(image.uploadedAt) }}</span>
                     </div>
-
                 </div>
 
-                <i class="pi pi-ellipsis-v upload-menu"></i>
+                } @empty {
+
+                <div class="empty-state">
+                    <i class="pi pi-images"></i>
+                    <p>No uploads yet</p>
+                </div>
+
+                }
 
             </div>
-
-            } @empty {
-
-            <div class="empty-state">
-
-                <i class="pi pi-images"></i>
-
-                <p>No uploads yet</p>
-
-            </div>
-
-            }
 
         </div>
 

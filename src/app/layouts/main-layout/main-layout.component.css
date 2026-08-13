@@ -1,7 +1,7 @@
 .layout {
     display: flex;
     height: 100vh; /* fixed viewport height, not min-height */
-    background: #0F172A;
+    background: #F6F7FC;
     overflow: hidden; /* prevent the whole page from scrolling */
 }
 
@@ -13,23 +13,37 @@
     flex-direction: column;
     padding: 20px;
     gap: 15px;
-    background: #0F172A;
+    background: #F6F7FC;
     transition: margin-left .28s ease;
     box-sizing: border-box;
     overflow: hidden; /* main-content itself doesn't scroll */
 }
 
-.main-content.collapsed{
+.main-content.collapsed {
 
-    margin-left:72px;
+    margin-left: 72px;
 
 }
 
 .page-content {
     flex: 1;
     padding: 0;
-     min-height: 0;
-    background: #0F172A;
+    min-height: 0;
+    background: #F6F7FC;
     overflow-y: auto;   /* only this area scrolls */
     overflow-x: hidden;
+}
+
+/* scrollbar to match the light theme */
+.page-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+    background: #E9EAF4;
+    border-radius: 10px;
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+    background: #D3D6E8;
 }
