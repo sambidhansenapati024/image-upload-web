@@ -70,6 +70,16 @@ goToSecurity(): void {
 
 }
 
+goToSupportQueries(): void {
+
+    this.userPopover.hide();
+
+    this.router.navigate([
+        '/support-queries'
+    ]);
+
+}
+
 goToHelp(): void {
 
   this.userPopover.hide();
