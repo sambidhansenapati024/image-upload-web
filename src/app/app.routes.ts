@@ -21,6 +21,8 @@ import { OtpVerificationComponent } from './shared/otp-verification/otp-verifica
 import { CollageComponent } from './feature/image-studio/collage/collage.component';
 import { CompressComponent } from './feature/image-studio/compress/compress.component';
 import { BackgroundRemoverComponent } from './feature/image-studio/background-remover/background-remover.component';
+import { SupportQueriesComponent } from './feature/queries/support-queries/support-queries.component';
+import { SupportQueryDetailsComponent } from './feature/queries/support-query-details/support-query-details.component';
 
 export const routes: Routes = [
 
@@ -115,6 +117,14 @@ export const routes: Routes = [
             {
                 path: 'help',
                 component: HelpCenterPageComponent
+            },
+            {
+                path: 'support-queries',
+                component: SupportQueriesComponent
+            },
+            {
+                path: 'support-queries/:queryId',
+                component: SupportQueryDetailsComponent
             },
             {
                 path: 'documentation',
