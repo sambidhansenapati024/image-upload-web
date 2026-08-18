@@ -23,6 +23,11 @@ import { CompressComponent } from './feature/image-studio/compress/compress.comp
 import { BackgroundRemoverComponent } from './feature/image-studio/background-remover/background-remover.component';
 import { SupportQueriesComponent } from './feature/queries/support-queries/support-queries.component';
 import { SupportQueryDetailsComponent } from './feature/queries/support-query-details/support-query-details.component';
+import { AdminDashboardComponent } from './admin-module/admin-dashboard/admin-dashboard.component';
+import { adminGuard } from './core/guards/admin.guard';
+import { AdminSupportQueriesComponent } from './admin-module/admin-support-queries/admin-support-queries.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AdminSupportQueryDetailsComponent } from './admin-module/admin-support-query-details/admin-support-query-details.component';
 
 export const routes: Routes = [
 
@@ -67,6 +72,31 @@ export const routes: Routes = [
 
         ]
     },
+
+    {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    canActivate: [adminGuard],
+
+    children: [
+
+        {
+            path: '',
+            component: AdminDashboardComponent
+        },
+
+        {
+            path: 'support-queries',
+            component: AdminSupportQueriesComponent
+        },
+
+        {
+            path: 'support-queries/:queryId',
+            component: AdminSupportQueryDetailsComponent
+        }
+
+    ]
+},
 
     {
         path: '',

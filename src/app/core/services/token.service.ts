@@ -55,4 +55,46 @@ export class TokenService {
     );
   }
 
+  getUserType(): 'USER' | 'ADMIN' | null {
+
+  const token = this.getToken();
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+
+    const payload = JSON.parse(
+      atob(
+        token.split('.')[1]
+          .replace(/-/g, '+')
+          .replace(/_/g, '/')
+      )
+    );
+
+    const userType = payload?.userType;
+
+    if (
+      userType === 'USER' ||
+      userType === 'ADMIN'
+    ) {
+      return userType;
+    }
+
+    return null;
+
+  } catch (error) {
+
+    console.error(
+      'Failed to read userType from access token:',
+      error
+    );
+
+    return null;
+
+  }
+
+}
+
 }

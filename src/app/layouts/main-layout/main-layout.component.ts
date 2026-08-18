@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { SidebarComponent } from "../../feature/sidebar/sidebar.component";
 import { SidebarService } from '../../shared/services/sidebar.service';
 import { SupportChatComponent } from "../../shared/support-chat/support-chat.component";
+import { TokenService } from '../../core/services/token.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -15,7 +16,7 @@ export class MainLayoutComponent implements OnInit {
    collapsed: boolean = false;
 
   constructor(
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
 ) {}
 
 

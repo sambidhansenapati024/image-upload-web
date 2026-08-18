@@ -137,6 +137,20 @@
 
 </button>
 
+@if (isAdmin()) {
+
+    <button
+        class="menu-item"
+        (click)="switchToAdmin()">
+
+        <i class="pi pi-shield"></i>
+
+        <span>Switch to Admin</span>
+
+    </button>
+
+}
+
     <div class="menu-divider"></div>
 
     <button
