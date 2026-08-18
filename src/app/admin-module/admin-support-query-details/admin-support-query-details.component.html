@@ -1,0 +1,345 @@
+<div class="admin-query-details">
+
+    <!-- Header -->
+
+    <div class="details-header">
+
+        <button
+            type="button"
+            class="back-button"
+            (click)="goBack()">
+
+            <i class="pi pi-arrow-left"></i>
+
+            <span>
+                Back to Support Queries
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- Loading -->
+
+    @if (isLoading) {
+
+        <div class="state-container">
+
+            <i class="pi pi-spin pi-spinner"></i>
+
+            <p>
+                Loading support query...
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- Error -->
+
+    @if (!isLoading && errorMessage) {
+
+        <div class="state-container error-state">
+
+            <i class="pi pi-exclamation-circle"></i>
+
+            <h3>
+                Unable to load query
+            </h3>
+
+            <p>
+                {{ errorMessage }}
+            </p>
+
+            <button
+                type="button"
+                class="retry-button"
+                (click)="goBack()">
+
+                Back to Support Queries
+
+            </button>
+
+        </div>
+
+    }
+
+
+    <!-- Details -->
+
+    @if (!isLoading && !errorMessage && query) {
+
+        <!-- Query Header -->
+
+        <div class="query-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    Support Request
+                </span>
+
+                <h1>
+                    Query #{{ query.queryId }}
+                </h1>
+
+                <p>
+                    Submitted
+                    {{ query.createdAt | date:'medium' }}
+                </p>
+
+            </div>
+
+
+            <span
+                class="status-badge"
+                [ngClass]="
+                    'status-' +
+                    query.status.toLowerCase()
+                ">
+
+                {{ query.status }}
+
+            </span>
+
+        </div>
+
+
+        <!-- Main Grid -->
+
+        <div class="details-grid">
+
+
+            <!-- User Information -->
+
+            <div class="details-card">
+
+                <div class="card-header">
+
+                    <i class="pi pi-user"></i>
+
+                    <h2>
+                        User Information
+                    </h2>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="detail-row">
+
+                        <span>
+                            Name
+                        </span>
+
+                        <strong>
+                            {{ query.userName }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span>
+                            Email
+                        </span>
+
+                        <strong>
+                            {{ query.userEmail }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span>
+                            User ID
+                        </span>
+
+                        <strong>
+                            #{{ query.userId }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Query Information -->
+
+            <div class="details-card">
+
+                <div class="card-header">
+
+                    <i class="pi pi-info-circle"></i>
+
+                    <h2>
+                        Query Information
+                    </h2>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="detail-row">
+
+                        <span>
+                            Query Type
+                        </span>
+
+                        <span class="type-badge">
+                            {{ query.queryType }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span>
+                            Created
+                        </span>
+
+                        <strong>
+                            {{ query.createdAt | date:'medium' }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span>
+                            Last Updated
+                        </span>
+
+                        <strong>
+                            {{ query.updatedAt | date:'medium' }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- User Query -->
+
+        <div class="details-card query-card">
+
+            <div class="card-header">
+
+                <i class="pi pi-comments"></i>
+
+                <h2>
+                    User Query
+                </h2>
+
+            </div>
+
+
+            <div class="query-content">
+
+                {{ query.query }}
+
+            </div>
+
+        </div>
+
+
+        <!-- Admin Actions -->
+
+        <div class="details-card admin-actions-card">
+
+            <div class="card-header">
+
+                <i class="pi pi-sliders-h"></i>
+
+                <h2>
+                    Admin Actions
+                </h2>
+
+            </div>
+
+
+            <div class="admin-actions">
+
+                @if (query.queryType === 'PASSWORD') {
+
+                    <button
+    type="button"
+    class="action-button primary"
+    [disabled]="isSendingResetLink"
+    (click)="sendPasswordResetLink()">
+
+    @if (isSendingResetLink) {
+
+        <i class="pi pi-spin pi-spinner"></i>
+
+        Sending...
+
+    } @else {
+
+        <i class="pi pi-envelope"></i>
+
+        Send Password Reset Link
+
+    }
+
+</button>
+
+@if (resetLinkMessage) {
+
+    <div class="action-success">
+
+        <i class="pi pi-check-circle"></i>
+
+        {{ resetLinkMessage }}
+
+    </div>
+
+}
+
+
+@if (resetLinkError) {
+
+    <div class="action-error">
+
+        <i class="pi pi-exclamation-circle"></i>
+
+        {{ resetLinkError }}
+
+    </div>
+
+}
+
+                } @else {
+
+                    <p class="no-actions">
+
+                        No actions are currently available
+                        for this query type.
+
+                    </p>
+
+                }
+
+            </div>
+
+        </div>
+
+    }
+
+</div>

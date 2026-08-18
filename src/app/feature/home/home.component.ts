@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { DashboardStats } from '../../shared/modal/dashboard-stats';
 import { ImageUploadServiceService } from '../../service/image-upload-service.service';
 import { ImageResponse } from '../../shared/modal/image-response';
+import { TokenService } from '../../core/services/token.service';
 
 @Component({
   selector: 'app-home',
@@ -22,12 +23,18 @@ export class HomeComponent implements OnInit {
   usagePercentage = 0;
 
   constructor(
-    private imageService: ImageUploadServiceService
+    private imageService: ImageUploadServiceService,
+    private tokenService : TokenService
   ) { }
 
   ngOnInit(): void {
     this.loadDashboardStats();
     this.loadRecentUploads();
+
+    console.log(
+  'User Type:',
+  this.tokenService.getUserType()
+);
   }
 
   loadDashboardStats(): void {

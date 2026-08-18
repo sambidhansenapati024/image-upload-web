@@ -1,0 +1,271 @@
+<div class="admin-layout">
+
+    <!-- Admin Navbar -->
+
+    <header class="admin-navbar">
+
+        <div class="admin-navbar-left">
+
+            <div class="admin-logo">
+
+                <i class="pi pi-cloud"></i>
+
+                <span>
+                    CloudVault
+                </span>
+
+            </div>
+
+            <span class="admin-badge">
+                ADMIN
+            </span>
+
+        </div>
+
+
+        <!-- Admin User -->
+
+        <div class="admin-navbar-right">
+
+            <button
+                type="button"
+                class="admin-user-button"
+                (click)="adminPopover.toggle($event)">
+
+                <div class="admin-avatar">
+
+                    @if (user?.profileImageUrl) {
+
+                        <img
+                            [src]="user?.profileImageUrl"
+                            [alt]="user?.fullName">
+
+                    } @else {
+
+                        {{ user?.fullName?.charAt(0)?.toUpperCase() }}
+
+                    }
+
+                </div>
+
+
+                <div class="admin-user-info">
+
+                    <span class="admin-user-name">
+                        {{ user?.fullName }}
+                    </span>
+
+                    <span class="admin-user-email">
+                        {{ user?.email }}
+                    </span>
+
+                </div>
+
+
+                <i class="pi pi-chevron-down"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Admin Body -->
+
+    <div class="admin-body">
+
+        <!-- Admin Sidebar -->
+
+        <aside class="admin-sidebar">
+
+            <nav class="admin-nav">
+
+                <!-- Dashboard -->
+
+                <a
+                    routerLink="/admin"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{
+                        exact: true
+                    }">
+
+                    <i class="pi pi-home"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <!-- Support Queries -->
+
+                <a
+                    routerLink="/admin/support-queries"
+                    routerLinkActive="active">
+
+                    <i class="pi pi-comments"></i>
+
+                    <span>
+                        Support Queries
+                    </span>
+
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- Admin Content -->
+
+        <main class="admin-content">
+
+            <router-outlet></router-outlet>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Admin Profile Popover -->
+
+<p-popover #adminPopover>
+
+    <div class="admin-user-menu">
+
+
+        <!-- User Header -->
+
+        <div class="admin-user-menu-header">
+
+            <div class="admin-menu-avatar">
+
+                @if (user?.profileImageUrl) {
+
+                    <img
+                        [src]="user?.profileImageUrl"
+                        [alt]="user?.fullName">
+
+                } @else {
+
+                    {{ user?.fullName?.charAt(0)?.toUpperCase() }}
+
+                }
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    {{ user?.fullName }}
+                </h3>
+
+                <p>
+                    {{ user?.email }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Menu Items -->
+
+        <div class="admin-user-menu-items">
+
+
+            <!-- My Profile -->
+
+            <button
+                type="button"
+                class="admin-menu-item"
+                (click)="goToProfile()">
+
+                <i class="pi pi-user"></i>
+
+                <span>
+                    My Profile
+                </span>
+
+            </button>
+
+
+            <!-- Settings -->
+
+            <button
+                type="button"
+                class="admin-menu-item"
+                (click)="goToSettings()">
+
+                <i class="pi pi-cog"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </button>
+
+
+            <!-- Security -->
+
+            <button
+                type="button"
+                class="admin-menu-item"
+                (click)="goToSecurity()">
+
+                <i class="pi pi-shield"></i>
+
+                <span>
+                    Security
+                </span>
+
+            </button>
+
+
+            <div class="menu-divider"></div>
+
+
+            <!-- Switch to User -->
+
+            <button
+                type="button"
+                class="admin-menu-item"
+                (click)="switchToUser()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                <span>
+                    Switch to User
+                </span>
+
+            </button>
+
+
+            <div class="menu-divider"></div>
+
+
+            <!-- Logout -->
+
+            <button
+                type="button"
+                class="admin-menu-item logout"
+                (click)="logout()">
+
+                <i class="pi pi-sign-out"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</p-popover>
