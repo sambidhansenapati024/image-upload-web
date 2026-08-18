@@ -1,7 +1,167 @@
-<div>
-    <h1>Admin Dashboard</h1>
+<div class="admin-dash">
 
-    <p>
-        Welcome to the CloudVault Admin Panel.
-    </p>
+    <!-- Header -->
+    <div class="dash-header">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Platform overview, usage trends and support activity.</p>
+        </div>
+        <div class="range-chips">
+            <button class="range-chip active">7 days</button>
+            <button class="range-chip">30 days</button>
+            <button class="range-chip">90 days</button>
+        </div>
+    </div>
+
+    <!-- KPI row -->
+    <div class="kpi-row">
+
+        @for (kpi of kpis; track kpi.label) {
+
+        <div class="panel kpi-card">
+            <div class="kpi-icon"><i [class]="kpi.icon"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">{{ kpi.label }}</span>
+                <div class="kpi-value-row">
+                    <strong class="kpi-value">{{ kpi.value }}</strong>
+                    <span class="kpi-trend" [class.down]="kpi.change < 0">
+                        <i class="pi" [ngClass]="kpi.change < 0 ? 'pi-arrow-down' : 'pi-arrow-up'"></i>
+                        {{ (kpi.change < 0 ? kpi.change * -1 : kpi.change) }}%
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        }
+
+    </div>
+
+    <!-- Growth chart + plan distribution -->
+    <div class="analytics-grid">
+
+        <div class="panel chart-card">
+
+            <div class="card-head">
+                <h3>Platform growth</h3>
+                <span class="card-sub">Uploads per day — last 7 days</span>
+            </div>
+
+            <svg class="growth-chart" viewBox="0 0 400 160" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#4F6EF7" stop-opacity="0.28" />
+                        <stop offset="100%" stop-color="#4F6EF7" stop-opacity="0" />
+                    </linearGradient>
+                    <linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#4F6EF7" />
+                        <stop offset="100%" stop-color="#9B5CF6" />
+                    </linearGradient>
+                </defs>
+                <path [attr.d]="chartAreaPath" fill="url(#areaFill)"></path>
+                <polyline [attr.points]="chartLinePoints" fill="none" stroke="url(#lineStroke)"
+                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            </svg>
+
+            <div class="chart-labels">
+                @for (point of growthData; track point.label) {
+                <span>{{ point.label }}</span>
+                }
+            </div>
+
+        </div>
+
+        <div class="panel donut-card">
+
+            <div class="card-head">
+                <h3>Plan distribution</h3>
+            </div>
+
+            <div class="donut-wrap">
+                <div class="donut" [style.background]="planDonutBackground">
+                    <div class="donut-hole"></div>
+                </div>
+            </div>
+
+            <div class="legend">
+                @for (slice of planDistribution; track slice.label) {
+                <div class="legend-item">
+                    <span class="legend-dot" [style.background]="'var(' + slice.colorVar + ')'"></span>
+                    <span class="legend-label">{{ slice.label }}</span>
+                    <span class="legend-value">{{ slice.value }}%</span>
+                </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Uploads by type + support queries -->
+    <div class="analytics-grid analytics-grid--reverse">
+
+        <div class="panel bar-card">
+
+            <div class="card-head">
+                <h3>Uploads by file type</h3>
+                <span class="card-sub">Relative volume, last 30 days</span>
+            </div>
+
+            <div class="bar-list">
+                @for (type of uploadsByType; track type.label) {
+                <div class="bar-row">
+                    <span class="bar-label">{{ type.label }}</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" [style.width.%]="type.value"
+                            [style.background]="'var(' + type.colorVar + ')'"></div>
+                    </div>
+                    <span class="bar-value">{{ type.value }}%</span>
+                </div>
+                }
+            </div>
+
+        </div>
+
+        <div class="panel queries-card">
+
+            <div class="card-head">
+                <h3>Recent support queries</h3>
+                <a routerLink="/admin/support-queries">View all</a>
+            </div>
+
+            <div class="query-list">
+
+                @for (query of supportQueries; track query.id) {
+
+                <div class="query-row">
+                    <div class="query-main">
+                        <span class="query-subject">{{ query.subject }}</span>
+                        <span class="query-user">{{ query.user }}</span>
+                    </div>
+                    <div class="query-meta">
+                        <span class="status-pill" [class]="query.status">{{ query.status }}</span>
+                        <span class="query-time">{{ query.time }}</span>
+                    </div>
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- System status -->
+    <div class="panel status-strip">
+        <span class="status-strip-label">System status</span>
+        <div class="status-items">
+            @for (item of systemStatus; track item.label) {
+            <div class="status-item">
+                <span class="status-dot" [class.degraded]="item.status === 'degraded'"></span>
+                <span>{{ item.label }}</span>
+            </div>
+            }
+        </div>
+    </div>
+
 </div>

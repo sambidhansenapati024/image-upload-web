@@ -1,9 +1,9 @@
 .admin-layout {
     min-height: 100vh;
 
-    background: #0b1120;
+    background: #F6F7FC;
 
-    color: #e2e8f0;
+    color: #171A2B;
 }
 
 
@@ -20,9 +20,9 @@
 
     padding: 0 22px;
 
-    background: #111827;
+    background: #FFFFFF;
 
-    border-bottom: 1px solid #1e293b;
+    border-bottom: 1px solid #E9EAF4;
 }
 
 .admin-navbar-left,
@@ -45,14 +45,14 @@
     align-items: center;
     gap: 9px;
 
-    color: #f8fafc;
+    color: #171A2B;
 
     font-size: 17px;
     font-weight: 600;
 }
 
 .admin-logo i {
-    color: #94a3b8;
+    color: #4F6EF7;
 
     font-size: 18px;
 }
@@ -60,12 +60,12 @@
 .admin-badge {
     padding: 4px 8px;
 
-    border: 1px solid #334155;
+    border: 1px solid rgba(79, 110, 247, .3);
     border-radius: 5px;
 
-    background: #1e293b;
+    background: rgba(79, 110, 247, .10);
 
-    color: #94a3b8;
+    color: #4F6EF7;
 
     font-size: 9px;
     font-weight: 600;
@@ -98,11 +98,11 @@
 
     border-radius: 50%;
 
-    background: #1e293b;
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
 
-    border: 1px solid #334155;
+    border: none;
 
-    color: #cbd5e1;
+    color: white;
 
     font-size: 12px;
     font-weight: 600;
@@ -114,7 +114,7 @@
 }
 
 .admin-user-name {
-    color: #e2e8f0;
+    color: #171A2B;
 
     font-size: 12px;
     font-weight: 500;
@@ -123,7 +123,7 @@
 .admin-user-email {
     margin-top: 2px;
 
-    color: #64748b;
+    color: #A2A8BD;
 
     font-size: 10px;
 }
@@ -140,12 +140,12 @@
 
     padding: 7px 11px;
 
-    border: 1px solid #334155;
+    border: 1px solid #E9EAF4;
     border-radius: 7px;
 
     background: transparent;
 
-    color: #94a3b8;
+    color: #767C93;
 
     font-size: 11px;
 
@@ -158,11 +158,11 @@
 }
 
 .switch-user-button:hover {
-    background: #1e293b;
+    background: #F6F7FC;
 
-    border-color: #475569;
+    border-color: #C7CBE6;
 
-    color: #f8fafc;
+    color: #171A2B;
 }
 
 
@@ -188,9 +188,9 @@
 
     padding: 20px 12px;
 
-    background: #0f172a;
+    background: #FFFFFF;
 
-    border-right: 1px solid #1e293b;
+    border-right: 1px solid #E9EAF4;
 }
 
 .admin-nav {
@@ -209,7 +209,7 @@
 
     border-radius: 7px;
 
-    color: #94a3b8;
+    color: #767C93;
 
     font-size: 13px;
 
@@ -227,15 +227,15 @@
 }
 
 .admin-nav a:hover {
-    background: #1e293b;
+    background: #F6F7FC;
 
-    color: #e2e8f0;
+    color: #171A2B;
 }
 
 .admin-nav a.active {
-    background: #1e293b;
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
 
-    color: #f8fafc;
+    color: white;
 }
 
 
@@ -302,11 +302,11 @@
 
     border-radius: 50%;
 
-    background: #1e293b;
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
 
-    border: 1px solid #334155;
+    border: none;
 
-    color: #cbd5e1;
+    color: white;
 
     font-size: 12px;
     font-weight: 600;
@@ -337,11 +337,11 @@
 }
 
 .admin-user-button:hover {
-    background: #1e293b;
+    background: #F6F7FC;
 }
 
 .admin-user-button > i {
-    color: #64748b;
+    color: #A2A8BD;
     font-size: 11px;
 }
 
@@ -374,11 +374,11 @@
 
     border-radius: 50%;
 
-    background: #1e293b;
+    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
 
-    border: 1px solid #334155;
+    border: none;
 
-    color: #cbd5e1;
+    color: white;
 
     font-size: 14px;
     font-weight: 600;
@@ -395,7 +395,7 @@
 .admin-user-menu-header h3 {
     margin: 0;
 
-    color: #f8fafc;
+    color: #171A2B;
 
     font-size: 14px;
     font-weight: 600;
@@ -404,7 +404,7 @@
 .admin-user-menu-header p {
     margin: 4px 0 0;
 
-    color: #64748b;
+    color: #A2A8BD;
 
     font-size: 11px;
 }
@@ -432,7 +432,7 @@
 
     background: transparent;
 
-    color: #cbd5e1;
+    color: #4A4F63;
 
     font-size: 12px;
 
@@ -442,9 +442,9 @@
 }
 
 .admin-menu-item:hover {
-    background: #1e293b;
+    background: #F6F7FC;
 
-    color: #f8fafc;
+    color: #171A2B;
 }
 
 .admin-menu-item i {
@@ -454,11 +454,11 @@
 }
 
 .admin-menu-item.logout {
-    color: #f87171;
+    color: #DC2626;
 }
 
 .admin-menu-item.logout:hover {
-    background: rgba(239, 68, 68, 0.1);
+    background: rgba(239, 68, 68, 0.08);
 }
 
 .menu-divider {
@@ -466,5 +466,5 @@
 
     margin: 5px 0;
 
-    background: #1e293b;
+    background: #E9EAF4;
 }

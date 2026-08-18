@@ -24,7 +24,7 @@
 
     @if (isLoading) {
 
-        <div class="state-container">
+        <div class="panel state-container">
 
             <i class="pi pi-spin pi-spinner"></i>
 
@@ -41,7 +41,7 @@
 
     @if (!isLoading && errorMessage) {
 
-        <div class="state-container error-state">
+        <div class="panel state-container error-state">
 
             <i class="pi pi-exclamation-circle"></i>
 
@@ -71,173 +71,85 @@
 
     @if (!isLoading && !errorMessage && query) {
 
-        <!-- Query Header -->
+        <!-- Hero: header + status + summary strip, all in one card -->
 
-        <div class="query-header">
+        <div class="panel query-hero">
 
-            <div>
+            <div class="query-header">
 
-                <span class="eyebrow">
-                    Support Request
+                <div>
+
+                    <span class="eyebrow">
+                        Support Request
+                    </span>
+
+                    <h1>
+                        Query #{{ query.queryId }}
+                    </h1>
+
+                    <p>
+                        Submitted
+                        {{ query.createdAt | date:'medium' }}
+                    </p>
+
+                </div>
+
+
+                <span
+                    class="status-badge"
+                    [ngClass]="
+                        'status-' +
+                        query.status.toLowerCase()
+                    ">
+
+                    {{ query.status }}
+
                 </span>
 
-                <h1>
-                    Query #{{ query.queryId }}
-                </h1>
-
-                <p>
-                    Submitted
-                    {{ query.createdAt | date:'medium' }}
-                </p>
-
             </div>
 
+            <div class="summary-strip">
 
-            <span
-                class="status-badge"
-                [ngClass]="
-                    'status-' +
-                    query.status.toLowerCase()
-                ">
-
-                {{ query.status }}
-
-            </span>
-
-        </div>
-
-
-        <!-- Main Grid -->
-
-        <div class="details-grid">
-
-
-            <!-- User Information -->
-
-            <div class="details-card">
-
-                <div class="card-header">
-
-                    <i class="pi pi-user"></i>
-
-                    <h2>
-                        User Information
-                    </h2>
-
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="pi pi-user"></i></div>
+                    <div class="summary-text">
+                        <span class="summary-label">User</span>
+                        <span class="summary-value">{{ query.userName }}</span>
+                    </div>
                 </div>
 
-
-                <div class="card-body">
-
-                    <div class="detail-row">
-
-                        <span>
-                            Name
-                        </span>
-
-                        <strong>
-                            {{ query.userName }}
-                        </strong>
-
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="pi pi-envelope"></i></div>
+                    <div class="summary-text">
+                        <span class="summary-label">Email</span>
+                        <span class="summary-value">{{ query.userEmail }}</span>
                     </div>
+                </div>
 
-
-                    <div class="detail-row">
-
-                        <span>
-                            Email
-                        </span>
-
-                        <strong>
-                            {{ query.userEmail }}
-                        </strong>
-
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="pi pi-tag"></i></div>
+                    <div class="summary-text">
+                        <span class="summary-label">Type</span>
+                        <span class="type-badge">{{ query.queryType }}</span>
                     </div>
+                </div>
 
-
-                    <div class="detail-row">
-
-                        <span>
-                            User ID
-                        </span>
-
-                        <strong>
-                            #{{ query.userId }}
-                        </strong>
-
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="pi pi-clock"></i></div>
+                    <div class="summary-text">
+                        <span class="summary-label">Last updated</span>
+                        <span class="summary-value">{{ query.updatedAt | date:'medium' }}</span>
                     </div>
-
                 </div>
 
             </div>
-
-
-            <!-- Query Information -->
-
-            <div class="details-card">
-
-                <div class="card-header">
-
-                    <i class="pi pi-info-circle"></i>
-
-                    <h2>
-                        Query Information
-                    </h2>
-
-                </div>
-
-
-                <div class="card-body">
-
-                    <div class="detail-row">
-
-                        <span>
-                            Query Type
-                        </span>
-
-                        <span class="type-badge">
-                            {{ query.queryType }}
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Created
-                        </span>
-
-                        <strong>
-                            {{ query.createdAt | date:'medium' }}
-                        </strong>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Last Updated
-                        </span>
-
-                        <strong>
-                            {{ query.updatedAt | date:'medium' }}
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
 
         </div>
 
 
         <!-- User Query -->
 
-        <div class="details-card query-card">
+        <div class="panel details-card query-card">
 
             <div class="card-header">
 
@@ -250,9 +162,13 @@
             </div>
 
 
-            <div class="query-content">
+            <div class="query-message">
 
-                {{ query.query }}
+                <p class="query-content">
+
+                    {{ query.query }}
+
+                </p>
 
             </div>
 
@@ -261,7 +177,7 @@
 
         <!-- Admin Actions -->
 
-        <div class="details-card admin-actions-card">
+        <div class="panel details-card admin-actions-card">
 
             <div class="card-header">
 
