@@ -2,18 +2,21 @@
 
     <app-sidebar></app-sidebar>
 
-<div
-    class="main-content"
-    [class.collapsed]="collapsed">
+    <div
+        class="main-content"
+        [class.collapsed]="collapsed">
 
-    <app-navbar></app-navbar>
+        <app-navbar></app-navbar>
 
-    <div class="page-content">
+        <div class="page-content">
 
-        <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
+
+        </div>
 
     </div>
 
 </div>
 
-</div>
+<!-- Floating Support Chat -->
+<app-support-chat></app-support-chat>

@@ -11,6 +11,7 @@ import { CurrentUserService } from '../../service/current-user.service';
 import { VersionServiceService } from '../../service/version-service.service';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { NotificationBellComponent } from "../notification-bell/notification-bell.component";
+import { TokenService } from '../../core/services/token.service';
 
 @Component({
   selector: 'app-navbar',
@@ -33,7 +34,9 @@ userPopover!: Popover;
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private currentUserService: CurrentUserService,
-    public versionService: VersionServiceService
+    public versionService: VersionServiceService,
+    private tokenService: TokenService
+
 ) {}
 
 ngOnInit(): void {
@@ -67,6 +70,29 @@ goToSecurity(): void {
   this.userPopover.hide();
 
   this.router.navigate(['/security']);
+
+}
+
+goToSupportQueries(): void {
+
+    this.userPopover.hide();
+
+    this.router.navigate([
+        '/support-queries'
+    ]);
+
+
+}
+
+switchToAdmin(): void {
+
+    this.router.navigate(['/admin']);
+
+}
+
+isAdmin(): boolean {
+
+    return this.tokenService.getUserType() === 'ADMIN';
 
 }
 

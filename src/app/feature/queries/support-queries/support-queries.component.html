@@ -1,0 +1,221 @@
+<div class="support-queries-page">
+
+    <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <i class="pi pi-arrow-left"></i>
+
+        Back
+
+    </button>
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                My Support Queries
+            </h1>
+
+            <p>
+                View and track the support requests you have raised.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Loading -->
+
+    @if (isLoading) {
+
+        <div class="state-container">
+
+            <i class="pi pi-spin pi-spinner"></i>
+
+            <p>
+                Loading your support queries...
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- Error -->
+
+    @if (!isLoading && errorMessage) {
+
+        <div class="error-container">
+
+            <i class="pi pi-exclamation-circle"></i>
+
+            <p>
+                {{ errorMessage }}
+            </p>
+
+            <button
+                type="button"
+                (click)="loadQueries()">
+
+                Try Again
+
+            </button>
+
+        </div>
+
+    }
+
+
+    <!-- Empty -->
+
+    @if (
+        !isLoading &&
+        !errorMessage &&
+        queries.length === 0
+    ) {
+
+        <div class="empty-container">
+
+            <i class="pi pi-comments"></i>
+
+            <h3>
+                No support queries
+            </h3>
+
+            <p>
+                You haven't raised any support queries yet.
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- Query List -->
+
+    @if (
+        !isLoading &&
+        !errorMessage &&
+        queries.length > 0
+    ) {
+
+        <div class="queries-container">
+
+            @for (
+                query of queries;
+                track query.queryId
+            ) {
+
+                <div class="query-card">
+
+                    <!-- Top -->
+
+                    <div class="query-card-header">
+
+                        <div>
+
+                            <span class="query-label">
+                                Query ID
+                            </span>
+
+                            <strong>
+                                #{{ query.queryId }}
+                            </strong>
+
+                        </div>
+
+
+                        <span
+                            class="status-badge"
+                            [ngClass]="
+                                'status-' +
+                                query.status.toLowerCase()
+                            ">
+
+                            {{ query.status }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Details -->
+
+                    <div class="query-details">
+
+                        <div class="detail-item">
+
+                            <span>
+                                Query Type
+                            </span>
+
+                            <strong>
+                                {{ query.queryType }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span>
+                                Submitted
+                            </span>
+
+                            <strong>
+                                {{ query.createdAt | date:'medium' }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Query preview -->
+
+                    <div class="query-preview">
+
+                        <span>
+                            Your Query
+                        </span>
+
+                        <p>
+                            {{ query.query }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Action -->
+
+                    <div class="query-card-footer">
+
+                        <button
+                            type="button"
+                            class="track-button" (click)="trackQuery(query.queryId)">
+
+                            <i class="pi pi-map-marker"></i>
+
+                            Track Query
+
+                            <i class="pi pi-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>

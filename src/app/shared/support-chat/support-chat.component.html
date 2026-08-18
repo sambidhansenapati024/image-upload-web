@@ -1,0 +1,723 @@
+<!-- Floating Chat Button -->
+
+@if (!isOpen) {
+
+    <button
+        class="chat-button"
+        type="button"
+        aria-label="Open CloudVault Support"
+        (click)="openChat()">
+
+        <i class="pi pi-comments"></i>
+
+    </button>
+
+}
+
+
+<!-- Chat Window -->
+
+@if (isOpen) {
+
+    <div class="chat-window">
+
+        <!-- Header -->
+
+        <div class="chat-header">
+
+            <div class="chat-title">
+
+                <div class="chat-icon">
+
+                    <i class="pi pi-cloud"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>CloudVault Support</h3>
+
+                    <span>We're here to help</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="chat-actions">
+
+                <button
+                    type="button"
+                    class="chat-action"
+                    aria-label="Minimize chat"
+                    (click)="minimizeChat()">
+
+                    <i class="pi pi-minus"></i>
+
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-action"
+                    aria-label="Close chat"
+                    (click)="closeChat()">
+
+                    <i class="pi pi-times"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+  <div class="chat-body">
+
+    <!-- ============================= -->
+    <!-- WELCOME SCREEN -->
+    <!-- ============================= -->
+
+    @if (currentScreen === 'welcome') {
+
+        <div class="welcome-message">
+
+            <div class="welcome-icon">
+                <i class="pi pi-comments"></i>
+            </div>
+
+            <h3>Hello! 👋</h3>
+
+            <p>
+                Welcome to CloudVault Support.
+            </p>
+
+            <span>
+                How can we help you today?
+            </span>
+
+        </div>
+
+
+        <div class="support-options">
+
+            <!-- EDIT -->
+
+            <button
+                type="button"
+                class="support-option"
+                (click)="showScreen('edit')">
+
+                <div class="option-icon">
+                    <i class="pi pi-pencil"></i>
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        How to edit an image?
+                    </strong>
+
+                    <span>
+                        Learn how to edit your images
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+
+            <!-- BACKGROUND -->
+
+            <button
+                type="button"
+                class="support-option"
+                (click)="showScreen('background')">
+
+                <div class="option-icon">
+                    <i class="pi pi-image"></i>
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        How to remove background?
+                    </strong>
+
+                    <span>
+                        Learn how to remove image backgrounds
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+
+            <!-- COMPRESS -->
+
+            <button
+                type="button"
+                class="support-option"
+                (click)="showScreen('compress')">
+
+                <div class="option-icon">
+                    <i class="pi pi-download"></i>
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        How to compress an image?
+                    </strong>
+
+                    <span>
+                        Reduce image size easily
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+
+            <!-- RAISE QUERY -->
+
+            <button
+                type="button"
+                class="support-option query-option"
+                (click)="showScreen('queryType')">
+
+                <div class="option-icon query-icon">
+                    <i class="pi pi-question-circle"></i>
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        Raise a Support Query
+                    </strong>
+
+                    <span>
+                        Tell us about a problem you're facing
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+        </div>
+
+    }
+
+
+    <!-- ============================= -->
+    <!-- EDIT IMAGE -->
+    <!-- ============================= -->
+
+    @if (currentScreen === 'edit') {
+
+        <div class="help-screen">
+
+            <button
+                type="button"
+                class="back-button"
+                (click)="goBack()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                Back
+
+            </button>
+
+            <div class="help-icon">
+
+                <i class="pi pi-pencil"></i>
+
+            </div>
+
+            <h3>
+                Edit an Image
+            </h3>
+
+            <p>
+                You can edit your images using
+                CloudVault's image editing tools.
+            </p>
+
+            <p>
+                Open <strong>Image Studio</strong>
+                and select the editing option
+                you want to use.
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- ============================= -->
+    <!-- REMOVE BACKGROUND -->
+    <!-- ============================= -->
+
+    @if (currentScreen === 'background') {
+
+        <div class="help-screen">
+
+            <button
+                type="button"
+                class="back-button"
+                (click)="goBack()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                Back
+
+            </button>
+
+            <div class="help-icon">
+
+                <i class="pi pi-image"></i>
+
+            </div>
+
+            <h3>
+                Remove Background
+            </h3>
+
+            <p>
+                Open <strong>Image Studio</strong>
+                and choose
+                <strong>Background Remover</strong>.
+            </p>
+
+            <p>
+                Upload your image and CloudVault
+                will process the background removal.
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- ============================= -->
+    <!-- COMPRESS -->
+    <!-- ============================= -->
+
+    @if (currentScreen === 'compress') {
+
+        <div class="help-screen">
+
+            <button
+                type="button"
+                class="back-button"
+                (click)="goBack()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                Back
+
+            </button>
+
+            <div class="help-icon">
+
+                <i class="pi pi-download"></i>
+
+            </div>
+
+            <h3>
+                Compress an Image
+            </h3>
+
+            <p>
+                Open <strong>Image Studio</strong>
+                and select <strong>Compress</strong>.
+            </p>
+
+            <p>
+                Upload your image and choose the
+                compression level you need.
+            </p>
+
+        </div>
+
+    }
+
+    <!-- ============================= -->
+<!-- QUERY TYPE SELECTION -->
+<!-- ============================= -->
+
+@if (currentScreen === 'queryType') {
+
+    <div class="query-type-screen">
+
+        <div class="query-screen-header">
+
+            <button
+                type="button"
+                class="back-button"
+                (click)="goBack()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                Back
+
+            </button>
+
+        </div>
+
+
+        <div class="help-icon query-help-icon">
+
+            <i class="pi pi-question-circle"></i>
+
+        </div>
+
+
+        <h3>
+            What can we help you with?
+        </h3>
+
+
+        <p class="query-description">
+
+            Select the type of problem you're
+            experiencing.
+
+        </p>
+
+
+        <div class="query-type-options">
+
+
+            <!-- PASSWORD -->
+
+            <button
+                type="button"
+                class="support-option"
+                (click)="selectQueryType('PASSWORD')">
+
+                <div class="option-icon">
+
+                    <i class="pi pi-lock"></i>
+
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        Password
+                    </strong>
+
+                    <span>
+                        Reset password or other password issues
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+
+            <!-- IMAGE UPLOAD -->
+
+            <button
+                type="button"
+                class="support-option"
+                (click)="selectQueryType('IMAGE_UPLOAD')">
+
+                <div class="option-icon">
+
+                    <i class="pi pi-upload"></i>
+
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        Image Upload
+                    </strong>
+
+                    <span>
+                        Problems uploading an image
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+
+            <!-- RECYCLE BIN -->
+
+            <button
+                type="button"
+                class="support-option"
+                (click)="selectQueryType('RECYCLE_BIN')">
+
+                <div class="option-icon">
+
+                    <i class="pi pi-trash"></i>
+
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        Recycle Bin
+                    </strong>
+
+                    <span>
+                        Deleted or restore-related issues
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+
+            <!-- OTHER -->
+
+            <button
+                type="button"
+                class="support-option query-option"
+                (click)="selectQueryType('OTHER')">
+
+                <div class="option-icon query-icon">
+
+                    <i class="pi pi-question-circle"></i>
+
+                </div>
+
+                <div class="option-content">
+
+                    <strong>
+                        Other
+                    </strong>
+
+                    <span>
+                        Something else you need help with
+                    </span>
+
+                </div>
+
+                <i class="pi pi-angle-right option-arrow"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+}
+
+
+    <!-- ============================= -->
+    <!-- QUERY -->
+    <!-- ============================= -->
+
+   @if (currentScreen === 'query') {
+
+   <div class="query-screen">
+
+    @if (!querySubmitted) {
+
+        <!-- QUERY FORM -->
+
+        <div class="query-screen-header">
+
+            <button
+                type="button"
+                class="back-button"
+                [disabled]="isSubmitting"
+                (click)="goBack()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                Back
+
+            </button>
+
+        </div>
+
+        <div class="help-icon query-help-icon">
+
+            <i class="pi pi-question-circle"></i>
+
+        </div>
+
+        <h3>
+            Raise a Support Query
+        </h3>
+
+        <p class="query-description">
+
+            Tell us about the problem you're
+            experiencing and our support team
+            will help you.
+
+        </p>
+
+
+        <div class="query-input-container">
+
+            <textarea
+                [value]="queryText"
+                (input)="onQueryChange($any($event.target).value)"
+                maxlength="1000"
+                placeholder="Describe your problem here..."
+                rows="6"
+                [disabled]="isSubmitting">
+            </textarea>
+
+            <div class="query-input-footer">
+
+                <span
+                    [class.limit-reached]="
+                        queryText.length >= maxQueryLength
+                    ">
+
+                    {{ queryText.length }}
+                    /
+                    {{ maxQueryLength }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        @if (queryError) {
+
+            <div class="query-error">
+
+                <i class="pi pi-exclamation-circle"></i>
+
+                <span>
+                    {{ queryError }}
+                </span>
+
+            </div>
+
+        }
+
+
+        <button
+            type="button"
+            class="submit-query-button"
+            [disabled]="isSubmitting"
+            (click)="submitQuery()">
+
+            @if (isSubmitting) {
+
+                <i class="pi pi-spin pi-spinner"></i>
+
+                Submitting...
+
+            } @else {
+
+                <i class="pi pi-send"></i>
+
+                Submit Query
+
+            }
+
+        </button>
+
+    }
+
+
+    @if (querySubmitted) {
+
+        <!-- SUCCESS SCREEN -->
+
+        <div class="query-success">
+
+            <div class="success-icon">
+
+                <i class="pi pi-check"></i>
+
+            </div>
+
+            <h3>
+                Query Submitted!
+            </h3>
+
+            <p>
+                Thank you for contacting
+                CloudVault Support.
+            </p>
+
+            <p>
+                Your query has been successfully
+                submitted and our support team
+                has been notified.
+            </p>
+
+
+            <div class="query-id-box">
+
+                <span>
+                    Your Query ID
+                </span>
+
+                <strong>
+                    #{{ submittedQueryId }}
+                </strong>
+
+            </div>
+
+
+            <p class="success-note">
+
+                Please keep this Query ID for
+                future communication regarding
+                your request.
+
+            </p>
+
+
+            <button
+                type="button"
+                class="success-close-button"
+                (click)="closQeuery()">
+
+                Close
+
+            </button>
+
+        </div>
+
+    }
+
+</div>
+
+}
+
+</div>
+
+
+        <!-- Footer -->
+
+        <div class="chat-footer">
+
+            <span>
+                CloudVault Support Assistant
+            </span>
+
+        </div>
+
+    </div>
+
+}
