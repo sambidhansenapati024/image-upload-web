@@ -1,66 +1,105 @@
 <div class="background-remover-page">
 
-       @if (modelLoading) {
+    <!-- =========================================================
+         BACKGROUND DECORATION
+    ========================================================== -->
 
-        <div class="ai-loading-screen">
+    <div class="page-orbs" aria-hidden="true">
+        <span class="page-orb orb-1"></span>
+        <span class="page-orb orb-2"></span>
+        <span class="page-orb orb-3"></span>
+    </div>
 
-            <div class="ai-loading-content">
+    <div class="page-grid" aria-hidden="true"></div>
 
-                <div class="ai-icon">
-                    ✨
+
+    <!-- =========================================================
+         AI MODEL LOADING
+    ========================================================== -->
+
+    @if (modelLoading) {
+
+        <section class="ai-state-card">
+
+            <div class="ai-state-content">
+
+                <div class="ai-visual">
+
+                    <div class="ai-ring ring-1"></div>
+                    <div class="ai-ring ring-2"></div>
+                    <div class="ai-ring ring-3"></div>
+
+                    <div class="ai-icon">
+                        <i class="pi pi-sparkles"></i>
+                    </div>
+
                 </div>
 
-                <h2>
-                    Preparing AI
-                </h2>
+                <div class="state-badge">
+                    <span class="state-dot"></span>
+                    AI ENGINE
+                </div>
+
+                <h1>Preparing AI</h1>
 
                 <p>
-                    Setting up background removal...
+                    Setting up the background removal engine
+                    for your image.
                 </p>
 
                 <div class="ai-loader">
-
                     <div class="ai-loader-bar"></div>
-
                 </div>
 
-                <small>
+                <span class="state-hint">
                     The first setup may take a moment.
-                </small>
+                </span>
 
             </div>
 
-        </div>
+        </section>
 
     }
 
 
-    <!-- ================= MODEL ERROR ================= -->
+    <!-- =========================================================
+         AI MODEL ERROR
+    ========================================================== -->
 
     @else if (modelError) {
 
-        <div class="ai-loading-screen">
+        <section class="ai-state-card error-state">
 
-            <div class="ai-loading-content">
+            <div class="ai-state-content">
 
-                <div class="ai-error-icon">
-                    !
+                <div class="error-visual">
+
+                    <div class="error-ring"></div>
+
+                    <div class="error-icon">
+                        <i class="pi pi-exclamation-triangle"></i>
+                    </div>
+
                 </div>
 
-                <h2>
-                    AI Setup Failed
-                </h2>
+                <div class="state-badge error-badge">
+                    <span class="state-dot"></span>
+                    AI ENGINE
+                </div>
+
+                <h1>AI Setup Failed</h1>
 
                 <p>
-                    We couldn't prepare the background
-                    removal AI.
+                    We couldn't prepare the background removal
+                    engine. Please try again.
                 </p>
 
                 <button
                     type="button"
-                    class="retry-button"
-                    (click)="retryModelLoading()"
-                >
+                    class="primary-button"
+                    (click)="retryModelLoading()">
+
+                    <i class="pi pi-refresh"></i>
 
                     Try Again
 
@@ -68,325 +107,542 @@
 
             </div>
 
-        </div>
+        </section>
 
     }
-  @else {
-
-    <div class="background-workspace">
 
 
-        <!-- ================= INITIAL UPLOAD ================= -->
+    <!-- =========================================================
+         MAIN WORKSPACE
+    ========================================================== -->
 
-        @if (!originalPreview) {
+    @else {
 
-            <div class="upload-state">
+        <section class="workspace-card">
 
-                <div class="upload-icon">
-                    ↑
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="workspace-header">
+
+                <div class="header-copy">
+
+                    <div class="header-icon">
+                        <i class="pi pi-eraser"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="title-row">
+
+                            <h1>Background Remover</h1>
+
+                            <span class="ai-badge">
+                                <i class="pi pi-sparkles"></i>
+                                AI Powered
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Remove backgrounds from your images
+                            automatically and download them as transparent PNGs.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <h2>
-                    Upload an image
-                </h2>
+                <div class="secure-badge">
 
-                <p>
-                    Select an image to remove its background.
-                </p>
+                    <i class="pi pi-shield"></i>
 
-                <label class="upload-button">
+                    <span>Processed securely</span>
 
-                    Choose Image
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        (change)="onFileSelected($event)"
-                        hidden
-                    >
-
-                </label>
-
-
-                @if (validationMessage) {
-
-                    <div class="validation-error">
-
-                        {{ validationMessage }}
-
-                    </div>
-
-                }
+                </div>
 
             </div>
 
-        }
+
+            <!-- =================================================
+                 INITIAL UPLOAD
+            ================================================== -->
+
+            @if (!originalPreview) {
+
+                <div
+                    class="upload-state"
+                    [class.has-error]="validationMessage">
+
+                    <div class="upload-visual">
+
+                        <div class="upload-ring ring-a"></div>
+                        <div class="upload-ring ring-b"></div>
+
+                        <div class="upload-icon">
+
+                            <i class="pi pi-cloud-upload"></i>
+
+                        </div>
+
+                        <div class="floating-file file-one">
+                            <i class="pi pi-image"></i>
+                        </div>
+
+                        <div class="floating-file file-two">
+                            <i class="pi pi-file"></i>
+                        </div>
+
+                    </div>
+
+                    <h2>Upload an image</h2>
+
+                    <p>
+                        Drop your image here or browse your device
+                        to remove its background.
+                    </p>
+
+                    <label class="upload-button">
+
+                        <i class="pi pi-folder-open"></i>
+
+                        Choose Image
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            (change)="onFileSelected($event)"
+                            hidden>
+
+                    </label>
+
+                    <div class="upload-formats">
+
+                        <span>JPG</span>
+                        <span>PNG</span>
+                        <span>WEBP</span>
+                        <span>JPEG</span>
+
+                    </div>
+
+                    @if (validationMessage) {
+
+                        <div class="validation-error">
+
+                            <i class="pi pi-exclamation-circle"></i>
+
+                            {{ validationMessage }}
+
+                        </div>
+
+                    }
+
+                </div>
+
+            }
 
 
-        <!-- ================= IMAGE WORKSPACE ================= -->
+            <!-- =================================================
+                 IMAGE WORKSPACE
+            ================================================== -->
 
-        @if (originalPreview) {
+            @if (originalPreview) {
 
-            <div class="image-workspace">
-
-
-                <!-- ================= PROCESSING ================= -->
-
-                @if (processing) {
-
-                    <div class="processing-view">
-
-                        <!-- Animated waves -->
-
-                        <div class="wave-container">
-
-                            <div class="wave wave-1"></div>
-
-                            <div class="wave wave-2"></div>
-
-                            <div class="wave wave-3"></div>
-
-                            <div class="wave wave-4"></div>
+                <div class="image-workspace">
 
 
-                            <!-- Image -->
+                    <!-- =========================================
+                         PROCESSING
+                    ========================================== -->
 
-                            <div class="processing-image-wrapper">
+                    @if (processing) {
 
-                                <img
-                                    [src]="originalPreview"
-                                    alt="Processing image"
-                                    class="processing-image"
-                                >
+                        <div class="processing-view">
+
+                            <div class="processing-visual">
+
+                                <div class="processing-ring ring-one"></div>
+                                <div class="processing-ring ring-two"></div>
+                                <div class="processing-ring ring-three"></div>
+
+                                <div class="processing-image-wrapper">
+
+                                    <img
+                                        [src]="originalPreview"
+                                        alt="Processing image"
+                                        class="processing-image">
+
+                                    <div class="scan-line"></div>
+
+                                </div>
+
+                                <div class="processing-particles">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="processing-copy">
+
+                                <div class="processing-badge">
+
+                                    <span></span>
+
+                                    AI PROCESSING
+
+                                </div>
+
+                                <h2>Removing background</h2>
+
+                                <p>
+                                    AI is analyzing your image and
+                                    separating the foreground from the background.
+                                </p>
+
+                            </div>
+
+                            <div class="processing-steps">
+
+                                <div class="processing-step active">
+
+                                    <span class="step-icon">
+                                        <i class="pi pi-search"></i>
+                                    </span>
+
+                                    <span>Analyzing</span>
+
+                                </div>
+
+                                <div class="step-line"></div>
+
+                                <div class="processing-step active">
+
+                                    <span class="step-icon">
+                                        <i class="pi pi-sparkles"></i>
+                                    </span>
+
+                                    <span>Processing</span>
+
+                                </div>
+
+                                <div class="step-line"></div>
+
+                                <div class="processing-step">
+
+                                    <span class="step-icon">
+                                        <i class="pi pi-check"></i>
+                                    </span>
+
+                                    <span>Complete</span>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-
-                        <div class="processing-text">
-
-                            <h3>
-                                Removing background
-                            </h3>
-
-                            <p>
-                                AI is processing your image...
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                }
+                    }
 
 
-                <!-- ================= RESULT ================= -->
+                    <!-- =========================================
+                         RESULT
+                    ========================================== -->
 
-                @else {
+                    @else {
 
-                    <div class="result-view">
+                        <div class="result-view">
+
+                            <div class="result-topbar">
+
+                                <div>
+
+                                    <span class="result-label">
+                                        <i class="pi pi-check-circle"></i>
+                                        RESULT READY
+                                    </span>
+
+                                    <h2>Background Removed</h2>
+
+                                </div>
+
+                                <span class="png-badge">
+
+                                    <i class="pi pi-image"></i>
+
+                                    PNG
+
+                                </span>
+
+                            </div>
 
 
-                        <!-- Image -->
+                            <!-- IMAGE COMPARISON -->
+                            <div class="result-image-container"
+                                [class.transparent-background]="backgroundRemovedPreview">
 
-                        <div
-                            class="result-image-container"
-                            [class.transparent-background]="backgroundRemovedPreview"
-                        >
+                                <div class="image-glow"></div>
+
+                                @if (backgroundRemovedPreview) {
+
+                                    <img
+                                        [src]="backgroundRemovedPreview"
+                                        alt="Background removed"
+                                        class="result-image">
+
+                                    <div class="transparent-label">
+
+                                        <i class="pi pi-sparkles"></i>
+
+                                        Transparent background
+
+                                    </div>
+
+                                }
+
+                                @else {
+
+                                    <img
+                                        [src]="originalPreview"
+                                        alt="Original image"
+                                        class="result-image">
+
+                                }
+
+                            </div>
+
+
+                            <!-- RESULT DETAILS -->
+
+                            <div class="result-details">
+
+                                @if (backgroundRemovedPreview) {
+
+                                    <div class="result-title">
+
+                                        <span class="result-success-icon">
+
+                                            <i class="pi pi-check"></i>
+
+                                        </span>
+
+                                        <div>
+
+                                            <h3>Background successfully removed</h3>
+
+                                            <p>
+                                                Your image is ready to download.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="image-details">
+
+                                        <div class="detail-item">
+
+                                            <span class="detail-label">
+                                                Dimensions
+                                            </span>
+
+                                            <strong>
+                                                {{ removedWidth }} × {{ removedHeight }} px
+                                            </strong>
+
+                                        </div>
+
+                                        <div class="detail-item">
+
+                                            <span class="detail-label">
+                                                File size
+                                            </span>
+
+                                            <strong>
+                                                {{ formatFileSize(removedSize) }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                }
+
+                                @else {
+
+                                    <div class="result-title">
+
+                                        <span class="result-success-icon neutral">
+
+                                            <i class="pi pi-image"></i>
+
+                                        </span>
+
+                                        <div>
+
+                                            <h3>Your Image</h3>
+
+                                            <p>
+                                                Ready to remove the background.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="image-details">
+
+                                        <div class="detail-item">
+
+                                            <span class="detail-label">
+                                                Dimensions
+                                            </span>
+
+                                            <strong>
+                                                {{ originalWidth }} × {{ originalHeight }} px
+                                            </strong>
+
+                                        </div>
+
+                                        <div class="detail-item">
+
+                                            <span class="detail-label">
+                                                File size
+                                            </span>
+
+                                            <strong>
+                                                {{ formatFileSize(originalSize) }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                }
+
+                            </div>
+
+
+                            <!-- =================================
+                                 REMOVE BACKGROUND
+                            ================================== -->
+
+                            @if (!backgroundRemovedPreview) {
+
+                                <div class="remove-action">
+
+                                    <button
+                                        type="button"
+                                        class="primary-button remove-button"
+                                        (click)="removeBackground()"
+                                        [disabled]="processing">
+
+                                        <i class="pi pi-eraser"></i>
+
+                                        Remove Background
+
+                                        <i class="pi pi-arrow-right button-arrow"></i>
+
+                                    </button>
+
+                                </div>
+
+                            }
+
+
+                            <!-- =================================
+                                 RESULT ACTIONS
+                            ================================== -->
 
                             @if (backgroundRemovedPreview) {
 
-                                <img
-                                    [src]="backgroundRemovedPreview"
-                                    alt="Background removed"
-                                    class="result-image"
-                                >
+                                <div class="result-actions">
 
-                            } @else {
+                                    <button
+                                        type="button"
+                                        class="secondary-button"
+                                        (click)="undo()"
+                                        [disabled]="!canUndo">
 
-                                <img
-                                    [src]="originalPreview"
-                                    alt="Original image"
-                                    class="result-image"
-                                >
+                                        <i class="pi pi-undo"></i>
+
+                                        Undo
+
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="secondary-button"
+                                        (click)="redo()"
+                                        [disabled]="!canRedo">
+
+                                        <i class="pi pi-refresh"></i>
+
+                                        Redo
+
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="download-button"
+                                        (click)="downloadBackgroundRemoved()">
+
+                                        <i class="pi pi-download"></i>
+
+                                        Download PNG
+
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="secondary-button"
+                                        (click)="reset()">
+
+                                        <i class="pi pi-plus"></i>
+
+                                        Remove Another
+
+                                    </button>
+
+                                </div>
 
                             }
 
                         </div>
 
+                    }
 
-                        <!-- Image Details -->
+                </div>
 
-                        <div class="result-details">
+            }
 
-                            @if (backgroundRemovedPreview) {
 
-                                <div class="result-title">
+            <!-- =================================================
+                 VALIDATION
+            ================================================== -->
 
-                                    <h2>
-                                        Background Removed
-                                    </h2>
+            @if (validationMessage && originalPreview) {
 
-                                </div>
+                <div class="validation-error bottom-error">
 
-                                <div class="image-details">
+                    <i class="pi pi-exclamation-circle"></i>
 
-                                    <span>
-                                        {{ removedWidth }}
-                                        ×
-                                        {{ removedHeight }}
-                                        px
-                                    </span>
+                    {{ validationMessage }}
 
-                                    <span>
-                                        {{ formatFileSize(removedSize) }}
-                                    </span>
+                </div>
 
-                                </div>
+            }
 
-                            } @else {
+        </section>
 
-                                <div class="result-title">
-
-                                    <h2>
-                                        Your Image
-                                    </h2>
-
-                                </div>
-
-                                <div class="image-details">
-
-                                    <span>
-                                        {{ originalWidth }}
-                                        ×
-                                        {{ originalHeight }}
-                                        px
-                                    </span>
-
-                                    <span>
-                                        {{ formatFileSize(originalSize) }}
-                                    </span>
-
-                                </div>
-
-                            }
-
-                        </div>
-
-
-                        <!-- ================= ACTION ================= -->
-
-                        @if (!backgroundRemovedPreview) {
-
-                            <div class="remove-action">
-
-                                <button
-                                    type="button"
-                                    class="remove-button"
-                                    (click)="removeBackground()"
-                                    [disabled]="processing"
-                                >
-
-                                    Remove Background
-
-                                </button>
-
-                            </div>
-
-                        }
-
-
-                        <!-- ================= RESULT ACTIONS ================= -->
-
-                        @if (backgroundRemovedPreview) {
-
-                            <div class="result-actions">
-
-
-                                <!-- UNDO -->
-
-                                <button
-                                    type="button"
-                                    class="undo-button"
-                                    (click)="undo()"
-                                    [disabled]="!canUndo"
-                                >
-
-                                    ↶ Undo
-
-                                </button>
-
-
-                                <!-- REDO -->
-
-                                <button
-                                    type="button"
-                                    class="redo-button"
-                                    (click)="redo()"
-                                    [disabled]="!canRedo"
-                                >
-
-                                    ↷ Redo
-
-                                </button>
-
-
-                                <!-- DOWNLOAD -->
-
-                                <button
-                                    type="button"
-                                    class="download-button"
-                                    (click)="downloadBackgroundRemoved()"
-                                >
-
-                                    Download PNG
-
-                                </button>
-
-
-                                <!-- RESET -->
-
-                                <button
-                                    type="button"
-                                    class="reset-button"
-                                    (click)="reset()"
-                                >
-
-                                    Remove Another Image
-
-                                </button>
-
-                            </div>
-
-                        }
-
-                    </div>
-
-                }
-
-            </div>
-
-        }
-
-
-        <!-- ================= VALIDATION ================= -->
-
-        @if (
-            validationMessage &&
-            originalPreview
-        ) {
-
-            <div class="validation-error">
-
-                {{ validationMessage }}
-
-            </div>
-
-        }
-
-    </div>
-
-}
+    }
 
 </div>

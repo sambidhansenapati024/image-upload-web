@@ -2,168 +2,328 @@
 
     <div class="navbar">
 
-        <!-- Right Section -->
+        <div class="navbar-left">
+
+            <div class="workspace-indicator">
+
+                <span class="connection-dot"></span>
+
+                <div>
+                    <strong>CloudVault</strong>
+                    <small>Workspace</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
         <div class="right">
 
-    <p-tag
-        severity="success"
-        value="Connected">
-    </p-tag>
+            <!-- Connection -->
 
-    <p-tag
-        severity="info"
-        [value]="versionService.frontendInfo?.displayVersion">
-    </p-tag>
+            <div class="connection-status">
 
-    <!-- Notification Bell -->
-    <app-notification-bell></app-notification-bell>
+                <span class="status-dot"></span>
 
-    <!-- User -->
-    <div
-        class="user"
-        (click)="userPopover.toggle($event)">
+                <span>Connected</span>
 
-        <div class="avatar">
+            </div>
 
-            @if(user?.profileImageUrl){
 
-                <img
-                    [src]="user?.profileImageUrl"
-                    [alt]="user?.fullName">
+            <!-- Version -->
 
-            } @else {
+            <div class="version-badge">
 
-                {{ user?.fullName?.charAt(0) }}
+                <i class="pi pi-code"></i>
 
-            }
+                <span>
+                    {{ versionService.frontendInfo?.displayVersion }}
+                </span>
+
+            </div>
+
+
+            <!-- Notifications -->
+
+            <div class="notification-wrapper">
+
+                <app-notification-bell></app-notification-bell>
+
+            </div>
+
+
+            <!-- User -->
+
+            <div
+                class="user"
+                (click)="userPopover.toggle($event)">
+
+                <div class="avatar-wrapper">
+
+                    <div class="avatar">
+
+                        @if (user?.profileImageUrl) {
+
+                            <img
+                                [src]="user?.profileImageUrl"
+                                [alt]="user?.fullName">
+
+                        } @else {
+
+                            {{ user?.fullName?.charAt(0) }}
+
+                        }
+
+                    </div>
+
+                    <span class="user-online"></span>
+
+                </div>
+
+
+                <div class="user-info">
+
+                    <h4>
+                        {{ user?.fullName }}
+                    </h4>
+
+                    <small>
+                        {{ user?.email }}
+                    </small>
+
+                </div>
+
+
+                <i class="pi pi-chevron-down user-arrow"></i>
+
+            </div>
 
         </div>
-
-        <div>
-
-            <h4>{{ user?.fullName }}</h4>
-
-            <small>{{ user?.email }}</small>
-
-            <i class="pi pi-angle-down"></i>
-
-        </div>
-
-    </div>
-
-</div>
 
     </div>
 
 </p-card>
 
+
+<!-- =====================================================
+     USER POPOVER
+===================================================== -->
+
 <p-popover #userPopover>
 
     <div class="user-menu">
 
+
+        <!-- Header -->
+
         <div class="user-menu-header">
 
-            <div class="avatar large">
+            <div class="popover-avatar-wrapper">
 
-                @if(user?.profileImageUrl){
+                <div class="avatar large">
 
-                    <img
-                        [src]="user?.profileImageUrl"
-                        [alt]="user?.fullName">
+                    @if (user?.profileImageUrl) {
 
-                } @else {
+                        <img
+                            [src]="user?.profileImageUrl"
+                            [alt]="user?.fullName">
 
-                    {{ user?.fullName?.charAt(0) }}
+                    } @else {
 
-                }
+                        {{ user?.fullName?.charAt(0) }}
+
+                    }
+
+                </div>
+
+                <span class="popover-online"></span>
 
             </div>
 
-            <h3>{{ user?.fullName }}</h3>
 
-            <p>{{ user?.email }}</p>
+            <h3>
+                {{ user?.fullName }}
+            </h3>
+
+            <p>
+                {{ user?.email }}
+            </p>
+
+            <span class="account-badge">
+
+                <i class="pi pi-check-circle"></i>
+
+                Active account
+
+            </span>
 
         </div>
 
+
+        <!-- Menu -->
+
         <div class="user-menu-items">
 
-<button
-    class="menu-item"
-    (click)="goToProfile()">
 
-    <i class="pi pi-user"></i>
+            <button
+                class="menu-item"
+                (click)="goToProfile()">
 
-    <span>My Profile</span>
+                <span class="menu-icon blue">
+                    <i class="pi pi-user"></i>
+                </span>
 
-</button>
+                <span class="menu-text">
 
-<button
-    class="menu-item"
-    (click)="goToSettings()">
+                    <strong>My Profile</strong>
 
-    <i class="pi pi-cog"></i>
+                    <small>View your profile</small>
 
-    <span>Settings</span>
+                </span>
 
-</button>
+                <i class="pi pi-angle-right menu-arrow"></i>
 
-<button
-    class="menu-item"
-    (click)="goToSecurity()">
+            </button>
 
-    <i class="pi pi-shield"></i>
 
-    <span>Security</span>
+            <button
+                class="menu-item"
+                (click)="goToSettings()">
 
-</button>
+                <span class="menu-icon violet">
+                    <i class="pi pi-cog"></i>
+                </span>
 
-<button
-    class="menu-item"
-    (click)="goToSupportQueries()">
+                <span class="menu-text">
 
-    <i class="pi pi-comments"></i>
+                    <strong>Settings</strong>
 
-    <span>My Support Queries</span>
+                    <small>Manage preferences</small>
 
-</button>
+                </span>
 
-<button
-    class="menu-item"
-    (click)="goToHelp()">
+                <i class="pi pi-angle-right menu-arrow"></i>
 
-    <i class="pi pi-question-circle"></i>
+            </button>
 
-    <span>Help & Support</span>
 
-</button>
+            <button
+                class="menu-item"
+                (click)="goToSecurity()">
 
-@if (isAdmin()) {
+                <span class="menu-icon green">
+                    <i class="pi pi-shield"></i>
+                </span>
 
-    <button
-        class="menu-item"
-        (click)="switchToAdmin()">
+                <span class="menu-text">
 
-        <i class="pi pi-shield"></i>
+                    <strong>Security</strong>
 
-        <span>Switch to Admin</span>
+                    <small>Protect your account</small>
 
-    </button>
+                </span>
 
-}
+                <i class="pi pi-angle-right menu-arrow"></i>
 
-    <div class="menu-divider"></div>
+            </button>
 
-    <button
-        class="menu-item logout"
-        (click)="logout()">
 
-        <i class="pi pi-sign-out"></i>
+            <button
+                class="menu-item"
+                (click)="goToSupportQueries()">
 
-        <span>Logout</span>
+                <span class="menu-icon orange">
+                    <i class="pi pi-comments"></i>
+                </span>
 
-    </button>
+                <span class="menu-text">
 
-</div>
+                    <strong>My Support Queries</strong>
+
+                    <small>View submitted queries</small>
+
+                </span>
+
+                <i class="pi pi-angle-right menu-arrow"></i>
+
+            </button>
+
+
+            <button
+                class="menu-item"
+                (click)="goToHelp()">
+
+                <span class="menu-icon cyan">
+                    <i class="pi pi-question-circle"></i>
+                </span>
+
+                <span class="menu-text">
+
+                    <strong>Help & Support</strong>
+
+                    <small>Get help with CloudVault</small>
+
+                </span>
+
+                <i class="pi pi-angle-right menu-arrow"></i>
+
+            </button>
+
+
+            @if (isAdmin()) {
+
+                <button
+                    class="menu-item"
+                    (click)="switchToAdmin()">
+
+                    <span class="menu-icon admin">
+                        <i class="pi pi-shield"></i>
+                    </span>
+
+                    <span class="menu-text">
+
+                        <strong>Switch to Admin</strong>
+
+                        <small>Open administration</small>
+
+                    </span>
+
+                    <i class="pi pi-angle-right menu-arrow"></i>
+
+                </button>
+
+            }
+
+
+            <div class="menu-divider"></div>
+
+
+            <!-- Logout -->
+
+            <button
+                class="menu-item logout"
+                (click)="logout()">
+
+                <span class="menu-icon logout-icon">
+
+                    <i class="pi pi-sign-out"></i>
+
+                </span>
+
+                <span class="menu-text">
+
+                    <strong>Logout</strong>
+
+                    <small>Sign out of CloudVault</small>
+
+                </span>
+
+                <i class="pi pi-angle-right menu-arrow"></i>
+
+            </button>
+
+        </div>
 
     </div>
 

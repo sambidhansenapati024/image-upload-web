@@ -1,22 +1,196 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
 
 .security-card {
 
-    background: #FFFFFF;
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FCFCFF 65%,
+            #F8F7FF 100%
+        );
 
     border: 1px solid #E9EAF4;
 
-    border-radius: 16px;
+    border-radius: 22px;
 
-    padding: 24px;
+    padding: 26px;
 
-    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
+    box-sizing: border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        cardReveal .55s cubic-bezier(.22, 1, .36, 1);
 
 }
 
+
+.security-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(79, 110, 247, .18);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(79, 110, 247, .09);
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOWS
+========================================================= */
+
+.card-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(65px);
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    width: 190px;
+
+    height: 190px;
+
+    top: -130px;
+
+    right: -50px;
+
+    background:
+        rgba(79, 110, 247, .12);
+
+    animation:
+        glowOne 9s ease-in-out infinite;
+
+}
+
+
+.glow-two {
+
+    width: 160px;
+
+    height: 160px;
+
+    bottom: -110px;
+
+    left: 25%;
+
+    background:
+        rgba(155, 92, 246, .09);
+
+    animation:
+        glowTwo 11s ease-in-out infinite;
+
+}
+
+
+@keyframes glowOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-20px, 15px)
+            scale(1.15);
+
+    }
+
+}
+
+
+@keyframes glowTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(25px, -15px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .card-header {
+
+    position: relative;
+
+    z-index: 2;
 
     display: flex;
 
@@ -28,13 +202,92 @@
 
 }
 
-.card-header i {
+
+.header-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        );
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .10);
 
     color: #4F6EF7;
 
-    font-size: 22px;
+    animation:
+        iconFloat 4s ease-in-out infinite;
 
 }
+
+
+.header-icon i {
+
+    font-size: 18px;
+
+}
+
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+.header-content {
+
+    min-width: 0;
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    margin-bottom: 4px;
+
+}
+
 
 .card-header h3 {
 
@@ -42,21 +295,349 @@
 
     color: #171A2B;
 
-    font-size: 20px;
+    font-size: 19px;
 
-    font-weight: 600;
+    font-weight: 700;
 
 }
+
 
 .card-header p {
 
-    margin-top: 4px;
+    margin: 4px 0 0;
 
     color: #767C93;
 
+    font-size: 12px;
+
 }
 
-.session-card {
+
+/* =========================================================
+   CURRENT SESSION
+========================================================= */
+
+.current-session-card {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 17px;
+
+    margin-bottom: 24px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, .06),
+            rgba(79, 110, 247, .05)
+        );
+
+    border:
+        1px solid
+        rgba(34, 197, 94, .18);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+.current-session-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(34, 197, 94, .08);
+
+}
+
+
+/* =========================================================
+   SESSION MAIN
+========================================================= */
+
+.session-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+}
+
+
+/* =========================================================
+   DEVICE ICON
+========================================================= */
+
+.device-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(79, 110, 247, .10);
+
+    color: #4F6EF7;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+
+}
+
+
+.device-icon i {
+
+    font-size: 17px;
+
+}
+
+
+.device-icon.current {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, .15),
+            rgba(79, 110, 247, .10)
+        );
+
+    color: #16A34A;
+
+}
+
+
+.session-card:hover .device-icon {
+
+    transform:
+        scale(1.07)
+        rotate(-3deg);
+
+}
+
+
+/* =========================================================
+   SESSION DETAILS
+========================================================= */
+
+.session-details {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.session-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.session-title h4 {
+
+    margin: 0;
+
+    color: #171A2B;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+}
+
+
+.current-session-card .session-title h4 {
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================================
+   CURRENT BADGE
+========================================================= */
+
+.current-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(34, 197, 94, .10);
+
+    color: #15803D;
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+}
+
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #22C55E;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(34, 197, 94, .10);
+
+    animation:
+        statusPulse 2s ease-in-out infinite;
+
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 3px
+            rgba(34, 197, 94, .08);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 6px
+            rgba(34, 197, 94, .14);
+
+    }
+
+}
+
+
+/* =========================================================
+   DEVICE META
+========================================================= */
+
+.device-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 7px;
+
+}
+
+
+.device-meta span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #767C93;
+
+    font-size: 11px;
+
+}
+
+
+.device-meta i {
+
+    color: #A2A8BD;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   LAST ACTIVE
+========================================================= */
+
+.last-active {
+
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 6px;
+
+    color: #A2A8BD;
+
+    font-size: 10px;
+
+}
+
+
+.last-active i {
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   OTHER SESSIONS SECTION
+========================================================= */
+
+.sessions-section {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.section-header {
 
     display: flex;
 
@@ -64,182 +645,67 @@
 
     justify-content: space-between;
 
-    gap: 20px;
-
-    align-items: center;
-
-    padding: 10px;
-
-    border: 1px solid #E9EAF4;
-
-    border-radius: 12px;
+    gap: 15px;
 
     margin-bottom: 12px;
 
 }
 
 
-.actions {
+.section-header h4 {
 
-    display: flex;
-
-    justify-content: flex-end;
-
-    margin: 20px 0;
-
-}
-
-.session-info strong {
+    margin: 0;
 
     color: #171A2B;
 
-    font-size: 18px;
+    font-size: 15px;
 
-    font-weight: 600;
+    font-weight: 650;
+
+}
+
+
+.section-header span {
 
     display: block;
 
-    margin-bottom: 4px;
+    margin-top: 3px;
+
+    color: #A2A8BD;
+
+    font-size: 10px;
 
 }
 
-.other-devices h4 {
-    color: #171A2B;
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: 600;
-}
 
-.session-info {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    flex: 1;
-}
-
-.session-info > div:last-child {
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-.session-info h4,
-.session-info strong {
-
-    margin: 0 0 4px;
-}
-
-.session-info small {
-
-    display: block;
-
-    line-height: 1.5;
-}
-
-.device-icon {
-
-    width: 42px;
-
-    height: 42px;
-
-    border-radius: 10px;
-
-    background: rgba(79, 110, 247, .10);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-.device-icon i {
-
-    color: #4F6EF7;
-
-    font-size: 20px;
-
-}
-
-.session-info h4 {
-
-    margin: 0;
-
-    color: #171A2B;
-
-}
-
-.session-info small {
-
-    color: #767C93;
-
-}
-
-.current-session {
-
-    background: rgba(34, 197, 94, .12);
-
-    color: #15803D;
-
-    padding: 5px 12px;
-
-    border-radius: 999px;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-}
-
-.device-details {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-
-}
-
-.device-details h4 {
-
-    margin: 0;
-    color: #171A2B;
-    font-size: 18px;
-    font-weight: 600;
-
-}
-
-.device-details small {
-
-    margin: 0;
-    color: #767C93;
-    line-height: 1.3;
-
-}
+/* =========================================================
+   SCROLL CONTAINER
+========================================================= */
 
 .sessions-scroll {
 
-    max-height: 360px;
+    max-height: 300px;
 
     overflow-y: auto;
 
-    padding-right: 6px;
+    padding-right: 5px;
 
 }
+
 
 .sessions-scroll::-webkit-scrollbar {
 
-    width: 6px;
+    width: 5px;
 
 }
+
+
+.sessions-scroll::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
 
 .sessions-scroll::-webkit-scrollbar-thumb {
 
@@ -249,28 +715,353 @@
 
 }
 
+
 .sessions-scroll::-webkit-scrollbar-thumb:hover {
 
     background: #C7CBE6;
 
 }
 
-.coming-soon {
+
+/* =========================================================
+   OTHER SESSION CARD
+========================================================= */
+
+.session-card {
 
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
+    justify-content: space-between;
 
-    color: #767C93;
+    gap: 15px;
 
-    font-size: 14px;
+    padding: 13px;
+
+    margin-bottom: 10px;
+
+    background: #F8F9FD;
+
+    border:
+        1px solid #E9EAF4;
+
+    border-radius: 14px;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
 
 }
 
-.coming-soon i {
 
-    color: #D97706;
+.session-card:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.session-card:hover {
+
+    transform:
+        translateX(3px);
+
+    background: #FFFFFF;
+
+    border-color:
+        rgba(79, 110, 247, .20);
+
+    box-shadow:
+        0 8px 20px
+        rgba(23, 26, 43, .05);
+
+}
+
+
+/* =========================================================
+   SIGN OUT BUTTON
+========================================================= */
+
+.sign-out-btn {
+
+    flex-shrink: 0;
+
+}
+
+
+:host ::ng-deep .session-card .p-button {
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+    padding:
+        6px 10px;
+
+}
+
+
+:host ::ng-deep .section-header .p-button {
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   NO SESSIONS
+========================================================= */
+
+.no-sessions {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 17px;
+
+    margin-top: 4px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(34, 197, 94, .05);
+
+    border:
+        1px solid
+        rgba(34, 197, 94, .13);
+
+    animation:
+        fadeUp .45s ease;
+
+}
+
+
+.no-session-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(34, 197, 94, .10);
+
+    color: #16A34A;
+
+}
+
+
+.no-session-icon i {
+
+    font-size: 17px;
+
+}
+
+
+.no-sessions strong {
+
+    display: block;
+
+    color: #171A2B;
+
+    font-size: 13px;
+
+}
+
+
+.no-sessions span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #767C93;
+
+    font-size: 10px;
+
+}
+
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.security-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+}
+
+
+.security-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #767C93;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+}
+
+
+.security-footer > i {
+
+    color: #A2A8BD;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .security-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .card-header {
+
+        align-items: flex-start;
+
+    }
+
+
+    .section-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .section-header .p-button {
+
+        width: 100%;
+
+    }
+
+
+    .session-card {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .session-card .sign-out-btn {
+
+        width: 100%;
+
+    }
+
+
+    .session-card .session-main {
+
+        width: 100%;
+
+    }
+
+
+    .device-meta {
+
+        gap: 7px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .security-card *,
+    .security-card *::before,
+    .security-card *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
 
 }

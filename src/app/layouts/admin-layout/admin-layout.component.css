@@ -1,40 +1,63 @@
+/* =========================================================
+   ADMIN LAYOUT
+   ========================================================= */
+
 .admin-layout {
     min-height: 100vh;
 
     background: #F6F7FC;
 
     color: #171A2B;
+
+    overflow: hidden;
 }
 
 
-/* ============================= */
-/* NAVBAR */
-/* ============================= */
+/* =========================================================
+   NAVBAR
+   ========================================================= */
 
 .admin-navbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+
     height: 64px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 0 22px;
 
-    background: #FFFFFF;
+    background: rgba(255, 255, 255, 0.96);
 
     border-bottom: 1px solid #E9EAF4;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-sizing: border-box;
 }
+
 
 .admin-navbar-left,
 .admin-navbar-right {
     display: flex;
+
     align-items: center;
 }
 
 
-/* ============================= */
-/* LOGO */
-/* ============================= */
+/* =========================================================
+   LOGO
+   ========================================================= */
 
 .admin-navbar-left {
     gap: 14px;
@@ -42,12 +65,15 @@
 
 .admin-logo {
     display: flex;
+
     align-items: center;
+
     gap: 9px;
 
     color: #171A2B;
 
     font-size: 17px;
+
     font-weight: 600;
 }
 
@@ -61,6 +87,7 @@
     padding: 4px 8px;
 
     border: 1px solid rgba(79, 110, 247, .3);
+
     border-radius: 5px;
 
     background: rgba(79, 110, 247, .10);
@@ -68,15 +95,16 @@
     color: #4F6EF7;
 
     font-size: 9px;
+
     font-weight: 600;
 
     letter-spacing: 0.5px;
 }
 
 
-/* ============================= */
-/* ADMIN USER */
-/* ============================= */
+/* =========================================================
+   ADMIN USER
+   ========================================================= */
 
 .admin-navbar-right {
     gap: 18px;
@@ -84,32 +112,15 @@
 
 .admin-user {
     display: flex;
+
     align-items: center;
+
     gap: 9px;
-}
-
-.admin-avatar {
-    width: 32px;
-    height: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
-
-    border: none;
-
-    color: white;
-
-    font-size: 12px;
-    font-weight: 600;
 }
 
 .admin-user-info {
     display: flex;
+
     flex-direction: column;
 }
 
@@ -117,6 +128,7 @@
     color: #171A2B;
 
     font-size: 12px;
+
     font-weight: 500;
 }
 
@@ -129,72 +141,159 @@
 }
 
 
-/* ============================= */
-/* SWITCH TO USER */
-/* ============================= */
+/* =========================================================
+   ADMIN USER BUTTON
+   ========================================================= */
 
-.switch-user-button {
-    display: inline-flex;
+.admin-user-button {
+    display: flex;
+
     align-items: center;
-    gap: 7px;
 
-    padding: 7px 11px;
+    gap: 10px;
 
-    border: 1px solid #E9EAF4;
-    border-radius: 7px;
+    padding: 5px 8px;
+
+    border: none;
+
+    border-radius: 8px;
 
     background: transparent;
 
-    color: #767C93;
-
-    font-size: 11px;
+    color: inherit;
 
     cursor: pointer;
 
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease;
+    transition: background .2s ease;
 }
 
-.switch-user-button:hover {
+.admin-user-button:hover {
     background: #F6F7FC;
+}
 
-    border-color: #C7CBE6;
+.admin-user-button > i {
+    color: #A2A8BD;
 
-    color: #171A2B;
+    font-size: 11px;
 }
 
 
-/* ============================= */
-/* BODY */
-/* ============================= */
+/* =========================================================
+   ADMIN AVATAR
+   ========================================================= */
+
+.admin-avatar {
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #4F6EF7,
+        #9B5CF6
+    );
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.admin-avatar img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   ADMIN BODY
+   ========================================================= */
 
 .admin-body {
     display: flex;
 
-    min-height: calc(100vh - 64px);
+    /*
+     * Navbar occupies 64px.
+     */
+    padding-top: 64px;
+
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
 }
 
 
-/* ============================= */
-/* SIDEBAR */
-/* ============================= */
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
 .admin-sidebar {
+    position: fixed;
+
+    top: 64px;
+
+    left: 0;
+
+    bottom: 0;
+
+    z-index: 900;
+
     width: 220px;
 
     flex-shrink: 0;
 
     padding: 20px 12px;
 
+    box-sizing: border-box;
+
     background: #FFFFFF;
 
     border-right: 1px solid #E9EAF4;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
 }
+
+
+/* Sidebar scrollbar */
+
+.admin-sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+    background: #DDE1F0;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
 
 .admin-nav {
     display: flex;
+
     flex-direction: column;
 
     gap: 5px;
@@ -202,7 +301,9 @@
 
 .admin-nav a {
     display: flex;
+
     align-items: center;
+
     gap: 11px;
 
     padding: 10px 12px;
@@ -216,57 +317,324 @@
     text-decoration: none;
 
     transition:
-        background 0.2s ease,
-        color 0.2s ease;
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
 }
 
 .admin-nav a i {
     width: 17px;
 
+    flex-shrink: 0;
+
     font-size: 14px;
+
+    text-align: center;
 }
 
 .admin-nav a:hover {
     background: #F6F7FC;
 
     color: #171A2B;
+
+    transform: translateX(2px);
 }
 
 .admin-nav a.active {
-    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
+    background: linear-gradient(
+        135deg,
+        #4F6EF7,
+        #9B5CF6
+    );
 
     color: white;
+
+    box-shadow:
+        0 6px 16px rgba(79, 110, 247, .18);
 }
 
 
-/* ============================= */
-/* CONTENT */
-/* ============================= */
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
 
 .admin-content {
+    /*
+     * Sidebar width.
+     */
+    margin-left: 220px;
+
+    /*
+     * This is the ONLY scrolling area.
+     */
+    height: calc(100vh - 64px);
+
     flex: 1;
 
     min-width: 0;
 
     padding: 25px;
 
-    overflow-x: auto;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    scroll-behavior: smooth;
 }
 
 
-/* ============================= */
-/* RESPONSIVE */
-/* ============================= */
+/* =========================================================
+   CONTENT SCROLLBAR
+   ========================================================= */
+
+.admin-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.admin-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-content::-webkit-scrollbar-thumb {
+    background: #D7DBEA;
+
+    border-radius: 10px;
+}
+
+.admin-content::-webkit-scrollbar-thumb:hover {
+    background: #BFC5DC;
+}
+
+
+/* =========================================================
+   ROUTE ANIMATION CONTAINER
+   ========================================================= */
+
+.route-container {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100%;
+}
+
+
+/* =========================================================
+   PROFILE POPOVER
+   ========================================================= */
+
+.admin-user-menu {
+    width: 260px;
+
+    padding: 4px;
+}
+
+
+/* Popover itself */
+
+:host ::ng-deep .p-popover {
+    border: 1px solid #E9EAF4;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 16px 40px rgba(23, 26, 43, .12),
+        0 4px 12px rgba(23, 26, 43, .06);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   PROFILE MENU HEADER
+   ========================================================= */
+
+.admin-user-menu-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 8px 8px 14px;
+}
+
+.admin-menu-avatar {
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #4F6EF7,
+        #9B5CF6
+    );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.admin-menu-avatar img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.admin-user-menu-header h3 {
+    margin: 0;
+
+    color: #171A2B;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.admin-user-menu-header p {
+    margin: 4px 0 0;
+
+    color: #A2A8BD;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    max-width: 175px;
+}
+
+
+/* =========================================================
+   MENU ITEMS
+   ========================================================= */
+
+.admin-user-menu-items {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.admin-menu-item {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #4A4F63;
+
+    font-size: 12px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+.admin-menu-item:hover {
+    background: #F6F7FC;
+
+    color: #171A2B;
+
+    transform: translateX(2px);
+}
+
+.admin-menu-item i {
+    width: 16px;
+
+    flex-shrink: 0;
+
+    font-size: 13px;
+}
+
+.admin-menu-item.logout {
+    color: #DC2626;
+}
+
+.admin-menu-item.logout:hover {
+    background: rgba(239, 68, 68, .08);
+
+    color: #DC2626;
+}
+
+.menu-divider {
+    height: 1px;
+
+    margin: 5px 0;
+
+    background: #E9EAF4;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 700px) {
+
+    /* -------------------------
+       Navbar
+       ------------------------- */
+
+    .admin-navbar {
+        padding: 0 14px;
+    }
+
+
+    /* -------------------------
+       User information
+       ------------------------- */
 
     .admin-user-info {
         display: none;
     }
 
-    .switch-user-button span {
+    .admin-user-button > i {
         display: none;
     }
+
+
+    /* -------------------------
+       Sidebar
+       ------------------------- */
 
     .admin-sidebar {
         width: 64px;
@@ -284,187 +652,34 @@
         display: none;
     }
 
+
+    /* -------------------------
+       Content
+       ------------------------- */
+
     .admin-content {
+        margin-left: 64px;
+
         padding: 18px;
+
+        height: calc(100vh - 64px);
     }
 
 }
 
-.admin-avatar {
-    width: 34px;
-    height: 34px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@media (max-width: 480px) {
 
-    overflow: hidden;
+    .admin-logo span {
+        display: none;
+    }
 
-    border-radius: 50%;
+    .admin-badge {
+        display: none;
+    }
 
-    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
+    .admin-content {
+        padding: 14px;
+    }
 
-    border: none;
-
-    color: white;
-
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.admin-avatar img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-.admin-user-button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 5px 8px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: transparent;
-
-    color: inherit;
-
-    cursor: pointer;
-}
-
-.admin-user-button:hover {
-    background: #F6F7FC;
-}
-
-.admin-user-button > i {
-    color: #A2A8BD;
-    font-size: 11px;
-}
-
-
-.admin-user-menu {
-    width: 260px;
-}
-
-
-.admin-user-menu-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    padding: 4px 4px 14px;
-}
-
-
-.admin-menu-avatar {
-    width: 40px;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    overflow: hidden;
-
-    border-radius: 50%;
-
-    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
-
-    border: none;
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.admin-menu-avatar img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-
-.admin-user-menu-header h3 {
-    margin: 0;
-
-    color: #171A2B;
-
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.admin-user-menu-header p {
-    margin: 4px 0 0;
-
-    color: #A2A8BD;
-
-    font-size: 11px;
-}
-
-
-.admin-user-menu-items {
-    display: flex;
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-
-.admin-menu-item {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 9px 10px;
-
-    border: none;
-    border-radius: 6px;
-
-    background: transparent;
-
-    color: #4A4F63;
-
-    font-size: 12px;
-
-    text-align: left;
-
-    cursor: pointer;
-}
-
-.admin-menu-item:hover {
-    background: #F6F7FC;
-
-    color: #171A2B;
-}
-
-.admin-menu-item i {
-    width: 16px;
-
-    font-size: 13px;
-}
-
-.admin-menu-item.logout {
-    color: #DC2626;
-}
-
-.admin-menu-item.logout:hover {
-    background: rgba(239, 68, 68, 0.08);
-}
-
-.menu-divider {
-    height: 1px;
-
-    margin: 5px 0;
-
-    background: #E9EAF4;
 }

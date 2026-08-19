@@ -1,153 +1,585 @@
-::ng-deep .image-card {
-
-    background: #FFFFFF !important;
-
-    border: 1px solid #E9EAF4 !important;
-
-    overflow: hidden;
-
-    transition: .35s;
-
-    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
-
-}
-
-::ng-deep .image-card:hover {
-
-    transform: translateY(-10px);
-
-    border-color: #4F6EF7 !important;
-
-    box-shadow:
-        0 20px 40px rgba(79, 110, 247, .18),
-        0 0 0 1px rgba(79, 110, 247, .12);
-
-}
-
-.image {
-
-    width: 100%;
-
-    height: 200px;
-
-    object-fit: cover;
-
-    transition: .4s;
-
-}
-
-.image:hover {
-
-    transform: scale(1.05);
-
-}
-
-.footer {
-
-    padding: 12px;
-
-}
-
-.file-name {
-
-    color: #171A2B;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    margin: 0;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-
-}
-
-.file-meta {
-
+:host {
     display: block;
 
-    margin-top: 6px;
-
-    color: #767C93;
-
-    font-size: 13px;
-
+    --cv-primary: #4F6EF7;
+    --cv-purple: #9B5CF6;
+    --cv-bg: #FFFFFF;
+    --cv-bg-soft: #F6F7FC;
+    --cv-border: #E9EAF4;
+    --cv-text: #171A2B;
+    --cv-muted: #767C93;
 }
 
-.image-container {
+
+/* =========================================================
+   IMAGE CARD
+========================================================= */
+
+::ng-deep .image-card {
 
     position: relative;
 
-    overflow: hidden;
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #FAFAFE
+        ) !important;
+
+    border:
+        1px solid var(--cv-border) !important;
+
+    border-radius:
+        20px !important;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .4s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .4s ease,
+        border-color .3s ease;
 
 }
 
-/* This overlay sits over the photo itself, not the page background,
-   so it stays a dark scrim regardless of app theme — that's what keeps
-   the action buttons/text legible over an arbitrary, unpredictable
-   image underneath. Only the tint shifted slightly to match the app's
-   ink tone instead of the old dark-theme navy. */
-.image-overlay {
+
+/* Animated gradient border */
+
+::ng-deep .image-card::before {
+
+    content: "";
 
     position: absolute;
 
-    inset: 0;
+    inset: -1px;
 
-    display: flex;
+    border-radius:
+        21px;
 
-    justify-content: center;
+    background:
+        linear-gradient(
+            120deg,
+            transparent 20%,
+            rgba(79, 110, 247, .35),
+            rgba(155, 92, 246, .35),
+            transparent 80%
+        );
 
-    align-items: center;
+    background-size:
+        200% 100%;
 
-    background: linear-gradient(
-        to top,
-        rgba(23, 26, 43, .88),
-        rgba(23, 26, 43, .32),
-        rgba(23, 26, 43, 0)
-    );
+    opacity:
+        0;
 
-    opacity: 0;
+    pointer-events:
+        none;
 
-    transition: opacity .3s ease;
+    transition:
+        opacity .35s ease;
+
+    animation:
+        cardBorder 5s linear infinite;
+
+    z-index:
+        0;
 
 }
 
-.overlay-buttons {
 
-    display: flex;
+/* =========================================================
+   CARD HOVER
+========================================================= */
 
-    gap: 14px;
+::ng-deep .image-card:hover {
 
-    transform: translateY(20px) scale(.9);
+    transform:
+        translateY(-8px)
+        scale(1.01);
 
-    opacity: 0;
+    border-color:
+        rgba(79, 110, 247, .35) !important;
+
+    box-shadow:
+        0 20px 45px rgba(79, 110, 247, .13),
+        0 10px 30px rgba(155, 92, 246, .08);
+
+}
+
+
+::ng-deep .image-card:hover::before {
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================================
+   IMAGE CONTAINER
+========================================================= */
+
+.image-container {
+
+    position:
+        relative;
+
+    height:
+        200px;
+
+    overflow:
+        hidden;
+
+    background:
+        #EEF0F9;
+
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.image {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    display:
+        block;
 
     transition:
-        transform .3s ease,
+        transform .7s cubic-bezier(.22, 1, .36, 1),
+        filter .4s ease;
+
+}
+
+
+.image-container:hover .image {
+
+    transform:
+        scale(1.09);
+
+    filter:
+        saturate(1.06)
+        contrast(1.02);
+
+}
+
+
+/* =========================================================
+   IMAGE SHINE
+========================================================= */
+
+.image-container::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        -120%;
+
+    width:
+        70%;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent,
+            rgba(255, 255, 255, .20),
+            transparent
+        );
+
+    transform:
+        skewX(-18deg);
+
+    pointer-events:
+        none;
+
+    transition:
+        left .7s ease;
+
+}
+
+
+.image-container:hover::after {
+
+    left:
+        140%;
+
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.image-overlay {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(23, 26, 43, .88),
+            rgba(23, 26, 43, .40),
+            rgba(23, 26, 43, .05)
+        );
+
+    opacity:
+        0;
+
+    transition:
+        opacity .35s ease;
+
+    z-index:
+        2;
+
+}
+
+
+.image-container:hover .image-overlay {
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================================
+   OVERLAY BUTTONS
+========================================================= */
+
+.overlay-buttons {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    transform:
+        translateY(22px)
+        scale(.88);
+
+    opacity:
+        0;
+
+    transition:
+        transform .4s cubic-bezier(.22, 1, .36, 1),
         opacity .3s ease;
 
 }
 
-.image-container:hover .image {
-
-    transform: scale(1.08);
-
-}
-
-.image-container:hover .image-overlay {
-
-    opacity: 1;
-
-}
 
 .image-container:hover .overlay-buttons {
 
-    transform: translateY(0) scale(1);
+    transform:
+        translateY(0)
+        scale(1);
 
-    opacity: 1;
+    opacity:
+        1;
+
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.overlay-buttons ::ng-deep .p-button {
+
+    width:
+        44px;
+
+    height:
+        44px;
+
+    border:
+        1px solid rgba(255, 255, 255, .25);
+
+    backdrop-filter:
+        blur(10px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .20);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+}
+
+
+.overlay-buttons ::ng-deep .p-button:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, .30);
+
+}
+
+
+/* Individual button hover */
+
+.overlay-buttons
+::ng-deep .p-button:first-child:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.08)
+        rotate(-4deg);
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    position:
+        relative;
+
+    padding:
+        15px 16px 16px;
+
+    background:
+        #FFFFFF;
+
+    z-index:
+        2;
+
+}
+
+
+/* =========================================================
+   FILE NAME
+========================================================= */
+
+.file-name {
+
+    color:
+        var(--cv-text);
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    margin:
+        0;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+    transition:
+        color .25s ease;
+
+}
+
+
+::ng-deep .image-card:hover .file-name {
+
+    color:
+        var(--cv-primary);
+
+}
+
+
+/* =========================================================
+   FILE META
+========================================================= */
+
+.file-meta {
+
+    display:
+        block;
+
+    margin-top:
+        6px;
+
+    color:
+        var(--cv-muted);
+
+    font-size:
+        12px;
+
+    transition:
+        color .25s ease;
+
+}
+
+
+::ng-deep .image-card:hover .file-meta {
+
+    color:
+        #687092;
+
+}
+
+
+/* =========================================================
+   SMALL CARD GLOW
+========================================================= */
+
+::ng-deep .image-card:hover .footer {
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            rgba(79, 110, 247, .025)
+        );
+
+}
+
+
+/* =========================================================
+   CARD BORDER ANIMATION
+========================================================= */
+
+@keyframes cardBorder {
+
+    0% {
+
+        background-position:
+            200% 50%;
+
+    }
+
+    100% {
+
+        background-position:
+            -200% 50%;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .image-container {
+
+        height:
+            190px;
+
+    }
+
+    .footer {
+
+        padding:
+            13px 14px 15px;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .image-container {
+
+        height:
+            210px;
+
+    }
+
+    .overlay-buttons {
+
+        gap:
+            10px;
+
+    }
+
+    .overlay-buttons
+    ::ng-deep .p-button {
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+
+        scroll-behavior:
+            auto !important;
+
+    }
 
 }

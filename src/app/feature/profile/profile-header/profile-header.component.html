@@ -1,56 +1,156 @@
 <div class="profile-header">
 
+    <!-- Decorative background -->
+    <div class="profile-glow glow-one"></div>
+    <div class="profile-glow glow-two"></div>
+
+    <div class="profile-pattern">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+
+    <!-- Profile content -->
+
     <div class="profile-left">
 
-        <div class="avatar" (mouseenter)="isHovering = true"
-    (mouseleave)="isHovering = false">
+        <!-- Avatar -->
 
-            <div class="avatar-content">
+        <div
+            class="avatar-wrapper"
+            (mouseenter)="isHovering = true"
+            (mouseleave)="isHovering = false">
 
-                <img
-    *ngIf="profile.profileImageUrl"
-    [src]="profile.profileImageUrl"
-    alt="Profile">
+            <div
+                class="avatar"
+                (click)="fileInput.click()">
 
-             <span *ngIf="!profile.profileImageUrl" class="initials">
-    {{ profile.fullName.charAt(0) }}
-</span>
+                <div class="avatar-ring"></div>
 
-            </div>
+                <div class="avatar-content">
 
-            <div class="avatar-overlay"  [class.show]="isHovering" (click)="fileInput.click()">
+                    <img
+                        *ngIf="profile.profileImageUrl"
+                        [src]="profile.profileImageUrl"
+                        [alt]="profile.fullName">
 
-                <i class="pi pi-camera"></i>
+                    <span
+                        *ngIf="!profile.profileImageUrl"
+                        class="initials">
 
-            </div>
+                        {{ profile.fullName.charAt(0) }}
 
-            <span class="verified-badge">
-
-                <i class="pi pi-check"></i>
-
-            </span>
-
-        </div>
-
-        <div class="profile-details">
-
-            <h2>{{ profile.fullName }}</h2>
-
-            <div class="profile-meta">
-
-                <div>
-
-                    <i class="pi pi-envelope"></i>
-
-                    <span>{{ profile.email }}</span>
+                    </span>
 
                 </div>
 
-                <div>
 
-                    <i class="pi pi-calendar"></i>
+                <!-- Hover overlay -->
 
-                    <span>Joined {{ profile.joinedOn | date:'MMMM yyyy' }}</span>
+                <div
+                    class="avatar-overlay"
+                    [class.show]="isHovering">
+
+                    <div class="camera-button">
+
+                        <i class="pi pi-camera"></i>
+
+                    </div>
+
+                    <span>
+                        Change photo
+                    </span>
+
+                </div>
+
+
+                <!-- Verified -->
+
+                <span class="verified-badge">
+
+                    <i class="pi pi-check"></i>
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Profile details -->
+
+        <div class="profile-details">
+
+            <div class="name-row">
+
+                <h2>
+                    {{ profile.fullName }}
+                </h2>
+
+                <span class="profile-badge">
+
+                    <i class="pi pi-verified"></i>
+
+                    Verified
+
+                </span>
+
+            </div>
+
+
+            <p class="profile-description">
+
+                Manage your CloudVault profile and personal information.
+
+            </p>
+
+
+            <div class="profile-meta">
+
+
+                <!-- Email -->
+
+                <div class="meta-item">
+
+                    <span class="meta-icon email-icon">
+
+                        <i class="pi pi-envelope"></i>
+
+                    </span>
+
+                    <div>
+
+                        <small>Email</small>
+
+                        <span>
+                            {{ profile.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Joined -->
+
+                <div class="meta-item">
+
+                    <span class="meta-icon calendar-icon">
+
+                        <i class="pi pi-calendar"></i>
+
+                    </span>
+
+                    <div>
+
+                        <small>Member since</small>
+
+                        <span>
+                            {{ profile.joinedOn | date:'MMMM yyyy' }}
+                        </span>
+
+                    </div>
 
                 </div>
 
@@ -60,10 +160,43 @@
 
     </div>
 
-    <button pButton icon="pi pi-pencil" label="Edit Profile" class="edit-btn" (click)="onEditProfile()">
+
+    <!-- Edit button -->
+
+    <button
+        pButton
+        icon="pi pi-pencil"
+        label="Edit Profile"
+        class="edit-btn"
+        (click)="onEditProfile()">
+
     </button>
 
+
+    <!-- Floating decorative cards -->
+
+    <div class="floating-decoration decoration-one">
+
+        <i class="pi pi-user"></i>
+
+    </div>
+
+    <div class="floating-decoration decoration-two">
+
+        <i class="pi pi-cloud"></i>
+
+    </div>
+
+    <div class="floating-decoration decoration-three">
+
+        <i class="pi pi-shield"></i>
+
+    </div>
+
 </div>
+
+
+<!-- Hidden file input -->
 
 <input
     #fileInput

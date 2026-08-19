@@ -1,31 +1,74 @@
 <div class="support-queries-page">
 
-    <button
-        type="button"
-        class="back-button"
-        (click)="goBack()">
+    <!-- Decorative floating elements -->
+    <div class="floating-orb orb-one"></div>
+    <div class="floating-orb orb-two"></div>
+    <div class="floating-orb orb-three"></div>
+
+    <!-- Back -->
+    <button type="button" class="back-button" (click)="goBack()">
 
         <i class="pi pi-arrow-left"></i>
 
-        Back
+        <span>Back</span>
 
     </button>
 
-    <!-- Header -->
 
+    <!-- Header -->
     <div class="page-header">
 
-        <div>
+        <div class="header-content">
 
-            <h1>
-                My Support Queries
-            </h1>
+            <div class="header-icon">
 
-            <p>
-                View and track the support requests you have raised.
-            </p>
+                <i class="pi pi-comments"></i>
+
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    SUPPORT CENTER
+                </span>
+
+                <h1>
+                    My Support Queries
+                </h1>
+
+                <p>
+                    View and track the support requests you have raised.
+                </p>
+
+            </div>
 
         </div>
+
+        @if (!isLoading && !errorMessage && queries.length > 0) {
+
+        <div class="query-count">
+
+            <div class="count-icon">
+
+                <i class="pi pi-list"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ queries.length }}
+                </strong>
+
+                <span>
+                    {{ queries.length === 1 ? 'Query' : 'Queries' }}
+                </span>
+
+            </div>
+
+        </div>
+
+        }
 
     </div>
 
@@ -34,15 +77,25 @@
 
     @if (isLoading) {
 
-        <div class="state-container">
+    <div class="state-container">
 
-            <i class="pi pi-spin pi-spinner"></i>
+        <div class="loading-animation">
 
-            <p>
-                Loading your support queries...
-            </p>
+            <div class="loading-ring"></div>
+
+            <i class="pi pi-comments"></i>
 
         </div>
+
+        <h3>
+            Loading your queries
+        </h3>
+
+        <p>
+            We're retrieving your support requests...
+        </p>
+
+    </div>
 
     }
 
@@ -51,23 +104,31 @@
 
     @if (!isLoading && errorMessage) {
 
-        <div class="error-container">
+    <div class="error-container">
 
-            <i class="pi pi-exclamation-circle"></i>
+        <div class="state-icon error-icon">
 
-            <p>
-                {{ errorMessage }}
-            </p>
-
-            <button
-                type="button"
-                (click)="loadQueries()">
-
-                Try Again
-
-            </button>
+            <i class="pi pi-exclamation-triangle"></i>
 
         </div>
+
+        <h3>
+            Something went wrong
+        </h3>
+
+        <p>
+            {{ errorMessage }}
+        </p>
+
+        <button type="button" class="retry-button" (click)="loadQueries()">
+
+            <i class="pi pi-refresh"></i>
+
+            Try Again
+
+        </button>
+
+    </div>
 
     }
 
@@ -75,24 +136,40 @@
     <!-- Empty -->
 
     @if (
-        !isLoading &&
-        !errorMessage &&
-        queries.length === 0
+    !isLoading &&
+    !errorMessage &&
+    queries.length === 0
     ) {
 
-        <div class="empty-container">
+    <div class="empty-container">
 
-            <i class="pi pi-comments"></i>
+        <div class="empty-illustration">
 
-            <h3>
-                No support queries
-            </h3>
+            <div class="empty-glow"></div>
 
-            <p>
-                You haven't raised any support queries yet.
-            </p>
+            <div class="empty-icon">
+
+                <i class="pi pi-comments"></i>
+
+            </div>
 
         </div>
+
+        <h3>
+            No support queries yet
+        </h3>
+
+        <p>
+            You haven't raised any support queries yet.
+        </p>
+
+        <span class="empty-hint">
+
+            Need help? Start a conversation with our support team.
+
+        </span>
+
+    </div>
 
     }
 
@@ -100,121 +177,164 @@
     <!-- Query List -->
 
     @if (
-        !isLoading &&
-        !errorMessage &&
-        queries.length > 0
+    !isLoading &&
+    !errorMessage &&
+    queries.length > 0
     ) {
 
-        <div class="queries-container">
+    <div class="queries-container">
 
-            @for (
-                query of queries;
-                track query.queryId
-            ) {
+        @for (
+        query of queries;
+        track query.queryId
+        ) {
 
-                <div class="query-card">
+        <div class="query-card" [class.query-open]="query.status.toLowerCase() === 'open'"
+            [class.query-progress]="query.status.toLowerCase() === 'in_progress'"
+            [class.query-resolved]="query.status.toLowerCase() === 'resolved'"
+            [class.query-closed]="query.status.toLowerCase() === 'closed'">
 
-                    <!-- Top -->
-
-                    <div class="query-card-header">
-
-                        <div>
-
-                            <span class="query-label">
-                                Query ID
-                            </span>
-
-                            <strong>
-                                #{{ query.queryId }}
-                            </strong>
-
-                        </div>
+            <!-- Animated top glow -->
+            <div class="card-glow"></div>
 
 
-                        <span
-                            class="status-badge"
-                            [ngClass]="
-                                'status-' +
-                                query.status.toLowerCase()
-                            ">
+            <!-- Header -->
 
-                            {{ query.status }}
+            <div class="query-card-header">
 
+                <div class="query-id">
+
+                    <span class="query-label">
+                        QUERY ID
+                    </span>
+
+                    <div class="query-id-value">
+
+                        <span class="hash">
+                            #
                         </span>
 
-                    </div>
-
-
-                    <!-- Details -->
-
-                    <div class="query-details">
-
-                        <div class="detail-item">
-
-                            <span>
-                                Query Type
-                            </span>
-
-                            <strong>
-                                {{ query.queryType }}
-                            </strong>
-
-                        </div>
-
-
-                        <div class="detail-item">
-
-                            <span>
-                                Submitted
-                            </span>
-
-                            <strong>
-                                {{ query.createdAt | date:'medium' }}
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Query preview -->
-
-                    <div class="query-preview">
-
-                        <span>
-                            Your Query
-                        </span>
-
-                        <p>
-                            {{ query.query }}
-                        </p>
-
-                    </div>
-
-
-                    <!-- Action -->
-
-                    <div class="query-card-footer">
-
-                        <button
-                            type="button"
-                            class="track-button" (click)="trackQuery(query.queryId)">
-
-                            <i class="pi pi-map-marker"></i>
-
-                            Track Query
-
-                            <i class="pi pi-arrow-right"></i>
-
-                        </button>
+                        <strong>
+                            {{ query.queryId }}
+                        </strong>
 
                     </div>
 
                 </div>
 
-            }
+
+                <span class="status-badge" [ngClass]="
+                                'status-' +
+                                query.status.toLowerCase()
+                            ">
+
+                    <span class="status-dot"></span>
+
+                    {{ query.status }}
+
+                </span>
+
+            </div>
+
+
+            <!-- Details -->
+
+            <div class="query-details">
+
+                <div class="detail-item">
+
+                    <div class="detail-icon">
+
+                        <i class="pi pi-tag"></i>
+
+                    </div>
+
+                    <div class="detail-text">
+
+                        <span>
+                            Query Type
+                        </span>
+
+                        <strong class="query-type">
+                            {{ query.queryType }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <div class="detail-icon">
+
+                        <i class="pi pi-calendar"></i>
+
+                    </div>
+
+                    <div class="detail-text">
+
+                        <span>
+                            Submitted
+                        </span>
+
+                        <strong class="submitted-date">
+                            {{ query.createdAt | date:'dd MMM yyyy, hh:mm a' }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Query -->
+
+            <div class="query-preview">
+
+                <div class="preview-header">
+
+                    <span>
+                        Your Query
+                    </span>
+
+                    <i class="pi pi-comment"></i>
+
+                </div>
+
+                <p>
+                    {{ query.query }}
+                </p>
+
+            </div>
+
+
+            <!-- Footer -->
+
+            <div class="query-card-footer">
+
+                <button type="button" class="track-button" (click)="trackQuery(query.queryId)">
+
+                    <span>
+                        Track Query
+                    </span>
+
+                    <span class="track-arrow">
+
+                        <i class="pi pi-arrow-right"></i>
+
+                    </span>
+
+                </button>
+
+            </div>
 
         </div>
+
+        }
+
+    </div>
 
     }
 

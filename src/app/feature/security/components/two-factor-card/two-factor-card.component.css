@@ -1,22 +1,198 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   SECURITY CARD
+========================================================= */
 
 .security-card {
 
-    background: #FFFFFF;
+    position: relative;
 
-    border: 1px solid #E9EAF4;
+    overflow: hidden;
 
-    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FCFCFF 65%,
+            #F8F7FF 100%
+        );
 
-    padding: 24px;
+    border:
+        1px solid #E9EAF4;
 
-    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        cardReveal .55s cubic-bezier(.22, 1, .36, 1);
 
 }
 
+
+.security-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(79, 110, 247, .18);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(79, 110, 247, .09);
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+========================================================= */
+
+.card-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(65px);
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    width: 190px;
+
+    height: 190px;
+
+    top: -120px;
+
+    right: -60px;
+
+    background:
+        rgba(79, 110, 247, .12);
+
+    animation:
+        glowMoveOne 9s ease-in-out infinite;
+
+}
+
+
+.glow-two {
+
+    width: 160px;
+
+    height: 160px;
+
+    bottom: -120px;
+
+    left: 30%;
+
+    background:
+        rgba(155, 92, 246, .09);
+
+    animation:
+        glowMoveTwo 11s ease-in-out infinite;
+
+}
+
+
+@keyframes glowMoveOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-20px, 15px)
+            scale(1.15);
+
+    }
+
+}
+
+
+@keyframes glowMoveTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(25px, -15px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .card-header {
+
+    position: relative;
+
+    z-index: 2;
 
     display: flex;
 
@@ -28,13 +204,92 @@
 
 }
 
-.card-header i {
+
+.header-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        );
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .10);
 
     color: #4F6EF7;
 
-    font-size: 22px;
+    animation:
+        iconFloat 4s ease-in-out infinite;
 
 }
+
+
+.header-icon i {
+
+    font-size: 19px;
+
+}
+
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+.header-content {
+
+    min-width: 0;
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    margin-bottom: 4px;
+
+}
+
 
 .card-header h3 {
 
@@ -42,62 +297,725 @@
 
     color: #171A2B;
 
-    font-size: 20px;
+    font-size: 19px;
 
-    font-weight: 600;
+    font-weight: 700;
 
 }
+
 
 .card-header p {
 
-    margin-top: 4px;
+    margin: 4px 0 0;
 
     color: #767C93;
 
+    font-size: 12px;
+
 }
+
+
+/* =========================================================
+   SECURITY CONTENT
+========================================================= */
 
 .security-content {
 
+    position: relative;
+
+    z-index: 2;
+
     display: flex;
 
-    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 20px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(79, 110, 247, .035);
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .09);
+
+}
+
+
+/* =========================================================
+   SECURITY VISUAL
+========================================================= */
+
+.security-visual {
+
+    position: relative;
+
+    width: 145px;
+
+    height: 145px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: center;
 
     align-items: center;
 
 }
 
-.status {
+
+/* Outer ring */
+
+.shield-ring {
+
+    width: 112px;
+
+    height: 112px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .18);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .04),
+            transparent 70%
+        );
+
+    animation:
+        shieldPulse 3s ease-in-out infinite;
+
+}
+
+
+@keyframes shieldPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+        box-shadow:
+            0 0 0 0
+            rgba(79, 110, 247, .10);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.06);
+
+        box-shadow:
+            0 0 0 12px
+            rgba(79, 110, 247, .025);
+
+    }
+
+}
+
+
+/* Shield */
+
+.shield-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    color: #FFFFFF;
+
+    box-shadow:
+        0 12px 30px
+        rgba(79, 110, 247, .25);
+
+    animation:
+        shieldFloat 4s ease-in-out infinite;
+
+}
+
+
+.shield-icon i {
+
+    font-size: 30px;
+
+}
+
+
+@keyframes shieldFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px)
+            rotate(-2deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   FLOATING DOTS
+========================================================= */
+
+.floating-dot {
+
+    position: absolute;
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        #4F6EF7;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(79, 110, 247, .08);
+
+}
+
+
+.dot-one {
+
+    top: 18px;
+
+    right: 12px;
+
+    animation:
+        dotFloatOne 4s ease-in-out infinite;
+
+}
+
+
+.dot-two {
+
+    bottom: 20px;
+
+    left: 14px;
+
+    background:
+        #9B5CF6;
+
+    animation:
+        dotFloatTwo 5s ease-in-out infinite;
+
+}
+
+
+.dot-three {
+
+    top: 50%;
+
+    right: 0;
+
+    width: 5px;
+
+    height: 5px;
+
+    background:
+        #22C55E;
+
+    animation:
+        dotFloatThree 3.5s ease-in-out infinite;
+
+}
+
+
+@keyframes dotFloatOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(5px, -8px);
+
+    }
+
+}
+
+
+@keyframes dotFloatTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-6px, 5px);
+
+    }
+
+}
+
+
+@keyframes dotFloatThree {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(5px, 7px);
+
+    }
+
+}
+
+
+/* =========================================================
+   SECURITY INFO
+========================================================= */
+
+.security-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.status-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.status-label {
+
+    color: #767C93;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+
+}
+
+
+.coming-soon-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(245, 158, 11, .10);
+
+    border:
+        1px solid
+        rgba(245, 158, 11, .14);
+
+    color: #B45309;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background:
+        #F59E0B;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(245, 158, 11, .10);
+
+    animation:
+        waitingPulse 2s ease-in-out infinite;
+
+}
+
+
+@keyframes waitingPulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 3px
+            rgba(245, 158, 11, .08);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 6px
+            rgba(245, 158, 11, .13);
+
+    }
+
+}
+
+
+.security-info h4 {
+
+    margin: 0 0 7px;
+
+    color: #171A2B;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+}
+
+
+.security-info > p {
+
+    margin: 0 0 14px;
+
+    color: #767C93;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    max-width: 550px;
+
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.security-features {
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 6px;
+    gap: 7px;
+
+    margin-bottom: 17px;
 
 }
 
-.label {
 
-    color: #767C93;
+.feature {
 
-    font-size: 14px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #4A4F63;
+
+    font-size: 10px;
 
 }
 
-.coming-soon-badge {
 
-    width: fit-content;
+.feature i {
 
-    padding: 4px 12px;
-
-    border-radius: 999px;
-
-    background: rgba(245, 158, 11, .12);
-
-    color: #B45309;
+    color: #22C55E;
 
     font-size: 12px;
 
-    font-weight: 600;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+:host ::ng-deep .security-info .p-button {
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    padding:
+        .55rem
+        .9rem;
+
+    opacity: .75;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.security-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 18px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+    color: #767C93;
+
+    font-size: 10px;
+
+}
+
+
+.security-footer > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.security-footer > div i {
+
+    color: #4F6EF7;
+
+    font-size: 12px;
+
+}
+
+
+.security-footer > i {
+
+    color: #A2A8BD;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .security-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .security-content {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 22px 18px;
+
+    }
+
+
+    .security-visual {
+
+        width: 125px;
+
+        height: 125px;
+
+    }
+
+
+    .security-info {
+
+        width: 100%;
+
+    }
+
+
+    .status-row {
+
+        justify-content: center;
+
+    }
+
+
+    .security-info > p {
+
+        margin-left: auto;
+
+        margin-right: auto;
+
+    }
+
+
+    .security-features {
+
+        align-items: center;
+
+    }
+
+
+    .security-footer {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .card-header {
+
+        align-items: flex-start;
+
+    }
+
+
+    .card-header h3 {
+
+        font-size: 17px;
+
+    }
+
+
+    .card-header p {
+
+        font-size: 11px;
+
+    }
+
+
+    .security-footer > i {
+
+        display: none;
+
+    }
+
+
+    .security-footer {
+
+        line-height: 1.5;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .security-card *,
+    .security-card *::before,
+    .security-card *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
 
 }

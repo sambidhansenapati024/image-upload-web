@@ -6,25 +6,657 @@
 
 }
 
-.stats-card {
 
-    border-radius: 20px;
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.cloud-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #fcfcff 60%,
+            #f8f7ff 100%
+        );
+
+    border: 1px solid #E9EAF4;
+
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        cardReveal .55s cubic-bezier(.22, 1, .36, 1);
 
 }
 
-.stat-row {
+
+.cloud-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(79, 110, 247, .18);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(79, 110, 247, .09);
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   ANIMATED BACKGROUND
+========================================================= */
+
+.card-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(60px);
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    width: 180px;
+
+    height: 180px;
+
+    top: -120px;
+
+    right: -50px;
+
+    background:
+        rgba(79, 110, 247, .13);
+
+    animation:
+        glowOne 9s ease-in-out infinite;
+
+}
+
+
+.glow-two {
+
+    width: 150px;
+
+    height: 150px;
+
+    bottom: -100px;
+
+    left: 30%;
+
+    background:
+        rgba(155, 92, 246, .10);
+
+    animation:
+        glowTwo 11s ease-in-out infinite;
+
+}
+
+
+@keyframes glowOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-20px, 15px)
+            scale(1.15);
+
+    }
+
+}
+
+
+@keyframes glowTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(20px, -15px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.card-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
+
+.card-header h3 {
+
+    margin: 0;
+
+    color: #171A2B;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    letter-spacing: -.015em;
+
+}
+
+
+.card-header p {
+
+    margin: 5px 0 0;
+
+    color: #767C93;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.header-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        );
+
+    color: #4F6EF7;
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .10);
+
+    animation:
+        iconFloat 4s ease-in-out infinite;
+
+}
+
+
+.header-icon i {
+
+    font-size: 17px;
+
+}
+
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px)
+            rotate(-3deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   STORAGE SUMMARY
+========================================================= */
+
+.storage-summary {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 17px;
+
+    margin-bottom: 12px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .06),
+            rgba(155, 92, 246, .06)
+        );
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .10);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease;
+
+}
+
+
+.storage-summary:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(79, 110, 247, .20);
+
+}
+
+
+/* =========================================================
+   STORAGE ICON
+========================================================= */
+
+.storage-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 20px
+        rgba(79, 110, 247, .25);
+
+    animation:
+        storagePulse 3s ease-in-out infinite;
+
+}
+
+
+.storage-icon i {
+
+    font-size: 18px;
+
+}
+
+
+@keyframes storagePulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 8px 20px
+            rgba(79, 110, 247, .20);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 10px 28px
+            rgba(79, 110, 247, .34);
+
+    }
+
+}
+
+
+/* =========================================================
+   STORAGE MAIN
+========================================================= */
+
+.storage-main {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.storage-values {
+
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.storage-values strong {
+
+    color: #171A2B;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+}
+
+
+.storage-values span {
+
+    color: #767C93;
+
+    font-size: 11px;
+
+}
+
+
+.storage-total {
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+:host ::ng-deep .p-progressbar {
+
+    height: 8px !important;
+
+    border-radius: 999px !important;
+
+    overflow: hidden;
+
+    background: #EEF0F9 !important;
+
+}
+
+
+:host ::ng-deep .p-progressbar .p-progressbar-value {
+
+    background:
+        linear-gradient(
+            90deg,
+            #4F6EF7,
+            #9B5CF6
+        ) !important;
+
+    border-radius: inherit;
+
+    position: relative;
+
+}
+
+
+:host ::ng-deep .p-progressbar .p-progressbar-value::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    animation:
+        progressShine 2.5s linear infinite;
+
+}
+
+
+@keyframes progressShine {
+
+    from {
+
+        transform:
+            translateX(-100%);
+
+    }
+
+    to {
+
+        transform:
+            translateX(100%);
+
+    }
+
+}
+
+
+/* =========================================================
+   STORAGE BOTTOM
+========================================================= */
+
+.storage-bottom {
 
     display: flex;
 
     justify-content: space-between;
 
-    align-items: center;
+    gap: 10px;
 
-    padding: 16px 0;
+    margin-top: 7px;
 
 }
 
-.label {
+
+.storage-bottom span {
+
+    color: #767C93;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   STAT LIST
+========================================================= */
+
+.stats-list {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/* =========================================================
+   STAT ROW
+========================================================= */
+
+.stat-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    min-height: 66px;
+
+    padding: 10px 0;
+
+    border-bottom:
+        1px solid #E9EAF4;
+
+    transition:
+        padding .25s ease,
+        transform .25s ease;
+
+}
+
+
+.stat-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.stat-row:hover {
+
+    padding-left: 5px;
+
+    padding-right: 5px;
+
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.stat-left {
 
     display: flex;
 
@@ -32,50 +664,339 @@
 
     gap: 12px;
 
-    color: #171A2B;
-
-    font-weight: 500;
+    min-width: 0;
 
 }
 
-.label i {
+
+/* =========================================================
+   ICON BOXES
+========================================================= */
+
+.icon-box {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    transition:
+        transform .25s ease;
+
+}
+
+
+.stat-row:hover .icon-box {
+
+    transform:
+        translateY(-2px)
+        scale(1.05);
+
+}
+
+
+.icon-box i {
+
+    font-size: 15px;
+
+}
+
+
+.icon-box.blue {
 
     color: #4F6EF7;
 
-    font-size: 18px;
+    background:
+        rgba(79, 110, 247, .10);
 
 }
 
-.value {
 
-    color: #767C93;
+.icon-box.red {
+
+    color: #EF4444;
+
+    background:
+        rgba(239, 68, 68, .10);
+
+}
+
+
+.icon-box.green {
+
+    color: #16A34A;
+
+    background:
+        rgba(22, 163, 74, .10);
+
+}
+
+
+/* =========================================================
+   STAT LABEL
+========================================================= */
+
+.stat-label {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+
+}
+
+
+.stat-label span {
+
+    color: #171A2B;
+
+    font-size: 13px;
 
     font-weight: 600;
 
 }
 
-p-progressBar {
 
-    display: block;
+.stat-label small {
 
-    margin-bottom: 20px;
+    color: #A2A8BD;
 
-}
-
-.cloud-card {
-
-    background: #FFFFFF;
-
-    border: 1px solid #E9EAF4;
-
-    border-radius: 20px;
-
-    padding: 24px;
-
-    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
+    font-size: 10px;
 
 }
 
-.cloud-card h3 {
-    color: #171A2B;
+
+/* =========================================================
+   STAT VALUE
+========================================================= */
+
+.stat-value {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #4A4F63;
+
+    text-align: right;
+
+    white-space: nowrap;
+
+}
+
+
+.stat-value strong {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.stat-value i {
+
+    color: #16A34A;
+
+    font-size: 10px;
+
+}
+
+
+.stat-value.neutral i {
+
+    display: none;
+
+}
+
+
+.stat-value.available {
+
+    color: #16A34A;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.stats-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 18px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+}
+
+
+.footer-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #767C93;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #22C55E;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(34, 197, 94, .10);
+
+    animation:
+        statusPulse 2s ease-in-out infinite;
+
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 3px
+            rgba(34, 197, 94, .08);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 6px
+            rgba(34, 197, 94, .14);
+
+    }
+
+}
+
+
+.stats-footer > i {
+
+    color: #A2A8BD;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .cloud-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .card-header h3 {
+
+        font-size: 17px;
+
+    }
+
+
+    .storage-summary {
+
+        padding: 14px;
+
+        gap: 12px;
+
+    }
+
+
+    .storage-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        border-radius: 12px;
+
+    }
+
+
+    .stat-label small {
+
+        display: none;
+
+    }
+
+
+    .stat-value strong {
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cloud-card *,
+    .cloud-card *::before,
+    .cloud-card *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
 }

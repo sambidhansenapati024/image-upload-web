@@ -95,6 +95,31 @@ export class NotificationBellComponent {
 
 }
 
+getNotificationSeverity(actionType: string): string {
+
+    switch (actionType) {
+
+        case 'UPLOAD':
+        case 'SUCCESS':
+            return 'success';
+
+        case 'INFO':
+        case 'SYSTEM':
+            return 'info';
+
+        case 'WARNING':
+            return 'warning';
+
+        case 'ERROR':
+        case 'FAILED':
+            return 'error';
+
+        default:
+            return 'info';
+    }
+
+}
+
 getNotificationIcon(actionType: string): string {
 
   switch (actionType) {

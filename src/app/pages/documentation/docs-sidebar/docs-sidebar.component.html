@@ -1,25 +1,53 @@
 <div class="docs-sidebar">
 
-    <h3>Documentation</h3>
+    <div class="sidebar-header">
+
+        <div class="sidebar-icon">
+            <i class="pi pi-book"></i>
+        </div>
+
+        <div>
+            <span class="sidebar-eyebrow">
+                CLOUDVAULT
+            </span>
+
+            <h3>
+                Documentation
+            </h3>
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-divider"></div>
+
 
     <nav>
 
-    @for (topic of filteredTopics; track topic.id) {
+        @for (topic of filteredTopics; track topic.id) {
 
-        <a
+            <a
+                [class.active]="currentTopic === topic.id"
+                (click)="selectTopic(topic.id)">
 
-            [class.active]="currentTopic === topic.id"
+                <span class="nav-icon">
 
-            (click)="selectTopic(topic.id)">
+                    <i [class]="topic.icon"></i>
 
-            <i [class]="topic.icon"></i>
+                </span>
 
-            {{ topic.label }}
+                <span class="nav-label">
+                    {{ topic.label }}
+                </span>
 
-        </a>
+                <i class="pi pi-angle-right nav-arrow"></i>
 
-    }
+                <span class="active-glow"></span>
 
-</nav>
+            </a>
+
+        }
+
+    </nav>
 
 </div>

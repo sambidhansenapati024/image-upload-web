@@ -1,6 +1,8 @@
 <div class="admin-layout">
 
-    <!-- Admin Navbar -->
+    <!-- =====================================================
+         ADMIN NAVBAR
+         ===================================================== -->
 
     <header class="admin-navbar">
 
@@ -30,7 +32,8 @@
             <button
                 type="button"
                 class="admin-user-button"
-                (click)="adminPopover.toggle($event)">
+                (click)="adminPopover.toggle($event)"
+                aria-label="Open admin profile menu">
 
                 <div class="admin-avatar">
 
@@ -38,7 +41,7 @@
 
                         <img
                             [src]="user?.profileImageUrl"
-                            [alt]="user?.fullName">
+                            [alt]="user?.fullName || 'Profile image'">
 
                     } @else {
 
@@ -71,11 +74,16 @@
     </header>
 
 
-    <!-- Admin Body -->
+    <!-- =====================================================
+         ADMIN BODY
+         ===================================================== -->
 
     <div class="admin-body">
 
-        <!-- Admin Sidebar -->
+
+        <!-- =================================================
+             SIDEBAR
+             ================================================= -->
 
         <aside class="admin-sidebar">
 
@@ -118,11 +126,19 @@
         </aside>
 
 
-        <!-- Admin Content -->
+        <!-- =================================================
+             CONTENT
+             ================================================= -->
 
         <main class="admin-content">
 
-            <router-outlet></router-outlet>
+            <div
+                class="route-container"
+                [@routeAnimations]="getRouteAnimationData()">
+
+                <router-outlet></router-outlet>
+
+            </div>
 
         </main>
 
@@ -131,14 +147,18 @@
 </div>
 
 
-<!-- Admin Profile Popover -->
+<!-- =========================================================
+     ADMIN PROFILE POPOVER
+     ========================================================= -->
 
-<p-popover #adminPopover>
+<p-popover
+    #adminPopover
+    styleClass="admin-profile-popover">
 
     <div class="admin-user-menu">
 
 
-        <!-- User Header -->
+        <!-- Profile Header -->
 
         <div class="admin-user-menu-header">
 
@@ -148,18 +168,20 @@
 
                     <img
                         [src]="user?.profileImageUrl"
-                        [alt]="user?.fullName">
+                        [alt]="user?.fullName || 'Profile image'">
 
                 } @else {
 
-                    {{ user?.fullName?.charAt(0)?.toUpperCase() }}
+                    <span>
+                        {{ user?.fullName?.charAt(0)?.toUpperCase() }}
+                    </span>
 
                 }
 
             </div>
 
 
-            <div>
+            <div class="admin-menu-user-info">
 
                 <h3>
                     {{ user?.fullName }}
@@ -174,19 +196,21 @@
         </div>
 
 
-        <!-- Menu Items -->
+        <!-- Menu -->
 
         <div class="admin-user-menu-items">
 
 
-            <!-- My Profile -->
+            <!-- Profile -->
 
             <button
                 type="button"
                 class="admin-menu-item"
-                (click)="goToProfile()">
+                (click)="goToProfile(); adminPopover.hide()">
 
-                <i class="pi pi-user"></i>
+                <span class="menu-icon">
+                    <i class="pi pi-user"></i>
+                </span>
 
                 <span>
                     My Profile
@@ -200,9 +224,11 @@
             <button
                 type="button"
                 class="admin-menu-item"
-                (click)="goToSettings()">
+                (click)="goToSettings(); adminPopover.hide()">
 
-                <i class="pi pi-cog"></i>
+                <span class="menu-icon">
+                    <i class="pi pi-cog"></i>
+                </span>
 
                 <span>
                     Settings
@@ -216,9 +242,11 @@
             <button
                 type="button"
                 class="admin-menu-item"
-                (click)="goToSecurity()">
+                (click)="goToSecurity(); adminPopover.hide()">
 
-                <i class="pi pi-shield"></i>
+                <span class="menu-icon">
+                    <i class="pi pi-shield"></i>
+                </span>
 
                 <span>
                     Security
@@ -235,9 +263,11 @@
             <button
                 type="button"
                 class="admin-menu-item"
-                (click)="switchToUser()">
+                (click)="switchToUser(); adminPopover.hide()">
 
-                <i class="pi pi-arrow-left"></i>
+                <span class="menu-icon">
+                    <i class="pi pi-arrow-left"></i>
+                </span>
 
                 <span>
                     Switch to User
@@ -256,7 +286,9 @@
                 class="admin-menu-item logout"
                 (click)="logout()">
 
-                <i class="pi pi-sign-out"></i>
+                <span class="menu-icon">
+                    <i class="pi pi-sign-out"></i>
+                </span>
 
                 <span>
                     Logout

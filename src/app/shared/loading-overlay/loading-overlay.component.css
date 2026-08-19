@@ -1,10 +1,23 @@
+/* =========================================================
+   HOST
+   ========================================================= */
+
+:host {
+    display: contents;
+}
+
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
+
 .loading-overlay {
 
     position: fixed;
 
     inset: 0;
 
-    z-index: 9999;
+    z-index: 99999;
 
     display: flex;
 
@@ -12,14 +25,26 @@
 
     justify-content: center;
 
-    backdrop-filter: blur(12px);
-
-    background: rgba(246, 247, 252, .75);
-
-    animation: fadeIn .35s ease;
     overflow: hidden;
 
+    background:
+        rgba(246, 247, 252, .82);
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+    animation:
+        overlayFadeIn .3s ease-out;
+
 }
+
+
+/* =========================================================
+   BACKGROUND ORBS
+   ========================================================= */
 
 .loading-orbs {
 
@@ -33,6 +58,7 @@
 
 }
 
+
 .loading-orbs .orb {
 
     position: absolute;
@@ -41,121 +67,193 @@
 
     filter: blur(90px);
 
+    pointer-events: none;
+
     opacity: .28;
 
 }
 
+
 .loading-orbs .orb-1 {
 
-    width: 420px;
+    width: 440px;
 
-    height: 420px;
+    height: 440px;
+
+    top: -150px;
+
+    left: -120px;
 
     background: #4F6EF7;
 
-    top: -120px;
-
-    left: -100px;
-
-    animation: floatOrb1 12s ease-in-out infinite;
+    animation:
+        loadingOrb1
+        12s
+        ease-in-out
+        infinite;
 
 }
+
 
 .loading-orbs .orb-2 {
 
-    width: 340px;
+    width: 380px;
 
-    height: 340px;
+    height: 380px;
+
+    right: -100px;
+
+    bottom: -140px;
 
     background: #9B5CF6;
 
-    bottom: -120px;
-
-    right: 5%;
-
-    animation: floatOrb2 15s ease-in-out infinite;
+    animation:
+        loadingOrb2
+        15s
+        ease-in-out
+        infinite;
 
 }
+
 
 .loading-orbs .orb-3 {
 
-    width: 260px;
+    width: 280px;
 
-    height: 260px;
+    height: 280px;
 
-    background: #4F6EF7;
-
-    top: 45%;
+    top: 42%;
 
     left: 45%;
 
-    opacity: .14;
+    background: #4F6EF7;
 
-    animation: floatOrb3 17s ease-in-out infinite;
+    opacity: .12;
+
+    animation:
+        loadingOrb3
+        18s
+        ease-in-out
+        infinite;
 
 }
 
-@keyframes floatOrb1 {
 
-    0%, 100% {
+@keyframes loadingOrb1 {
 
-        transform: translate(0, 0) scale(1);
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
 
     }
 
     50% {
 
-        transform: translate(60px, 35px) scale(1.12);
+        transform:
+            translate(70px, 40px)
+            scale(1.12);
 
     }
 
 }
 
-@keyframes floatOrb2 {
 
-    0%, 100% {
+@keyframes loadingOrb2 {
 
-        transform: translate(0, 0) scale(1);
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
 
     }
 
     50% {
 
-        transform: translate(-60px, -30px) scale(1.15);
+        transform:
+            translate(-60px, -40px)
+            scale(1.15);
 
     }
 
 }
 
-@keyframes floatOrb3 {
 
-    0%, 100% {
+@keyframes loadingOrb3 {
 
-        transform: translate(0, 0);
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
 
     }
 
     50% {
 
-        transform: translate(30px, -45px);
+        transform:
+            translate(35px, -50px);
 
     }
 
 }
+
+
+/* =========================================================
+   BACKGROUND GRID
+   ========================================================= */
+
+.loading-grid {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+
+        linear-gradient(
+            rgba(79, 110, 247, .035)
+            1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(79, 110, 247, .035)
+            1px,
+            transparent 1px
+        );
+
+    background-size:
+        44px 44px;
+
+    opacity: .8;
+
+}
+
+
+/* =========================================================
+   LOADING CARD
+   ========================================================= */
 
 .loading-card {
 
-    width: 360px;
+    position: relative;
 
-    padding: 48px 40px;
+    z-index: 2;
 
-    border-radius: 24px;
+    width: 390px;
 
-    background: #FFFFFF;
+    min-height: 440px;
 
-    border: 1px solid #E9EAF4;
-
-    box-shadow: 0 25px 70px rgba(23, 26, 43, .18);
+    padding:
+        42px 38px 30px;
 
     display: flex;
 
@@ -164,21 +262,161 @@
     align-items: center;
 
     text-align: center;
-    position: relative;
 
-    z-index: 2;
+    border:
+        1px solid
+        #E9EAF4;
+
+    border-radius:
+        24px;
+
+    background:
+        rgba(255, 255, 255, .94);
+
+    box-shadow:
+
+        0 35px 90px
+        rgba(23, 26, 43, .18),
+
+        0 8px 30px
+        rgba(79, 110, 247, .08);
+
+    overflow: hidden;
+
+    animation:
+        loadingCardIn
+        .55s
+        cubic-bezier(.2, .8, .3, 1)
+        forwards;
 
 }
 
-.shield {
 
-    width: 90px;
+/* Card top glow */
 
-    height: 90px;
+.loading-card::before {
 
-    border-radius: 24px;
+    content: '';
 
-    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
+    position: absolute;
+
+    top: -120px;
+
+    left: 50%;
+
+    width: 260px;
+
+    height: 260px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .12),
+            transparent 68%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* Moving shimmer */
+
+.loading-card::after {
+
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 70%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, .28),
+            transparent
+        );
+
+    transform:
+        skewX(-18deg);
+
+    pointer-events: none;
+
+    animation:
+        cardShimmer
+        3.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes cardShimmer {
+
+    0% {
+
+        left: -100%;
+
+    }
+
+    55%,
+    100% {
+
+        left: 140%;
+
+    }
+
+}
+
+
+@keyframes loadingCardIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(.96);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   SECURITY ANIMATION
+   ========================================================= */
+
+.security-animation {
+
+    position: relative;
+
+    width: 150px;
+
+    height: 150px;
 
     display: flex;
 
@@ -186,140 +424,839 @@
 
     justify-content: center;
 
-    box-shadow:
-        0 0 25px rgba(79, 110, 247, .4),
-        0 0 55px rgba(155, 92, 246, .22);
-
-    animation: shieldPulse 1.8s infinite ease-in-out;
+    margin-bottom: 12px;
 
 }
 
-.shield i {
 
-    font-size: 42px;
+/* Rotating rings */
 
-    color: white;
+.outer-ring {
 
-}
+    position: absolute;
 
-.loading-card h2 {
+    left: 50%;
 
-    margin: 28px 0 8px;
-
-    color: #171A2B;
-
-    font-size: 34px;
-
-    font-weight: 700;
-
-}
-
-.loading-card p {
-
-    color: #767C93;
-
-    margin-bottom: 28px;
-
-    font-size: 16px;
-
-}
-
-.dots {
-
-    display: flex;
-
-    gap: 8px;
-
-}
-
-.dots span {
-
-    width: 10px;
-
-    height: 10px;
+    top: 50%;
 
     border-radius: 50%;
 
-    background: linear-gradient(135deg, #4F6EF7, #9B5CF6);
+    transform:
+        translate(-50%, -50%);
 
-    animation: bounce 1.2s infinite;
-
-}
-
-.dots span:nth-child(2) {
-
-    animation-delay: .2s;
+    pointer-events: none;
 
 }
 
-.dots span:nth-child(3) {
 
-    animation-delay: .4s;
+.ring-1 {
 
-}
+    width: 118px;
 
-@keyframes shieldPulse {
+    height: 118px;
 
-    0% {
+    border:
+        1px solid
+        rgba(79, 110, 247, .25);
 
-        transform: scale(1);
-
-        box-shadow:
-            0 0 25px rgba(79, 110, 247, .4);
-
-    }
-
-    50% {
-
-        transform: scale(1.08);
-
-        box-shadow:
-            0 0 45px rgba(79, 110, 247, .65);
-
-    }
-
-    100% {
-
-        transform: scale(1);
-
-        box-shadow:
-            0 0 25px rgba(79, 110, 247, .4);
-
-    }
+    animation:
+        rotateRing
+        8s
+        linear
+        infinite;
 
 }
 
-@keyframes bounce {
 
-    0%, 80%, 100% {
+.ring-2 {
 
-        transform: translateY(0);
+    width: 136px;
 
-        opacity: .4;
+    height: 136px;
 
-    }
+    border:
+        1px dashed
+        rgba(155, 92, 246, .28);
 
-    40% {
-
-        transform: translateY(-10px);
-
-        opacity: 1;
-
-    }
+    animation:
+        rotateRingReverse
+        11s
+        linear
+        infinite;
 
 }
 
-@keyframes fadeIn {
+
+.ring-3 {
+
+    width: 150px;
+
+    height: 150px;
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .08);
+
+    animation:
+        ringPulse
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes rotateRing {
 
     from {
 
-        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
 
     }
 
     to {
 
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+
+    }
+
+}
+
+
+@keyframes rotateRingReverse {
+
+    from {
+
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+
+    }
+
+    to {
+
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+
+    }
+
+}
+
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+
+        opacity: .35;
+
+        transform:
+            translate(-50%, -50%)
+            scale(.96);
+
+    }
+
+    50% {
+
+        opacity: .8;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.04);
+
+    }
+
+}
+
+
+/* =========================================================
+   SHIELD
+   ========================================================= */
+
+.shield {
+
+    position: relative;
+
+    z-index: 3;
+
+    width: 92px;
+
+    height: 92px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #765DF5,
+            #9B5CF6
+        );
+
+    box-shadow:
+
+        0 12px 30px
+        rgba(79, 110, 247, .30),
+
+        0 0 45px
+        rgba(155, 92, 246, .20);
+
+    animation:
+        shieldFloat
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+.shield::before {
+
+    content: '';
+
+    position: absolute;
+
+    inset: 1px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, .18),
+            transparent 55%
+        );
+
+    pointer-events: none;
+
+}
+
+
+.shield-glow {
+
+    position: absolute;
+
+    inset: -15px;
+
+    border-radius: 32px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .30),
+            transparent 68%
+        );
+
+    filter:
+        blur(8px);
+
+    z-index: -1;
+
+    animation:
+        shieldGlow
+        2s
+        ease-in-out
+        infinite;
+
+}
+
+
+.shield i {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: white;
+
+    font-size: 40px;
+
+    filter:
+        drop-shadow(
+            0 4px 8px
+            rgba(0, 0, 0, .12)
+        );
+
+}
+
+
+@keyframes shieldFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-7px)
+            scale(1.04);
+
+    }
+
+}
+
+
+@keyframes shieldGlow {
+
+    0%,
+    100% {
+
+        opacity: .55;
+
+        transform:
+            scale(.9);
+
+    }
+
+    50% {
+
         opacity: 1;
+
+        transform:
+            scale(1.08);
+
+    }
+
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.loading-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 4px;
+
+    color: #4F6EF7;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .2px;
+
+}
+
+
+.brand-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    box-shadow:
+        0 0 10px
+        rgba(79, 110, 247, .45);
+
+    animation:
+        brandPulse
+        1.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes brandPulse {
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+        opacity: .65;
+
+    }
+
+    50% {
+
+        transform: scale(1.4);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.loading-card h2 {
+
+    margin:
+        14px 0 7px;
+
+    color:
+        #171A2B;
+
+    font-size:
+        27px;
+
+    line-height:
+        1.2;
+
+    font-weight:
+        750;
+
+    letter-spacing:
+        -.5px;
+
+}
+
+
+.loading-description {
+
+    margin:
+        0 0 18px;
+
+    color:
+        #767C93;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.loading-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px 11px;
+
+    border:
+        1px solid
+        #E9EAF4;
+
+    border-radius:
+        999px;
+
+    color:
+        #767C93;
+
+    background:
+        #F7F8FD;
+
+    font-size:
+        10.5px;
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        #22C55E;
+
+    box-shadow:
+        0 0 0 0
+        rgba(34, 197, 94, .4);
+
+    animation:
+        statusPulse
+        1.6s
+        infinite;
+
+}
+
+
+@keyframes statusPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(34, 197, 94, .4);
+
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 7px
+            rgba(34, 197, 94, 0);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(34, 197, 94, 0);
+
+    }
+
+}
+
+
+/* =========================================================
+   LOADING DOTS
+   ========================================================= */
+
+.dots {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 20px;
+
+}
+
+
+.dots span {
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    animation:
+        loadingBounce
+        1.2s
+        ease-in-out
+        infinite;
+
+}
+
+
+.dots span:nth-child(2) {
+
+    animation-delay:
+        .18s;
+
+}
+
+
+.dots span:nth-child(3) {
+
+    animation-delay:
+        .36s;
+
+}
+
+
+@keyframes loadingBounce {
+
+    0%,
+    70%,
+    100% {
+
+        transform:
+            translateY(0)
+            scale(.8);
+
+        opacity:
+            .35;
+
+    }
+
+    35% {
+
+        transform:
+            translateY(-8px)
+            scale(1);
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* =========================================================
+   SECURITY FOOTER
+   ========================================================= */
+
+.security-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 25px;
+
+    padding-top: 17px;
+
+    width: 100%;
+
+    border-top:
+        1px solid
+        #F0F1F7;
+
+    color:
+        #969CAF;
+
+    font-size:
+        10px;
+
+}
+
+
+.security-footer i {
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        10px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .loading-card {
+
+        width:
+            calc(100% - 32px);
+
+        max-width:
+            390px;
+
+        min-height:
+            410px;
+
+        padding:
+            34px 26px 25px;
+
+        border-radius:
+            21px;
+
+    }
+
+
+    .security-animation {
+
+        width:
+            135px;
+
+        height:
+            135px;
+
+    }
+
+
+    .shield {
+
+        width:
+            84px;
+
+        height:
+            84px;
+
+        border-radius:
+            23px;
+
+    }
+
+
+    .shield i {
+
+        font-size:
+            36px;
+
+    }
+
+
+    .ring-1 {
+
+        width:
+            108px;
+
+        height:
+            108px;
+
+    }
+
+
+    .ring-2 {
+
+        width:
+            122px;
+
+        height:
+            122px;
+
+    }
+
+
+    .ring-3 {
+
+        width:
+            138px;
+
+        height:
+            138px;
+
+    }
+
+
+    .loading-card h2 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    .loading-description {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .loading-orbs .orb-1 {
+
+        width:
+            320px;
+
+        height:
+            320px;
+
+    }
+
+
+    .loading-orbs .orb-2 {
+
+        width:
+            280px;
+
+        height:
+            280px;
+
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .loading-card {
+
+        width:
+            calc(100% - 24px);
+
+        padding:
+            30px 20px 22px;
+
+    }
+
+
+    .loading-card h2 {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .security-animation {
+
+        transform:
+            scale(.92);
+
+        margin-bottom:
+            3px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .loading-overlay,
+    .loading-orbs .orb,
+    .loading-card,
+    .outer-ring,
+    .shield,
+    .shield-glow,
+    .brand-dot,
+    .status-dot,
+    .dots span,
+    .loading-card::after {
+
+        animation:
+            none !important;
 
     }
 

@@ -1,151 +1,1302 @@
+/* =========================================================
+   CLOUDVAULT PROFILE EDIT DIALOG
+========================================================= */
+
 :host {
-    --cv-bg: #ffffff;          /* dialog surface */
-    --cv-bg-input: #f6f7fc;    /* input/textarea bg */
+
+    --cv-bg: #ffffff;
+
+    --cv-bg-soft: #f6f7fc;
+
     --cv-border: #e9eaf4;
-    --cv-border-input: #e9eaf4;
+
     --cv-text: #171a2b;
-    --cv-label: #767c93;
-    --cv-accent: #4f6ef7;
-    --cv-accent-2: #9b5cf6;
-    --cv-accent-glow: rgba(79, 110, 247, .15);
+
+    --cv-muted: #767c93;
+
+    --cv-light-muted: #a2a8bd;
+
+    --cv-blue: #4f6ef7;
+
+    --cv-purple: #9b5cf6;
+
+    --cv-gradient:
+        linear-gradient(
+            135deg,
+            #4f6ef7,
+            #9b5cf6
+        );
+
+    --cv-blue-soft:
+        rgba(79, 110, 247, .08);
+
+    --cv-purple-soft:
+        rgba(155, 92, 246, .08);
+
+    --cv-focus:
+        rgba(79, 110, 247, .15);
+
 }
+
+
+/* =========================================================
+   DIALOG
+========================================================= */
+
+:host ::ng-deep .profile-edit-dialog {
+
+    border-radius: 22px !important;
+
+    overflow: hidden;
+
+    border: 1px solid var(--cv-border) !important;
+
+    background: var(--cv-bg) !important;
+
+    box-shadow:
+        0 25px 70px rgba(23, 26, 43, .18) !important;
+
+    animation:
+        dialogReveal .35s
+        cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+@keyframes dialogReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   REMOVE PRIME HEADER / CONTENT SPACING
+========================================================= */
+
+:host ::ng-deep .profile-edit-dialog
+.p-dialog-content {
+
+    padding: 0 !important;
+
+    background: #ffffff !important;
+
+}
+
+
+:host ::ng-deep .profile-edit-dialog
+.p-dialog-footer {
+
+    padding: 0 !important;
+
+    border-top: 1px solid var(--cv-border);
+
+    background: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   CUSTOM HEADER
+========================================================= */
+
+.dialog-header {
+
+    position: relative;
+
+    min-height: 115px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 24px 28px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #fbfbff 55%,
+            #f6f4ff 100%
+        );
+
+    border-bottom: 1px solid var(--cv-border);
+
+}
+
+
+.dialog-header::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+
+    height: 230px;
+
+    border-radius: 50%;
+
+    right: -100px;
+
+    top: -145px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .13),
+            transparent 70%
+        );
+
+    animation:
+        headerOrb 8s ease-in-out infinite;
+
+}
+
+
+.dialog-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+
+    height: 130px;
+
+    border-radius: 50%;
+
+    right: 130px;
+
+    bottom: -100px;
+
+    background:
+        rgba(155, 92, 246, .07);
+
+    animation:
+        headerOrbTwo 10s ease-in-out infinite;
+
+}
+
+
+@keyframes headerOrb {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1)
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.15)
+            translate(-15px, 10px);
+
+    }
+
+}
+
+
+@keyframes headerOrbTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-25px, -15px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.header-icon {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 58px;
+
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background: var(--cv-gradient);
+
+    color: white;
+
+    font-size: 22px;
+
+    box-shadow:
+        0 10px 25px rgba(79, 110, 247, .25);
+
+    animation:
+        headerIconFloat 4s ease-in-out infinite;
+
+}
+
+
+@keyframes headerIconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px)
+            rotate(3deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+========================================================= */
+
+.header-content {
+
+    position: relative;
+
+    z-index: 3;
+
+    min-width: 0;
+
+}
+
+
+.header-title-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.header-content h2 {
+
+    margin: 0;
+
+    color: var(--cv-text);
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    letter-spacing: -.02em;
+
+}
+
+
+.header-content p {
+
+    margin: 6px 0 0;
+
+    color: var(--cv-muted);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.header-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    color: var(--cv-blue);
+
+    background:
+        rgba(79, 110, 247, .08);
+
+    border: 1px solid rgba(79, 110, 247, .12);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.header-badge i {
+
+    animation:
+        badgeSparkle 2s ease-in-out infinite;
+
+}
+
+
+@keyframes badgeSparkle {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1)
+            rotate(0);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.25)
+            rotate(15deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER DECORATION
+========================================================= */
+
+.header-decoration {
+
+    position: relative;
+
+    width: 135px;
+
+    height: 65px;
+
+    margin-left: auto;
+
+}
+
+
+.decoration-card {
+
+    position: absolute;
+
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 3px solid #ffffff;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 8px 20px rgba(23, 26, 43, .12);
+
+    font-size: 15px;
+
+}
+
+
+.card-one {
+
+    left: 0;
+
+    top: 10px;
+
+    color: var(--cv-blue);
+
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #93a5ff
+        );
+
+    transform: rotate(-12deg);
+
+}
+
+
+.card-two {
+
+    left: 43px;
+
+    top: 3px;
+
+    z-index: 2;
+
+    color: var(--cv-purple);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ede9fe,
+            #c4b5fd
+        );
+
+    transform: rotate(2deg);
+
+}
+
+
+.card-three {
+
+    right: 0;
+
+    top: 10px;
+
+    z-index: 3;
+
+    color: #15803d;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #86efac
+        );
+
+    transform: rotate(12deg);
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.profile-form {
+
+    padding: 26px 28px 28px;
+
+    background: #ffffff;
+
+}
+
 
 .form-grid {
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-    margin-top: 4px;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 22px 20px;
+
 }
 
-.field { width: 100%; }
-.full-width { grid-column: 1 / -1; }
 
-/* Inputs */
-.field ::ng-deep .p-inputtext,
-.field ::ng-deep .p-inputtextarea,
-.field ::ng-deep textarea.p-inputtextarea,
-.field ::ng-deep textarea {
+.field {
+
     width: 100%;
-    background: var(--cv-bg-input) !important;
-    color: var(--cv-text) !important;
-    border: 1px solid var(--cv-border-input) !important;
-    border-radius: 10px;
-    font-size: 14px;
+
+    min-width: 0;
+
 }
 
-.field ::ng-deep .p-inputtext:enabled:focus,
-.field ::ng-deep textarea.p-inputtextarea:focus,
-.field ::ng-deep textarea:focus {
-    border-color: var(--cv-accent) !important;
-    box-shadow: 0 0 0 3px var(--cv-accent-glow) !important;
-    outline: none;
+
+.full-width {
+
+    grid-column: 1 / -1;
+
 }
 
-/* Float label text color, incl. when floated up */
-.field ::ng-deep .p-float-label label,
-.field ::ng-deep label {
-    color: var(--cv-label) !important;
-    font-size: 14px;
-}
+
+/* =========================================================
+   FIELD LABEL
+========================================================= */
 
 .field-label {
-    display: block;
-    margin-bottom: 10px;
-    color: var(--cv-label);
-    font-size: 14px;
-    font-weight: 500;
-}
 
-:host ::ng-deep textarea.p-inputtextarea {
-    min-height: 130px;
-    padding: .75rem;
-    resize: vertical;
-}
-
-/* Dialog shell */
-:host ::ng-deep .p-dialog {
-    border-radius: 18px;
-    overflow: hidden;
-    background: var(--cv-bg);
-    border: 1px solid var(--cv-border);
-    box-shadow: 0 20px 50px rgba(23, 26, 43, .16);
-}
-
-:host ::ng-deep .p-dialog-header {
-    padding: 1.5rem 1.75rem;
-    background: var(--cv-bg);
-    border-bottom: 1px solid var(--cv-border);
-}
-
-:host ::ng-deep .p-dialog-title {
-    color: var(--cv-text);
-    font-weight: 600;
-    font-size: 1.15rem;
-}
-
-:host ::ng-deep .p-dialog-header-icon {
-    color: var(--cv-label);
-}
-:host ::ng-deep .p-dialog-header-icon:hover {
-    color: var(--cv-text);
-    background: rgba(23, 26, 43, .06);
-}
-
-:host ::ng-deep .p-dialog-content {
-    padding: 1.75rem;
-    background: var(--cv-bg);
-}
-
-:host ::ng-deep .p-dialog-footer {
-    padding: 1.25rem 1.75rem;
-    background: var(--cv-bg);
-    border-top: 1px solid var(--cv-border);
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
 
-/* Buttons */
-:host ::ng-deep .p-dialog-footer .p-button {
-    border-radius: 10px;
-    padding: .6rem 1.2rem;
-    font-weight: 500;
-    font-size: 14px;
-}
+    align-items: center;
 
-:host ::ng-deep .p-dialog-footer .p-button-secondary {
-    background: var(--cv-bg-input);
-    border: 1px solid var(--cv-border-input);
+    gap: 7px;
+
+    margin-bottom: 8px;
+
     color: var(--cv-text);
-}
-:host ::ng-deep .p-dialog-footer .p-button-secondary:hover {
-    background: #eceefb;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
 }
 
-:host ::ng-deep .p-dialog-footer .p-button:not(.p-button-secondary) {
-    background: linear-gradient(135deg, var(--cv-accent), var(--cv-accent-2));
-    border: 1px solid transparent;
-    color: #ffffff;
-}
-:host ::ng-deep .p-dialog-footer .p-button:not(.p-button-secondary):hover {
-    filter: brightness(1.06);
+
+.label-icon {
+
+    width: 24px;
+
+    height: 24px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    color: var(--cv-blue);
+
+    background:
+        rgba(79, 110, 247, .08);
+
+    font-size: 11px;
+
 }
 
-/* Modal backdrop */
-:host ::ng-deep .p-dialog-mask {
-    background: rgba(23, 26, 43, .45);
-    backdrop-filter: blur(2px);
+
+.input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
 }
 
-:host ::ng-deep textarea.p-inputtextarea,
-:host ::ng-deep .field textarea {
-    min-height: 130px;
-    padding: 12px 14px;      /* was too tight / missing — pushes text off the top edge */
-    line-height: 1.5;
-    resize: none;             /* disables the drag-to-expand handle */
-    background: var(--cv-bg-input) !important;
-    color: var(--cv-text) !important;
-    border: 1px solid var(--cv-border-input) !important;
-    border-radius: 10px;
+
+.input-icon {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    color: var(--cv-light-muted);
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+
+}
+
+
+.input-wrapper input {
+
+    width: 100%;
+
+    height: 47px;
+
+    padding:
+        0
+        14px
+        0
+        42px;
+
     box-sizing: border-box;
+
+    border-radius: 12px !important;
+
+    border: 1px solid var(--cv-border) !important;
+
+    background: var(--cv-bg-soft) !important;
+
+    color: var(--cv-text) !important;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .25s ease;
+
+}
+
+
+.input-wrapper input::placeholder {
+
+    color: var(--cv-light-muted);
+
+}
+
+
+.input-wrapper:hover input {
+
+    border-color:
+        rgba(79, 110, 247, .35) !important;
+
+    background: #fafaff !important;
+
+}
+
+
+.input-wrapper:focus-within input {
+
+    border-color:
+        var(--cv-blue) !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px var(--cv-focus) !important;
+
+}
+
+
+.input-wrapper:focus-within .input-icon {
+
+    color: var(--cv-blue);
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   BIO
+========================================================= */
+
+.bio-field {
+
+    margin-top: 2px;
+
+}
+
+
+.bio-label-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+}
+
+
+.bio-label-row .field-label {
+
+    margin-bottom: 8px;
+
+}
+
+
+.character-hint {
+
+    color: var(--cv-light-muted);
+
+    font-size: 11px;
+
+}
+
+
+.textarea-wrapper {
+
+    position: relative;
+
+}
+
+
+.textarea-icon {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 15px;
+
+    color: var(--cv-light-muted);
+
+    font-size: 14px;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    transition:
+        color .25s ease;
+
+}
+
+
+:host ::ng-deep
+.textarea-wrapper textarea {
+
+    width: 100%;
+
+    min-height: 125px;
+
+    box-sizing: border-box;
+
+    resize: none;
+
+    padding:
+        13px
+        14px
+        13px
+        42px !important;
+
+    border-radius: 12px !important;
+
+    border: 1px solid var(--cv-border) !important;
+
+    background: var(--cv-bg-soft) !important;
+
+    color: var(--cv-text) !important;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+}
+
+
+:host ::ng-deep
+.textarea-wrapper textarea::placeholder {
+
+    color: var(--cv-light-muted);
+
+}
+
+
+.textarea-wrapper:hover textarea {
+
+    border-color:
+        rgba(79, 110, 247, .35) !important;
+
+}
+
+
+.textarea-wrapper:focus-within textarea {
+
+    border-color:
+        var(--cv-blue) !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 3px var(--cv-focus) !important;
+
+}
+
+
+.textarea-wrapper:focus-within .textarea-icon {
+
+    color: var(--cv-blue);
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.dialog-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding:
+        15px
+        28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #fbfbfd
+        );
+
+}
+
+
+.footer-hint {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--cv-muted);
+
+    font-size: 11px;
+
+}
+
+
+.footer-hint i {
+
+    color: var(--cv-blue);
+
+    font-size: 13px;
+
+}
+
+
+.footer-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+:host ::ng-deep
+.dialog-footer .p-button {
+
+    min-height: 40px;
+
+    padding:
+        0
+        16px;
+
+    border-radius: 10px !important;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease;
+
+}
+
+
+:host ::ng-deep
+.dialog-footer .cancel-btn {
+
+    background:
+        #f6f7fc !important;
+
+    border:
+        1px solid var(--cv-border) !important;
+
+    color:
+        var(--cv-text) !important;
+
+}
+
+
+:host ::ng-deep
+.dialog-footer .cancel-btn:hover {
+
+    background:
+        #eceef8 !important;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+:host ::ng-deep
+.dialog-footer .save-btn {
+
+    background:
+        var(--cv-gradient) !important;
+
+    border:
+        none !important;
+
+    color:
+        #ffffff !important;
+
+    box-shadow:
+        0 7px 18px rgba(79, 110, 247, .22);
+
+}
+
+
+:host ::ng-deep
+.dialog-footer .save-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    filter:
+        brightness(1.05);
+
+    box-shadow:
+        0 10px 24px rgba(79, 110, 247, .30);
+
+}
+
+
+:host ::ng-deep
+.dialog-footer .save-btn:active {
+
+    transform:
+        translateY(0)
+        scale(.98);
+
+}
+
+
+/* =========================================================
+   DIALOG CLOSE BUTTON
+========================================================= */
+
+:host ::ng-deep
+.profile-edit-dialog
+.p-dialog-header-close {
+
+    position: absolute;
+
+    top: 14px;
+
+    right: 14px;
+
+    z-index: 10;
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 10px;
+
+    color: var(--cv-muted);
+
+    background:
+        rgba(255, 255, 255, .75);
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+
+}
+
+
+:host ::ng-deep
+.profile-edit-dialog
+.p-dialog-header-close:hover {
+
+    background:
+        rgba(79, 110, 247, .09);
+
+    color:
+        var(--cv-blue);
+
+    transform:
+        rotate(90deg);
+
+}
+
+
+/* =========================================================
+   BACKDROP
+========================================================= */
+
+:host ::ng-deep
+.p-dialog-mask {
+
+    background:
+        rgba(23, 26, 43, .42) !important;
+
+    backdrop-filter:
+        blur(5px);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .dialog-header {
+
+        padding:
+            20px;
+
+    }
+
+
+    .header-icon {
+
+        width: 50px;
+
+        height: 50px;
+
+        font-size: 19px;
+
+    }
+
+
+    .header-content h2 {
+
+        font-size: 19px;
+
+    }
+
+
+    .header-content p {
+
+        font-size: 12px;
+
+    }
+
+
+    .header-decoration {
+
+        display: none;
+
+    }
+
+
+    .profile-form {
+
+        padding:
+            22px
+            20px;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 18px;
+
+    }
+
+
+    .full-width {
+
+        grid-column: auto;
+
+    }
+
+
+    .dialog-footer {
+
+        padding:
+            14px
+            20px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .footer-hint {
+
+        justify-content: center;
+
+    }
+
+
+    .footer-actions {
+
+        justify-content: flex-end;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .dialog-header {
+
+        padding:
+            18px;
+
+    }
+
+
+    .header-icon {
+
+        width: 46px;
+
+        height: 46px;
+
+        border-radius: 14px;
+
+        font-size: 17px;
+
+    }
+
+
+    .header-content h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .header-badge {
+
+        display: none;
+
+    }
+
+
+    .profile-form {
+
+        padding:
+            20px
+            16px;
+
+    }
+
+
+    .dialog-footer {
+
+        padding:
+            13px
+            16px;
+
+    }
+
+
+    .footer-hint {
+
+        display: none;
+
+    }
+
+
+    .footer-actions {
+
+        width: 100%;
+
+    }
+
+
+    .footer-actions .p-button {
+
+        flex: 1;
+
+        justify-content: center;
+
+    }
+
+
+    .character-hint {
+
+        display: none;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    :host *,
+    :host *::before,
+    :host *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
 }

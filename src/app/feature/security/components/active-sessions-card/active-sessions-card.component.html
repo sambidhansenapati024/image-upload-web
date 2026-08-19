@@ -1,117 +1,222 @@
 <div class="security-card">
 
+    <!-- Decorative animated glows -->
+    <div class="card-glow glow-one"></div>
+    <div class="card-glow glow-two"></div>
+
+
+    <!-- Header -->
     <div class="card-header">
 
-        <i class="pi pi-desktop"></i>
+        <div class="header-icon">
 
-        <div>
+            <i class="pi pi-shield"></i>
 
-            <h3>Active Sessions</h3>
+        </div>
 
-            <p>Manage devices currently signed in to your account.</p>
+        <div class="header-content">
+
+            <span class="eyebrow">
+                SECURITY
+            </span>
+
+            <h3>
+                Active Sessions
+            </h3>
+
+            <p>
+                Manage devices currently signed in to your account.
+            </p>
 
         </div>
 
     </div>
 
-    @if(currentSession){
 
-    <div class="session-card">
+    <!-- Current Session -->
 
-        <div class="session-info">
+    @if (currentSession) {
 
-            <div class="device-icon">
+    <div class="current-session-card">
+
+        <div class="session-main">
+
+            <div class="device-icon current">
 
                 <i class="pi pi-desktop"></i>
 
             </div>
 
-            <div>
+            <div class="session-details">
 
-                <h4>Current Device</h4>
+                <div class="session-title">
 
-                <small>
-                    {{ currentSession.browser }}
-                    •
-                    {{ currentSession.operatingSystem }}
-                    •
-                    {{ currentSession.device }}
-                </small>
+                    <h4>
+                        Current Device
+                    </h4>
 
-                <br>
+                    <span class="current-badge">
+
+                        <span class="status-dot"></span>
+
+                        Active
+
+                    </span>
+
+                </div>
+
+                <div class="device-meta">
+
+                    <span>
+
+                        <i class="pi pi-globe"></i>
+
+                        {{ currentSession.browser }}
+
+                    </span>
+
+                    <span>
+
+                        <i class="pi pi-desktop"></i>
+
+                        {{ currentSession.operatingSystem }}
+
+                    </span>
+
+                    <span>
+
+                        <i class="pi pi-mobile"></i>
+
+                        {{ currentSession.device }}
+
+                    </span>
+
+                </div>
 
                 <small class="last-active">
-                    Last Active:
+
+                    <i class="pi pi-clock"></i>
+
+                    Last active:
                     {{ currentSession.lastActivity | date:'medium' }}
+
                 </small>
 
             </div>
 
         </div>
 
-        <span class="current-session">
-            Current Session
-        </span>
-
     </div>
 
     }
 
-@if (otherSessions.length > 0) {
 
-<div class="actions">
+    <!-- Other Sessions -->
 
-    <button
-        pButton
-        type="button"
-        label="Sign Out All Other Devices"
-        icon="pi pi-sign-out"
-        severity="danger"
-        outlined
-        (click)="logoutOtherSessions()">
-    </button>
+    @if (otherSessions.length > 0) {
 
-</div>
+    <div class="sessions-section">
 
-}
+        <div class="section-header">
 
-    @if(otherSessions.length > 0){
+            <div>
 
-    <div class="other-devices">
+                <h4>
+                    Other Devices
+                </h4>
 
-        <h4>Other Devices</h4>
+                <span>
+                    {{ otherSessions.length }}
+                    {{ otherSessions.length === 1 ? 'device' : 'devices' }}
+                    signed in
+                </span>
+
+            </div>
+
+            <button
+                pButton
+                type="button"
+                label="Sign Out All"
+                icon="pi pi-sign-out"
+                severity="danger"
+                [outlined]="true"
+                size="small"
+                (click)="logoutOtherSessions()">
+
+            </button>
+
+        </div>
+
 
         <div class="sessions-scroll">
 
-            @for(session of otherSessions; track session.sessionId){
+            @for (session of otherSessions; track session.sessionId) {
 
             <div class="session-card">
 
-                <div class="session-info">
+                <div class="session-main">
 
                     <div class="device-icon">
+
                         <i class="pi pi-desktop"></i>
+
                     </div>
 
-                    <div class="device-details">
+                    <div class="session-details">
 
-                        <h4>{{ session.browser }}</h4>
+                        <div class="session-title">
 
-                        <small>
-                            {{ session.operatingSystem }} • {{ session.device }}
-                        </small>
+                            <h4>
+                                {{ session.browser }}
+                            </h4>
+
+                        </div>
+
+                        <div class="device-meta">
+
+                            <span>
+
+                                <i class="pi pi-desktop"></i>
+
+                                {{ session.operatingSystem }}
+
+                            </span>
+
+                            <span>
+
+                                <i class="pi pi-mobile"></i>
+
+                                {{ session.device }}
+
+                            </span>
+
+                        </div>
 
                         <small class="last-active">
-                            Last Active:
+
+                            <i class="pi pi-clock"></i>
+
+                            Last active:
                             {{ session.lastActivity | date:'medium' }}
+
                         </small>
 
                     </div>
 
                 </div>
 
-                <button pButton icon="pi pi-sign-out" label="Sign Out" severity="danger" size="small" outlined
+
+                <button
+                    pButton
+                    type="button"
+                    icon="pi pi-sign-out"
+                    label="Sign Out"
+                    severity="danger"
+                    size="small"
+                    [outlined]="true"
+                    class="sign-out-btn"
                     (click)="logout(session.sessionId)">
+
                 </button>
 
             </div>
@@ -119,8 +224,57 @@
             }
 
         </div>
+
     </div>
 
     }
+
+
+    <!-- No Other Sessions -->
+
+    @if (otherSessions.length === 0) {
+
+    <div class="no-sessions">
+
+        <div class="no-session-icon">
+
+            <i class="pi pi-shield"></i>
+
+        </div>
+
+        <div>
+
+            <strong>
+                You're all secure
+            </strong>
+
+            <span>
+                No other devices are signed in to your account.
+            </span>
+
+        </div>
+
+    </div>
+
+    }
+
+
+    <!-- Footer -->
+
+    <div class="security-footer">
+
+        <div class="security-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                Your account is secure
+            </span>
+
+        </div>
+
+        <i class="pi pi-lock"></i>
+
+    </div>
 
 </div>

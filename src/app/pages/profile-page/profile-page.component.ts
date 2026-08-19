@@ -8,6 +8,7 @@ import { ProfileService } from '../../service/profile.service';
 import { FormsModule } from '@angular/forms';
 import { ProfileEditDialogComponent } from '../../feature/profile/profile-edit-dialog/profile-edit-dialog.component';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -26,7 +27,8 @@ export class ProfilePageComponent implements OnInit {
   loading = false;
 
   constructor(private profileService: ProfileService,
-    private messageService: MessageService
+    private messageService: MessageService,
+     private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -106,6 +108,10 @@ export class ProfilePageComponent implements OnInit {
     });
 
   }
+
+  goBack(): void {
+    this.router.navigate(['/dashboard']);
+}
 
 
   openEditDialog(): void {

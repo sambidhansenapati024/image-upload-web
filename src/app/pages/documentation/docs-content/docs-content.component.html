@@ -1,50 +1,103 @@
-<div class="docs-content">
+<div class="docs-page">
 
-    <div class="content-header">
+    <!-- Floating decorative elements -->
+    <div class="floating-orb orb-one"></div>
+    <div class="floating-orb orb-two"></div>
+    <div class="floating-orb orb-three"></div>
 
-    <span class="category">Documentation</span>
+    <div class="docs-content">
 
-    <h1>{{ topic.title }}</h1>
+        <!-- Header -->
+        <div class="content-header">
 
-    <p>{{ topic.description }}</p>
+            <div class="header-icon">
+                <i class="pi pi-book"></i>
+            </div>
 
-</div>
+            <div class="header-text">
 
-<div class="doc-body">
+                <span class="category">
+                    CLOUDVAULT DOCUMENTATION
+                </span>
 
-    @for (section of topic.sections; track section.heading) {
+                <h1>
+                    {{ topic.title }}
+                </h1>
 
-        <section class="doc-section" [id]="getSectionId(section.heading)">
+                <p>
+                    {{ topic.description }}
+                </p>
 
-            <h2>{{ section.heading }}</h2>
+            </div>
 
-            <p>{{ section.content }}</p>
+        </div>
 
-        </section>
 
-    }
+        <!-- Decorative line -->
+        <div class="header-line"></div>
 
-</div>
 
-    <div class="doc-navigation">
+        <!-- Documentation body -->
+        <div class="doc-body">
 
-<button
-    pButton
-    label="Previous"
-    severity="secondary"
-    variant="outlined"
-    [disabled]="!previousTopic"
-    (click)="goPrevious()">
-</button>
+            @for (
+                section of topic.sections;
+                track section.heading
+            ) {
 
-<button
-    pButton
-    label="Next"
-    icon="pi pi-arrow-right"
-    iconPos="right"
-    [disabled]="!nextTopic"
-    (click)="goNext()">
-</button>
+                <section
+                    class="doc-section"
+                    [id]="getSectionId(section.heading)">
+
+                    <div class="section-marker">
+                        <i class="pi pi-angle-right"></i>
+                    </div>
+
+                    <div class="section-content">
+
+                        <h2>
+                            {{ section.heading }}
+                        </h2>
+
+                        <p>
+                            {{ section.content }}
+                        </p>
+
+                    </div>
+
+                </section>
+
+            }
+
+        </div>
+
+
+        <!-- Navigation -->
+        <div class="doc-navigation">
+
+            <button
+                pButton
+                label="Previous"
+                icon="pi pi-arrow-left"
+                severity="secondary"
+                variant="outlined"
+                [disabled]="!previousTopic"
+                (click)="goPrevious()"
+                class="doc-nav-button previous-button">
+            </button>
+
+
+            <button
+                pButton
+                label="Next"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="!nextTopic"
+                (click)="goNext()"
+                class="doc-nav-button next-button">
+            </button>
+
+        </div>
 
     </div>
 

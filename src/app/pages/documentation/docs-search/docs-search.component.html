@@ -1,15 +1,17 @@
 <div class="docs-search">
 
-    <span class="p-input-icon-left">
+    <span class="search-wrapper">
 
-        <i class="pi pi-search"></i>
+        <i class="pi pi-search search-icon"></i>
 
-<input
-    pInputText
-    type="text"
-    placeholder="Search documentation..."
-    [(ngModel)]="search"
-    (input)="onSearch()" />
+        <input
+            pInputText
+            type="text"
+            placeholder="Search documentation..."
+            [(ngModel)]="search"
+            (input)="onSearch()" />
+
+        <span class="search-glow"></span>
 
     </span>
 

@@ -1,475 +1,1188 @@
 <div class="compression-page">
 
-    <div class="page-header">
+    <!-- =====================================================
+         ANIMATED BACKGROUND
+    ====================================================== -->
 
-        <h1>Image Compression</h1>
+    <div class="animated-background" aria-hidden="true">
 
-        <p>
-            Compress your images while maintaining good quality.
-        </p>
+        <span class="floating-blob blob-one"></span>
+        <span class="floating-blob blob-two"></span>
+        <span class="floating-blob blob-three"></span>
+
+        <span class="floating-object object-image">
+            <i class="pi pi-image"></i>
+        </span>
+
+        <span class="floating-object object-compress">
+            <i class="pi pi-compress"></i>
+        </span>
+
+        <span class="floating-object object-cloud">
+            <i class="pi pi-cloud-upload"></i>
+        </span>
+
+        <span class="floating-spark sparkle-one">✦</span>
+        <span class="floating-spark sparkle-two">✦</span>
+        <span class="floating-spark sparkle-three">✦</span>
+
+        <span class="floating-dot dot-one"></span>
+        <span class="floating-dot dot-two"></span>
+        <span class="floating-dot dot-three"></span>
 
     </div>
 
-    <div class="compression-layout">
 
-        <!-- ===================== LEFT: CONTROLS ===================== -->
-        <div class="controls-column">
+    <div class="compression-shell">
 
-            <div class="upload-card">
 
-                <div class="card-head">
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
 
-                    <span class="card-head-icon"><i class="pi pi-image"></i></span>
+        <div class="page-header">
 
-                    <div class="card-head-text">
-                        <h3>Select Image</h3>
-                        <p>Choose a photo to compress.</p>
+            <div class="header-icon-wrapper">
+
+                <div class="header-icon">
+
+                    <i class="pi pi-images"></i>
+
+                </div>
+
+                <span class="header-spark sparkle-a">✦</span>
+                <span class="header-spark sparkle-b">✦</span>
+
+            </div>
+
+
+            <div class="header-content">
+
+                <div class="title-row">
+
+                    <h1>
+                        Image Compression
+                    </h1>
+
+                    <span class="creative-badge">
+
+                        <i class="pi pi-sparkles"></i>
+
+                        Smart Compression
+
+                    </span>
+
+                </div>
+
+                <p>
+                    Compress your images while maintaining good quality.
+                </p>
+
+            </div>
+
+
+            <div class="header-decoration">
+
+                <div class="header-mini-card mini-card-one">
+                    <i class="pi pi-image"></i>
+                </div>
+
+                <div class="header-mini-card mini-card-two">
+                    <i class="pi pi-compress"></i>
+                </div>
+
+                <div class="header-arrow">
+                    <i class="pi pi-arrow-right"></i>
+                </div>
+
+                <div class="header-mini-card mini-card-three">
+                    <i class="pi pi-check"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             MAIN LAYOUT
+        ====================================================== -->
+
+        <div class="compression-layout">
+
+
+            <!-- =================================================
+                 LEFT — CONTROLS
+            ================================================== -->
+
+            <div class="controls-column">
+
+
+                <!-- =================================================
+                     UPLOAD CARD
+                ================================================== -->
+
+                <div class="upload-card">
+
+                    <div class="card-head">
+
+                        <span class="card-head-icon">
+
+                            <i class="pi pi-image"></i>
+
+                        </span>
+
+
+                        <div class="card-head-text">
+
+                            <h3>
+                                Select Image
+                            </h3>
+
+                            <p>
+                                Choose a photo to compress.
+                            </p>
+
+                        </div>
+
                     </div>
 
-                </div>
 
-                <label class="dropzone" for="compressFileInput" [class.has-file]="!!selectedFile">
+                    <label
+                        class="dropzone"
+                        for="compressFileInput"
+                        [class.has-file]="!!selectedFile">
 
-                    <span class="dropzone-icon"><i class="pi pi-cloud-upload"></i></span>
 
-                    @if (selectedFile) {
-                        <span class="dropzone-title">{{ selectedFile.name }}</span>
-                        <span class="dropzone-sub">Click to choose a different image</span>
-                    } @else {
-                        <span class="dropzone-title">Click to choose an image</span>
-                        <span class="dropzone-sub">JPG, PNG, or WebP</span>
+                        <div class="dropzone-glow"></div>
+
+
+                        <span class="dropzone-icon">
+
+                            @if (selectedFile) {
+
+                                <i class="pi pi-check"></i>
+
+                            }
+                            @else {
+
+                                <i class="pi pi-cloud-upload"></i>
+
+                            }
+
+                        </span>
+
+
+                        @if (selectedFile) {
+
+                            <span class="dropzone-title">
+
+                                {{ selectedFile.name }}
+
+                            </span>
+
+                            <span class="dropzone-sub">
+
+                                Click to choose a different image
+
+                            </span>
+
+                            <span class="file-ready">
+
+                                <i class="pi pi-check-circle"></i>
+
+                                Image selected
+
+                            </span>
+
+                        }
+                        @else {
+
+                            <span class="dropzone-title">
+
+                                Click to choose an image
+
+                            </span>
+
+                            <span class="dropzone-sub">
+
+                                JPG, PNG, or WebP
+
+                            </span>
+
+                            <span class="dropzone-hint">
+
+                                Maximum quality with smaller size
+
+                            </span>
+
+                        }
+
+
+                        <span class="dropzone-spark">
+
+                            ✦
+
+                        </span>
+
+
+                    </label>
+
+
+                    <input
+                        id="compressFileInput"
+                        type="file"
+                        accept="image/*"
+                        class="file-input-hidden"
+                        (change)="onFileSelected($event)">
+
+
+                    @if (validationMessage) {
+
+                        <div class="validation-error">
+
+                            <i class="pi pi-exclamation-circle"></i>
+
+                            <span>
+                                {{ validationMessage }}
+                            </span>
+
+                        </div>
+
                     }
 
-                </label>
 
-                <input
-                    id="compressFileInput"
-                    type="file"
-                    accept="image/*"
-                    class="file-input-hidden"
-                    (change)="onFileSelected($event)">
+                    @if (selectedFile) {
 
-                @if (validationMessage) {
+                        <div class="selected-file-status">
 
-                <div class="validation-error">
-                    <i class="pi pi-exclamation-circle"></i>
-                    {{ validationMessage }}
+                            <span>
+
+                                <i class="pi pi-file"></i>
+
+                                Ready to compress
+
+                            </span>
+
+                            <span class="status-dot"></span>
+
+                        </div>
+
+                    }
+
                 </div>
+
+
+                <!-- =================================================
+                     COMPRESSION OPTIONS
+                ================================================== -->
+
+                @if (imagePreview) {
+
+                    <div class="options-card">
+
+
+                        <div class="card-head">
+
+                            <span class="card-head-icon card-head-icon--purple">
+
+                                <i class="pi pi-sliders-h"></i>
+
+                            </span>
+
+
+                            <div class="card-head-text">
+
+                                <h3>
+                                    Compression Settings
+                                </h3>
+
+                                <p>
+                                    Choose the balance between quality and size.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="compression-options">
+
+                            <h3>
+                                Compression Level
+                            </h3>
+
+
+                            <div class="quality-options">
+
+
+                                <!-- HIGH -->
+
+                                <label
+                                    [class.active]="compressionMode === 'high'">
+
+                                    <input
+                                        type="radio"
+                                        name="compressionMode"
+                                        value="high"
+                                        [(ngModel)]="compressionMode">
+
+
+                                    @if (compressionMode === 'high') {
+
+                                        <span class="option-check">
+
+                                            <i class="pi pi-check"></i>
+
+                                        </span>
+
+                                    }
+
+
+                                    <span class="option-icon">
+
+                                        <i class="pi pi-star-fill"></i>
+
+                                    </span>
+
+
+                                    <span class="option-title">
+
+                                        High
+
+                                    </span>
+
+
+                                    <small>
+
+                                        Better quality
+
+                                    </small>
+
+
+                                    <span class="quality-indicator quality-high">
+
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+
+                                    </span>
+
+                                </label>
+
+
+                                <!-- MEDIUM -->
+
+                                <label
+                                    [class.active]="compressionMode === 'medium'">
+
+                                    <input
+                                        type="radio"
+                                        name="compressionMode"
+                                        value="medium"
+                                        [(ngModel)]="compressionMode">
+
+
+                                    @if (compressionMode === 'medium') {
+
+                                        <span class="option-check">
+
+                                            <i class="pi pi-check"></i>
+
+                                        </span>
+
+                                    }
+
+
+                                    <span class="option-icon">
+
+                                        <i class="pi pi-sliders-h"></i>
+
+                                    </span>
+
+
+                                    <span class="option-title">
+
+                                        Medium
+
+                                    </span>
+
+
+                                    <small>
+
+                                        Balanced
+
+                                    </small>
+
+
+                                    <span class="quality-indicator quality-medium">
+
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+
+                                    </span>
+
+                                </label>
+
+
+                                <!-- LOW -->
+
+                                <label
+                                    [class.active]="compressionMode === 'low'">
+
+                                    <input
+                                        type="radio"
+                                        name="compressionMode"
+                                        value="low"
+                                        [(ngModel)]="compressionMode">
+
+
+                                    @if (compressionMode === 'low') {
+
+                                        <span class="option-check">
+
+                                            <i class="pi pi-check"></i>
+
+                                        </span>
+
+                                    }
+
+
+                                    <span class="option-icon">
+
+                                        <i class="pi pi-compress"></i>
+
+                                    </span>
+
+
+                                    <span class="option-title">
+
+                                        Low
+
+                                    </span>
+
+
+                                    <small>
+
+                                        Smaller file
+
+                                    </small>
+
+
+                                    <span class="quality-indicator quality-low">
+
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+
+                                    </span>
+
+                                </label>
+
+
+                                <!-- CUSTOM -->
+
+                                <label
+                                    [class.active]="compressionMode === 'custom'">
+
+                                    <input
+                                        type="radio"
+                                        name="compressionMode"
+                                        value="custom"
+                                        [(ngModel)]="compressionMode">
+
+
+                                    @if (compressionMode === 'custom') {
+
+                                        <span class="option-check">
+
+                                            <i class="pi pi-check"></i>
+
+                                        </span>
+
+                                    }
+
+
+                                    <span class="option-icon">
+
+                                        <i class="pi pi-cog"></i>
+
+                                    </span>
+
+
+                                    <span class="option-title">
+
+                                        Custom
+
+                                    </span>
+
+
+                                    <small>
+
+                                        Choose target size
+
+                                    </small>
+
+
+                                    <span class="quality-indicator quality-custom">
+
+                                        <i class="pi pi-cog"></i>
+
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 CUSTOM SIZE
+                            ================================================== -->
+
+                            @if (compressionMode === 'custom') {
+
+                                <div class="custom-settings-wrapper">
+
+
+                                    <div class="custom-size">
+
+                                        <div class="custom-input-icon">
+
+                                            <i class="pi pi-database"></i>
+
+                                        </div>
+
+
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            step="1"
+                                            [(ngModel)]="customSize"
+                                            placeholder="Enter size">
+
+
+                                        <select
+                                            [(ngModel)]="customSizeUnit">
+
+                                            <option value="KB">
+                                                KB
+                                            </option>
+
+                                            <option value="MB">
+                                                MB
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="resize-option">
+
+                                        <label class="resize-checkbox">
+
+                                            <input
+                                                type="checkbox"
+                                                [(ngModel)]="resizeEnabled">
+
+
+                                            <span class="custom-checkbox">
+
+                                                <i class="pi pi-check"></i>
+
+                                            </span>
+
+
+                                            <span class="resize-checkbox-text">
+
+                                                <i class="pi pi-expand"></i>
+
+                                                Resize image
+
+                                            </span>
+
+                                        </label>
+
+                                    </div>
+
+
+                                    @if (resizeEnabled) {
+
+                                        <div class="resize-settings">
+
+                                            <div class="resize-title">
+
+                                                <span>
+
+                                                    <i class="pi pi-arrows-alt"></i>
+
+                                                    Maximum Width
+
+                                                </span>
+
+                                                <span class="resize-badge">
+                                                    PX
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="resize-input">
+
+                                                <input
+                                                    type="number"
+                                                    min="320"
+                                                    [(ngModel)]="maxWidth"
+                                                    placeholder="1920">
+
+
+                                                <span>
+                                                    px
+                                                </span>
+
+                                            </div>
+
+
+                                            <small>
+
+                                                Height will be calculated automatically
+                                                to maintain the original aspect ratio.
+
+                                            </small>
+
+                                        </div>
+
+                                    }
+
+                                </div>
+
+                            }
+
+                        </div>
+
+
+                        <!-- =================================================
+                             COMPRESS BUTTON
+                        ================================================== -->
+
+                        <div class="compress-action">
+
+                            <button
+                                type="button"
+                                class="compress-button"
+                                (click)="compressImage()"
+                                [disabled]="compressing || !selectedFile">
+
+
+                                <span class="button-shine"></span>
+
+
+                                @if (compressing) {
+
+                                    <i class="pi pi-spin pi-spinner"></i>
+
+                                    <span>
+                                        Compressing...
+                                    </span>
+
+                                    <span class="button-loading-dots">
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                    </span>
+
+                                }
+                                @else {
+
+                                    <i class="pi pi-bolt"></i>
+
+                                    <span>
+                                        Compress Image
+                                    </span>
+
+                                }
+
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 }
 
             </div>
 
-            @if (imagePreview) {
 
-            <div class="options-card">
+            <!-- =================================================
+                 RIGHT — PREVIEW / RESULT
+            ================================================== -->
 
-                <div class="compression-options">
+            <div class="preview-column">
 
-                    <h3>Compression</h3>
 
-                    <div class="quality-options">
+                <!-- =================================================
+                     EMPTY STATE
+                ================================================== -->
 
-                        <label [class.active]="compressionMode === 'high'">
+                @if (!imagePreview) {
 
-                            <input type="radio" name="compressionMode" value="high" [(ngModel)]="compressionMode">
+                    <div class="empty-preview">
 
-                            @if (compressionMode === 'high') {
-                                <span class="option-check"><i class="pi pi-check"></i></span>
-                            }
+                        <div class="empty-orbit">
 
-                            <span class="option-icon"><i class="pi pi-star-fill"></i></span>
+                            <span class="orbit-ring ring-one"></span>
+                            <span class="orbit-ring ring-two"></span>
 
-                            <span class="option-title">
-                                High
+                            <span class="orbit-icon icon-one">
+                                <i class="pi pi-image"></i>
                             </span>
 
-                            <small>
-                                Better quality
-                            </small>
-
-                        </label>
-
-
-                        <label [class.active]="compressionMode === 'medium'">
-
-                            <input type="radio" name="compressionMode" value="medium" [(ngModel)]="compressionMode">
-
-                            @if (compressionMode === 'medium') {
-                                <span class="option-check"><i class="pi pi-check"></i></span>
-                            }
-
-                            <span class="option-icon"><i class="pi pi-sliders-h"></i></span>
-
-                            <span class="option-title">
-                                Medium
+                            <span class="orbit-icon icon-two">
+                                <i class="pi pi-compress"></i>
                             </span>
 
-                            <small>
-                                Balanced
-                            </small>
-
-                        </label>
-
-
-                        <label [class.active]="compressionMode === 'low'">
-
-                            <input type="radio" name="compressionMode" value="low" [(ngModel)]="compressionMode">
-
-                            @if (compressionMode === 'low') {
-                                <span class="option-check"><i class="pi pi-check"></i></span>
-                            }
-
-                            <span class="option-icon"><i class="pi pi-compress"></i></span>
-
-                            <span class="option-title">
-                                Low
+                            <span class="orbit-icon icon-three">
+                                <i class="pi pi-bolt"></i>
                             </span>
 
-                            <small>
-                                Smaller file
-                            </small>
 
-                        </label>
+                            <span class="empty-preview-icon">
 
+                                <i class="pi pi-images"></i>
 
-                        <label [class.active]="compressionMode === 'custom'">
-
-                            <input type="radio" name="compressionMode" value="custom" [(ngModel)]="compressionMode">
-
-                            @if (compressionMode === 'custom') {
-                                <span class="option-check"><i class="pi pi-check"></i></span>
-                            }
-
-                            <span class="option-icon"><i class="pi pi-cog"></i></span>
-
-                            <span class="option-title">
-                                Custom
                             </span>
 
-                            <small>
-                                Choose target size
-                            </small>
+                        </div>
 
-                        </label>
+
+                        <p>
+                            Your image preview will appear here
+                        </p>
+
+                        <small>
+                            Choose a photo on the left to get started.
+                        </small>
+
+
+                        <div class="empty-features">
+
+                            <span>
+                                <i class="pi pi-check"></i>
+                                Fast
+                            </span>
+
+                            <span>
+                                <i class="pi pi-check"></i>
+                                Secure
+                            </span>
+
+                            <span>
+                                <i class="pi pi-check"></i>
+                                Quality preserved
+                            </span>
+
+                        </div>
 
                     </div>
 
+                }
 
-                    @if (compressionMode === 'custom') {
 
-                    <div class="custom-size">
+                <!-- =================================================
+                     ORIGINAL IMAGE
+                ================================================== -->
 
-                        <input type="number" min="1" step="1" [(ngModel)]="customSize" placeholder="Enter size">
+                @if (imagePreview) {
 
-                        <select [(ngModel)]="customSizeUnit">
+                    <div class="preview-card">
 
-                            <option value="KB">
-                                KB
-                            </option>
 
-                            <option value="MB">
-                                MB
-                            </option>
+                        <div class="card-head">
 
-                        </select>
+                            <span class="card-head-icon">
 
-                    </div>
+                                <i class="pi pi-file-import"></i>
 
-                    <div class="resize-option">
-
-                        <label class="resize-checkbox">
-
-                            <input
-                                type="checkbox"
-                                [(ngModel)]="resizeEnabled"
-                            >
-
-                            <span class="resize-checkbox-text">
-                                <i class="pi pi-expand"></i>
-                                Resize image
                             </span>
 
-                        </label>
 
-                    </div>
+                            <div class="card-head-text">
 
-                    @if (resizeEnabled) {
+                                <h3>
+                                    Original Image
+                                </h3>
 
-                        <div class="resize-settings">
+                                <p>
+                                    Before compression
+                                </p>
 
-                            <label>
-                                Maximum Width
-                            </label>
+                            </div>
 
-                            <div class="resize-input">
 
-                                <input
-                                    type="number"
-                                    min="320"
-                                    [(ngModel)]="maxWidth"
-                                    placeholder="1920"
-                                >
+                            <span class="image-status-badge">
 
-                                <span>
-                                    px
+                                <span></span>
+
+                                Original
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="image-preview-wrapper">
+
+                            <div class="preview-grid"></div>
+
+                            <img
+                                [src]="imagePreview"
+                                alt="Selected image"
+                                class="preview-image">
+
+                            <div class="preview-corner-label">
+
+                                <i class="pi pi-image"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="image-info">
+
+
+                            <div class="info-item">
+
+                                <span class="info-label">
+
+                                    <i class="pi pi-database"></i>
+
+                                    Original Size
+
+                                </span>
+
+
+                                <span class="info-value">
+
+                                    {{ formatFileSize(originalSize) }}
+
                                 </span>
 
                             </div>
 
-                            <small>
-                                Height will be calculated automatically
-                                to maintain the original aspect ratio.
-                            </small>
+
+                            <div class="info-item">
+
+                                <span class="info-label">
+
+                                    <i class="pi pi-arrows-alt"></i>
+
+                                    Dimensions
+
+                                </span>
+
+
+                                <span class="info-value">
+
+                                    {{ originalWidth }} × {{ originalHeight }} px
+
+                                </span>
+
+                            </div>
 
                         </div>
-
-                    }
-
-                    }
-
-                </div>
-
-                <div class="compress-action">
-
-                    <button type="button" class="compress-button" (click)="compressImage()"
-                        [disabled]="compressing || !selectedFile">
-
-                        @if (compressing) {
-
-                        <i class="pi pi-spin pi-spinner"></i>
-                        Compressing...
-
-                        } @else {
-
-                        <i class="pi pi-bolt"></i>
-                        Compress Image
-
-                        }
-
-                    </button>
-
-                </div>
-
-            </div>
-
-            }
-
-        </div>
-
-        <!-- ===================== RIGHT: PREVIEW / RESULT (sticky) ===================== -->
-        <div class="preview-column">
-
-            @if (!imagePreview) {
-
-                <div class="empty-preview">
-                    <span class="empty-preview-icon"><i class="pi pi-images"></i></span>
-                    <p>Your image preview will appear here</p>
-                    <small>Choose a photo on the left to get started.</small>
-                </div>
-
-            }
-
-            @if (imagePreview) {
-
-            <div class="preview-card">
-
-                <div class="card-head">
-
-                    <span class="card-head-icon"><i class="pi pi-file-import"></i></span>
-
-                    <div class="card-head-text">
-                        <h3>Original Image</h3>
-                    </div>
-
-                </div>
-
-                <img [src]="imagePreview" alt="Selected image" class="preview-image">
-
-                <div class="image-info">
-
-                    <div class="info-item">
-
-                        <span class="info-label">
-                            <i class="pi pi-database"></i>
-                            Original Size
-                        </span>
-
-                        <span class="info-value">
-                            {{ formatFileSize(originalSize) }}
-                        </span>
-
-                    </div>
-
-                    <div class="info-item">
-
-                        <span class="info-label">
-                            <i class="pi pi-arrows-alt"></i>
-                            Dimensions
-                        </span>
-
-                        <span class="info-value">
-                            {{ originalWidth }} × {{ originalHeight }} px
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            }
-
-            @if (compressedPreview) {
-
-            <div class="compressed-result">
-
-                <div class="card-head">
-
-                    <span class="card-head-icon card-head-icon--success"><i class="pi pi-check-circle"></i></span>
-
-                    <div class="card-head-text">
-                        <h3>Compressed Image</h3>
-                    </div>
-
-                </div>
-
-                <img [src]="compressedPreview" alt="Compressed image" class="preview-image">
-
-                <div class="size-comparison">
-
-                    <div class="size-comparison-row">
-
-                        <div class="size-item">
-
-                            <span>
-                                Original
-                            </span>
-
-                            <strong>
-                                {{ formatFileSize(originalSize) }}
-                            </strong>
-
-                            <small>
-                                {{ originalWidth }} × {{ originalHeight }} px
-                            </small>
-
-                        </div>
-
-
-                        <div class="size-arrow">
-                            <i class="pi pi-arrow-right"></i>
-                        </div>
-
-
-                        <div class="size-item">
-
-                            <span>
-                                Compressed
-                            </span>
-
-                            <strong>
-                                {{ formatFileSize(compressedSize) }}
-                            </strong>
-
-                            <small>
-                                {{ compressedWidth }} × {{ compressedHeight }} px
-                            </small>
-
-                        </div>
-
-
-                        <div class="saved-info">
-
-                            <span>
-                                Space Saved
-                            </span>
-
-                            <strong>
-                                {{ compressionPercentage }}%
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                    <div class="saved-bar-track">
-                        <div class="saved-bar-fill" [style.width.%]="compressionPercentage"></div>
-                    </div>
-
-                </div>
-
-                @if (
-                    compressionMode === 'custom' &&
-                    !targetReached
-                ) {
-
-                    <div class="target-warning">
-
-                        <strong>
-                            <i class="pi pi-exclamation-triangle"></i>
-                            Target size could not be reached.
-                        </strong>
-
-                        <span>
-                            Requested: {{ customSize }} {{ customSizeUnit }}
-                        </span>
-
-                        <span>
-                            Actual: {{ formatFileSize(compressedSize) }}
-                        </span>
 
                     </div>
 
                 }
 
-                <div class="result-actions">
 
-                    <button type="button" class="download-button" (click)="downloadCompressedImage()">
-                        <i class="pi pi-download"></i>
-                        Download Compressed Image
-                    </button>
+                <!-- =================================================
+                     COMPRESSED RESULT
+                ================================================== -->
 
-                    <button
-                        type="button"
-                        class="upload-button"
-                        (click)="uploadCompressedImage()"
-                        [disabled]="uploading">
+                @if (compressedPreview) {
 
-                        @if (uploading) {
-                            <i class="pi pi-spin pi-spinner"></i>
-                            Uploading...
-                        } @else {
-                            <i class="pi pi-cloud-upload"></i>
-                            Save to Gallery
+                    <div class="compressed-result">
+
+
+                        <div class="result-glow"></div>
+
+
+                        <div class="card-head">
+
+                            <span class="card-head-icon card-head-icon--success">
+
+                                <i class="pi pi-check-circle"></i>
+
+                            </span>
+
+
+                            <div class="card-head-text">
+
+                                <h3>
+                                    Compressed Image
+                                </h3>
+
+                                <p>
+                                    Your optimized image is ready
+                                </p>
+
+                            </div>
+
+
+                            <span class="image-status-badge success">
+
+                                <span></span>
+
+                                Optimized
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="image-preview-wrapper result-image-wrapper">
+
+                            <div class="preview-grid"></div>
+
+                            <img
+                                [src]="compressedPreview"
+                                alt="Compressed image"
+                                class="preview-image">
+
+                            <div class="compressed-stamp">
+
+                                <i class="pi pi-sparkles"></i>
+
+                                Optimized
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SIZE COMPARISON
+                        ================================================== -->
+
+                        <div class="size-comparison">
+
+
+                            <div class="comparison-heading">
+
+                                <span>
+
+                                    <i class="pi pi-chart-bar"></i>
+
+                                    Compression Summary
+
+                                </span>
+
+                                <span class="saved-badge">
+
+                                    {{ compressionPercentage }}% smaller
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="size-comparison-row">
+
+
+                                <div class="size-item original-size">
+
+                                    <span>
+                                        Original
+                                    </span>
+
+                                    <strong>
+                                        {{ formatFileSize(originalSize) }}
+                                    </strong>
+
+                                    <small>
+                                        {{ originalWidth }} × {{ originalHeight }} px
+                                    </small>
+
+                                </div>
+
+
+                                <div class="size-arrow">
+
+                                    <i class="pi pi-arrow-right"></i>
+
+                                </div>
+
+
+                                <div class="size-item compressed-size">
+
+                                    <span>
+                                        Compressed
+                                    </span>
+
+                                    <strong>
+                                        {{ formatFileSize(compressedSize) }}
+                                    </strong>
+
+                                    <small>
+                                        {{ compressedWidth }} × {{ compressedHeight }} px
+                                    </small>
+
+                                </div>
+
+
+                                <div class="saved-info">
+
+                                    <span>
+                                        Space Saved
+                                    </span>
+
+                                    <strong>
+                                        {{ compressionPercentage }}%
+                                    </strong>
+
+                                    <small>
+                                        Smaller file
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="saved-bar-track">
+
+                                <div
+                                    class="saved-bar-fill"
+                                    [style.width.%]="compressionPercentage">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             TARGET WARNING
+                        ================================================== -->
+
+                        @if (
+                            compressionMode === 'custom' &&
+                            !targetReached
+                        ) {
+
+                            <div class="target-warning">
+
+                                <strong>
+
+                                    <i class="pi pi-exclamation-triangle"></i>
+
+                                    Target size could not be reached.
+
+                                </strong>
+
+                                <span>
+                                    Requested: {{ customSize }} {{ customSizeUnit }}
+                                </span>
+
+                                <span>
+                                    Actual: {{ formatFileSize(compressedSize) }}
+                                </span>
+
+                            </div>
+
                         }
 
-                    </button>
 
-                </div>
+                        <!-- =================================================
+                             ACTIONS
+                        ================================================== -->
+
+                        <div class="result-actions">
 
 
-                @if (uploadSuccess) {
+                            <button
+                                type="button"
+                                class="download-button"
+                                (click)="downloadCompressedImage()">
 
-                    <div class="upload-success">
-                        <i class="pi pi-check-circle"></i>
-                        Compressed image saved successfully.
+                                <span class="action-shine"></span>
+
+                                <i class="pi pi-download"></i>
+
+                                Download Compressed Image
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="upload-button"
+                                (click)="uploadCompressedImage()"
+                                [disabled]="uploading">
+
+
+                                @if (uploading) {
+
+                                    <i class="pi pi-spin pi-spinner"></i>
+
+                                    Uploading...
+
+                                }
+                                @else {
+
+                                    <i class="pi pi-cloud-upload"></i>
+
+                                    Save to Gallery
+
+                                }
+
+                            </button>
+
+                        </div>
+
+
+                        @if (uploadSuccess) {
+
+                            <div class="upload-success">
+
+                                <span class="success-icon">
+
+                                    <i class="pi pi-check"></i>
+
+                                </span>
+
+                                <span>
+                                    Compressed image saved successfully.
+                                </span>
+
+                            </div>
+
+                        }
+
+
+                        <button
+                            type="button"
+                            class="reset-button"
+                            (click)="resetCompression()">
+
+                            <i class="pi pi-refresh"></i>
+
+                            Compress Another Image
+
+                        </button>
+
                     </div>
 
                 }
 
-
-                <button
-                    type="button"
-                    class="reset-button"
-                    (click)="resetCompression()">
-                    <i class="pi pi-refresh"></i>
-                    Compress Another Image
-                </button>
-
             </div>
-
-            }
 
         </div>
 

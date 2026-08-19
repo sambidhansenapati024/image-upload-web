@@ -1,183 +1,1179 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.docs-page {
+
+    position: relative;
+
+    padding:
+        10px 5px 40px;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   FLOATING ORBS
+========================================================= */
+
+.floating-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+}
+
+
+.orb-one {
+
+    width: 12px;
+
+    height: 12px;
+
+    top: 70px;
+
+    right: 9%;
+
+    background: #4F6EF7;
+
+    box-shadow:
+        0 0 20px rgba(79, 110, 247, .45);
+
+    animation:
+        floatOne 5s ease-in-out infinite;
+
+}
+
+
+.orb-two {
+
+    width: 8px;
+
+    height: 8px;
+
+    top: 45%;
+
+    left: 2%;
+
+    background: #9B5CF6;
+
+    box-shadow:
+        0 0 18px rgba(155, 92, 246, .45);
+
+    animation:
+        floatTwo 6s ease-in-out infinite;
+
+}
+
+
+.orb-three {
+
+    width: 15px;
+
+    height: 15px;
+
+    bottom: 12%;
+
+    right: 4%;
+
+    background:
+        rgba(79, 110, 247, .55);
+
+    box-shadow:
+        0 0 25px rgba(79, 110, 247, .3);
+
+    animation:
+        floatThree 7s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   DOCUMENT CONTAINER
+========================================================= */
 
 .docs-content {
 
-    background: #FFFFFF;
+    position: relative;
 
-    border: 1px solid #E9EAF4;
+    z-index: 2;
 
-    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #FCFCFF
+        );
 
-    padding: 32px;
+    border:
+        1px solid #E9EAF4;
 
-    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
+    border-radius:
+        20px;
 
-}
+    padding:
+        36px;
 
-.category {
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 10px 30px rgba(23, 26, 43, .06);
 
-    color: #4F6EF7;
+    overflow: hidden;
 
-    font-size: 14px;
-
-    font-weight: 600;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-
-}
-
-.content-header h1 {
-
-    margin: 8px 0 16px;
-
-    color: #171A2B;
-
-    font-size: 36px;
+    animation:
+        docsEnter .55s ease both;
 
 }
 
-.content-header p {
 
-    color: #4A4F63;
+/* =========================================================
+   TOP GLOW
+========================================================= */
 
-    line-height: 1.8;
+.docs-content::before {
 
-    max-width: 750px;
+    content: "";
 
-}
+    position: absolute;
 
-section {
+    width: 320px;
 
-    margin-top: 40px;
+    height: 320px;
 
-}
+    right: -160px;
 
-section h2 {
+    top: -180px;
 
-    color: #171A2B;
+    border-radius: 50%;
 
-    margin-bottom: 12px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .13),
+            rgba(155, 92, 246, .06),
+            transparent 70%
+        );
 
-}
-
-section p {
-
-    color: #767C93;
-
-    line-height: 1.7;
-
-}
-
-ol {
-
-    color: #4A4F63;
-
-    padding-left: 20px;
-
-    line-height: 2;
+    pointer-events: none;
 
 }
 
-.feature-grid {
 
-    display: grid;
+/* =========================================================
+   HEADER
+========================================================= */
 
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.content-header {
 
-    gap: 18px;
+    position: relative;
 
-    margin-top: 24px;
-
-}
-
-.feature-card {
-
-    background: #F6F7FC;
-
-    border: 1px solid #E9EAF4;
-
-    border-radius: 12px;
-
-    padding: 20px;
-
-    transition: .2s;
-
-}
-
-.feature-card:hover {
-
-    border-color: #4F6EF7;
-
-    transform: translateY(-2px);
-
-}
-
-.feature-card i {
-
-    font-size: 24px;
-
-    color: #4F6EF7;
-
-    margin-bottom: 16px;
-
-}
-
-.feature-card h4 {
-
-    margin: 0 0 10px;
-
-    color: #171A2B;
-
-}
-
-.feature-card p {
-
-    margin: 0;
-
-    color: #767C93;
-
-    line-height: 1.6;
-
-}
-
-.doc-navigation {
+    z-index: 2;
 
     display: flex;
 
-    justify-content: space-between;
+    align-items: flex-start;
 
-    margin-top: 48px;
-
-    padding-top: 24px;
-
-    border-top: 1px solid #E9EAF4;
+    gap: 20px;
 
 }
+
+
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.header-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    box-shadow:
+        0 10px 25px rgba(79, 110, 247, .24);
+
+    animation:
+        iconFloat 4s ease-in-out infinite;
+
+}
+
+
+.header-icon i {
+
+    color: white;
+
+    font-size: 25px;
+
+}
+
+
+/* =========================================================
+   HEADER TEXT
+========================================================= */
+
+.header-text {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.category {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.category::before {
+
+    content: "";
+
+    width: 7px;
+
+    height: 7px;
+
+    margin-right: 8px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    box-shadow:
+        0 0 10px rgba(79, 110, 247, .4);
+
+    animation:
+        pulseDot 2s ease-in-out infinite;
+
+}
+
+
+.content-header h1 {
+
+    margin:
+        0 0 12px;
+
+    color:
+        #171A2B;
+
+    font-size:
+        36px;
+
+    line-height:
+        1.2;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        -.6px;
+
+}
+
+
+.content-header p {
+
+    margin:
+        0;
+
+    max-width:
+        800px;
+
+    color:
+        #767C93;
+
+    font-size:
+        15px;
+
+    line-height:
+        1.75;
+
+}
+
+
+/* =========================================================
+   HEADER LINE
+========================================================= */
+
+.header-line {
+
+    position:
+        relative;
+
+    height:
+        2px;
+
+    margin:
+        28px 0 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4F6EF7,
+            #9B5CF6,
+            rgba(155, 92, 246, 0)
+        );
+
+    border-radius:
+        999px;
+
+    transform-origin:
+        left;
+
+    animation:
+        lineEnter .7s .25s ease both;
+
+}
+
+
+/* =========================================================
+   DOCUMENT BODY
+========================================================= */
+
+.doc-body {
+
+    position:
+        relative;
+
+    padding-top:
+        12px;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
 
 .doc-section {
 
-    margin-bottom: 40px;
+    position:
+        relative;
+
+    display:
+        flex;
+
+    gap:
+        16px;
+
+    margin-top:
+        38px;
+
+    padding:
+        20px;
+
+    border:
+        1px solid transparent;
+
+    border-radius:
+        15px;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    animation:
+        sectionEnter .5s ease both;
 
 }
+
+
+/* stagger */
+
+.doc-section:nth-child(1) {
+
+    animation-delay:
+        .1s;
+
+}
+
+
+.doc-section:nth-child(2) {
+
+    animation-delay:
+        .18s;
+
+}
+
+
+.doc-section:nth-child(3) {
+
+    animation-delay:
+        .26s;
+
+}
+
+
+.doc-section:nth-child(4) {
+
+    animation-delay:
+        .34s;
+
+}
+
+
+.doc-section:nth-child(5) {
+
+    animation-delay:
+        .42s;
+
+}
+
+
+/* =========================================================
+   SECTION HOVER
+========================================================= */
+
+.doc-section:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .035),
+            rgba(155, 92, 246, .025)
+        );
+
+    border-color:
+        rgba(79, 110, 247, .12);
+
+    transform:
+        translateX(4px);
+
+    box-shadow:
+        0 8px 25px rgba(79, 110, 247, .05);
+
+}
+
+
+/* =========================================================
+   SECTION MARKER
+========================================================= */
+
+.section-marker {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin-top:
+        2px;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(79, 110, 247, .09);
+
+    color:
+        #4F6EF7;
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        color .3s ease;
+
+}
+
+
+.section-marker i {
+
+    font-size:
+        13px;
+
+}
+
+
+.doc-section:hover .section-marker {
+
+    transform:
+        translateX(3px)
+        scale(1.05);
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    color:
+        #FFFFFF;
+
+}
+
+
+/* =========================================================
+   SECTION CONTENT
+========================================================= */
+
+.section-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
 
 .doc-section h2 {
 
-    color: #171A2B;
+    margin:
+        0 0 10px;
 
-    margin-bottom: 12px;
+    color:
+        #171A2B;
+
+    font-size:
+        21px;
+
+    font-weight:
+        650;
+
+    line-height:
+        1.35;
 
 }
 
+
 .doc-section p {
 
-    color: #4A4F63;
+    margin:
+        0;
 
-    line-height: 1.8;
+    color:
+        #4A4F63;
 
-    white-space: pre-wrap;
+    font-size:
+        14px;
+
+    line-height:
+        1.85;
+
+    white-space:
+        pre-wrap;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.doc-navigation {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    margin-top:
+        42px;
+
+    padding-top:
+        24px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+}
+
+
+/* =========================================================
+   NAV BUTTONS
+========================================================= */
+
+.doc-nav-button {
+
+    min-width:
+        125px;
+
+    border-radius:
+        11px !important;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease;
+
+}
+
+
+.previous-button:hover:not(:disabled) {
+
+    transform:
+        translateX(-3px);
+
+}
+
+
+.next-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        ) !important;
+
+    border:
+        none !important;
+
+    color:
+        #FFFFFF !important;
+
+    box-shadow:
+        0 7px 18px rgba(79, 110, 247, .18);
+
+}
+
+
+.next-button:hover:not(:disabled) {
+
+    transform:
+        translateX(3px);
+
+    filter:
+        brightness(1.05);
+
+    box-shadow:
+        0 10px 25px rgba(79, 110, 247, .25);
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes docsEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes sectionEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(12px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes lineEnter {
+
+    from {
+
+        transform:
+            scaleX(0);
+
+    }
+
+    to {
+
+        transform:
+            scaleX(1);
+
+    }
+
+}
+
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px)
+            rotate(-3deg);
+
+    }
+
+}
+
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity:
+            .8;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.35);
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+@keyframes floatOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-18px, 20px);
+
+    }
+
+}
+
+
+@keyframes floatTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(20px, -15px);
+
+    }
+
+}
+
+
+@keyframes floatThree {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-15px, -20px)
+            scale(1.2);
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .docs-content {
+
+        padding:
+            28px 24px;
+
+    }
+
+
+    .content-header h1 {
+
+        font-size:
+            30px;
+
+    }
+
+
+    .doc-section {
+
+        margin-top:
+            28px;
+
+        padding:
+            16px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .docs-page {
+
+        padding:
+            5px 0 30px;
+
+    }
+
+
+    .docs-content {
+
+        padding:
+            22px 18px;
+
+        border-radius:
+            17px;
+
+    }
+
+
+    .content-header {
+
+        gap:
+            13px;
+
+    }
+
+
+    .header-icon {
+
+        width:
+            46px;
+
+        height:
+            46px;
+
+        border-radius:
+            13px;
+
+    }
+
+
+    .header-icon i {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .category {
+
+        font-size:
+            8px;
+
+        letter-spacing:
+            1.1px;
+
+    }
+
+
+    .content-header h1 {
+
+        font-size:
+            24px;
+
+        margin-bottom:
+            8px;
+
+    }
+
+
+    .content-header p {
+
+        font-size:
+            12px;
+
+        line-height:
+            1.6;
+
+    }
+
+
+    .header-line {
+
+        margin:
+            22px 0 0;
+
+    }
+
+
+    .doc-section {
+
+        gap:
+            12px;
+
+        padding:
+            13px;
+
+        margin-top:
+            22px;
+
+    }
+
+
+    .section-marker {
+
+        width:
+            28px;
+
+        height:
+            28px;
+
+    }
+
+
+    .doc-section h2 {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .doc-section p {
+
+        font-size:
+            12px;
+
+        line-height:
+            1.7;
+
+    }
+
+
+    .doc-navigation {
+
+        margin-top:
+            30px;
+
+        padding-top:
+            20px;
+
+    }
+
+
+    .doc-nav-button {
+
+        min-width:
+            105px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .content-header {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .header-icon {
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+    }
+
+
+    .content-header h1 {
+
+        font-size:
+            21px;
+
+    }
+
+
+    .doc-navigation {
+
+        flex-direction:
+            column-reverse;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    .doc-nav-button {
+
+        width:
+            100%;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .docs-content,
+    .doc-section,
+    .header-icon,
+    .category::before,
+    .header-line,
+    .floating-orb {
+
+        animation:
+            none !important;
+
+    }
+
+
+    .doc-section,
+    .section-marker,
+    .doc-nav-button {
+
+        transition:
+            none !important;
+
+    }
 
 }

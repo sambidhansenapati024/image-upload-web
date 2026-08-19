@@ -1,135 +1,967 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   STORAGE CARD
+========================================================= */
 
 .storage-card {
 
-    background: #FFFFFF;
+    position: relative;
 
-    border: 1px solid #E9EAF4;
+    overflow: hidden;
 
-    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FCFCFF 70%,
+            #F9F8FF 100%
+        );
 
-    padding: 24px;
+    border:
+        1px solid #E9EAF4;
 
-    box-shadow: 0 1px 2px rgba(23, 26, 43, .04), 0 8px 24px rgba(23, 26, 43, .06);
+    border-radius:
+        22px;
+
+    padding:
+        26px;
+
+    box-sizing:
+        border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        storageReveal .55s cubic-bezier(.22, 1, .36, 1);
 
 }
+
+
+.storage-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(79, 110, 247, .22);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 42px rgba(79, 110, 247, .09);
+
+}
+
+
+@keyframes storageReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(16px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.storage-glow {
+
+    position: absolute;
+
+    width:
+        240px;
+
+    height:
+        240px;
+
+    right:
+        -120px;
+
+    top:
+        -130px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(79, 110, 247, .10);
+
+    filter:
+        blur(65px);
+
+    pointer-events:
+        none;
+
+    animation:
+        storageGlow 9s ease-in-out infinite;
+
+}
+
+
+@keyframes storageGlow {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+        opacity:
+            .6;
+
+    }
+
+    50% {
+
+        transform:
+            translate(-25px, 20px)
+            scale(1.2);
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* =========================================================
+   FLOATING ORBS
+========================================================= */
+
+.storage-orb {
+
+    position:
+        absolute;
+
+    border-radius:
+        50%;
+
+    pointer-events:
+        none;
+
+    opacity:
+        .35;
+
+}
+
+
+.orb-one {
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    top:
+        32px;
+
+    right:
+        42px;
+
+    background:
+        #4F6EF7;
+
+    animation:
+        orbFloatOne 4s ease-in-out infinite;
+
+}
+
+
+.orb-two {
+
+    width:
+        4px;
+
+    height:
+        4px;
+
+    top:
+        52px;
+
+    right:
+        64px;
+
+    background:
+        #9B5CF6;
+
+    animation:
+        orbFloatTwo 5s ease-in-out infinite;
+
+}
+
+
+@keyframes orbFloatOne {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-8px);
+
+    }
+
+}
+
+
+@keyframes orbFloatTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-6px, 8px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .card-header {
 
-    display: flex;
+    position:
+        relative;
 
-    align-items: center;
+    z-index:
+        2;
 
-    gap: 14px;
+    display:
+        flex;
 
-    margin-bottom: 24px;
+    align-items:
+        center;
+
+    gap:
+        13px;
+
+    margin-bottom:
+        24px;
 
 }
 
-.card-header i {
 
-    font-size: 22px;
+.header-icon {
 
-    color: #4F6EF7;
+    width:
+        44px;
+
+    height:
+        44px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .12),
+            rgba(155, 92, 246, .10)
+        );
+
+    border:
+        1px solid rgba(79, 110, 247, .12);
+
+    color:
+        #4F6EF7;
+
+    animation:
+        cloudFloat 4s ease-in-out infinite;
 
 }
+
+
+.header-icon i {
+
+    font-size:
+        20px;
+
+}
+
+
+@keyframes cloudFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px);
+
+    }
+
+}
+
+
+.eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        3px;
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .08em;
+
+}
+
 
 .card-header h3 {
 
-    margin: 0;
+    margin:
+        0;
 
-    color: #171A2B;
+    color:
+        #171A2B;
 
-    font-size: 20px;
+    font-size:
+        19px;
 
-    font-weight: 600;
+    font-weight:
+        700;
 
 }
+
 
 .card-header p {
 
-    margin-top: 4px;
+    margin:
+        3px 0 0;
 
-    color: #767C93;
+    color:
+        #767C93;
 
-    font-size: 13px;
+    font-size:
+        11px;
 
 }
+
+
+/* =========================================================
+   STORAGE SUMMARY
+========================================================= */
 
 .storage-summary {
 
-    margin-bottom: 18px;
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        20px;
 
 }
+
+
+.storage-number {
+
+    display:
+        flex;
+
+    align-items:
+        baseline;
+
+    gap:
+        7px;
+
+    min-width:
+        0;
+
+}
+
 
 .used-storage {
 
-    font-size: 28px;
+    color:
+        #171A2B;
 
-    font-weight: 700;
+    font-size:
+        30px;
 
-    color: #171A2B;
+    font-weight:
+        750;
+
+    letter-spacing:
+        -.03em;
+
+    line-height:
+        1;
 
 }
+
 
 .total-storage {
 
-    color: #767C93;
+    color:
+        #767C93;
 
-    margin-left: 8px;
+    font-size:
+        12px;
 
 }
+
+
+.storage-icon {
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        11px;
+
+    background:
+        #F6F7FC;
+
+    border:
+        1px solid #E9EAF4;
+
+    color:
+        #767C93;
+
+    transition:
+        transform .3s ease,
+        color .3s ease,
+        background .3s ease;
+
+}
+
+
+.storage-card:hover .storage-icon {
+
+    transform:
+        scale(1.08)
+        rotate(-5deg);
+
+    background:
+        rgba(79, 110, 247, .08);
+
+    color:
+        #4F6EF7;
+
+}
+
+
+.storage-icon i {
+
+    font-size:
+        15px;
+
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+.progress-wrapper {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+}
+
+
+.progress-track {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    height:
+        11px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        999px;
+
+    background:
+        #EEF0F9;
+
+    box-shadow:
+        inset 0 1px 2px rgba(23, 26, 43, .04);
+
+}
+
+
+.progress-fill {
+
+    position:
+        relative;
+
+    height:
+        100%;
+
+    min-width:
+        4px;
+
+    border-radius:
+        inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4F6EF7,
+            #7A65F5,
+            #9B5CF6
+        );
+
+    box-shadow:
+        0 3px 10px rgba(79, 110, 247, .22);
+
+    transition:
+        width .8s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+/* Animated shine */
+
+.progress-shine {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        60px;
+
+    right:
+        -60px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.55),
+            transparent
+        );
+
+    animation:
+        progressShine 2.5s ease-in-out infinite;
+
+}
+
+
+@keyframes progressShine {
+
+    from {
+
+        transform:
+            translateX(-60px);
+
+    }
+
+    to {
+
+        transform:
+            translateX(120px);
+
+    }
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .storage-footer {
 
-    display: flex;
+    position:
+        relative;
 
-    justify-content: space-between;
+    z-index:
+        2;
 
-    align-items: center;
+    display:
+        flex;
 
-    margin-top: 14px;
+    justify-content:
+        space-between;
 
-    color: #767C93;
+    align-items:
+        center;
 
-    font-size: 13px;
+    margin-top:
+        14px;
 
 }
+
+
+.usage {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    color:
+        #767C93;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+}
+
+
+.usage-dot {
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    border-radius:
+        50%;
+
+    background:
+        #4F6EF7;
+
+    box-shadow:
+        0 0 0 4px rgba(79, 110, 247, .08);
+
+    animation:
+        usagePulse 2.2s infinite;
+
+}
+
+
+@keyframes usagePulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 4px rgba(79, 110, 247, .08);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 7px rgba(79, 110, 247, 0);
+
+    }
+
+}
+
+
+/* =========================================================
+   PLAN BADGE
+========================================================= */
 
 .plan-badge {
 
-    background: rgba(79, 110, 247, .12);
+    display:
+        inline-flex;
 
-    color: #4F6EF7;
+    align-items:
+        center;
 
-    padding: 5px 12px;
+    gap:
+        5px;
 
-    border-radius: 999px;
+    padding:
+        5px 10px;
 
-    font-weight: 600;
+    border-radius:
+        999px;
+
+    background:
+        rgba(79, 110, 247, .09);
+
+    border:
+        1px solid rgba(79, 110, 247, .10);
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
 
 }
 
-:host ::ng-deep .p-progressbar {
 
-    height: 10px;
+.plan-badge i {
 
-    border-radius: 999px;
-
-    background: #E9EAF4;
+    font-size:
+        9px;
 
 }
 
-:host ::ng-deep .p-progressbar-value {
 
-    border-radius: 999px;
+/* =========================================================
+   STORAGE STATUS
+========================================================= */
 
-    background: linear-gradient(
-        90deg,
-        #4F6EF7,
-        #9B5CF6
-    );
+.storage-status {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-top:
+        17px;
+
+    padding-top:
+        14px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+    color:
+        #A2A8BD;
+
+    font-size:
+        9px;
+
+}
+
+
+.storage-status > div {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+}
+
+
+.storage-status i {
+
+    color:
+        #22C55E;
+
+    font-size:
+        10px;
+
+    animation:
+        checkPulse 2.5s ease-in-out infinite;
+
+}
+
+
+@keyframes checkPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.15);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .storage-card {
+
+        padding:
+            20px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .used-storage {
+
+        font-size:
+            26px;
+
+    }
+
+
+    .storage-summary {
+
+        margin-bottom:
+            17px;
+
+    }
+
+
+    .storage-status {
+
+        align-items:
+            flex-start;
+
+        gap:
+            10px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .storage-card *,
+    .storage-card *::before,
+    .storage-card *::after {
+
+        animation:
+            none !important;
+
+        transition:
+            none !important;
+
+    }
 
 }
