@@ -1,231 +1,256 @@
 <div class="register-page">
 
-    <div class="bg-orbs">
-        <span class="orb orb-1"></span>
-        <span class="orb orb-2"></span>
-        <span class="orb orb-3"></span>
-    </div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
 
-    <div class="left-panel">
+    <div class="register-shell">
 
-        <div class="brand">
+        <div class="left-panel">
 
-            <div class="logo">
+            <div class="left-inner">
 
-                <i class="pi pi-cloud"></i>
+                <div class="brand">
+                    <div class="logo-mark">
+                        <i class="pi pi-cloud"></i>
+                    </div>
+                    <span class="brand-name">CloudVault</span>
+                </div>
 
-            </div>
+                <div class="hero-copy">
+                    <h1>Start storing,<br><span class="accent">vault-grade</span> safe.</h1>
+                    <span class="tagline">Secure Cloud Storage</span>
+                    <p class="desc">Store, organize and access your files securely from anywhere.</p>
+                </div>
 
-            <h1>CloudVault</h1>
+                <div class="status-badge">
+                    <span class="pulse-dot"></span>
+                    AES-256 encryption active
+                </div>
 
-            <span class="tagline">
+                <div class="feature-list">
 
-                Secure Cloud Storage
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="pi pi-check"></i>
+                        </div>
+                        <span>Enterprise Security</span>
+                    </div>
 
-            </span>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="pi pi-check"></i>
+                        </div>
+                        <span>Lightning Fast Uploads</span>
+                    </div>
 
-            <p>
-
-                Store, organize and access your files securely from anywhere.
-
-            </p>
-
-            <div class="feature-list">
-
-                <div class="feature-item">
-
-                    <i class="pi pi-check"></i>
-
-                    <span>Enterprise Security</span>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="pi pi-check"></i>
+                        </div>
+                        <span>Access Anywhere</span>
+                    </div>
 
                 </div>
 
-                <div class="feature-item">
-
-                    <i class="pi pi-check"></i>
-
-                    <span>Lightning Fast Uploads</span>
-
-                </div>
-
-                <div class="feature-item">
-
-                    <i class="pi pi-check"></i>
-
-                    <span>Access Anywhere</span>
-
+                <!-- Signature element: stacked, protected files -->
+                <div class="file-stack">
+                    <div class="file-card card-3">
+                        <i class="pi pi-lock"></i>
+                        <div class="file-meta">
+                            <span class="file-name">Backup.enc</span>
+                            <span class="file-size">1.8 GB</span>
+                        </div>
+                    </div>
+                    <div class="file-card card-2">
+                        <i class="pi pi-folder"></i>
+                        <div class="file-meta">
+                            <span class="file-name">Design-Assets.zip</span>
+                            <span class="file-size">642 MB</span>
+                        </div>
+                    </div>
+                    <div class="file-card card-1">
+                        <i class="pi pi-file"></i>
+                        <div class="file-meta">
+                            <span class="file-name">Q4-Report.pdf</span>
+                            <span class="file-size">4.2 MB</span>
+                        </div>
+                        <span class="check-badge"><i class="pi pi-check"></i></span>
+                    </div>
                 </div>
 
             </div>
 
         </div>
 
-    </div>
-    <div class="right-panel">
-        <p-card class="register-card">
+        <div class="right-panel">
 
-            <ng-template pTemplate="header">
+            <p-card class="register-card">
 
-                <div class="form-header">
+                <ng-template pTemplate="header">
 
-                    <h2>Create Account</h2>
-
-                    <p>
-
-                        Create your CloudVault account to securely store and access your files.
-
-                    </p>
-
-                </div>
-
-            </ng-template>
-
-            <form [formGroup]="registerForm" (ngSubmit)="register()">
-
-                <div class="form-grid">
-                    <!-- Full Name -->
-
-                    <div class="field">
-
-                        <p-floatlabel>
-
-                            <input pInputText id="fullName" formControlName="fullName" class="w-full">
-
-                            <label for="fullName">
-                                Full Name
-                            </label>
-
-                        </p-floatlabel>
-
-                        @if(registerForm.get('fullName')?.touched &&
-                        registerForm.get('fullName')?.invalid){
-
-                        <small class="error">
-                            Full name is required.
-                        </small>
-
-                        }
-
+                    <div class="form-header">
+                        <span class="eyebrow">CREATE ACCOUNT</span>
+                        <h2>Create your account</h2>
+                        <p>Create your CloudVault account to securely store and access your files.</p>
                     </div>
 
-                    <!-- Email -->
+                </ng-template>
 
-                    <div class="field">
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
 
-                        <p-floatlabel>
+                    <div class="form-grid">
 
-                            <input pInputText id="email" formControlName="email" class="w-full">
+                        <!-- Full Name -->
+                        <div class="field">
 
-                            <label for="email">
-                                Email Address
-                            </label>
+                            <i class="pi pi-user field-icon"></i>
 
-                        </p-floatlabel>
+                            <p-floatlabel>
 
-                        @if(registerForm.get('email')?.touched &&
-                        registerForm.get('email')?.invalid){
+                                <input pInputText id="fullName" formControlName="fullName" class="w-full">
 
-                        <small class="error">
+                                <label for="fullName">
+                                    Full Name
+                                </label>
 
-                            @if(registerForm.get('email')?.errors?.['required']){
+                            </p-floatlabel>
 
-                            Email is required.
+                            @if(registerForm.get('fullName')?.touched &&
+                            registerForm.get('fullName')?.invalid){
 
-                            }
-
-                            @if(registerForm.get('email')?.errors?.['email']){
-
-                            Please enter a valid email.
-
-                            }
-
-                        </small>
-
-                        }
-
-                    </div>
-
-                    <!-- Password -->
-
-                    <div class="field">
-
-                        <p-floatlabel>
-
-                            <p-password inputId="password" formControlName="password" [feedback]="true"
-                                [toggleMask]="true" styleClass="w-full">
-                            </p-password>
-
-                            <label for="password">
-                                Password
-                            </label>
-
-                        </p-floatlabel>
-
-                        <div class="field-hint">
-
-                            <small class="hint">
-
-                                Must contain at least 8 characters.
-
+                            <small class="error">
+                                Full name is required.
                             </small>
+
+                            }
 
                         </div>
 
+                        <!-- Email -->
+                        <div class="field">
+
+                            <i class="pi pi-envelope field-icon"></i>
+
+                            <p-floatlabel>
+
+                                <input pInputText id="email" formControlName="email" class="w-full">
+
+                                <label for="email">
+                                    Email Address
+                                </label>
+
+                            </p-floatlabel>
+
+                            @if(registerForm.get('email')?.touched &&
+                            registerForm.get('email')?.invalid){
+
+                            <small class="error">
+
+                                @if(registerForm.get('email')?.errors?.['required']){
+
+                                Email is required.
+
+                                }
+
+                                @if(registerForm.get('email')?.errors?.['email']){
+
+                                Please enter a valid email.
+
+                                }
+
+                            </small>
+
+                            }
+
+                        </div>
+
+                        <!-- Password -->
+                        <div class="field">
+
+                            <i class="pi pi-lock field-icon"></i>
+
+                            <p-floatlabel>
+
+                                <p-password inputId="password" formControlName="password" [feedback]="true"
+                                    [toggleMask]="true" styleClass="w-full">
+                                </p-password>
+
+                                <label for="password">
+                                    Password
+                                </label>
+
+                            </p-floatlabel>
+
+                            <div class="field-hint">
+
+                                <small class="hint">
+
+                                    Must contain at least 8 characters.
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="field">
+
+                            <i class="pi pi-lock field-icon"></i>
+
+                            <p-floatlabel>
+
+                                <p-password inputId="confirmPassword" formControlName="confirmPassword" [feedback]="false"
+                                    [toggleMask]="true" styleClass="w-full">
+                                </p-password>
+
+                                <label for="confirmPassword">
+                                    Confirm Password
+                                </label>
+
+                            </p-floatlabel>
+
+                        </div>
+
+                        @if(registerForm.errors?.['passwordMismatch']){
+
+                        <small class="error">
+
+                            Passwords do not match.
+
+                        </small>
+
+                        }
+
+                        <button pButton type="submit" icon="pi pi-user-plus" label="Create Account" class="register-btn"
+                            [disabled]="registerForm.invalid || loading" [loading]="loading">
+                        </button>
+
                     </div>
 
-                    <!-- Confirm Password -->
+                </form>
 
-                    <div class="field">
+                <ng-template pTemplate="footer">
 
-                        <p-floatlabel>
+                    <div class="footer">
 
-                            <p-password inputId="confirmPassword" formControlName="confirmPassword" [feedback]="false"
-                                [toggleMask]="true" styleClass="w-full">
-                            </p-password>
+                        <span>Already have an account?</span>
 
-                            <label for="confirmPassword">
-                                Confirm Password
-                            </label>
+                        <a routerLink="/login">
 
-                        </p-floatlabel>
+                            Sign In
+
+                        </a>
 
                     </div>
 
-                    @if(registerForm.errors?.['passwordMismatch']){
+                </ng-template>
 
-                    <small class="error">
+            </p-card>
+        </div>
 
-                        Passwords do not match.
-
-                    </small>
-
-                    }
-
-                    <button pButton type="submit" icon="pi pi-user-plus" label="Create Account" class="register-btn"
-                        [disabled]="registerForm.invalid || loading" [loading]="loading">
-                    </button>
-
-                </div>
-
-            </form>
-
-            <ng-template pTemplate="footer">
-
-                <div class="footer">
-
-                    <span>Already have an account?</span>
-
-                    <a routerLink="/login">
-
-                        Sign In
-
-                    </a>
-
-                </div>
-
-            </ng-template>
-
-        </p-card>
     </div>
 
 </div>
