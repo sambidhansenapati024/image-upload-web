@@ -133,9 +133,10 @@
 .left-panel {
     position: relative;
     height: 100%;
+    min-height: 0;
     background: var(--bg-panel);
     border-right: 1px solid var(--border);
-    overflow-y: auto;
+    overflow: hidden;
     display: flex;
     align-items: center;
 }
@@ -171,8 +172,22 @@
     justify-content: center;
     box-shadow: 0 10px 22px rgba(79, 110, 247, .30);
     flex-shrink: 0;
+    animation: logo-glow 4s ease-in-out infinite;
 }
 
+@keyframes logo-glow {
+    0%, 100% {
+        box-shadow: 0 10px 22px rgba(79, 110, 247, .25);
+        transform: translateY(0);
+    }
+
+    50% {
+        box-shadow:
+            0 14px 30px rgba(79, 110, 247, .35),
+            0 0 0 5px rgba(79, 110, 247, .04);
+        transform: translateY(-2px);
+    }
+}
 .logo-mark i {
     font-size: 19px;
     color: white;
@@ -200,10 +215,27 @@
 }
 
 .hero-copy h1 .accent {
-    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    background: linear-gradient(
+        135deg,
+        var(--indigo),
+        var(--violet),
+        var(--indigo)
+    );
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: accent-shift 5s ease-in-out infinite;
+}
+
+@keyframes accent-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .hero-copy .tagline {
@@ -220,6 +252,121 @@
     line-height: 1.6;
     color: var(--text-secondary);
     max-width: 380px;
+}
+
+/* ---------- Security indicator ---------- */
+
+.security-line {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: fit-content;
+    padding: 8px 11px 8px 8px;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 20px rgba(23, 26, 43, .05);
+    opacity: 0;
+    animation: security-in .55s ease-out .3s forwards;
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+.security-line:hover {
+    transform: translateY(-3px);
+    border-color: rgba(79, 110, 247, .25);
+    box-shadow: 0 14px 28px rgba(23, 26, 43, .09);
+}
+
+.security-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--indigo);
+    background: linear-gradient(
+        135deg,
+        rgba(79, 110, 247, .12),
+        rgba(155, 92, 246, .12)
+    );
+    animation: shield-float 3s ease-in-out infinite;
+}
+
+.security-icon i {
+    font-size: 14px;
+}
+
+.security-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.security-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.security-subtitle {
+    font-size: 10.5px;
+    color: var(--text-tertiary);
+}
+
+.security-check {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(22, 163, 74, .10);
+    color: var(--success);
+    font-size: 9px;
+    animation: check-pop .6s cubic-bezier(.2, .8, .3, 1) .8s both;
+}
+
+@keyframes security-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shield-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes check-pop {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .status-badge {
@@ -261,12 +408,25 @@
 }
 
 .feature {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 13px;
     color: var(--text-primary);
     opacity: 0;
     animation: fade-up .55s ease-out forwards;
+    transition:
+        transform .3s ease,
+        padding-left .3s ease;
+}
+
+.feature:hover {
+    transform: translateX(5px);
+}
+
+.feature:hover .feature-icon {
+    transform: translateY(-2px) scale(1.08) rotate(-3deg);
+    box-shadow: 0 8px 18px rgba(79, 110, 247, .12);
 }
 
 .feature:nth-child(1) { animation-delay: .38s; }
@@ -286,9 +446,6 @@
     transition: transform .25s ease;
 }
 
-.feature:hover .feature-icon {
-    transform: translateY(-2px) scale(1.06);
-}
 
 .feature-icon i {
     font-size: 16px;
@@ -425,8 +582,9 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    min-height: 0;
     background: var(--card);
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .login-card {
