@@ -1,0 +1,864 @@
+<div class="document-reader">
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <div class="reader-header">
+
+        <span class="eyebrow">
+            DOCUMENT READER
+        </span>
+
+        <h1>
+            Image to Text
+        </h1>
+
+        <p>
+            Upload an image or PDF and extract its text using OCR.
+        </p>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- OCR STATUS -->
+    <!-- ===================================================== -->
+
+    <div
+        class="model-status"
+        [class.ready]="modelReady"
+        [class.error]="errorMessage && !selectedFile">
+
+        @if (loadingModel) {
+
+            <i class="pi pi-spin pi-spinner"></i>
+
+            <span>
+                Loading OCR model...
+            </span>
+
+        } @else if (modelReady) {
+
+            <i class="pi pi-check-circle"></i>
+
+            <span>
+                OCR ready ({{ selectedLanguages.join(', ') }})
+            </span>
+
+        } @else {
+
+            <i class="pi pi-exclamation-circle"></i>
+
+            <span>
+                OCR model failed to load
+            </span>
+
+        }
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- LANGUAGE -->
+    <!-- ===================================================== -->
+
+    <div class="language-picker">
+
+        <label>
+            Recognition languages
+        </label>
+
+        <div class="language-chips">
+
+            @for (
+                lang of availableLanguages;
+                track lang.code
+            ) {
+
+                <button
+                    type="button"
+                    class="language-chip"
+                    [class.selected]="isLanguageSelected(lang.code)"
+                    [disabled]="loadingModel || processing"
+                    (click)="toggleLanguage(lang.code)">
+
+                    {{ lang.label }}
+
+                </button>
+
+            }
+
+        </div>
+
+        <small>
+            Select one or more languages to recognize.
+        </small>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- UPLOAD -->
+    <!-- ===================================================== -->
+
+    <div class="upload-section">
+
+        <label
+            for="document-image"
+            class="upload-button">
+
+            <i class="pi pi-upload"></i>
+
+            <span>
+                Select Image or PDF
+            </span>
+
+        </label>
+
+        <input
+            id="document-image"
+            type="file"
+            accept="image/*,application/pdf"
+            hidden
+            (change)="onFileSelected($event)">
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- PREVIEW -->
+    <!-- ===================================================== -->
+
+    @if (selectedFile) {
+
+        <div class="preview-section">
+
+            <div class="preview-header">
+
+                <h3>
+                    Selected {{ isPdf ? 'PDF' : 'Image' }}
+                </h3>
+
+                <span>
+                    {{ selectedFile.name }}
+                </span>
+
+            </div>
+
+
+            <div class="image-container">
+
+                @if (isPdf) {
+
+                    <div class="pdf-file-card">
+
+                        <i class="pi pi-file-pdf"></i>
+
+                        <span>
+                            {{ selectedFile.name }}
+                        </span>
+
+                    </div>
+
+                } @else if (imagePreview) {
+
+                    <img
+                        [src]="imagePreview"
+                        alt="Selected document">
+
+                }
+
+            </div>
+
+
+            <button
+                type="button"
+                class="extract-button"
+                [disabled]="processing || !modelReady"
+                (click)="extractText()">
+
+                @if (processing) {
+
+                    <i class="pi pi-spin pi-spinner"></i>
+
+                    <span>
+
+                        @if (
+                            isPdf &&
+                            totalPages > 0
+                        ) {
+
+                            Processing page
+                            {{ currentPage }}
+                            of
+                            {{ totalPages }}...
+
+                        } @else {
+
+                            Extracting text...
+
+                        }
+
+                    </span>
+
+                } @else {
+
+                    <i class="pi pi-file-edit"></i>
+
+                    <span>
+                        Extract Text
+                    </span>
+
+                }
+
+            </button>
+
+        </div>
+
+    }
+
+
+    <!-- ===================================================== -->
+    <!-- ERROR -->
+    <!-- ===================================================== -->
+
+    @if (errorMessage) {
+
+        <div class="error-message">
+
+            <i class="pi pi-exclamation-triangle"></i>
+
+            <span>
+                {{ errorMessage }}
+            </span>
+
+        </div>
+
+    }
+
+
+    <!-- ===================================================== -->
+    <!-- EXTRACTED TEXT -->
+    <!-- ===================================================== -->
+
+    @if (extractedText) {
+
+        <div class="text-section">
+
+            <div class="text-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        OCR RESULT
+                    </span>
+
+                    <h3>
+                        Extracted Text
+
+                        @if (pageTexts.length > 1) {
+
+                            <span class="page-count">
+                                ({{ pageTexts.length }} pages)
+                            </span>
+
+                        }
+
+                    </h3>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="reset-button"
+                    (click)="reset()">
+
+                    <i class="pi pi-refresh"></i>
+
+                    New File
+
+                </button>
+
+            </div>
+
+
+            <textarea
+                [(ngModel)]="extractedText"
+                rows="12"
+                placeholder="Extracted text will appear here...">
+            </textarea>
+
+
+            <!-- SPEECH -->
+
+            <div class="speech-controls">
+
+                @if (
+                    !isSpeechActive('extracted')
+                ) {
+
+                    <button
+                        type="button"
+                        class="speech-start-button"
+                        (click)="speakText(
+                            'extracted',
+                            extractedText,
+                            'en-US'
+                        )">
+
+                        <i class="pi pi-volume-up"></i>
+
+                        <span>
+                            Read Aloud
+                        </span>
+
+                    </button>
+
+                } @else {
+
+                    <div class="speech-player">
+
+                        <div class="speech-info">
+
+                            <i class="pi pi-volume-up"></i>
+
+                            <span>
+                                Reading extracted text
+                            </span>
+
+                        </div>
+
+
+                        <div class="speech-actions">
+
+                            <button
+                                type="button"
+                                class="speech-control"
+                                (click)="toggleSpeech()">
+
+                                @if (speechPaused) {
+
+                                    <i class="pi pi-play"></i>
+
+                                    Resume
+
+                                } @else {
+
+                                    <i class="pi pi-pause"></i>
+
+                                    Pause
+
+                                }
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="speech-control stop"
+                                (click)="stopSpeech()">
+
+                                <i class="pi pi-stop"></i>
+
+                                Stop
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    }
+
+
+    <!-- ===================================================== -->
+    <!-- TRANSLATION -->
+    <!-- ===================================================== -->
+
+    @if (extractedText) {
+
+        <div class="translation-section">
+
+            <div class="translation-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        TRANSLATION
+                    </span>
+
+                    <h3>
+                        Translate to Hindi
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="translate-button"
+                [disabled]="loadingTranslation"
+                (click)="translateText()">
+
+                @if (loadingTranslation) {
+
+                    <i class="pi pi-spin pi-spinner"></i>
+
+                    <span>
+                        Translating...
+                    </span>
+
+                } @else {
+
+                    <i class="pi pi-language"></i>
+
+                    <span>
+                        Translate to Hindi
+                    </span>
+
+                }
+
+            </button>
+
+
+            @if (translationError) {
+
+                <div class="translation-error">
+
+                    <i class="pi pi-exclamation-triangle"></i>
+
+                    <span>
+                        {{ translationError }}
+                    </span>
+
+                </div>
+
+            }
+
+
+            @if (translationText) {
+
+                <div class="translated-result">
+
+                    <div class="translated-header">
+
+                        <span class="eyebrow">
+                            TRANSLATED TEXT
+                        </span>
+
+                        <span>
+                            Hindi
+                        </span>
+
+                    </div>
+
+
+                    <textarea
+                        [(ngModel)]="translationText"
+                        rows="12"
+                        placeholder="Translated text will appear here...">
+                    </textarea>
+
+
+                    <!-- TRANSLATION SPEECH -->
+
+                    <div class="speech-controls">
+
+                        @if (
+                            !isSpeechActive('translation')
+                        ) {
+
+                            <button
+                                type="button"
+                                class="speech-start-button"
+                                (click)="speakText(
+                                    'translation',
+                                    translationText,
+                                    'hi-IN'
+                                )">
+
+                                <i class="pi pi-volume-up"></i>
+
+                                <span>
+                                    Read Hindi Aloud
+                                </span>
+
+                            </button>
+
+                        } @else {
+
+                            <div class="speech-player">
+
+                                <div class="speech-info">
+
+                                    <i class="pi pi-volume-up"></i>
+
+                                    <span>
+                                        Reading Hindi translation
+                                    </span>
+
+                                </div>
+
+
+                                <div class="speech-actions">
+
+                                    <button
+                                        type="button"
+                                        class="speech-control"
+                                        (click)="toggleSpeech()">
+
+                                        @if (speechPaused) {
+
+                                            <i class="pi pi-play"></i>
+                                            Resume
+
+                                        } @else {
+
+                                            <i class="pi pi-pause"></i>
+                                            Pause
+
+                                        }
+
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="speech-control stop"
+                                        (click)="stopSpeech()">
+
+                                        <i class="pi pi-stop"></i>
+                                        Stop
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+
+                    <!-- SUMMARY -->
+
+                    <div class="summarize-section">
+
+                        <button
+                            type="button"
+                            class="summarize-button"
+                            [disabled]="loadingSummary"
+                            (click)="summarizeText()">
+
+                            @if (loadingSummary) {
+
+                                <i class="pi pi-spin pi-spinner"></i>
+
+                                <span>
+                                    Summarizing...
+                                </span>
+
+                            } @else {
+
+                                <i class="pi pi-sparkles"></i>
+
+                                <span>
+                                    Summarize Text
+                                </span>
+
+                            }
+
+                        </button>
+
+                    </div>
+
+
+                    @if (summaryError) {
+
+                        <div class="summary-error">
+
+                            <i class="pi pi-exclamation-triangle"></i>
+
+                            <span>
+                                {{ summaryError }}
+                            </span>
+
+                        </div>
+
+                    }
+
+
+                    @if (summaryText) {
+
+                        <div class="summary-result">
+
+                            <div class="translated-header">
+
+                                <span class="eyebrow">
+                                    SUMMARY
+                                </span>
+
+                            </div>
+
+
+                            <textarea
+                                [(ngModel)]="summaryText"
+                                rows="8"
+                                placeholder="Summary will appear here...">
+                            </textarea>
+
+
+                            <!-- SUMMARY SPEECH -->
+
+                            <div class="speech-controls">
+
+                                @if (
+                                    !isSpeechActive('summary')
+                                ) {
+
+                                    <button
+                                        type="button"
+                                        class="speech-start-button"
+                                        (click)="speakText(
+                                            'summary',
+                                            summaryText,
+                                            'en-US'
+                                        )">
+
+                                        <i class="pi pi-volume-up"></i>
+
+                                        <span>
+                                            Read Summary Aloud
+                                        </span>
+
+                                    </button>
+
+                                } @else {
+
+                                    <div class="speech-player">
+
+                                        <div class="speech-info">
+
+                                            <i class="pi pi-volume-up"></i>
+
+                                            <span>
+                                                Reading summary
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="speech-actions">
+
+                                            <button
+                                                type="button"
+                                                class="speech-control"
+                                                (click)="toggleSpeech()">
+
+                                                @if (speechPaused) {
+
+                                                    <i class="pi pi-play"></i>
+                                                    Resume
+
+                                                } @else {
+
+                                                    <i class="pi pi-pause"></i>
+                                                    Pause
+
+                                                }
+
+                                            </button>
+
+
+                                            <button
+                                                type="button"
+                                                class="speech-control stop"
+                                                (click)="stopSpeech()">
+
+                                                <i class="pi pi-stop"></i>
+                                                Stop
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                }
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>
+
+<!-- =========================================================
+     SPEECH TO TEXT
+========================================================= -->
+
+<div class="speech-section">
+
+    <div class="speech-header">
+
+        <div>
+
+            <span class="eyebrow">
+                SPEECH TO TEXT
+            </span>
+
+            <h3>
+                Speak and Write
+            </h3>
+
+            <p>
+                Speak into your microphone and your words
+                will appear as text.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    @if (!speechSupported) {
+
+        <div class="speech-error">
+
+            <i class="pi pi-exclamation-triangle"></i>
+
+            <span>
+                Speech recognition is not supported
+                in this browser.
+            </span>
+
+        </div>
+
+    }
+
+
+    @if (speechSupported) {
+
+        <div class="speech-controls">
+
+            @if (!speechListening) {
+
+                <button
+                    type="button"
+                    class="speech-start-button"
+                    (click)="startSpeechRecognition()">
+
+                    <i class="pi pi-microphone"></i>
+
+                    <span>
+                        Start Speaking
+                    </span>
+
+                </button>
+
+            } @else {
+
+                <button
+                    type="button"
+                    class="speech-stop-button"
+                    (click)="stopSpeechRecognition()">
+
+                    <i class="pi pi-stop-circle"></i>
+
+                    <span>
+                        Stop Listening
+                    </span>
+
+                </button>
+
+            }
+
+        </div>
+
+
+        @if (speechListening) {
+
+            <div class="listening-indicator">
+
+                <span class="pulse-dot"></span>
+
+                <span>
+                    Listening... Speak now
+                </span>
+
+            </div>
+
+        }
+
+
+        @if (speechError) {
+
+            <div class="speech-error">
+
+                <i class="pi pi-exclamation-triangle"></i>
+
+                <span>
+                    {{ speechError }}
+                </span>
+
+            </div>
+
+        }
+
+
+        <div class="speech-text-container">
+
+            <div class="speech-text-header">
+
+                <span>
+                    Your Text
+                </span>
+
+                @if (speechText) {
+
+                    <button
+                        type="button"
+                        class="clear-speech-button"
+                        (click)="speechText = ''">
+
+                        <i class="pi pi-times"></i>
+
+                        Clear
+
+                    </button>
+
+                }
+
+            </div>
+
+
+            <textarea
+                [(ngModel)]="speechText"
+                rows="10"
+                placeholder="Your spoken words will appear here...">
+            </textarea>
+
+        </div>
+
+    }
+
+</div>
