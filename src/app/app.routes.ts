@@ -27,6 +27,7 @@ import { adminGuard } from './core/guards/admin.guard';
 import { AdminSupportQueriesComponent } from './admin-module/admin-support-queries/admin-support-queries.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminSupportQueryDetailsComponent } from './admin-module/admin-support-query-details/admin-support-query-details.component';
+import { DocumentReaderComponent } from './feature/image-studio/document-reader/document-reader.component';
 
 export const routes: Routes = [
 
@@ -150,6 +151,10 @@ export const routes: Routes = [
             {
                 path: 'support-queries',
                 component: SupportQueriesComponent
+            },
+            {
+                path: 'document-reader',
+                component: DocumentReaderComponent
             },
             {
                 path: 'support-queries/:queryId',
