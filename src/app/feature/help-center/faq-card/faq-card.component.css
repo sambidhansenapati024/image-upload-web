@@ -252,271 +252,271 @@
 
 }
 
-
 /* =========================================================
    ACCORDION PANEL
-========================================================= */
+   ========================================================= */
 
 :host ::ng-deep .p-accordionpanel {
+    position: relative;
 
-    position:
-        relative;
+    background: #F8F9FD !important;
 
-    background:
-        #F8F9FD;
+    border: 1px solid #E9EAF4 !important;
 
-    border:
-        1px solid #E9EAF4;
+    border-radius: 13px;
 
-    border-radius:
-        13px;
+    margin-bottom: 10px;
 
-    margin-bottom:
-        10px;
+    overflow: hidden;
 
-    overflow:
-        hidden;
+    color: #171A2B !important;
 
     transition:
         border-color .25s ease,
         background .25s ease,
         transform .25s ease,
         box-shadow .25s ease;
-
 }
 
 
+/* =========================================================
+   ACTIVE / EXPANDED PANEL
+   ========================================================= */
+
+:host ::ng-deep .p-accordionpanel.p-accordionpanel-active {
+    background: #FFFFFF !important;
+
+    border-color: rgba(79, 110, 247, .25) !important;
+
+    color: #171A2B !important;
+
+    box-shadow:
+        0 10px 25px rgba(79, 110, 247, .08);
+}
+
+
+/* =========================================================
+   PANEL HOVER
+   ========================================================= */
+
 :host ::ng-deep .p-accordionpanel:hover {
+    background: #FFFFFF !important;
 
-    background:
-        #FFFFFF;
+    border-color: rgba(79, 110, 247, .25) !important;
 
-    border-color:
-        rgba(79, 110, 247, .25);
-
-    transform:
-        translateX(2px);
+    transform: translateX(2px);
 
     box-shadow:
         0 7px 20px rgba(79, 110, 247, .07);
-
 }
 
 
 /* =========================================================
    ACCORDION HEADER
-========================================================= */
+   ========================================================= */
 
 :host ::ng-deep .p-accordionheader {
+    min-height: 58px;
 
-    min-height:
-        58px;
+    padding: 13px 15px;
 
-    padding:
-        13px 15px;
+    background: #F8F9FD !important;
 
-    background:
-        transparent;
+    color: #171A2B !important;
 
-    color:
-        #171A2B;
+    font-size: 13px;
 
-    font-size:
-        13px;
+    font-weight: 600;
 
-    font-weight:
-        600;
+    border: none !important;
 
     transition:
         color .25s ease,
         background .25s ease;
-
 }
 
 
+/* Expanded header */
+
+:host ::ng-deep .p-accordionpanel-active .p-accordionheader {
+    background: #FFFFFF !important;
+
+    color: #171A2B !important;
+}
+
+
+/* Header hover */
+
 :host ::ng-deep .p-accordionheader:hover {
+    background: rgba(79, 110, 247, .035) !important;
 
-    background:
-        rgba(79, 110, 247, .035);
+    color: #4F6EF7 !important;
+}
 
-    color:
-        #4F6EF7;
 
+/* =========================================================
+   HEADER TEXT
+   ========================================================= */
+
+:host ::ng-deep .p-accordionheader-content {
+    color: #171A2B !important;
+}
+
+
+/* Active header text */
+
+:host ::ng-deep
+.p-accordionpanel-active
+.p-accordionheader-content {
+    color: #171A2B !important;
+}
+
+
+/* =========================================================
+   EXPAND / COLLAPSE ICON
+   ========================================================= */
+
+:host ::ng-deep .p-accordionheader-toggle-icon {
+    color: #171A2B !important;
+}
+
+:host ::ng-deep .p-accordionpanel-active
+.p-accordionheader-toggle-icon {
+    color: #171A2B !important;
 }
 
 
 /* =========================================================
    QUESTION
-========================================================= */
+   ========================================================= */
 
 .faq-question {
+    display: flex;
 
-    display:
-        flex;
+    align-items: center;
 
-    align-items:
-        center;
+    gap: 11px;
 
-    gap:
-        11px;
+    width: 100%;
 
-    width:
-        100%;
-
+    color: #171A2B;
 }
 
 
+/* =========================================================
+   QUESTION ICON
+   ========================================================= */
+
 .question-icon {
+    width: 31px;
 
-    width:
-        31px;
+    height: 31px;
 
-    height:
-        31px;
+    flex-shrink: 0;
 
-    flex-shrink:
-        0;
+    display: flex;
 
-    display:
-        flex;
+    align-items: center;
 
-    align-items:
-        center;
+    justify-content: center;
 
-    justify-content:
-        center;
+    border-radius: 9px;
 
-    border-radius:
-        9px;
+    color: #4F6EF7;
 
-    color:
-        #4F6EF7;
+    background: rgba(79, 110, 247, .08);
 
-    background:
-        rgba(79, 110, 247, .08);
-
-    font-size:
-        12px;
+    font-size: 12px;
 
     transition:
         transform .25s ease,
         background .25s ease,
         color .25s ease;
-
 }
 
 
-:host ::ng-deep .p-accordionpanel:hover .question-icon {
+:host ::ng-deep
+.p-accordionpanel:hover
+.question-icon {
 
-    transform:
-        scale(1.08);
+    transform: scale(1.08);
 
-    background:
-        rgba(79, 110, 247, .13);
-
+    background: rgba(79, 110, 247, .13);
 }
 
 
 /* =========================================================
    ACCORDION CONTENT
-========================================================= */
+   ========================================================= */
 
 :host ::ng-deep .p-accordioncontent {
+    background: #FFFFFF !important;
 
-    background:
-        transparent;
+    color: #4A4F63 !important;
 
-    color:
-        #4A4F63;
-
+    border: none !important;
 }
 
 
 :host ::ng-deep .p-accordioncontent-content {
+    padding: 0 15px 16px 57px;
 
-    padding:
-        0 15px 16px 57px;
+    background: #FFFFFF !important;
 
+    color: #4A4F63 !important;
 }
 
 
 /* =========================================================
    ANSWER
-========================================================= */
+   ========================================================= */
 
 .faq-answer {
+    display: flex;
 
-    display:
-        flex;
+    align-items: flex-start;
 
-    align-items:
-        flex-start;
+    gap: 9px;
 
-    gap:
-        9px;
+    padding: 12px 13px;
 
-    padding:
-        12px 13px;
+    border-radius: 10px;
 
-    border-radius:
-        10px;
+    background: rgba(79, 110, 247, .035) !important;
 
-    background:
-        rgba(79, 110, 247, .035);
+    border: 1px solid rgba(79, 110, 247, .07);
 
-    border:
-        1px solid rgba(79, 110, 247, .07);
-
-    animation:
-        answerReveal .3s ease;
-
+    animation: answerReveal .3s ease;
 }
 
 
 .faq-answer > i {
+    margin-top: 2px;
 
-    margin-top:
-        2px;
+    flex-shrink: 0;
 
-    flex-shrink:
-        0;
+    color: #4F6EF7;
 
-    color:
-        #4F6EF7;
-
-    font-size:
-        12px;
-
+    font-size: 12px;
 }
 
 
 .faq-answer p {
+    margin: 0;
 
-    margin:
-        0;
+    color: #767C93 !important;
 
-    color:
-        #767C93;
+    font-size: 12px;
 
-    font-size:
-        12px;
-
-    line-height:
-        1.65;
-
+    line-height: 1.65;
 }
 
 
 .faq-answer strong {
+    color: #4F6EF7;
 
-    color:
-        #4F6EF7;
-
-    font-weight:
-        600;
-
+    font-weight: 600;
 }
-
 
 /* =========================================================
    FOOTER

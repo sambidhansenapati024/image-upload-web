@@ -1,7 +1,5 @@
 :host {
-
     display: block;
-
 }
 
 
@@ -10,16 +8,9 @@
 ========================================================= */
 
 .help-grid {
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        16px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 
@@ -28,50 +19,36 @@
 ========================================================= */
 
 .help-item {
+    position: relative;
+    overflow: hidden;
 
-    position:
-        relative;
+    display: flex;
+    align-items: center;
 
-    overflow:
-        hidden;
+    gap: 20px;
 
-    display:
-        flex;
+    min-height: 105px;
 
-    align-items:
-        center;
+    background: linear-gradient(
+        135deg,
+        #FFFFFF,
+        #FCFCFF
+    );
 
-    gap:
-        20px;
+    border: 1px solid #E9EAF4;
 
-    min-height:
-        105px;
+    border-radius: 18px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #FFFFFF,
-            #FCFCFF
-        );
-
-    border:
-        1px solid #E9EAF4;
-
-    border-radius:
-        18px;
-
-    padding:
-        20px 22px;
+    padding: 20px 22px;
 
     box-shadow:
         0 1px 2px rgba(23, 26, 43, .04),
         0 8px 24px rgba(23, 26, 43, .06);
 
     transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
-
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
 }
 
 
@@ -80,17 +57,13 @@
 ========================================================= */
 
 .help-item:hover {
+    transform: translateY(-2px);
 
-    transform:
-        translateY(-4px);
-
-    border-color:
-        rgba(79, 110, 247, .28);
+    border-color: rgba(79, 110, 247, .22);
 
     box-shadow:
-        0 16px 35px rgba(79, 110, 247, .12),
-        0 0 0 1px rgba(79, 110, 247, .04);
-
+        0 12px 28px rgba(79, 110, 247, .09),
+        0 0 0 1px rgba(79, 110, 247, .03);
 }
 
 
@@ -99,53 +72,37 @@
 ========================================================= */
 
 .help-glow {
+    position: absolute;
 
-    position:
-        absolute;
+    width: 180px;
+    height: 180px;
 
-    width:
-        180px;
+    right: -90px;
+    top: -90px;
 
-    height:
-        180px;
-
-    right:
-        -90px;
-
-    top:
-        -90px;
-
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(79, 110, 247, .10),
+            rgba(79, 110, 247, .08),
             transparent 70%
         );
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
-    opacity:
-        .6;
+    opacity: .5;
 
     transition:
         transform .5s ease,
         opacity .4s ease;
-
 }
 
 
 .help-item:hover .help-glow {
+    transform: scale(1.25);
 
-    transform:
-        scale(1.4);
-
-    opacity:
-        1;
-
+    opacity: .8;
 }
 
 
@@ -154,30 +111,19 @@
 ========================================================= */
 
 .help-icon {
+    position: relative;
 
-    position:
-        relative;
+    width: 56px;
+    height: 56px;
 
-    width:
-        56px;
+    flex-shrink: 0;
 
-    height:
-        56px;
+    display: flex;
 
-    flex-shrink:
-        0;
+    align-items: center;
+    justify-content: center;
 
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        15px;
+    border-radius: 15px;
 
     background:
         linear-gradient(
@@ -186,8 +132,7 @@
             rgba(155, 92, 246, .10)
         );
 
-    border:
-        1px solid rgba(79, 110, 247, .10);
+    border: 1px solid rgba(79, 110, 247, .10);
 
     box-shadow:
         0 6px 18px rgba(79, 110, 247, .08);
@@ -196,22 +141,17 @@
         transform .3s ease,
         box-shadow .3s ease,
         background .3s ease;
-
 }
 
 
 .help-icon i {
+    color: #4F6EF7;
 
-    color:
-        #4F6EF7;
-
-    font-size:
-        23px;
+    font-size: 23px;
 
     transition:
         transform .3s ease,
         color .3s ease;
-
 }
 
 
@@ -220,29 +160,24 @@
 ========================================================= */
 
 .help-item:hover .help-icon {
-
     transform:
-        translateY(-3px)
-        rotate(-3deg);
+        translateY(-2px)
+        rotate(-2deg);
 
     background:
         linear-gradient(
             135deg,
-            rgba(79, 110, 247, .16),
-            rgba(155, 92, 246, .16)
+            rgba(79, 110, 247, .14),
+            rgba(155, 92, 246, .13)
         );
 
     box-shadow:
-        0 10px 24px rgba(79, 110, 247, .16);
-
+        0 9px 22px rgba(79, 110, 247, .13);
 }
 
 
 .help-item:hover .help-icon i {
-
-    transform:
-        scale(1.12);
-
+    transform: scale(1.08);
 }
 
 
@@ -251,218 +186,200 @@
 ========================================================= */
 
 .help-content {
+    position: relative;
 
-    position:
-        relative;
+    z-index: 1;
 
-    z-index:
-        1;
+    flex: 1;
 
-    flex:
-        1;
-
-    min-width:
-        0;
-
+    min-width: 0;
 }
 
 
 .help-label {
+    display: block;
 
-    display:
-        block;
+    margin-bottom: 4px;
 
-    margin-bottom:
-        4px;
+    color: #4F6EF7;
 
-    color:
-        #4F6EF7;
+    font-size: 9px;
 
-    font-size:
-        9px;
+    font-weight: 700;
 
-    font-weight:
-        700;
-
-    letter-spacing:
-        1.2px;
-
+    letter-spacing: 1.2px;
 }
 
 
 .help-content h3 {
+    margin: 0;
 
-    margin:
-        0;
+    color: #171A2B;
 
-    color:
-        #171A2B;
+    font-size: 17px;
 
-    font-size:
-        17px;
+    font-weight: 650;
 
-    font-weight:
-        650;
-
-    transition:
-        color .25s ease;
-
+    transition: color .25s ease;
 }
 
 
+/*
+   Keep title dark on hover.
+   This makes the hover state more subtle.
+*/
+
 .help-item:hover .help-content h3 {
-
-    color:
-        #4F6EF7;
-
+    color: #171A2B;
 }
 
 
 .help-content p {
+    margin: 7px 0 0;
 
-    margin:
-        7px 0 0;
+    color: #767C93;
 
-    color:
-        #767C93;
+    font-size: 13px;
 
-    font-size:
-        13px;
+    line-height: 1.55;
 
-    line-height:
-        1.55;
-
-    max-width:
-        700px;
-
+    max-width: 700px;
 }
-
 
 /* =========================================================
    ARROW BUTTON
 ========================================================= */
 
 .help-arrow {
+    position: relative;
 
-    position:
-        relative;
+    z-index: 2;
 
-    z-index:
-        2;
+    width: 42px;
+    height: 42px;
 
-    width:
-        42px;
+    flex-shrink: 0;
 
-    height:
-        42px;
+    display: flex;
 
-    flex-shrink:
-        0;
+    align-items: center;
+    justify-content: center;
 
-    display:
-        flex;
+    border-radius: 12px !important;
 
-    align-items:
-        center;
+    border: 1px solid #D9DCE9 !important;
 
-    justify-content:
-        center;
+    color: #767C93 !important;
 
-    border-radius:
-        12px !important;
+    background: #FFFFFF !important;
 
-    color:
-        #767C93 !important;
+    box-shadow: none !important;
 
     transition:
-        transform .3s ease,
+        transform .25s ease,
         color .25s ease,
         background .25s ease,
+        border-color .25s ease,
         box-shadow .25s ease;
-
 }
 
 
 .help-arrow i {
+    color: #767C93 !important;
 
     transition:
-        transform .3s ease;
-
+        transform .25s ease,
+        color .25s ease;
 }
 
 
+/* =========================================================
+   ARROW HOVER
+========================================================= */
+
 .help-item:hover .help-arrow {
+    color: #171A2B !important;
 
-    color:
-        #FFFFFF !important;
+    background: #F6F7FC !important;
 
-    background:
-        linear-gradient(
-            135deg,
-            #4F6EF7,
-            #9B5CF6
-        ) !important;
+    border-color: #C7CBE6 !important;
 
     box-shadow:
-        0 7px 18px rgba(79, 110, 247, .25);
+        0 4px 12px rgba(23, 26, 43, .08) !important;
 
+    transform: translateX(1px);
 }
 
 
 .help-item:hover .help-arrow i {
+    color: #171A2B !important;
 
-    transform:
-        translateX(4px);
-
+    transform: translateX(3px);
 }
 
+
+/* =========================================================
+   PRIME NG OVERRIDE
+========================================================= */
+
+:host ::ng-deep .help-arrow.p-button {
+    color: #767C93 !important;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #D9DCE9 !important;
+
+    box-shadow: none !important;
+}
+
+
+:host ::ng-deep .help-arrow.p-button:hover {
+    color: #171A2B !important;
+
+    background: #F6F7FC !important;
+
+    border-color: #C7CBE6 !important;
+
+    box-shadow:
+        0 4px 12px rgba(23, 26, 43, .08) !important;
+}
+
+
+:host ::ng-deep .help-arrow.p-button .p-button-icon {
+    color: inherit !important;
+}
 
 /* =========================================================
    ANIMATED SHIMMER
 ========================================================= */
 
 .help-item::after {
+    content: "";
 
-    content:
-        "";
+    position: absolute;
 
-    position:
-        absolute;
+    top: 0;
+    left: -120%;
 
-    top:
-        0;
-
-    left:
-        -120%;
-
-    width:
-        70%;
-
-    height:
-        100%;
+    width: 70%;
+    height: 100%;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, .55),
+            rgba(255, 255, 255, .45),
             transparent
         );
 
-    transform:
-        skewX(-18deg);
+    transform: skewX(-18deg);
 
-    pointer-events:
-        none;
-
+    pointer-events: none;
 }
 
 
 .help-item:hover::after {
-
-    animation:
-        helpShimmer .75s ease;
-
+    animation: helpShimmer .75s ease;
 }
 
 
@@ -471,34 +388,25 @@
 ========================================================= */
 
 .help-item:nth-child(1) .help-icon {
-
     animation:
         helpFloat 4s ease-in-out infinite;
-
 }
 
 
 .help-item:nth-child(2) .help-icon {
-
     animation:
         helpFloat 4.5s ease-in-out infinite .3s;
-
 }
 
 
 .help-item:nth-child(3) .help-icon {
-
     animation:
         helpFloat 5s ease-in-out infinite .6s;
-
 }
 
 
 .help-item:hover .help-icon {
-
-    animation-play-state:
-        paused;
-
+    animation-play-state: paused;
 }
 
 
@@ -510,17 +418,11 @@
 
     0%,
     100% {
-
-        transform:
-            translateY(0);
-
+        transform: translateY(0);
     }
 
     50% {
-
-        transform:
-            translateY(-4px);
-
+        transform: translateY(-3px);
     }
 
 }
@@ -529,17 +431,11 @@
 @keyframes helpShimmer {
 
     0% {
-
-        left:
-            -120%;
-
+        left: -120%;
     }
 
     100% {
-
-        left:
-            150%;
-
+        left: 150%;
     }
 
 }
@@ -552,87 +448,54 @@
 @media (max-width: 650px) {
 
     .help-grid {
-
-        gap:
-            12px;
-
+        gap: 12px;
     }
 
 
     .help-item {
+        gap: 14px;
 
-        gap:
-            14px;
+        min-height: auto;
 
-        min-height:
-            auto;
+        padding: 17px;
 
-        padding:
-            17px;
-
-        border-radius:
-            15px;
-
+        border-radius: 15px;
     }
 
 
     .help-icon {
+        width: 46px;
+        height: 46px;
 
-        width:
-            46px;
-
-        height:
-            46px;
-
-        border-radius:
-            12px;
-
+        border-radius: 12px;
     }
 
 
     .help-icon i {
-
-        font-size:
-            19px;
-
+        font-size: 19px;
     }
 
 
     .help-content h3 {
-
-        font-size:
-            15px;
-
+        font-size: 15px;
     }
 
 
     .help-content p {
+        font-size: 11px;
 
-        font-size:
-            11px;
-
-        line-height:
-            1.5;
-
+        line-height: 1.5;
     }
 
 
     .help-label {
-
-        font-size:
-            8px;
-
+        font-size: 8px;
     }
 
 
     .help-arrow {
-
-        width:
-            36px;
-
-        height:
-            36px;
-
+        width: 36px;
+        height: 36px;
     }
 
 }
@@ -641,40 +504,24 @@
 @media (max-width: 430px) {
 
     .help-item {
-
-        align-items:
-            flex-start;
-
+        align-items: flex-start;
     }
 
 
     .help-icon {
-
-        width:
-            42px;
-
-        height:
-            42px;
-
+        width: 42px;
+        height: 42px;
     }
 
 
     .help-content p {
-
-        margin-top:
-            5px;
-
+        margin-top: 5px;
     }
 
 
     .help-arrow {
-
-        width:
-            32px;
-
-        height:
-            32px;
-
+        width: 32px;
+        height: 32px;
     }
 
 }
@@ -691,20 +538,13 @@
     .help-arrow,
     .help-glow,
     .help-content h3 {
-
-        transition:
-            none !important;
-
-        animation:
-            none !important;
-
+        transition: none !important;
+        animation: none !important;
     }
 
+
     .help-item::after {
-
-        display:
-            none;
-
+        display: none;
     }
 
 }
