@@ -2,42 +2,216 @@
 
 <div class="account-card">
 
+    <!-- Decorative background -->
+    <div class="card-glow glow-one"></div>
+    <div class="card-glow glow-two"></div>
+
+
+    <!-- Header -->
     <div class="card-header">
 
-        <i class="pi pi-user"></i>
+        <div class="header-icon">
 
-        <h3>Account</h3>
+            <i class="pi pi-user"></i>
+
+        </div>
+
+        <div>
+
+            <span class="eyebrow">
+                ACCOUNT OVERVIEW
+            </span>
+
+            <h3>
+                Account
+            </h3>
+
+        </div>
 
     </div>
+
+
+    <!-- Account Information -->
 
     <div class="card-content">
 
         <div class="info-row">
 
-            <span class="label">Email</span>
+            <div class="info-label">
 
-            <span class="value">{{ user.email }}</span>
+                <div class="info-icon">
+                    <i class="pi pi-envelope"></i>
+                </div>
+
+                <div>
+                    <span class="label">
+                        Email Address
+                    </span>
+
+                    <small>
+                        Primary account email
+                    </small>
+                </div>
+
+            </div>
+
+            <span class="value email-value">
+                {{ user.email }}
+            </span>
 
         </div>
 
+
         <div class="info-row">
 
-    <span class="label">Member Since</span>
+            <div class="info-label">
 
-    <span class="value">-</span>
+                <div class="info-icon">
+                    <i class="pi pi-calendar"></i>
+                </div>
 
-</div>
+                <div>
+                    <span class="label">
+                        Member Since
+                    </span>
 
-       <div class="info-row">
+                    <small>
+                        Account creation date
+                    </small>
+                </div>
 
-    <span class="label">Storage Plan</span>
+            </div>
 
-    <span class="value">
-        <span class="plan-badge">Free</span>
-    </span>
+            <span class="value">
+                -
+            </span>
 
-</div>
+        </div>
 
+
+        <div class="info-row">
+
+            <div class="info-label">
+
+                <div class="info-icon">
+                    <i class="pi pi-cloud"></i>
+                </div>
+
+                <div>
+                    <span class="label">
+                        Storage Plan
+                    </span>
+
+                    <small>
+                        Current subscription
+                    </small>
+                </div>
+
+            </div>
+
+            <span class="plan-badge">
+
+                <i class="pi pi-star-fill"></i>
+
+                Free
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Storage -->
+
+    <div class="storage-section">
+
+        <div class="storage-title">
+
+            <div class="storage-icon">
+
+                <i class="pi pi-database"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Storage
+                </span>
+
+                <small>
+                    Your current cloud usage
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="storage-box">
+
+            <div class="storage-header">
+
+                <span>
+                    Storage Used
+                </span>
+
+                <strong>
+                    0 GB / 5 GB
+                </strong>
+
+            </div>
+
+
+            <div class="storage-progress-wrapper">
+
+                <p-progressBar
+                    [value]="0"
+                    [showValue]="false">
+                </p-progressBar>
+
+                <div class="progress-glow"></div>
+
+            </div>
+
+
+            <div class="storage-footer">
+
+                <span class="storage-text">
+
+                    <i class="pi pi-check-circle"></i>
+
+                    5 GB available
+
+                </span>
+
+                <span class="storage-percent">
+                    0% used
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="account-footer">
+
+        <div>
+
+            <i class="pi pi-shield"></i>
+
+            <span>
+                Your account information is securely protected.
+            </span>
+
+        </div>
+
+        <i class="pi pi-cloud"></i>
 
     </div>
 

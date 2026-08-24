@@ -1,172 +1,151 @@
 import { Injectable } from '@angular/core';
-import { pipeline } from '@huggingface/transformers';
+import {
+  AutoModel,
+  AutoProcessor,
+  RawImage,
+  PreTrainedModel,
+  Processor,
+  env,
+} from '@huggingface/transformers';
+
+// Don't check for local models — always pull from the HF hub
+env.allowLocalModels = false;
+// Avoids freezing the UI thread on WASM
+if (env.backends?.onnx?.wasm) {
+  env.backends.onnx.wasm.proxy = true;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BackgroundRemovalService {
 
-  private remover: any = null;
-
-  private loadingPromise: Promise<any> | null = null;
-
+  private model: PreTrainedModel | null = null;
+  private processor: Processor | null = null;
+  private loadingPromise: Promise<{ model: PreTrainedModel; processor: Processor }> | null = null;
   private device: 'webgpu' | 'wasm' = 'wasm';
 
-
-  constructor() {}
-
-
-  // ============================================
-  // CHECK IF BROWSER EXPOSES WEBGPU
-  // ============================================
-
   private isWebGPUSupported(): boolean {
-
-    return (
-      typeof navigator !== 'undefined' &&
-      'gpu' in navigator
-    );
-
+    return typeof navigator !== 'undefined' && 'gpu' in navigator;
   }
 
-
-  // ============================================
-  // LOAD MODEL
-  // ============================================
-
-  async loadModel(): Promise<any> {
-
-    // Already loaded
-    if (this.remover) {
-      return this.remover;
+  async loadModel(): Promise<{ model: PreTrainedModel; processor: Processor }> {
+    if (this.model && this.processor) {
+      return { model: this.model, processor: this.processor };
     }
-
-
-    // Already loading
     if (this.loadingPromise) {
       return this.loadingPromise;
     }
 
+    const tryLoad = async (device: 'webgpu' | 'wasm') => {
+      console.log(`Loading RMBG-1.4 with ${device}...`);
 
-    const webGPUSupported =
-      this.isWebGPUSupported();
+      const model = await AutoModel.from_pretrained('briaai/RMBG-1.4', {
+        // RMBG-1.4's config.json can't be auto-mapped to a pipeline task,
+        // so we tell transformers.js to treat it as custom code instead.
+        config: { model_type: 'custom' } as any,
+        device,
+      });
 
+      const processor = await AutoProcessor.from_pretrained('briaai/RMBG-1.4', {
+        config: {
+          do_normalize: true,
+          do_pad: false,
+          do_rescale: true,
+          do_resize: true,
+          image_mean: [0.5, 0.5, 0.5],
+          image_std: [1, 1, 1],
+          feature_extractor_type: 'ImageFeatureExtractor',
+          resample: 2,
+          rescale_factor: 1 / 255,
+          size: { width: 1024, height: 1024 },
+        } as any,
+      });
 
+      this.device = device;
+      return { model, processor };
+    };
 
-    // ============================================
-    // WEBGPU AVAILABLE
-    // ============================================
-
-    if (webGPUSupported) {
-
-
-      try {
-
-        this.device = 'webgpu';
-
-
-        this.loadingPromise =
-          pipeline(
-            'background-removal',
-            'Xenova/modnet',
-            {
-              device: 'webgpu'
-            }
-          );
-
-
-        this.remover =
-          await this.loadingPromise;
-
-        return this.remover;
-
-
-      } catch (webGpuError) {
-
-        console.warn(
-          'WebGPU model initialization failed.',
-          webGpuError
-        );
-
-
-        // Clear failed state
-        this.remover = null;
-        this.loadingPromise = null;
-
+    this.loadingPromise = (async () => {
+      if (this.isWebGPUSupported()) {
+        try {
+          const result = await tryLoad('webgpu');
+          this.model = result.model;
+          this.processor = result.processor;
+          console.log('RMBG-1.4 loaded using WebGPU.');
+          return result;
+        } catch (err) {
+          console.warn('WebGPU failed, falling back to WASM.', err);
+        }
       }
 
-    } else {
-
-    }
-
-
-    // ============================================
-    // WASM FALLBACK
-    // ============================================
+      const result = await tryLoad('wasm');
+      this.model = result.model;
+      this.processor = result.processor;
+      console.log('RMBG-1.4 loaded using WASM.');
+      return result;
+    })();
 
     try {
-
-      this.device = 'wasm';
-
-
-      this.loadingPromise =
-        pipeline(
-          'background-removal',
-          'Xenova/modnet',
-          {
-            device: 'wasm'
-          }
-        );
-
-
-      this.remover =
-        await this.loadingPromise;
-
-
-
-      return this.remover;
-
-
-    } catch (wasmError) {
-
-      console.error(
-        'Failed to load MODNet using WASM.',
-        wasmError
-      );
-
-
-      this.remover = null;
+      return await this.loadingPromise;
+    } catch (err) {
       this.loadingPromise = null;
-
-
-      throw wasmError;
-
+      this.model = null;
+      this.processor = null;
+      throw err;
     }
-
   }
-
-
-  // ============================================
-  // REMOVE BACKGROUND
-  // ============================================
 
   async removeBackground(file: File): Promise<Blob> {
+    const { model, processor } = await this.loadModel();
 
-    const remover =
-      await this.loadModel();
+    console.log(`Removing background using ${this.device}...`);
 
+    const url = URL.createObjectURL(file);
+    let image: RawImage;
+    try {
+      image = await RawImage.fromURL(url);
+    } finally {
+      URL.revokeObjectURL(url);
+    }
 
-    const result =
-      await remover(file);
+    // Pre-process image
+    const { pixel_values } = await processor(image);
 
+    // Predict alpha matte
+    const { output } = await model({ input: pixel_values });
 
+    // output[0] is a [1, H, W] tensor in [0,1] — scale to 0-255 and
+    // resize back up to the original image's dimensions
+    const maskTensor = output[0].mul(255).to('uint8');
+    const mask = await RawImage.fromTensor(maskTensor).resize(image.width, image.height);
 
-    const blob =
-      await result.toBlob();
+    // Composite: draw the original image, then overwrite its alpha
+    // channel with the predicted mask
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('Could not get canvas context.');
+    }
 
+    ctx.drawImage(image.toCanvas(), 0, 0);
 
-    return blob;
+    const pixelData = ctx.getImageData(0, 0, image.width, image.height);
+    for (let i = 0; i < mask.data.length; ++i) {
+      pixelData.data[4 * i + 3] = mask.data[i];
+    }
+    ctx.putImageData(pixelData, 0, 0);
 
+    return await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(new Error('Failed to create PNG blob from canvas.'));
+        }
+      }, 'image/png');
+    });
   }
-
 }

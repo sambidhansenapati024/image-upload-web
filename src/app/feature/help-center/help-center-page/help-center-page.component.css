@@ -1,37 +1,694 @@
-:host{
-    display:block;
-}
+:host {
 
-.help-page{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:24px;
+    display: block;
 
 }
 
-.page-header h2{
 
-    margin:0;
+/* =========================================================
+   PAGE
+========================================================= */
 
-    color:white;
+.help-page {
 
-    font-size:28px;
+    position: relative;
 
-    font-weight:600;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    padding:
+        10px 5px 40px;
+
+    overflow: hidden;
 
 }
 
-.page-header p{
 
-    margin-top:8px;
+/* =========================================================
+   HEADER
+========================================================= */
 
-    color:#94A3B8;
+.page-header {
 
-    font-size:15px;
+    position: relative;
 
-    line-height:1.6;
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding:
+        26px 28px;
+
+    border:
+        1px solid #E9EAF4;
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #FAFAFF
+        );
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 10px 30px rgba(23, 26, 43, .06);
+
+    overflow:
+        hidden;
+
+    animation:
+        headerEnter .55s ease both;
+
+}
+
+
+/* =========================================================
+   HEADER GLOW
+========================================================= */
+
+.page-header::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        280px;
+
+    height:
+        280px;
+
+    right:
+        -130px;
+
+    top:
+        -180px;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .13),
+            rgba(155, 92, 246, .07),
+            transparent 70%
+        );
+
+    pointer-events:
+        none;
+
+}
+
+
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.header-icon {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    width:
+        58px;
+
+    height:
+        58px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    box-shadow:
+        0 10px 25px rgba(79, 110, 247, .25);
+
+    animation:
+        iconFloat 4s ease-in-out infinite;
+
+}
+
+
+.header-icon i {
+
+    color:
+        #FFFFFF;
+
+    font-size:
+        25px;
+
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+========================================================= */
+
+.header-content {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+}
+
+
+.eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        5px;
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.5px;
+
+}
+
+
+.page-header h2 {
+
+    margin:
+        0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #171A2B,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    -webkit-background-clip:
+        text;
+
+    background-clip:
+        text;
+
+    -webkit-text-fill-color:
+        transparent;
+
+    font-size:
+        28px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        -.5px;
+
+}
+
+
+.page-header p {
+
+    margin:
+        7px 0 0;
+
+    color:
+        #767C93;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.help-section {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+}
+
+
+.help-section-one {
+
+    animation:
+        sectionEnter .55s .15s ease both;
+
+}
+
+
+.help-section-two {
+
+    animation:
+        sectionEnter .55s .3s ease both;
+
+}
+
+
+/* =========================================================
+   FLOATING ORBS
+========================================================= */
+
+.floating-orb {
+
+    position:
+        absolute;
+
+    border-radius:
+        50%;
+
+    pointer-events:
+        none;
+
+    z-index:
+        0;
+
+    filter:
+        blur(1px);
+
+}
+
+
+/* Blue */
+
+.orb-one {
+
+    width:
+        12px;
+
+    height:
+        12px;
+
+    top:
+        90px;
+
+    right:
+        9%;
+
+    background:
+        #4F6EF7;
+
+    box-shadow:
+        0 0 18px rgba(79, 110, 247, .45);
+
+    animation:
+        orbFloatOne 5s ease-in-out infinite;
+
+}
+
+
+/* Purple */
+
+.orb-two {
+
+    width:
+        8px;
+
+    height:
+        8px;
+
+    top:
+        45%;
+
+    left:
+        2%;
+
+    background:
+        #9B5CF6;
+
+    box-shadow:
+        0 0 16px rgba(155, 92, 246, .45);
+
+    animation:
+        orbFloatTwo 6s ease-in-out infinite;
+
+}
+
+
+/* Soft blue */
+
+.orb-three {
+
+    width:
+        16px;
+
+    height:
+        16px;
+
+    bottom:
+        12%;
+
+    right:
+        4%;
+
+    background:
+        rgba(79, 110, 247, .5);
+
+    box-shadow:
+        0 0 25px rgba(79, 110, 247, .3);
+
+    animation:
+        orbFloatThree 7s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes headerEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes sectionEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(20px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px)
+            rotate(-3deg);
+
+    }
+
+}
+
+
+@keyframes orbFloatOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-18px, 20px);
+
+    }
+
+}
+
+
+@keyframes orbFloatTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(20px, -15px);
+
+    }
+
+}
+
+
+@keyframes orbFloatThree {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-15px, -20px)
+            scale(1.2);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .help-page {
+
+        gap:
+            18px;
+
+        padding:
+            5px 0 30px;
+
+    }
+
+
+    .page-header {
+
+        padding:
+            20px;
+
+        gap:
+            14px;
+
+        border-radius:
+            17px;
+
+    }
+
+
+    .header-icon {
+
+        width:
+            48px;
+
+        height:
+            48px;
+
+        border-radius:
+            13px;
+
+    }
+
+
+    .header-icon i {
+
+        font-size:
+            21px;
+
+    }
+
+
+    .page-header h2 {
+
+        font-size:
+            23px;
+
+    }
+
+
+    .page-header p {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .eyebrow {
+
+        font-size:
+            8px;
+
+    }
+
+
+    .orb-one {
+
+        right:
+            4%;
+
+    }
+
+
+    .orb-two {
+
+        left:
+            -5px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .page-header {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .header-icon {
+
+        width:
+            44px;
+
+        height:
+            44px;
+
+    }
+
+
+    .page-header h2 {
+
+        font-size:
+            21px;
+
+    }
+
+
+    .page-header p {
+
+        font-size:
+            11px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .page-header,
+    .help-section,
+    .header-icon,
+    .floating-orb {
+
+        animation:
+            none !important;
+
+    }
 
 }

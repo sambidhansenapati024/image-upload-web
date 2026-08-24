@@ -1,85 +1,666 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   DANGER ZONE CARD
+========================================================= */
 
 .danger-zone-card {
 
-    background: var(--sidebar-bg);
+    position: relative;
 
-    border: 1px solid rgba(239,68,68,.35);
+    overflow: hidden;
 
-    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FFFDFD 65%,
+            #FFF8F8 100%
+        );
 
-    padding: 24px;
+    border:
+        1px solid rgba(239, 68, 68, .25);
+
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        dangerReveal .55s cubic-bezier(.22, 1, .36, 1);
 
 }
 
+
+.danger-zone-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(239, 68, 68, .40);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(239, 68, 68, .08);
+
+}
+
+
+@keyframes dangerReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+========================================================= */
+
+.danger-glow {
+
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+    right: -120px;
+
+    top: -130px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(239, 68, 68, .09);
+
+    filter:
+        blur(65px);
+
+    pointer-events: none;
+
+    animation:
+        dangerGlow 8s ease-in-out infinite;
+
+}
+
+
+@keyframes dangerGlow {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1)
+            translate(0, 0);
+
+        opacity: .65;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.2)
+            translate(-20px, 15px);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   SUBTLE PULSE
+========================================================= */
+
+.danger-pulse {
+
+    position: absolute;
+
+    width: 7px;
+
+    height: 7px;
+
+    top: 28px;
+
+    right: 30px;
+
+    border-radius: 50%;
+
+    background:
+        #EF4444;
+
+    box-shadow:
+        0 0 0 0 rgba(239, 68, 68, .4);
+
+    animation:
+        dangerPulse 2.2s ease-out infinite;
+
+}
+
+
+@keyframes dangerPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0 rgba(239, 68, 68, .35);
+
+        opacity: 1;
+
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 10px rgba(239, 68, 68, 0);
+
+        opacity: .8;
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0 rgba(239, 68, 68, 0);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .card-header {
+
+    position: relative;
+
+    z-index: 2;
 
     display: flex;
 
     align-items: center;
 
-    gap: 14px;
+    gap: 13px;
 
     margin-bottom: 24px;
 
 }
 
-.card-header i {
 
-    font-size: 22px;
+.header-icon {
 
-    color: #EF4444;
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        rgba(239, 68, 68, .09);
+
+    border:
+        1px solid rgba(239, 68, 68, .12);
+
+    color:
+        #EF4444;
+
+    animation:
+        warningFloat 4s ease-in-out infinite;
 
 }
+
+
+.header-icon i {
+
+    font-size: 19px;
+
+}
+
+
+@keyframes warningFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color:
+        #EF4444;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
 
 .card-header h3 {
 
     margin: 0;
 
-    color: white;
+    color:
+        #171A2B;
 
-    font-size: 20px;
+    font-size: 19px;
+
+    font-weight: 700;
 
 }
+
 
 .card-header p {
 
-    margin-top: 4px;
+    margin: 3px 0 0;
 
-    color: #94A3B8;
+    color:
+        #767C93;
+
+    font-size: 11px;
 
 }
 
-.danger-item {
+
+/* =========================================================
+   DANGER CONTENT
+========================================================= */
+
+.danger-content {
+
+    position: relative;
+
+    z-index: 2;
 
     display: flex;
 
-    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(239, 68, 68, .035);
+
+    border:
+        1px solid rgba(239, 68, 68, .12);
+
+    transition:
+        background .3s ease,
+        border-color .3s ease;
+
+}
+
+
+.danger-content:hover {
+
+    background:
+        rgba(239, 68, 68, .055);
+
+    border-color:
+        rgba(239, 68, 68, .20);
+
+}
+
+
+/* =========================================================
+   DELETE ICON
+========================================================= */
+
+.danger-icon-wrapper {
+
+    flex-shrink: 0;
+
+}
+
+
+.danger-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
 
     align-items: center;
 
-    gap: 24px;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(239, 68, 68, .10);
+
+    color:
+        #EF4444;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
 
 }
 
-.danger-item h4 {
+
+.danger-content:hover .danger-icon {
+
+    transform:
+        scale(1.08)
+        rotate(-4deg);
+
+    background:
+        rgba(239, 68, 68, .14);
+
+}
+
+
+.danger-icon i {
+
+    font-size: 19px;
+
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.danger-details {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.danger-details h4 {
 
     margin: 0;
 
-    color: white;
+    color:
+        #171A2B;
+
+    font-size: 15px;
+
+    font-weight: 700;
 
 }
 
-.danger-item small {
 
-    display: block;
+.danger-details p {
 
-    margin-top: 8px;
+    margin: 5px 0 9px;
 
-    color: #94A3B8;
+    color:
+        #767C93;
 
-    line-height: 1.5;
+    font-size: 11px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =========================================================
+   WARNING MESSAGE
+========================================================= */
+
+.warning-message {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+        5px 9px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(245, 158, 11, .08);
+
+    color:
+        #B45309;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+}
+
+
+.warning-message i {
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.danger-button {
+
+    flex-shrink: 0;
+
+    border-radius: 10px !important;
+
+    font-size: 11px !important;
+
+    white-space: nowrap;
+
+}
+
+
+/* Keep disabled button visible but intentional */
+
+:host ::ng-deep .danger-button.p-button:disabled {
+
+    opacity: .65;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.danger-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 16px;
+
+    padding-top: 14px;
+
+    border-top:
+        1px solid rgba(239, 68, 68, .10);
+
+    color:
+        #A2A8BD;
+
+    font-size: 9px;
+
+}
+
+
+.danger-footer i {
+
+    color:
+        #EF4444;
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .danger-zone-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .danger-content {
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .danger-details {
+
+        flex:
+            1 1 calc(100% - 70px);
+
+    }
+
+
+    .danger-button {
+
+        width: 100%;
+
+        margin-top: 4px;
+
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .danger-content {
+
+        flex-direction: column;
+
+    }
+
+
+    .danger-icon-wrapper {
+
+        align-self: flex-start;
+
+    }
+
+
+    .danger-details {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .danger-zone-card *,
+    .danger-zone-card *::before,
+    .danger-zone-card *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
 
 }

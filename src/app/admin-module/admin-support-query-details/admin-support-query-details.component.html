@@ -1,0 +1,380 @@
+<div class="admin-query-details">
+
+    <!-- =====================================================
+         BACK
+         ===================================================== -->
+
+    <div class="details-header">
+
+        <button
+            type="button"
+            class="back-button"
+            (click)="goBack()">
+
+            <i class="pi pi-arrow-left"></i>
+
+            <span>
+                Back to Support Queries
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         LOADING
+         ===================================================== -->
+
+    @if (isLoading) {
+
+        <div class="panel state-container">
+
+            <i class="pi pi-spin pi-spinner"></i>
+
+            <h3>
+                Loading support query
+            </h3>
+
+            <p>
+                Please wait while we retrieve the query details.
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         ERROR
+         ===================================================== -->
+
+    @if (!isLoading && errorMessage) {
+
+        <div class="panel state-container error-state">
+
+            <i class="pi pi-exclamation-circle"></i>
+
+            <h3>
+                Unable to load query
+            </h3>
+
+            <p>
+                {{ errorMessage }}
+            </p>
+
+            <button
+                type="button"
+                class="retry-button"
+                (click)="goBack()">
+
+                <i class="pi pi-arrow-left"></i>
+
+                Back to Support Queries
+
+            </button>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         QUERY DETAILS
+         ===================================================== -->
+
+    @if (!isLoading && !errorMessage && query) {
+
+
+        <!-- =================================================
+             HERO
+             ================================================= -->
+
+        <div class="panel query-hero">
+
+
+            <!-- Header -->
+
+            <div class="query-header">
+
+                <div class="query-title-wrapper">
+
+                    <span class="eyebrow">
+                        Support Request
+                    </span>
+
+                    <h1>
+                        Query #{{ query.queryId }}
+                    </h1>
+
+                    <p>
+                        Submitted
+                        {{ query.createdAt | date:'medium' }}
+                    </p>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <span
+                    class="status-badge"
+                    [ngClass]="
+                        'status-' +
+                        query.status.toLowerCase()
+                    ">
+
+                    {{ query.status }}
+
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 SUMMARY
+                 ================================================= -->
+
+            <div class="summary-strip">
+
+
+                <!-- User -->
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+
+                        <i class="pi pi-user"></i>
+
+                    </div>
+
+                    <div class="summary-text">
+
+                        <span class="summary-label">
+                            User
+                        </span>
+
+                        <span class="summary-value">
+                            {{ query.userName }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+
+                        <i class="pi pi-envelope"></i>
+
+                    </div>
+
+                    <div class="summary-text">
+
+                        <span class="summary-label">
+                            Email
+                        </span>
+
+                        <span class="summary-value">
+                            {{ query.userEmail }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Type -->
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+
+                        <i class="pi pi-tag"></i>
+
+                    </div>
+
+                    <div class="summary-text">
+
+                        <span class="summary-label">
+                            Query Type
+                        </span>
+
+                        <span class="type-badge">
+                            {{ query.queryType }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Updated -->
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+
+                        <i class="pi pi-clock"></i>
+
+                    </div>
+
+                    <div class="summary-text">
+
+                        <span class="summary-label">
+                            Last Updated
+                        </span>
+
+                        <span class="summary-value">
+                            {{ query.updatedAt | date:'medium' }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             USER QUERY
+             ================================================= -->
+
+        <div class="panel details-card">
+
+            <div class="card-header">
+
+                <i class="pi pi-comments"></i>
+
+                <h2>
+                    User Query
+                </h2>
+
+            </div>
+
+
+            <div class="query-message">
+
+                <p class="query-content">
+                    {{ query.query }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ADMIN ACTIONS
+             ================================================= -->
+
+        <div class="panel details-card admin-actions-card">
+
+            <div class="card-header">
+
+                <i class="pi pi-sliders-h"></i>
+
+                <h2>
+                    Admin Actions
+                </h2>
+
+            </div>
+
+
+            <div class="admin-actions">
+
+
+                <!-- PASSWORD QUERY -->
+
+                @if (query.queryType === 'PASSWORD') {
+
+
+                    <button
+                        type="button"
+                        class="action-button primary"
+                        [disabled]="isSendingResetLink"
+                        (click)="sendPasswordResetLink()">
+
+                        @if (isSendingResetLink) {
+
+                            <i class="pi pi-spin pi-spinner"></i>
+
+                            <span>
+                                Sending...
+                            </span>
+
+                        } @else {
+
+                            <i class="pi pi-envelope"></i>
+
+                            <span>
+                                Send Password Reset Link
+                            </span>
+
+                        }
+
+                    </button>
+
+
+                    <!-- Success -->
+
+                    @if (resetLinkMessage) {
+
+                        <div class="action-success">
+
+                            <i class="pi pi-check-circle"></i>
+
+                            <span>
+                                {{ resetLinkMessage }}
+                            </span>
+
+                        </div>
+
+                    }
+
+
+                    <!-- Error -->
+
+                    @if (resetLinkError) {
+
+                        <div class="action-error">
+
+                            <i class="pi pi-exclamation-circle"></i>
+
+                            <span>
+                                {{ resetLinkError }}
+                            </span>
+
+                        </div>
+
+                    }
+
+                }
+
+
+                <!-- NO ACTION -->
+
+                @else {
+
+                    <p class="no-actions">
+
+                        No actions are currently available
+                        for this query type.
+
+                    </p>
+
+                }
+
+            </div>
+
+        </div>
+
+    }
+
+</div>

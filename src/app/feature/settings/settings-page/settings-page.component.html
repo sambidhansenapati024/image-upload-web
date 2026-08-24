@@ -1,8 +1,22 @@
 <div class="settings-page">
 
+    <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <i class="pi pi-arrow-left"></i>
+
+        Back
+
+    </button>
+
+
     <div class="page-header">
 
-        <h2>Settings</h2>
+        <h2>
+            Settings
+        </h2>
 
         <p>
             Manage your account preferences.
@@ -10,11 +24,20 @@
 
     </div>
 
-    <app-account-card></app-account-card>
 
-    <app-storage-card></app-storage-card>
+    <app-account-card>
+    </app-account-card>
 
-   <app-preferences-card></app-preferences-card>
-   <app-danger-zone-card></app-danger-zone-card>
-   
+
+    <app-storage-card>
+    </app-storage-card>
+
+
+    <app-preferences-card>
+    </app-preferences-card>
+
+
+    <app-danger-zone-card>
+    </app-danger-zone-card>
+
 </div>

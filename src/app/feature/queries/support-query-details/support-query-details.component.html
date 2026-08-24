@@ -1,5 +1,11 @@
 <div class="support-query-details-page">
 
+    <!-- Floating decorative elements -->
+    <div class="floating-orb orb-one"></div>
+    <div class="floating-orb orb-two"></div>
+    <div class="floating-orb orb-three"></div>
+
+
     <!-- Back -->
 
     <button
@@ -7,9 +13,13 @@
         class="back-button"
         (click)="goBack()">
 
-        <i class="pi pi-arrow-left"></i>
+        <span class="back-icon">
+            <i class="pi pi-arrow-left"></i>
+        </span>
 
-        Back to My Queries
+        <span>
+            Back to My Queries
+        </span>
 
     </button>
 
@@ -20,10 +30,20 @@
 
         <div class="state-container">
 
-            <i class="pi pi-spin pi-spinner"></i>
+            <div class="loading-animation">
+
+                <div class="loading-ring"></div>
+
+                <i class="pi pi-comments"></i>
+
+            </div>
+
+            <h3>
+                Loading support query
+            </h3>
 
             <p>
-                Loading support query...
+                We're retrieving your query details...
             </p>
 
         </div>
@@ -37,7 +57,11 @@
 
         <div class="state-container error-state">
 
-            <i class="pi pi-exclamation-circle"></i>
+            <div class="state-icon error-icon">
+
+                <i class="pi pi-exclamation-triangle"></i>
+
+            </div>
 
             <h3>
                 Unable to load query
@@ -51,6 +75,8 @@
                 type="button"
                 class="retry-button"
                 (click)="loadQuery()">
+
+                <i class="pi pi-refresh"></i>
 
                 Try Again
 
@@ -74,17 +100,32 @@
 
             <div class="query-information">
 
+                <div class="card-glow"></div>
+
+
+                <!-- Header -->
+
                 <div class="page-title">
 
-                    <div>
+                    <div class="title-content">
 
                         <span class="eyebrow">
-                            Support Query
+                            SUPPORT QUERY
                         </span>
 
-                        <h1>
-                            #{{ query.queryId }}
-                        </h1>
+                        <div class="query-number">
+
+                            <span>#</span>
+
+                            <h1>
+                                {{ query.queryId }}
+                            </h1>
+
+                        </div>
+
+                        <p>
+                            Support request details
+                        </p>
 
                     </div>
 
@@ -96,6 +137,8 @@
                             query.status.toLowerCase()
                         ">
 
+                        <span class="status-dot"></span>
+
                         {{ query.status }}
 
                     </span>
@@ -103,72 +146,145 @@
                 </div>
 
 
-                <!-- Query metadata -->
+                <!-- Metadata -->
 
                 <div class="metadata-grid">
 
                     <div class="metadata-item">
 
-                        <span>
-                            Query Type
-                        </span>
+                        <div class="metadata-icon">
 
-                        <strong>
-                            {{ query.queryType }}
-                        </strong>
+                            <i class="pi pi-tag"></i>
 
-                    </div>
+                        </div>
 
+                        <div>
 
-                    <div class="metadata-item">
+                            <span>
+                                Query Type
+                            </span>
 
-                        <span>
-                            Submitted
-                        </span>
+                            <strong>
+                                {{ query.queryType }}
+                            </strong>
 
-                        <strong>
-                            {{ query.createdAt | date:'medium' }}
-                        </strong>
+                        </div>
 
                     </div>
 
 
                     <div class="metadata-item">
 
-                        <span>
-                            Last Updated
-                        </span>
+                        <div class="metadata-icon">
 
-                        <strong>
-                            {{ query.updatedAt | date:'medium' }}
-                        </strong>
+                            <i class="pi pi-calendar"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Submitted
+                            </span>
+
+                            <strong>
+                                {{ query.createdAt | date:'medium' }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="metadata-item">
+
+                        <div class="metadata-icon">
+
+                            <i class="pi pi-history"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Last Updated
+                            </span>
+
+                            <strong>
+                                {{ query.updatedAt | date:'medium' }}
+                            </strong>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <!-- User query -->
+                <!-- User Query -->
 
                 <div class="user-query-box">
 
-                    <div class="section-title">
+                    <div class="query-box-header">
 
-                        <i class="pi pi-comment"></i>
+                        <div class="section-title">
+
+                            <span class="section-icon">
+
+                                <i class="pi pi-comment"></i>
+
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Your Query
+                                </strong>
+
+                                <span>
+                                    Original support request
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <i class="pi pi-quote"></i>
+
+                    </div>
+
+
+                    <div class="query-content">
+
+                        <p>
+                            {{ query.query }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Bottom information -->
+
+                <div class="query-footer">
+
+                    <div>
+
+                        <i class="pi pi-shield"></i>
 
                         <span>
-                            Your Query
+                            Your request is securely tracked by CloudVault.
                         </span>
 
                     </div>
 
-                    <p>
-                        {{ query.query }}
-                    </p>
+                    <i class="pi pi-check-circle"></i>
 
                 </div>
 
             </div>
+
 
 
             <!-- ============================= -->
@@ -177,22 +293,41 @@
 
             <div class="tracking-card">
 
+                <div class="card-glow tracking-glow"></div>
+
+
                 <div class="tracking-header">
 
-                    <div>
+                    <div class="tracking-title">
 
-                        <span class="eyebrow">
-                            Query Tracking
-                        </span>
+                        <div class="tracking-icon">
 
-                        <h2>
-                            Support Progress
-                        </h2>
+                            <i class="pi pi-chart-line"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span class="eyebrow">
+                                QUERY TRACKING
+                            </span>
+
+                            <h2>
+                                Support Progress
+                            </h2>
+
+                            <p>
+                                Follow the progress of your request.
+                            </p>
+
+                        </div>
 
                     </div>
 
                 </div>
 
+
+                <!-- Timeline -->
 
                 <div class="timeline">
 
@@ -201,7 +336,9 @@
                         track item.status
                     ) {
 
-                        <div class="timeline-item">
+                        <div
+                            class="timeline-item"
+                            [class.timeline-last]="$last">
 
                             <div class="timeline-indicator">
 
@@ -211,89 +348,132 @@
 
                                 </div>
 
-                                <div
-                                    class="timeline-line">
-                                </div>
+                                @if (!$last) {
+
+                                    <div class="timeline-line"></div>
+
+                                }
 
                             </div>
 
 
                             <div class="timeline-content">
 
-                                <h3>
-                                    {{ formatTimelineStatus(item.status) }}
-                                </h3>
+                                <div class="timeline-heading">
 
-                                <span>
+                                    <h3>
+                                        {{ formatTimelineStatus(item.status) }}
+                                    </h3>
+
+                                    <span class="timeline-status">
+
+                                        @if ($last) {
+
+                                            Current
+
+                                        } @else {
+
+                                            Completed
+
+                                        }
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="timeline-date">
+
+                                    <i class="pi pi-clock"></i>
+
                                     {{ item.changedAt | date:'medium' }}
+
                                 </span>
 
 
-                                @switch (item.status) {
+                                <div class="timeline-description">
 
-                                    @case ('RAISED') {
+                                    @switch (item.status) {
 
-                                        <p>
-                                            You raised this
-                                            support query.
-                                        </p>
+                                        @case ('RAISED') {
+
+                                            <p>
+                                                You raised this
+                                                support query.
+                                            </p>
+
+                                        }
+
+                                        @case ('RECEIVED') {
+
+                                            <p>
+                                                Your support query
+                                                has been received.
+                                            </p>
+
+                                        }
+
+                                        @case ('ASSISTANT_ASSIGNED') {
+
+                                            <p>
+                                                A support assistant
+                                                has been assigned
+                                                to your request.
+                                            </p>
+
+                                        }
+
+                                        @case ('IN_PROGRESS') {
+
+                                            <p>
+                                                Our support team is
+                                                currently working
+                                                on your request.
+                                            </p>
+
+                                        }
+
+                                        @case ('COMPLETED') {
+
+                                            <p>
+                                                Your support query
+                                                has been completed.
+                                            </p>
+
+                                        }
+
+                                        @case ('CLOSED') {
+
+                                            <p>
+                                                This support query
+                                                has been closed.
+                                            </p>
+
+                                        }
 
                                     }
 
-                                    @case ('RECEIVED') {
-
-                                        <p>
-                                            Your support query
-                                            has been received.
-                                        </p>
-
-                                    }
-
-                                    @case ('ASSISTANT_ASSIGNED') {
-
-                                        <p>
-                                            A support assistant
-                                            has been assigned
-                                            to your request.
-                                        </p>
-
-                                    }
-
-                                    @case ('IN_PROGRESS') {
-
-                                        <p>
-                                            Our support team is
-                                            currently working
-                                            on your request.
-                                        </p>
-
-                                    }
-
-                                    @case ('COMPLETED') {
-
-                                        <p>
-                                            Your support query
-                                            has been completed.
-                                        </p>
-
-                                    }
-
-                                    @case ('CLOSED') {
-
-                                        <p>
-                                            This support query
-                                            has been closed.
-                                        </p>
-
-                                    }
-
-                                }
+                                </div>
 
                             </div>
 
                         </div>
 
                     }
+
+                </div>
+
+
+                <!-- Timeline footer -->
+
+                <div class="tracking-footer">
+
+                    <i class="pi pi-info-circle"></i>
+
+                    <span>
+                        Your query status will update automatically
+                        as our support team works on it.
+                    </span>
 
                 </div>
 

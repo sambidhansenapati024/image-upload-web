@@ -1,56 +1,678 @@
-:host{
-    display:block;
-}
+:host {
 
-.docs-toc{
-
-    position:sticky;
-
-    top:20px;
-
-    background:var(--sidebar-bg);
-
-    border:1px solid #334155;
-
-    border-radius:16px;
-
-    padding:20px;
+    display:
+        block;
 
 }
 
-.docs-toc h3{
 
-    margin:0 0 18px;
+/* =========================================================
+   TOC CONTAINER
+========================================================= */
 
-    color:white;
+.docs-toc {
 
-    font-size:16px;
+    position:
+        sticky;
+
+    top:
+        20px;
+
+    overflow:
+        hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #FCFCFF
+        );
+
+    border:
+        1px solid #E9EAF4;
+
+    border-radius:
+        18px;
+
+    padding:
+        20px;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    animation:
+        tocEnter .5s ease both;
 
 }
 
-.docs-toc nav{
 
-    display:flex;
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
 
-    flex-direction:column;
+.docs-toc::before {
 
-    gap:12px;
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        170px;
+
+    height:
+        170px;
+
+    right:
+        -90px;
+
+    top:
+        -100px;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(155, 92, 246, .10),
+            transparent 70%
+        );
+
+    pointer-events:
+        none;
 
 }
 
-.docs-toc a{
 
-    color:#94A3B8;
+/* =========================================================
+   HEADER
+========================================================= */
 
-    text-decoration:none;
+.toc-header {
 
-    transition:.2s;
-    cursor: pointer;
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
 
 }
 
-.docs-toc a:hover{
 
-    color:#3B82F6;
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.toc-icon {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    color:
+        #FFFFFF;
+
+    box-shadow:
+        0 7px 18px rgba(79, 110, 247, .20);
+
+    animation:
+        tocIconFloat 4s ease-in-out infinite;
+
+}
+
+
+.toc-icon i {
+
+    font-size:
+        17px;
+
+}
+
+
+/* =========================================================
+   HEADER TEXT
+========================================================= */
+
+.toc-eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        2px;
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        8px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.2px;
+
+}
+
+
+.docs-toc h3 {
+
+    margin:
+        0;
+
+    color:
+        #171A2B;
+
+    font-size:
+        16px;
+
+    font-weight:
+        650;
+
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.toc-divider {
+
+    height:
+        1px;
+
+    margin:
+        18px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #E9EAF4,
+            rgba(233, 234, 244, .2)
+        );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.docs-toc nav {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        5px;
+
+}
+
+
+/* =========================================================
+   TOC LINK
+========================================================= */
+
+.docs-toc a {
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    min-height:
+        38px;
+
+    padding:
+        8px 9px;
+
+    border-radius:
+        9px;
+
+    color:
+        #767C93;
+
+    text-decoration:
+        none;
+
+    cursor:
+        pointer;
+
+    overflow:
+        hidden;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.docs-toc a:hover {
+
+    color:
+        #171A2B;
+
+    background:
+        rgba(79, 110, 247, .055);
+
+    transform:
+        translateX(3px);
+
+}
+
+
+/* =========================================================
+   DOT
+========================================================= */
+
+.toc-dot {
+
+    position:
+        relative;
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    flex-shrink:
+        0;
+
+    border:
+        1px solid #B8BDD0;
+
+    border-radius:
+        50%;
+
+    background:
+        #FFFFFF;
+
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+.docs-toc a:hover .toc-dot {
+
+    border-color:
+        #4F6EF7;
+
+    background:
+        #4F6EF7;
+
+    transform:
+        scale(1.2);
+
+    box-shadow:
+        0 0 8px rgba(79, 110, 247, .35);
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.toc-label {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    flex:
+        1;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.4;
+
+    font-weight:
+        500;
+
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.toc-arrow {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    color:
+        #A2A8BD;
+
+    font-size:
+        10px;
+
+    opacity:
+        0;
+
+    transform:
+        translateX(-5px);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease,
+        color .25s ease;
+
+}
+
+
+.docs-toc a:hover .toc-arrow {
+
+    opacity:
+        1;
+
+    transform:
+        translateX(0);
+
+    color:
+        #4F6EF7;
+
+}
+
+
+/* =========================================================
+   HOVER GLOW
+========================================================= */
+
+.toc-glow {
+
+    position:
+        absolute;
+
+    width:
+        70px;
+
+    height:
+        70px;
+
+    right:
+        -35px;
+
+    top:
+        -15px;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .10),
+            transparent 70%
+        );
+
+    opacity:
+        0;
+
+    transition:
+        opacity .3s ease;
+
+    pointer-events:
+        none;
+
+}
+
+
+.docs-toc a:hover .toc-glow {
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================================
+   OPTIONAL ACTIVE STATE
+   Useful if you later track the section currently visible
+========================================================= */
+
+.docs-toc a.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .08)
+        );
+
+    color:
+        #4F6EF7;
+
+    box-shadow:
+        inset 3px 0 0 #4F6EF7;
+
+}
+
+
+.docs-toc a.active .toc-dot {
+
+    width:
+        8px;
+
+    height:
+        8px;
+
+    border-color:
+        #4F6EF7;
+
+    background:
+        #4F6EF7;
+
+    box-shadow:
+        0 0 9px rgba(79, 110, 247, .40);
+
+}
+
+
+.docs-toc a.active .toc-arrow {
+
+    opacity:
+        1;
+
+    color:
+        #4F6EF7;
+
+    transform:
+        translateX(0);
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes tocEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(12px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes tocIconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .docs-toc {
+
+        position:
+            relative;
+
+        top:
+            auto;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .docs-toc {
+
+        padding:
+            16px;
+
+        border-radius:
+            16px;
+
+    }
+
+    .docs-toc nav {
+
+        gap:
+            4px;
+
+    }
+
+    .docs-toc a {
+
+        min-height:
+            40px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .docs-toc,
+    .toc-icon {
+
+        animation:
+            none !important;
+
+    }
+
+    .docs-toc a,
+    .toc-dot,
+    .toc-arrow {
+
+        transition:
+            none !important;
+
+    }
 
 }

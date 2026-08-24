@@ -1,60 +1,203 @@
 <div class="cloud-card">
-    <h3>Personal Information</h3>
 
-    <div class="stat-row">
+    <!-- Decorative animated glows -->
+    <div class="card-glow glow-one"></div>
+    <div class="card-glow glow-two"></div>
 
-        <div class="label">
-            <i class="pi pi-database"></i>
-            <span>Storage Used</span>
+    <!-- Header -->
+    <div class="card-header">
+
+        <div>
+            <span class="eyebrow">
+                STORAGE
+            </span>
+
+            <h3>Storage & Usage</h3>
+
+            <p>
+                Monitor your CloudVault space
+            </p>
         </div>
 
-        <div class="value">
-            1.2 GB / 5 GB
-        </div>
-
-    </div>
-
-    <p-progressBar
-        [value]="24"
-        [showValue]="false">
-    </p-progressBar>
-
-    <div class="stat-row">
-
-        <div class="label">
-            <i class="pi pi-images"></i>
-            <span>Total Images</span>
-        </div>
-
-        <div class="value">
-            248
-        </div>
-
-    </div>
-
-    <div class="stat-row">
-
-        <div class="label">
-            <i class="pi pi-trash"></i>
-            <span>Recycle Bin</span>
-        </div>
-
-        <div class="value">
-            15
-        </div>
-
-    </div>
-
-    <div class="stat-row">
-
-        <div class="label">
+        <div class="header-icon">
             <i class="pi pi-cloud"></i>
-            <span>Remaining Space</span>
         </div>
 
-        <div class="value">
-            3.8 GB
+    </div>
+
+
+    <!-- Storage Summary -->
+
+    <div class="storage-summary">
+
+        <div class="storage-icon">
+
+            <i class="pi pi-database"></i>
+
         </div>
+
+        <div class="storage-main">
+
+            <div class="storage-values">
+
+                <div>
+
+                    <strong>1.2 GB</strong>
+
+                    <span>used</span>
+
+                </div>
+
+                <span class="storage-total">
+                    of 5 GB
+                </span>
+
+            </div>
+
+            <p-progressBar
+                [value]="24"
+                [showValue]="false">
+            </p-progressBar>
+
+            <div class="storage-bottom">
+
+                <span>
+                    24% used
+                </span>
+
+                <span>
+                    3.8 GB available
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="stats-list">
+
+        <!-- Total Images -->
+
+        <div class="stat-row">
+
+            <div class="stat-left">
+
+                <div class="icon-box blue">
+
+                    <i class="pi pi-images"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    <span>Total Images</span>
+
+                    <small>
+                        Images in your gallery
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="stat-value">
+
+                <strong>248</strong>
+
+                <i class="pi pi-arrow-up"></i>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recycle Bin -->
+
+        <div class="stat-row">
+
+            <div class="stat-left">
+
+                <div class="icon-box red">
+
+                    <i class="pi pi-trash"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    <span>Recycle Bin</span>
+
+                    <small>
+                        Items waiting for deletion
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="stat-value neutral">
+
+                <strong>15</strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Remaining Space -->
+
+        <div class="stat-row">
+
+            <div class="stat-left">
+
+                <div class="icon-box green">
+
+                    <i class="pi pi-cloud"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    <span>Remaining Space</span>
+
+                    <small>
+                        Available storage
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="stat-value available">
+
+                <strong>3.8 GB</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="stats-footer">
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                Storage available
+            </span>
+
+        </div>
+
+        <i class="pi pi-shield"></i>
 
     </div>
 

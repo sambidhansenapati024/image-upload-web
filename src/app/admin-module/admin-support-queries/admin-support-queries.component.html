@@ -1,0 +1,478 @@
+<div class="admin-support-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="page-header">
+
+        <div class="header-content">
+
+            <div class="header-icon">
+
+                <i class="pi pi-comments"></i>
+
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    Administration
+                </span>
+
+                <h1>
+                    Support Queries
+                </h1>
+
+                <p>
+                    Manage and monitor support requests raised by users.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="refresh-button"
+            (click)="loadQueries()"
+            [disabled]="isLoading">
+
+            <i
+                class="pi"
+                [ngClass]="
+                    isLoading
+                        ? 'pi-spin pi-spinner'
+                        : 'pi-refresh'
+                ">
+            </i>
+
+            <span>
+                {{ isLoading ? 'Refreshing...' : 'Refresh' }}
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         STATISTICS
+         ===================================================== -->
+
+    @if (!isLoading && !errorMessage && queries.length > 0) {
+
+        <div class="stats-strip">
+
+            <!-- Open -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot open"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('OPEN') }}
+                    </strong>
+
+                    <span>
+                        Open
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- In Progress -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot in_progress"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('IN_PROGRESS') }}
+                    </strong>
+
+                    <span>
+                        In Progress
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Resolved -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot resolved"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('RESOLVED') }}
+                    </strong>
+
+                    <span>
+                        Resolved
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Closed -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot closed"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('CLOSED') }}
+                    </strong>
+
+                    <span>
+                        Closed
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         FILTER TOOLBAR
+         ===================================================== -->
+
+    <div class="panel filters-panel">
+
+        <div class="filters-bar">
+
+
+            <!-- Search -->
+
+            <div class="search-box">
+
+                <i class="pi pi-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search by ID, user, email or query..."
+                    [(ngModel)]="searchText"
+                    (input)="applyFilters()">
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="pill-group">
+
+                @for (
+                    status of statuses;
+                    track status
+                ) {
+
+                    <button
+                        type="button"
+                        [class.active]="selectedStatus === status"
+                        (click)="
+                            selectedStatus = status;
+                            applyFilters()
+                        ">
+
+                        {{
+                            status === 'ALL'
+                                ? 'All Status'
+                                : status
+                        }}
+
+                    </button>
+
+                }
+
+            </div>
+
+
+            <!-- Query Type -->
+
+            <select
+                class="type-select"
+                [(ngModel)]="selectedQueryType"
+                (change)="applyFilters()">
+
+                @for (
+                    type of queryTypes;
+                    track type
+                ) {
+
+                    <option [value]="type">
+
+                        {{
+                            type === 'ALL'
+                                ? 'All Types'
+                                : type
+                        }}
+
+                    </option>
+
+                }
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         LOADING
+         ===================================================== -->
+
+    @if (isLoading) {
+
+        <div class="panel state-container">
+
+            <i class="pi pi-spin pi-spinner"></i>
+
+            <h3>
+                Loading support queries
+            </h3>
+
+            <p>
+                Please wait while we retrieve the latest support requests.
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         ERROR
+         ===================================================== -->
+
+    @if (!isLoading && errorMessage) {
+
+        <div class="panel state-container error-state">
+
+            <i class="pi pi-exclamation-circle"></i>
+
+            <h3>
+                Unable to load support queries
+            </h3>
+
+            <p>
+                {{ errorMessage }}
+            </p>
+
+            <button
+                type="button"
+                class="retry-button"
+                (click)="loadQueries()">
+
+                <i class="pi pi-refresh"></i>
+
+                Try Again
+
+            </button>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         EMPTY
+         ===================================================== -->
+
+    @if (
+        !isLoading &&
+        !errorMessage &&
+        queries.length === 0
+    ) {
+
+        <div class="panel state-container">
+
+            <i class="pi pi-inbox"></i>
+
+            <h3>
+                No support queries
+            </h3>
+
+            <p>
+                There are currently no support queries to display.
+            </p>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         TICKET LIST
+         ===================================================== -->
+
+    @if (
+        !isLoading &&
+        !errorMessage &&
+        queries.length > 0
+    ) {
+
+        <div class="ticket-list">
+
+            @for (
+                query of filteredQueries;
+                track query.queryId
+            ) {
+
+                <div
+                    class="panel ticket-card"
+                    (click)="viewQuery(query.queryId)">
+
+
+                    <!-- ================================
+                         QUERY ID
+                         ================================= -->
+
+                    <span class="ticket-id">
+
+                        #{{ query.queryId }}
+
+                    </span>
+
+
+                    <!-- ================================
+                         USER + QUERY
+                         ================================= -->
+
+                    <div class="ticket-main">
+
+
+                        <!-- Avatar -->
+
+                        <div class="user-avatar">
+
+                            {{
+                                query.userName
+                                    ?.charAt(0)
+                                    ?.toUpperCase()
+                            }}
+
+                        </div>
+
+
+                        <!-- Text -->
+
+                        <div class="ticket-text">
+
+                            <p class="ticket-subject">
+
+                                {{ query.query }}
+
+                            </p>
+
+
+                            <div class="ticket-sub">
+
+                                <span>
+
+                                    {{ query.userName }}
+
+                                </span>
+
+                                <span class="dot-sep"></span>
+
+                                <span>
+
+                                    {{ query.userEmail }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================
+                         QUERY TYPE
+                         ================================= -->
+
+                    <span class="type-badge">
+
+                        {{ query.queryType }}
+
+                    </span>
+
+
+                    <!-- ================================
+                         STATUS
+                         ================================= -->
+
+                    <span
+                        class="status-badge"
+                        [ngClass]="
+                            'status-' +
+                            query.status.toLowerCase()
+                        ">
+
+                        {{ query.status }}
+
+                    </span>
+
+
+                    <!-- ================================
+                         DATE
+                         ================================= -->
+
+                    <span class="ticket-date">
+
+                        {{ query.createdAt | date:'MMM d, h:mm a' }}
+
+                    </span>
+
+
+                    <!-- ================================
+                         VIEW BUTTON
+                         ================================= -->
+
+                    <button
+                        type="button"
+                        class="view-button"
+                        (click)="
+                            viewQuery(query.queryId);
+                            $event.stopPropagation()
+                        ">
+
+                        <i class="pi pi-eye"></i>
+
+                        <span>
+                            View
+                        </span>
+
+                    </button>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>

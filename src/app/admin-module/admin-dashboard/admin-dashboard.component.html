@@ -1,0 +1,647 @@
+<div class="admin-dash">
+
+    <!-- =====================================================
+         DASHBOARD HEADER
+    ====================================================== -->
+
+    <section class="dash-hero">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+                <i class="pi pi-chart-line"></i>
+            </div>
+
+            <div>
+
+                <span class="hero-eyebrow">
+                    CLOUDVAULT ADMIN
+                </span>
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p>
+                    Platform overview, usage trends and support activity.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="range-wrapper">
+
+            <span class="range-label">
+                Analytics period
+            </span>
+
+            <div class="range-chips">
+
+                <button
+                    class="range-chip active"
+                    type="button">
+
+                    7 days
+
+                </button>
+
+                <button
+                    class="range-chip"
+                    type="button">
+
+                    30 days
+
+                </button>
+
+                <button
+                    class="range-chip"
+                    type="button">
+
+                    90 days
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         KPI ROW
+    ====================================================== -->
+
+    <section class="kpi-row">
+
+        @for (kpi of kpis; track kpi.label) {
+
+            <div
+                class="panel kpi-card"
+                [class.kpi-negative]="kpi.change < 0">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon">
+
+                        <i [class]="kpi.icon"></i>
+
+                    </div>
+
+                    <span class="kpi-menu">
+                        <i class="pi pi-ellipsis-h"></i>
+                    </span>
+
+                </div>
+
+
+                <div class="kpi-body">
+
+                    <span class="kpi-label">
+                        {{ kpi.label }}
+                    </span>
+
+                    <div class="kpi-value-row">
+
+                        <strong class="kpi-value">
+                            {{ kpi.value }}
+                        </strong>
+
+                    </div>
+
+                    <div
+                        class="kpi-trend"
+                        [class.down]="kpi.change < 0">
+
+                        <span class="trend-icon">
+
+                            <i
+                                class="pi"
+                                [ngClass]="
+                                    kpi.change < 0
+                                        ? 'pi-arrow-down'
+                                        : 'pi-arrow-up'
+                                ">
+                            </i>
+
+                        </span>
+
+                        <span>
+                            {{ (kpi.change < 0
+                                ? kpi.change * -1
+                                : kpi.change) }}%
+                        </span>
+
+                        <span class="trend-text">
+                            vs previous period
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="kpi-glow"></div>
+
+            </div>
+
+        }
+
+    </section>
+
+
+    <!-- =====================================================
+         ANALYTICS TOP
+    ====================================================== -->
+
+    <section class="analytics-grid">
+
+
+        <!-- Growth -->
+
+        <div class="panel chart-card">
+
+            <div class="card-head">
+
+                <div>
+
+                    <div class="card-title-row">
+
+                        <span class="card-icon">
+                            <i class="pi pi-chart-line"></i>
+                        </span>
+
+                        <h3>
+                            Platform growth
+                        </h3>
+
+                    </div>
+
+                    <span class="card-sub">
+                        Upload activity over the last 7 days
+                    </span>
+
+                </div>
+
+                <div class="chart-badge">
+                    <i class="pi pi-arrow-up"></i>
+                    Growing
+                </div>
+
+            </div>
+
+
+            <div class="chart-area">
+
+                <div class="chart-y-axis">
+
+                    <span>100</span>
+                    <span>75</span>
+                    <span>50</span>
+                    <span>25</span>
+                    <span>0</span>
+
+                </div>
+
+
+                <div class="chart-main">
+
+                    <div class="chart-grid-lines">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <svg
+                        class="growth-chart"
+                        viewBox="0 0 400 160"
+                        preserveAspectRatio="none">
+
+                        <defs>
+
+                            <linearGradient
+                                id="areaFill"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1">
+
+                                <stop
+                                    offset="0%"
+                                    stop-color="#4F6EF7"
+                                    stop-opacity="0.25" />
+
+                                <stop
+                                    offset="100%"
+                                    stop-color="#4F6EF7"
+                                    stop-opacity="0" />
+
+                            </linearGradient>
+
+
+                            <linearGradient
+                                id="lineStroke"
+                                x1="0"
+                                y1="0"
+                                x2="1"
+                                y2="0">
+
+                                <stop
+                                    offset="0%"
+                                    stop-color="#4F6EF7" />
+
+                                <stop
+                                    offset="100%"
+                                    stop-color="#9B5CF6" />
+
+                            </linearGradient>
+
+                        </defs>
+
+
+                        <path
+                            [attr.d]="chartAreaPath"
+                            fill="url(#areaFill)">
+                        </path>
+
+
+                        <polyline
+                            [attr.points]="chartLinePoints"
+                            fill="none"
+                            stroke="url(#lineStroke)"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round">
+                        </polyline>
+
+                    </svg>
+
+
+                    <div class="chart-labels">
+
+                        @for (
+                            point of growthData;
+                            track point.label
+                        ) {
+
+                            <span>
+                                {{ point.label }}
+                            </span>
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Plan Distribution -->
+
+        <div class="panel donut-card">
+
+            <div class="card-head">
+
+                <div>
+
+                    <div class="card-title-row">
+
+                        <span class="card-icon">
+                            <i class="pi pi-users"></i>
+                        </span>
+
+                        <h3>
+                            Plan distribution
+                        </h3>
+
+                    </div>
+
+                    <span class="card-sub">
+                        Current subscription breakdown
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="donut-wrap">
+
+                <div
+                    class="donut"
+                    [style.background]="planDonutBackground">
+
+                    <div class="donut-hole">
+
+                        <strong>
+                            100%
+                        </strong>
+
+                        <span>
+                            Users
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="legend">
+
+                @for (
+                    slice of planDistribution;
+                    track slice.label
+                ) {
+
+                    <div class="legend-item">
+
+                        <div class="legend-left">
+
+                            <span
+                                class="legend-dot"
+                                [style.background]="
+                                    'var(' + slice.colorVar + ')'
+                                ">
+                            </span>
+
+                            <span class="legend-label">
+                                {{ slice.label }}
+                            </span>
+
+                        </div>
+
+                        <span class="legend-value">
+                            {{ slice.value }}%
+                        </span>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         UPLOADS + SUPPORT
+    ====================================================== -->
+
+    <section class="analytics-grid analytics-grid--reverse">
+
+
+        <!-- Upload types -->
+
+        <div class="panel bar-card">
+
+            <div class="card-head">
+
+                <div>
+
+                    <div class="card-title-row">
+
+                        <span class="card-icon">
+                            <i class="pi pi-file"></i>
+                        </span>
+
+                        <h3>
+                            Uploads by file type
+                        </h3>
+
+                    </div>
+
+                    <span class="card-sub">
+                        Relative volume during the last 30 days
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="bar-list">
+
+                @for (
+                    type of uploadsByType;
+                    track type.label
+                ) {
+
+                    <div class="bar-row">
+
+                        <div class="bar-label-wrapper">
+
+                            <span
+                                class="file-type-icon"
+                                [style.background]="
+                                    'var(' + type.colorVar + ')'
+                                ">
+
+                                <i class="pi pi-file"></i>
+
+                            </span>
+
+                            <span class="bar-label">
+                                {{ type.label }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="bar-track">
+
+                            <div
+                                class="bar-fill"
+                                [style.width.%]="type.value"
+                                [style.background]="
+                                    'var(' + type.colorVar + ')'
+                                ">
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="bar-value">
+                            {{ type.value }}%
+                        </span>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- Support Queries -->
+
+        <div class="panel queries-card">
+
+            <div class="card-head">
+
+                <div>
+
+                    <div class="card-title-row">
+
+                        <span class="card-icon">
+                            <i class="pi pi-comments"></i>
+                        </span>
+
+                        <h3>
+                            Recent support queries
+                        </h3>
+
+                    </div>
+
+                    <span class="card-sub">
+                        Latest requests from your users
+                    </span>
+
+                </div>
+
+
+                <a
+                    routerLink="/admin/support-queries"
+                    class="view-all">
+
+                    View all
+
+                    <i class="pi pi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <div class="query-list">
+
+                @for (
+                    query of supportQueries;
+                    track query.id
+                ) {
+
+                    <div class="query-row">
+
+                        <div class="query-avatar">
+
+                            <i class="pi pi-user"></i>
+
+                        </div>
+
+
+                        <div class="query-main">
+
+                            <span class="query-subject">
+                                {{ query.subject }}
+                            </span>
+
+                            <span class="query-user">
+                                {{ query.user }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="query-meta">
+
+                            <span
+                                class="status-pill"
+                                [class]="query.status">
+
+                                {{ query.status }}
+
+                            </span>
+
+                            <span class="query-time">
+                                {{ query.time }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SYSTEM STATUS
+    ====================================================== -->
+
+    <section class="panel status-strip">
+
+        <div class="status-heading">
+
+            <span class="status-main-icon">
+                <i class="pi pi-shield"></i>
+            </span>
+
+            <div>
+
+                <strong>
+                    System status
+                </strong>
+
+                <span>
+                    CloudVault services
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="status-items">
+
+            @for (
+                item of systemStatus;
+                track item.label
+            ) {
+
+                <div class="status-item">
+
+                    <span
+                        class="status-dot"
+                        [class.degraded]="
+                            item.status === 'degraded'
+                        ">
+                    </span>
+
+                    <span>
+                        {{ item.label }}
+                    </span>
+
+                    <small>
+                        {{ item.status === 'degraded'
+                            ? 'Degraded'
+                            : 'Operational' }}
+                    </small>
+
+                </div>
+
+            }
+
+        </div>
+
+    </section>
+
+</div>

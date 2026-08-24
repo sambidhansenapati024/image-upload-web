@@ -1,29 +1,402 @@
-.search-container{
+:host {
+    display: block;
 
-    margin:30px 0;
+    --cv-primary: #4F6EF7;
+    --cv-purple: #9B5CF6;
+    --cv-bg: #FFFFFF;
+    --cv-bg-soft: #F6F7FC;
+    --cv-border: #E9EAF4;
+    --cv-text: #171A2B;
+    --cv-muted: #767C93;
+    --cv-glow: rgba(79, 110, 247, .15);
+}
+
+
+/* =========================================================
+   SEARCH CONTAINER
+========================================================= */
+
+.search-container {
+
+    position: relative;
+
+    margin: 30px 0;
+
+    width: 100%;
 
 }
 
-:host ::ng-deep .p-inputtext{
 
-    width:100%;
+/* =========================================================
+   SEARCH WRAPPER
+========================================================= */
 
-    background:#1E293B;
+.search-container::before {
 
-    border:1px solid #334155;
+    content: "";
 
-    color:white;
+    position: absolute;
 
-    border-radius:14px;
+    inset: -1px;
 
-    padding:14px;
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(79, 110, 247, .0),
+            rgba(79, 110, 247, .18),
+            rgba(155, 92, 246, .18),
+            rgba(79, 110, 247, .0)
+        );
+
+    background-size: 200% 100%;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity .3s ease;
+
+    animation:
+        searchBorderGlow 4s linear infinite;
 
 }
 
-:host ::ng-deep .p-inputtext:focus{
 
-    border-color:#3B82F6;
+/* =========================================================
+   PRIME ICON FIELD
+========================================================= */
 
-    box-shadow:0 0 15px rgba(37,99,235,.3);
+:host ::ng-deep .p-iconfield {
+
+    position: relative;
+
+    display: block;
+
+    width: 100%;
 
 }
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+:host ::ng-deep .p-inputtext {
+
+    width: 100%;
+
+    height: 50px;
+
+    box-sizing: border-box;
+
+    padding:
+        0 18px 0 48px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #F8F9FE
+        );
+
+    border: 1px solid var(--cv-border);
+
+    color: var(--cv-text);
+
+    border-radius: 14px;
+
+    font-size: 14px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .25s ease;
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+:host ::ng-deep .p-inputtext::placeholder {
+
+    color: #A2A8BD;
+
+    transition:
+        color .25s ease;
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+:host ::ng-deep .p-inputtext:hover {
+
+    border-color:
+        rgba(79, 110, 247, .35);
+
+    background: #FFFFFF;
+
+    box-shadow:
+        0 6px 20px
+        rgba(23, 26, 43, .05);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+:host ::ng-deep .p-inputtext:focus {
+
+    border-color:
+        var(--cv-primary);
+
+    background: #FFFFFF;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(79, 110, 247, .10),
+        0 8px 28px
+        rgba(79, 110, 247, .10);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   SEARCH ICON
+========================================================= */
+
+:host ::ng-deep .p-inputicon {
+
+    color:
+        var(--cv-muted);
+
+    font-size: 17px;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+
+}
+
+
+/* Icon focus state */
+
+.search-container:focus-within
+::ng-deep .p-inputicon {
+
+    color:
+        var(--cv-primary);
+
+    transform:
+        scale(1.08)
+        rotate(-5deg);
+
+}
+
+
+/* Icon hover */
+
+.search-container:hover
+::ng-deep .p-inputicon {
+
+    color:
+        var(--cv-primary);
+
+}
+
+
+/* =========================================================
+   FOCUS GLOW
+========================================================= */
+
+.search-container:focus-within::before {
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   SEARCH DECORATIVE ORB
+========================================================= */
+
+.search-container::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: 15px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .07),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    animation:
+        searchOrb 5s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes searchBorderGlow {
+
+    0% {
+
+        background-position:
+            200% 50%;
+
+    }
+
+    100% {
+
+        background-position:
+            -200% 50%;
+
+    }
+
+}
+
+
+@keyframes searchOrb {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(-50%)
+            scale(1);
+
+        opacity: .5;
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-50%)
+            scale(1.25);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .search-container {
+
+        margin: 20px 0;
+
+    }
+
+    :host ::ng-deep .p-inputtext {
+
+        height: 48px;
+
+        font-size: 13px;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .search-container {
+
+        margin: 16px 0;
+
+    }
+
+    :host ::ng-deep .p-inputtext {
+
+        height: 46px;
+
+        padding-left: 44px;
+
+        border-radius: 12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+:host ::ng-deep .p-inputtext:focus-visible {
+
+    outline:
+        2px solid
+        rgba(79, 110, 247, .35);
+
+    outline-offset: 2px;
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .01ms !important;
+
+    }
+
+}
+
+/* Remove */

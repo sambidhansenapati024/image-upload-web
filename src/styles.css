@@ -1,6 +1,17 @@
+/* =========================================================
+   GLOBAL APPLICATION STYLES
+   ========================================================= */
+
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 @import "./styles/theme.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
 
 * {
     margin: 0;
@@ -12,13 +23,32 @@ html,
 body {
     width: 100%;
     height: 100%;
-    font-family: "Inter", sans-serif;
-    background: var(--page-bg);
-    color: var(--text-primary);
+}
+
+html {
+    font-size: 16px;
 }
 
 body {
+    margin: 0;
+
+    font-family: "Inter", sans-serif;
+
+    background: var(--page-bg);
+    color: var(--text-primary);
+
     overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
 }
 
 a {
@@ -26,38 +56,991 @@ a {
     color: inherit;
 }
 
-button {
-    font-family: inherit;
-}
-
 .p-component {
     font-family: "Inter", sans-serif;
 }
 
-/* Themed scrollbar - Webkit browsers (Chrome, Edge, Safari) */
+
+/* =========================================================
+   GLOBAL SCROLLBAR
+   ========================================================= */
+
 ::-webkit-scrollbar {
-    width: 12px;   /* wider overall track to make room for the gap */
+    width: 12px;
     height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0F172A; /* matches your app background */
+    background: #F6F7FC;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #334155; /* matches your border color used throughout */
+    background-color: #E9EAF4;
     border-radius: 10px;
-    border: 3px solid #0F172A;  /* creates the gap - must match track background */
+
+    border: 3px solid #F6F7FC;
+
     background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #475569;
+    background-color: #C7CBE6;
 }
 
+
 /* Firefox */
+
 * {
     scrollbar-width: thin;
-    scrollbar-color: #334155 #0F172A;
+    scrollbar-color: #E9EAF4 #F6F7FC;
+}
+
+
+/* =========================================================
+   COMMON THEME VARIABLES
+   ========================================================= */
+
+:root {
+
+    --nf-bg: #F6F7FC;
+    --nf-panel: #FFFFFF;
+    --nf-border: #E9EAF4;
+
+    --nf-text: #171A2B;
+    --nf-text-muted: #767C93;
+    --nf-text-faint: #A2A8BD;
+
+    --nf-blue: #4F6EF7;
+    --nf-blue-light: rgba(79, 110, 247, 0.10);
+
+    --nf-violet: #9B5CF6;
+    --nf-violet-light: rgba(155, 92, 246, 0.10);
+
+    --nf-success: #16A34A;
+    --nf-success-light: rgba(22, 163, 74, 0.10);
+
+    --nf-warning: #D97706;
+    --nf-warning-light: rgba(217, 119, 6, 0.10);
+
+    --nf-error: #DC2626;
+    --nf-error-light: rgba(220, 38, 38, 0.10);
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.p-toast {
+    width: 380px !important;
+    z-index: 99999 !important;
+}
+
+
+/* Toast message */
+
+.p-toast .p-toast-message {
+    position: relative;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-left: 4px solid #4F6EF7 !important;
+
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 12px 32px rgba(23, 26, 43, 0.14),
+        0 2px 8px rgba(23, 26, 43, 0.05) !important;
+
+    margin-bottom: 14px;
+
+    overflow: hidden;
+}
+
+
+/* Toast content */
+
+.p-toast .p-toast-message-content {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 16px 16px 16px 14px;
+
+    background: #FFFFFF !important;
+}
+
+
+/* Toast icon */
+
+.p-toast .p-toast-message-icon {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+
+    flex-shrink: 0;
+
+    margin-top: 1px;
+}
+
+
+/* Toast text */
+
+.p-toast .p-toast-message-text {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+/* Toast title */
+
+.p-toast .p-toast-summary {
+    display: block;
+
+    margin: 0;
+
+    color: #171A2B !important;
+
+    font-size: 14.5px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+/* Toast message */
+
+.p-toast .p-toast-detail {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #767C93 !important;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* Toast close button */
+
+.p-toast .p-toast-close-button {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    margin-left: auto;
+
+    border: none !important;
+
+    border-radius: 50%;
+
+    background: transparent !important;
+
+    color: #767C93 !important;
+
+    cursor: pointer;
+
+    transition:
+        background .15s ease,
+        color .15s ease,
+        transform .15s ease;
+}
+
+.p-toast .p-toast-close-button:hover {
+    background: #F6F7FC !important;
+
+    color: #171A2B !important;
+
+    transform: scale(1.05);
+}
+
+
+/* Toast close icon */
+
+.p-toast .p-toast-close-icon {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TOAST SEVERITIES
+   ========================================================= */
+
+.p-toast .p-toast-message-success {
+    border-left-color: #16A34A !important;
+}
+
+.p-toast .p-toast-message-success .p-toast-message-icon {
+    color: #16A34A !important;
+}
+
+
+.p-toast .p-toast-message-info {
+    border-left-color: #4F6EF7 !important;
+}
+
+.p-toast .p-toast-message-info .p-toast-message-icon {
+    color: #4F6EF7 !important;
+}
+
+
+.p-toast .p-toast-message-warn {
+    border-left-color: #D97706 !important;
+}
+
+.p-toast .p-toast-message-warn .p-toast-message-icon {
+    color: #D97706 !important;
+}
+
+
+.p-toast .p-toast-message-error {
+    border-left-color: #DC2626 !important;
+}
+
+.p-toast .p-toast-message-error .p-toast-message-icon {
+    color: #DC2626 !important;
+}
+
+
+/* =========================================================
+   TOAST PROGRESS BAR
+   ========================================================= */
+
+.p-toast .p-progressbar {
+    height: 3px;
+
+    border-radius: 0;
+
+    background: transparent !important;
+}
+
+.p-toast .p-toast-message-success .p-progressbar-value {
+    background: #16A34A !important;
+}
+
+.p-toast .p-toast-message-info .p-progressbar-value {
+    background: #4F6EF7 !important;
+}
+
+.p-toast .p-toast-message-warn .p-progressbar-value {
+    background: #D97706 !important;
+}
+
+.p-toast .p-toast-message-error .p-progressbar-value {
+    background: #DC2626 !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG
+   ========================================================= */
+
+.p-confirmdialog {
+    width: 420px !important;
+
+    max-width: calc(100vw - 32px) !important;
+
+    background: #FFFFFF !important;
+
+    color: #171A2B !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 24px 60px rgba(23, 26, 43, 0.18),
+        0 8px 20px rgba(23, 26, 43, 0.06) !important;
+
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG HEADER
+   ========================================================= */
+
+.p-confirmdialog .p-dialog-header {
+    display: flex !important;
+
+    align-items: center !important;
+
+    padding: 22px 24px 12px !important;
+
+    background: #FFFFFF !important;
+
+    color: #171A2B !important;
+
+    border: none !important;
+}
+
+.p-confirmdialog .p-dialog-title {
+    color: #171A2B !important;
+
+    font-size: 18px !important;
+
+    font-weight: 700 !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG CLOSE BUTTON
+   ========================================================= */
+
+.p-confirmdialog .p-dialog-header-close {
+    width: 32px !important;
+    height: 32px !important;
+
+    margin-left: auto !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: none !important;
+
+    border-radius: 50% !important;
+
+    background: transparent !important;
+
+    color: #767C93 !important;
+}
+
+.p-confirmdialog .p-dialog-header-close:hover {
+    background: #F6F7FC !important;
+
+    color: #171A2B !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG CONTENT
+   ========================================================= */
+
+.p-confirmdialog .p-dialog-content {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 16px !important;
+
+    padding: 14px 24px 24px !important;
+
+    background: #FFFFFF !important;
+
+    color: #767C93 !important;
+
+    border: none !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG ICON
+   ========================================================= */
+
+.p-confirmdialog .p-confirmdialog-icon {
+    width: 44px !important;
+    height: 44px !important;
+
+    min-width: 44px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    background: rgba(217, 119, 6, 0.10) !important;
+
+    color: #D97706 !important;
+
+    font-size: 21px !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG MESSAGE
+   ========================================================= */
+
+.p-confirmdialog .p-confirmdialog-message {
+    flex: 1 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    color: #767C93 !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.6 !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG FOOTER
+   ========================================================= */
+
+.p-confirmdialog .p-dialog-footer {
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: flex-end !important;
+
+    gap: 10px !important;
+
+    padding: 16px 24px 20px !important;
+
+    background: #FFFFFF !important;
+
+    border-top: 1px solid #E9EAF4 !important;
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG BUTTONS
+   ========================================================= */
+
+.p-confirmdialog .p-button {
+    min-height: 40px !important;
+
+    padding: 9px 20px !important;
+
+    border-radius: 10px !important;
+
+    font-size: 14px !important;
+
+    font-weight: 600 !important;
+
+    font-family: "Inter", sans-serif !important;
+
+    transition:
+        background .15s ease,
+        border-color .15s ease,
+        transform .15s ease,
+        box-shadow .15s ease !important;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+   ========================================================= */
+
+.p-confirmdialog .p-confirmdialog-reject-button {
+    background: transparent !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    color: #171A2B !important;
+}
+
+.p-confirmdialog .p-confirmdialog-reject-button:hover {
+    background: #F6F7FC !important;
+
+    border-color: #C7CBE6 !important;
+
+    color: #171A2B !important;
+}
+
+
+/* =========================================================
+   ACCEPT BUTTON
+   ========================================================= */
+
+.p-confirmdialog .p-confirmdialog-accept-button {
+    background: linear-gradient(
+        135deg,
+        #4F6EF7,
+        #9B5CF6
+    ) !important;
+
+    border: none !important;
+
+    color: #FFFFFF !important;
+
+    box-shadow:
+        0 5px 14px rgba(79, 110, 247, 0.22) !important;
+}
+
+.p-confirmdialog .p-confirmdialog-accept-button:hover {
+    filter: brightness(1.06);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DANGER ACCEPT BUTTON
+   ========================================================= */
+
+.p-confirmdialog .p-confirmdialog-accept-button.p-button-danger {
+    background: #DC2626 !important;
+
+    border: 1px solid #DC2626 !important;
+
+    color: #FFFFFF !important;
+
+    box-shadow:
+        0 5px 14px rgba(220, 38, 38, 0.20) !important;
+}
+
+.p-confirmdialog .p-confirmdialog-accept-button.p-button-danger:hover {
+    background: #B91C1C !important;
+
+    border-color: #B91C1C !important;
+
+    filter: none;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CONFIRM DIALOG MASK
+   ========================================================= */
+
+.p-dialog-mask {
+    background: rgba(23, 26, 43, 0.42) !important;
+
+    backdrop-filter: blur(2px);
+}
+
+
+/* =========================================================
+   NOTIFICATION POPOVER
+   ========================================================= */
+
+.notification-popover.p-popover {
+    background: #FFFFFF !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-radius: 18px !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 20px 45px rgba(23, 26, 43, 0.16),
+        0 4px 12px rgba(23, 26, 43, 0.06) !important;
+
+    color: #171A2B !important;
+}
+
+
+/* Popover content wrapper */
+
+.notification-popover .p-popover-content {
+    padding: 0 !important;
+
+    background: #FFFFFF !important;
+
+    color: #171A2B !important;
+}
+
+
+/* Popover arrow */
+
+.notification-popover .p-popover-arrow {
+    background: #FFFFFF !important;
+
+    border-color: #E9EAF4 !important;
+}
+
+.notification-popover .p-popover-arrow::before {
+    background: #FFFFFF !important;
+
+    border-color: #E9EAF4 !important;
+}
+
+
+/* =========================================================
+   NOTIFICATION PANEL
+   ========================================================= */
+
+.notification-popover .notification-panel {
+    width: 384px;
+
+    max-height: 540px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #FFFFFF !important;
+
+    color: #171A2B !important;
+}
+
+
+/* =========================================================
+   MOBILE OVERLAYS
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .p-toast {
+        width: calc(100vw - 24px) !important;
+
+        max-width: 380px !important;
+    }
+
+    .p-confirmdialog {
+        width: calc(100vw - 32px) !important;
+
+        max-width: none !important;
+
+        margin: 16px !important;
+    }
+
+    .notification-popover .notification-panel {
+        width: min(384px, calc(100vw - 32px));
+    }
+
+}
+
+/* =========================================================
+   CLOUDVAULT ADMIN PROFILE POPOVER
+   ========================================================= */
+
+.admin-profile-popover {
+
+    width: 280px !important;
+
+    padding: 0 !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-radius: 18px !important;
+
+    background: #FFFFFF !important;
+
+    box-shadow:
+        0 20px 50px rgba(23, 26, 43, .14),
+        0 4px 14px rgba(23, 26, 43, .06) !important;
+
+    overflow: hidden !important;
+}
+
+
+/* PrimeNG content */
+
+.admin-profile-popover .p-popover-content {
+
+    padding: 8px !important;
+
+}
+
+
+/* =========================================================
+   PROFILE MENU
+   ========================================================= */
+
+.admin-profile-popover .admin-user-menu {
+
+    width: 100%;
+
+    color: #171A2B;
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+   ========================================================= */
+
+.admin-profile-popover .admin-user-menu-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 10px 16px;
+
+    margin-bottom: 4px;
+
+    border-bottom: 1px solid #E9EAF4;
+}
+
+
+.admin-profile-popover .admin-menu-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    color: #FFFFFF;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 6px 15px rgba(79, 110, 247, .20);
+}
+
+
+.admin-profile-popover .admin-menu-avatar img {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.admin-profile-popover .admin-menu-user-info {
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.admin-profile-popover .admin-menu-user-info h3 {
+
+    margin: 0;
+
+    color: #171A2B !important;
+
+    font-size: 13px;
+
+    line-height: 1.3;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.admin-profile-popover .admin-menu-user-info p {
+
+    margin: 4px 0 0;
+
+    color: #A2A8BD !important;
+
+    font-size: 10.5px;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   MENU ITEMS
+   ========================================================= */
+
+.admin-profile-popover .admin-user-menu-items {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.admin-profile-popover .admin-menu-item {
+
+    width: 100%;
+
+    min-height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    border: 1px solid transparent;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #4A4F63 !important;
+
+    font-size: 12.5px;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background .18s ease,
+        color .18s ease,
+        transform .18s ease;
+}
+
+
+.admin-profile-popover .admin-menu-item:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .07),
+            rgba(155, 92, 246, .05)
+        );
+
+    border-color: rgba(79, 110, 247, .10);
+
+    color: #171A2B !important;
+
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   MENU ICON
+   ========================================================= */
+
+.admin-profile-popover .menu-icon {
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: #F6F7FC;
+
+    color: #767C93;
+
+    transition:
+        background .18s ease,
+        color .18s ease;
+}
+
+
+.admin-profile-popover .admin-menu-item:hover .menu-icon {
+
+    background: rgba(79, 110, 247, .10);
+
+    color: #4F6EF7;
+}
+
+
+.admin-profile-popover .menu-icon i {
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.admin-profile-popover .menu-divider {
+
+    height: 1px;
+
+    margin: 5px 6px;
+
+    background: #E9EAF4;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.admin-profile-popover .admin-menu-item.logout {
+
+    color: #DC2626 !important;
+}
+
+
+.admin-profile-popover .admin-menu-item.logout .menu-icon {
+
+    background: rgba(239, 68, 68, .08);
+
+    color: #DC2626;
+}
+
+
+.admin-profile-popover .admin-menu-item.logout:hover {
+
+    background: rgba(239, 68, 68, .07);
+
+    border-color: rgba(239, 68, 68, .10);
+
+    color: #DC2626 !important;
+}
+
+
+/* =========================================================
+   POPOVER ARROW
+   ========================================================= */
+
+.admin-profile-popover::before {
+
+    border-bottom-color: #E9EAF4 !important;
 }

@@ -1,37 +1,337 @@
-:host{
-    display:block;
-}
+:host {
 
-.docs-search{
-
-    width:320px;
+    display: block;
 
 }
 
-.docs-search .p-input-icon-left{
 
-    width:100%;
+/* =========================================================
+   SEARCH CONTAINER
+========================================================= */
 
-}
+.docs-search {
 
-:host ::ng-deep input{
+    width:
+        320px;
 
-    width:100%;
-
-    background:#111827;
-
-    color:white;
-
-    border:1px solid #334155;
-
-    border-radius:10px;
+    position:
+        relative;
 
 }
 
-:host ::ng-deep input:focus{
 
-    border-color:#3B82F6;
+/* =========================================================
+   SEARCH WRAPPER
+========================================================= */
 
-    box-shadow:none;
+.search-wrapper {
+
+    position:
+        relative;
+
+    display:
+        block;
+
+    width:
+        100%;
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+:host ::ng-deep .search-wrapper input {
+
+    width:
+        100%;
+
+    height:
+        44px;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        0 15px 0 44px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #F6F7FC,
+            #FAFAFF
+        ) !important;
+
+    color:
+        #171A2B !important;
+
+    border:
+        1px solid #E9EAF4 !important;
+
+    border-radius:
+        12px;
+
+    outline:
+        none;
+
+    font-size:
+        13px;
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .3s ease,
+        transform .25s ease;
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+:host ::ng-deep .search-wrapper input::placeholder {
+
+    color:
+        #A2A8BD;
+
+    transition:
+        color .25s ease;
+
+}
+
+
+/* =========================================================
+   SEARCH ICON
+========================================================= */
+
+.search-icon {
+
+    position:
+        absolute;
+
+    left:
+        15px;
+
+    top:
+        50%;
+
+    z-index:
+        3;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        #767C93;
+
+    font-size:
+        15px;
+
+    pointer-events:
+        none;
+
+    transition:
+        color .25s ease,
+        transform .3s ease;
+
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+:host ::ng-deep .search-wrapper input:focus {
+
+    border-color:
+        #4F6EF7 !important;
+
+    background:
+        #FFFFFF !important;
+
+    box-shadow:
+        0 0 0 3px rgba(79, 110, 247, .10),
+        0 8px 25px rgba(79, 110, 247, .10);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.search-wrapper:focus-within .search-icon {
+
+    color:
+        #4F6EF7;
+
+    transform:
+        translateY(-50%)
+        scale(1.12);
+
+}
+
+
+/* =========================================================
+   FOCUS GLOW
+========================================================= */
+
+.search-glow {
+
+    position:
+        absolute;
+
+    inset:
+        -2px;
+
+    border-radius:
+        14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    opacity:
+        0;
+
+    z-index:
+        -1;
+
+    filter:
+        blur(8px);
+
+    transition:
+        opacity .3s ease;
+
+    pointer-events:
+        none;
+
+}
+
+
+.search-wrapper:focus-within .search-glow {
+
+    opacity:
+        .18;
+
+}
+
+
+/* =========================================================
+   SEARCH HOVER
+========================================================= */
+
+.search-wrapper:hover .search-icon {
+
+    color:
+        #4F6EF7;
+
+}
+
+
+:host ::ng-deep .search-wrapper:hover input {
+
+    border-color:
+        rgba(79, 110, 247, .3) !important;
+
+}
+
+
+/* =========================================================
+   ANIMATED SEARCH ICON
+========================================================= */
+
+.search-icon {
+
+    animation:
+        searchFloat 3s ease-in-out infinite;
+
+}
+
+
+.search-wrapper:focus-within .search-icon {
+
+    animation:
+        none;
+
+}
+
+
+@keyframes searchFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(-50%);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-55%);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .docs-search {
+
+        width:
+            100%;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    :host ::ng-deep .search-wrapper input {
+
+        height:
+            42px;
+
+        font-size:
+            12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .search-icon {
+
+        animation:
+            none !important;
+
+    }
+
+    :host ::ng-deep .search-wrapper input,
+    .search-icon,
+    .search-glow {
+
+        transition:
+            none !important;
+
+    }
 
 }

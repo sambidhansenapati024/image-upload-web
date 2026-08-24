@@ -1,17 +1,39 @@
 <div class="security-page">
 
+    <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <i class="pi pi-arrow-left"></i>
+
+        Back
+
+    </button>
+
+
     <div class="page-header">
 
-<h3>Password Security</h3>
+        <h3>
+            Password Security
+        </h3>
 
-<p>Manage your account password and security.</p>
+        <p>
+            Manage your account password and security.
+        </p>
 
     </div>
 
-    <app-change-password-card></app-change-password-card>
 
-      <app-two-factor-card></app-two-factor-card>
+    <app-change-password-card>
+    </app-change-password-card>
 
-    <app-active-sessions-card></app-active-sessions-card>
+
+    <app-two-factor-card>
+    </app-two-factor-card>
+
+
+    <app-active-sessions-card>
+    </app-active-sessions-card>
 
 </div>

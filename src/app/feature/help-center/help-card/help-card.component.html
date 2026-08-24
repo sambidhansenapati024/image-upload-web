@@ -1,6 +1,9 @@
 <div class="help-grid">
 
+    <!-- Documentation -->
     <div class="help-item">
+
+        <div class="help-glow"></div>
 
         <div class="help-icon">
             <i class="pi pi-book"></i>
@@ -8,10 +11,17 @@
 
         <div class="help-content">
 
-            <h3>Documentation</h3>
+            <span class="help-label">
+                LEARN
+            </span>
+
+            <h3>
+                Documentation
+            </h3>
 
             <p>
-                Learn how to upload files, manage storage, and use CloudVault features.
+                Learn how to upload files, manage storage, and use
+                CloudVault features.
             </p>
 
         </div>
@@ -22,12 +32,18 @@
             icon="pi pi-arrow-right"
             severity="secondary"
             variant="text"
-             (click)="goToDocumentation()">
+            class="help-arrow"
+            aria-label="Open Documentation"
+            (click)="goToDocumentation()">
         </button>
 
     </div>
 
+
+    <!-- Contact Support -->
     <div class="help-item">
+
+        <div class="help-glow"></div>
 
         <div class="help-icon">
             <i class="pi pi-comments"></i>
@@ -35,10 +51,17 @@
 
         <div class="help-content">
 
-            <h3>Contact Support</h3>
+            <span class="help-label">
+                ASSISTANCE
+            </span>
+
+            <h3>
+                Contact Support
+            </h3>
 
             <p>
-                Need help? Reach out to our support team for assistance.
+                Need help? Reach out to our support team for
+                assistance.
             </p>
 
         </div>
@@ -48,12 +71,18 @@
             type="button"
             icon="pi pi-arrow-right"
             severity="secondary"
-            variant="text">
+            variant="text"
+            class="help-arrow"
+            aria-label="Contact Support">
         </button>
 
     </div>
 
+
+    <!-- FAQ -->
     <div class="help-item">
+
+        <div class="help-glow"></div>
 
         <div class="help-icon">
             <i class="pi pi-question-circle"></i>
@@ -61,10 +90,17 @@
 
         <div class="help-content">
 
-            <h3>Frequently Asked Questions</h3>
+            <span class="help-label">
+                QUICK ANSWERS
+            </span>
+
+            <h3>
+                Frequently Asked Questions
+            </h3>
 
             <p>
-                Browse answers to the most common questions about CloudVault.
+                Browse answers to the most common questions about
+                CloudVault.
             </p>
 
         </div>
@@ -74,7 +110,9 @@
             type="button"
             icon="pi pi-arrow-right"
             severity="secondary"
-            variant="text">
+            variant="text"
+            class="help-arrow"
+            aria-label="View Frequently Asked Questions">
         </button>
 
     </div>

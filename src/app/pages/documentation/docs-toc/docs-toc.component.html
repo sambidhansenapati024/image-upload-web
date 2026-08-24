@@ -1,6 +1,26 @@
 <div class="docs-toc">
 
-    <h3>On this page</h3>
+    <div class="toc-header">
+
+        <div class="toc-icon">
+            <i class="pi pi-list"></i>
+        </div>
+
+        <div>
+            <span class="toc-eyebrow">
+                GUIDE
+            </span>
+
+            <h3>
+                On this page
+            </h3>
+        </div>
+
+    </div>
+
+
+    <div class="toc-divider"></div>
+
 
     <nav>
 
@@ -8,9 +28,21 @@
 
             @for (section of topic.sections; track section.heading) {
 
-<a (click)="scrollToSection(section.heading)">
-    {{ section.heading }}
-</a>
+                <a
+                    (click)="scrollToSection(section.heading)"
+                    class="toc-link">
+
+                    <span class="toc-dot"></span>
+
+                    <span class="toc-label">
+                        {{ section.heading }}
+                    </span>
+
+                    <i class="pi pi-arrow-right toc-arrow"></i>
+
+                    <span class="toc-glow"></span>
+
+                </a>
 
             }
 

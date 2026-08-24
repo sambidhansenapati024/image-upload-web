@@ -1,40 +1,101 @@
 <div class="danger-zone-card">
 
+    <!-- Animated decorative elements -->
+    <div class="danger-glow"></div>
+    <div class="danger-pulse"></div>
+
+
+    <!-- Header -->
     <div class="card-header">
 
-        <i class="pi pi-exclamation-triangle"></i>
+        <div class="header-icon">
+
+            <i class="pi pi-exclamation-triangle"></i>
+
+        </div>
 
         <div>
 
-            <h3>Danger Zone</h3>
+            <span class="eyebrow">
+                ACCOUNT ACTIONS
+            </span>
 
-            <p>Irreversible account actions</p>
+            <h3>
+                Danger Zone
+            </h3>
+
+            <p>
+                Irreversible account actions
+            </p>
 
         </div>
 
     </div>
 
-    <div class="danger-item">
 
-        <div>
+    <!-- Danger Content -->
 
-            <h4>Delete Account</h4>
+    <div class="danger-content">
 
-            <small>
-                Permanently delete your CloudVault account and all uploaded files.
-                This action cannot be undone.
-            </small>
+        <div class="danger-icon-wrapper">
+
+            <div class="danger-icon">
+
+                <i class="pi pi-trash"></i>
+
+            </div>
 
         </div>
 
-<button
-    pButton
-    type="button"
-    label="Coming Soon"
-    severity="danger"
-    variant="outlined"
-    [disabled]="true">
-</button>
+
+        <div class="danger-details">
+
+            <h4>
+                Delete Account
+            </h4>
+
+            <p>
+                Permanently delete your CloudVault account and all
+                uploaded files.
+            </p>
+
+            <div class="warning-message">
+
+                <i class="pi pi-info-circle"></i>
+
+                <span>
+                    This action cannot be undone.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            pButton
+            type="button"
+            label="Coming Soon"
+            icon="pi pi-clock"
+            severity="danger"
+            variant="outlined"
+            [disabled]="true"
+            class="danger-button">
+        </button>
+
+    </div>
+
+
+    <!-- Bottom warning -->
+
+    <div class="danger-footer">
+
+        <i class="pi pi-shield"></i>
+
+        <span>
+            Account deletion will permanently remove your data.
+        </span>
+
     </div>
 
 </div>

@@ -1,154 +1,954 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   ACCOUNT CARD
+========================================================= */
 
 .account-card {
-    background: var(--sidebar-bg);
-    border: 1px solid #334155;
-    border-radius: 16px;
-    padding: 24px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FCFCFF 65%,
+            #F8F7FF 100%
+        );
+
+    border:
+        1px solid #E9EAF4;
+
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        cardReveal .55s cubic-bezier(.22, 1, .36, 1);
+
 }
+
+
+.account-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(79, 110, 247, .18);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(79, 110, 247, .09);
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOWS
+========================================================= */
+
+.card-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(65px);
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    width: 190px;
+
+    height: 190px;
+
+    top: -120px;
+
+    right: -60px;
+
+    background:
+        rgba(79, 110, 247, .11);
+
+    animation:
+        glowOne 10s ease-in-out infinite;
+
+}
+
+
+.glow-two {
+
+    width: 160px;
+
+    height: 160px;
+
+    bottom: -110px;
+
+    left: 25%;
+
+    background:
+        rgba(155, 92, 246, .08);
+
+    animation:
+        glowTwo 12s ease-in-out infinite;
+
+}
+
+
+@keyframes glowOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-20px, 15px)
+            scale(1.15);
+
+    }
+
+}
+
+
+@keyframes glowTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(25px, -15px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .card-header {
+
+    position: relative;
+
+    z-index: 2;
+
     display: flex;
+
     align-items: center;
-    gap: 12px;
+
+    gap: 13px;
+
     margin-bottom: 24px;
+
 }
 
-.card-header i {
-    font-size: 20px;
-    color: #3B82F6;
+
+.header-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        );
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .10);
+
+    color: #4F6EF7;
+
+    animation:
+        iconFloat 4s ease-in-out infinite;
+
 }
+
+
+.header-icon i {
+
+    font-size: 19px;
+
+}
+
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
 
 .card-header h3 {
+
     margin: 0;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
+
+    color: #171A2B;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
 }
+
+
+/* =========================================================
+   ACCOUNT CONTENT
+========================================================= */
 
 .card-content {
+
+    position: relative;
+
+    z-index: 2;
+
     display: flex;
+
     flex-direction: column;
-    gap: 18px;
+
+    gap: 0;
+
+    padding: 4px 0;
+
 }
+
+
+/* =========================================================
+   INFO ROW
+========================================================= */
 
 .info-row {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #334155;
+
+    gap: 20px;
+
+    padding: 15px 0;
+
+    border-bottom:
+        1px solid #E9EAF4;
+
+    transition:
+        padding .25s ease,
+        background .25s ease;
+
 }
+
 
 .info-row:last-child {
+
     border-bottom: none;
-    padding-bottom: 0;
+
 }
+
+
+.info-row:hover {
+
+    padding-left: 6px;
+
+    padding-right: 6px;
+
+}
+
+
+.info-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+
+}
+
+
+.info-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background:
+        rgba(79, 110, 247, .07);
+
+    color: #4F6EF7;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+
+}
+
+
+.info-row:hover .info-icon {
+
+    transform:
+        scale(1.08)
+        rotate(-3deg);
+
+    background:
+        rgba(79, 110, 247, .12);
+
+}
+
+
+.info-icon i {
+
+    font-size: 14px;
+
+}
+
+
+.info-label > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+
+}
+
 
 .label {
-    color: #94A3B8;
-    font-size: 14px;
+
+    color: #171A2B;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
 }
+
+
+.info-label small {
+
+    color: #A2A8BD;
+
+    font-size: 9px;
+
+}
+
 
 .value {
-    color: white;
-    font-weight: 500;
+
+    color: #4A4F63;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-align: right;
+
 }
 
-/* ---------- Storage Section ---------- */
+
+.email-value {
+
+    max-width: 230px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   PLAN BADGE
+========================================================= */
+
+.plan-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+        6px 11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(79, 110, 247, .09);
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .12);
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.plan-badge i {
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   STORAGE SECTION
+========================================================= */
 
 .storage-section {
 
-    padding-top:20px;
-    border-top:1px solid #334155;
-    border-top: 1px solid #334155;
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 18px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #E9EAF4;
 
 }
+
 
 .storage-title {
 
     display: flex;
+
     align-items: center;
+
     gap: 10px;
 
-    margin-bottom: 20px;
-
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
+    margin-bottom: 15px;
 
 }
 
-.storage-title i {
 
-    color: #3B82F6;
-    font-size: 18px;
+.storage-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .08)
+        );
+
+    color: #4F6EF7;
 
 }
+
+
+.storage-icon i {
+
+    font-size: 15px;
+
+}
+
+
+.storage-title > div:last-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+
+}
+
+
+.storage-title span {
+
+    color: #171A2B;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.storage-title small {
+
+    color: #A2A8BD;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   STORAGE BOX
+========================================================= */
+
+.storage-box {
+
+    padding: 16px;
+
+    border-radius: 15px;
+
+    background:
+        #F8F9FD;
+
+    border:
+        1px solid #E9EAF4;
+
+}
+
 
 .storage-header {
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
-    margin-bottom: 12px;
-
-    color: white;
-    font-weight: 500;
+    margin-bottom: 11px;
 
 }
 
-.storage-footer {
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.storage-header span {
 
-    margin-top: 12px;
+    color: #767C93;
 
-}
-
-.storage-text {
-
-    color: #94A3B8;
-    font-size: 13px;
+    font-size: 11px;
 
 }
 
-.plan-badge {
 
-    background: rgba(59,130,246,.15);
-    color: #60A5FA;
+.storage-header strong {
 
-    padding: 4px 10px;
+    color: #171A2B;
 
-    border-radius: 999px;
-
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
 
 }
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.storage-progress-wrapper {
+
+    position: relative;
+
+}
+
+
 :host ::ng-deep .p-progressbar {
 
-    height: 10px;
+    height: 9px;
 
     border-radius: 999px;
 
-    background: #334155;
+    overflow: hidden;
+
+    background:
+        #E9EAF4;
 
 }
+
 
 :host ::ng-deep .p-progressbar-value {
 
     border-radius: 999px;
 
-background: linear-gradient(
-    90deg,
-    #3B82F6,
-    #38BDF8
-);
+    background:
+        linear-gradient(
+            90deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    transition:
+        width .8s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+.progress-glow {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 999px;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 0 15px
+        rgba(79, 110, 247, .10);
+
+}
+
+
+/* =========================================================
+   STORAGE FOOTER
+========================================================= */
+
+.storage-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 10px;
+
+}
+
+
+.storage-text {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #767C93;
+
+    font-size: 10px;
+
+}
+
+
+.storage-text i {
+
+    color: #22C55E;
+
+    font-size: 11px;
+
+}
+
+
+.storage-percent {
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.account-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 18px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+    color: #767C93;
+
+    font-size: 9px;
+
+}
+
+
+.account-footer > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+.account-footer > div i {
+
+    color: #4F6EF7;
+
+    font-size: 11px;
+
+}
+
+
+.account-footer > i {
+
+    color: #A2A8BD;
+
+    font-size: 12px;
+
+    animation:
+        cloudFloat 4s ease-in-out infinite;
+
+}
+
+
+@keyframes cloudFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .account-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .info-row {
+
+        align-items: flex-start;
+
+    }
+
+
+    .value {
+
+        max-width: 45%;
+
+    }
+
+
+    .email-value {
+
+        white-space: normal;
+
+        word-break: break-word;
+
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .info-row {
+
+        flex-direction: column;
+
+        gap: 8px;
+
+    }
+
+
+    .value {
+
+        align-self: flex-end;
+
+        max-width: 100%;
+
+    }
+
+
+    .email-value {
+
+        text-align: right;
+
+    }
+
+
+    .account-footer > i {
+
+        display: none;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .account-card *,
+    .account-card *::before,
+    .account-card *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
 
 }

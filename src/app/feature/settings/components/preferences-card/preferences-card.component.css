@@ -1,75 +1,853 @@
 :host {
+
     display: block;
+
 }
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
 
 .preferences-card {
-    background: var(--sidebar-bg);
-    border: 1px solid #334155;
-    border-radius: 16px;
-    padding: 24px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FCFCFF 70%,
+            #F9F8FF 100%
+        );
+
+    border:
+        1px solid #E9EAF4;
+
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    animation:
+        preferencesReveal .55s cubic-bezier(.22, 1, .36, 1);
+
 }
+
+
+.preferences-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(79, 110, 247, .20);
+
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(79, 110, 247, .08);
+
+}
+
+
+@keyframes preferencesReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+========================================================= */
+
+.preference-glow {
+
+    position: absolute;
+
+    width: 240px;
+
+    height: 240px;
+
+    right: -130px;
+
+    top: -140px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(79, 110, 247, .10);
+
+    filter:
+        blur(65px);
+
+    pointer-events: none;
+
+    animation:
+        preferenceGlow 9s ease-in-out infinite;
+
+}
+
+
+@keyframes preferenceGlow {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+        opacity: .6;
+
+    }
+
+    50% {
+
+        transform:
+            translate(-25px, 20px)
+            scale(1.2);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   FLOATING DOTS
+========================================================= */
+
+.floating-dot {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+}
+
+
+.dot-one {
+
+    width: 6px;
+
+    height: 6px;
+
+    top: 28px;
+
+    right: 34px;
+
+    background:
+        #4F6EF7;
+
+    opacity: .45;
+
+    animation:
+        floatingDotOne 4s ease-in-out infinite;
+
+}
+
+
+.dot-two {
+
+    width: 4px;
+
+    height: 4px;
+
+    right: 58px;
+
+    top: 48px;
+
+    background:
+        #9B5CF6;
+
+    opacity: .35;
+
+    animation:
+        floatingDotTwo 5s ease-in-out infinite;
+
+}
+
+
+@keyframes floatingDotOne {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-7px);
+
+    }
+
+}
+
+
+@keyframes floatingDotTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-5px, 8px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .card-header {
+
+    position: relative;
+
+    z-index: 2;
+
     display: flex;
+
     align-items: center;
-    gap: 14px;
-    margin-bottom: 24px;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+
 }
 
-.card-header i {
-    font-size: 22px;
-    color: #3B82F6;
+
+.header-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .12),
+            rgba(155, 92, 246, .10)
+        );
+
+    border:
+        1px solid rgba(79, 110, 247, .12);
+
+    color:
+        #4F6EF7;
+
+    animation:
+        settingsFloat 4s ease-in-out infinite;
+
 }
+
+
+.header-icon i {
+
+    font-size: 19px;
+
+}
+
+
+@keyframes settingsFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px)
+            rotate(4deg);
+
+    }
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color:
+        #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
 
 .card-header h3 {
+
     margin: 0;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
+
+    color:
+        #171A2B;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
 }
+
 
 .card-header p {
-    margin-top: 4px;
-    color: #94A3B8;
-    font-size: 13px;
+
+    margin: 3px 0 0;
+
+    color:
+        #767C93;
+
+    font-size: 11px;
+
 }
+
+
+/* =========================================================
+   PREFERENCE LIST
+========================================================= */
+
+.preferences-list {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/* =========================================================
+   PREFERENCE ITEM
+========================================================= */
 
 .preference-item {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid #334155;
+
+    gap: 16px;
+
+    padding:
+        15px 6px;
+
+    border-bottom:
+        1px solid #E9EAF4;
+
+    transition:
+        background .25s ease,
+        padding .25s ease,
+        transform .25s ease;
+
 }
+
 
 .preference-item:last-child {
-    border-bottom: none;
+
+    border-bottom:
+        none;
+
 }
 
-.preference-item h4 {
-    margin: 0;
-    color: white;
+
+.preference-item:hover {
+
+    padding-left:
+        10px;
+
+    padding-right:
+        10px;
+
+    background:
+        rgba(79, 110, 247, .025);
+
+    border-radius:
+        12px;
+
+}
+
+
+.preference-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-width: 0;
+
+}
+
+
+/* =========================================================
+   PREFERENCE ICON
+========================================================= */
+
+.preference-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background:
+        #F6F7FC;
+
+    border:
+        1px solid #E9EAF4;
+
+    color:
+        #767C93;
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease;
+
+}
+
+
+.preference-item:hover .preference-icon {
+
+    transform:
+        scale(1.08)
+        rotate(-4deg);
+
+    background:
+        rgba(79, 110, 247, .09);
+
+    border-color:
+        rgba(79, 110, 247, .16);
+
+    color:
+        #4F6EF7;
+
+}
+
+
+.preference-icon i {
+
     font-size: 15px;
+
 }
 
-.preference-item small {
-    color: #94A3B8;
+
+/* Active preference */
+
+.active-icon {
+
+    background:
+        rgba(34, 197, 94, .09);
+
+    border-color:
+        rgba(34, 197, 94, .15);
+
+    color:
+        #16A34A;
+
 }
+
+
+.active-preference:hover .active-icon {
+
+    background:
+        rgba(34, 197, 94, .13);
+
+    border-color:
+        rgba(34, 197, 94, .20);
+
+    color:
+        #15803D;
+
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.preference-details {
+
+    min-width: 0;
+
+}
+
+
+.preference-details h4 {
+
+    margin:
+        0 0 3px;
+
+    color:
+        #171A2B;
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+}
+
+
+.preference-details small {
+
+    display:
+        block;
+
+    color:
+        #767C93;
+
+    font-size:
+        10.5px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.status-badge {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+    flex-shrink:
+        0;
+
+    padding:
+        5px 10px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.status-badge i {
+
+    font-size:
+        9px;
+
+}
+
+
+/* Coming soon */
 
 .coming-soon {
-    background: rgba(245, 158, 11, 0.15);
-    color: #FBBF24;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
+
+    background:
+        rgba(245, 158, 11, .10);
+
+    color:
+        #B45309;
+
+    border:
+        1px solid rgba(245, 158, 11, .10);
+
 }
 
+
+/* Enabled */
+
 .enabled {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ADE80;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
+
+    background:
+        rgba(34, 197, 94, .10);
+
+    color:
+        #15803D;
+
+    border:
+        1px solid rgba(34, 197, 94, .12);
+
+}
+
+
+/* =========================================================
+   ENABLED DOT
+========================================================= */
+
+.status-dot {
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        50%;
+
+    background:
+        #22C55E;
+
+    box-shadow:
+        0 0 0 0 rgba(34, 197, 94, .35);
+
+    animation:
+        enabledPulse 2s infinite;
+
+}
+
+
+@keyframes enabledPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0 rgba(34, 197, 94, .35);
+
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 6px rgba(34, 197, 94, 0);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0 rgba(34, 197, 94, 0);
+
+    }
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.preferences-footer {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    margin-top:
+        15px;
+
+    padding-top:
+        13px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+    color:
+        #A2A8BD;
+
+    font-size:
+        9px;
+
+}
+
+
+.preferences-footer i {
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        10px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .preferences-card {
+
+        padding:
+            20px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .preference-item {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .status-badge {
+
+        margin-top:
+            3px;
+
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .preference-item {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        gap:
+            10px;
+
+    }
+
+
+    .status-badge {
+
+        margin-left:
+            51px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .preferences-card *,
+    .preferences-card *::before,
+    .preferences-card *::after {
+
+        animation:
+            none !important;
+
+        transition:
+            none !important;
+
+    }
+
 }

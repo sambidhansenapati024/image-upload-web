@@ -35,7 +35,7 @@ export class GalleryPageComponent implements OnInit {
   images: ImageResponse[] = [];
   page = 0;
   totalRecords = 0;
-  size = 2;
+  size = 4;
   loading = false;
   sortBy = 'uploadedAt';
   showEditor = false;

@@ -1,145 +1,289 @@
-<div class="notification-trigger" (click)="notificationPopover.toggle($event)">
+<div
+    class="notification-trigger"
+    (click)="notificationPopover.toggle($event)"
+    aria-label="Notifications">
 
     <i class="pi pi-bell"></i>
 
     @if (notificationService.getUnreadCount() > 0) {
 
-    <p-badge styleClass="notification-badge" [value]="notificationService.getUnreadCount()" severity="danger">
-    </p-badge>
+        <span class="notification-count">
+
+            {{ notificationService.getUnreadCount() > 99
+                ? '99+'
+                : notificationService.getUnreadCount() }}
+
+        </span>
 
     }
 
 </div>
 
-<p-popover #notificationPopover styleClass="notification-popover">
+
+<p-popover
+    #notificationPopover
+    styleClass="notification-popover">
 
     <div class="notification-panel">
 
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
         <div class="notification-header">
 
-            <div class="header-title">
+            <div class="header-left">
 
-                <i class="pi pi-bell"></i>
+                <div class="header-icon-ring">
 
-                <span>Notifications</span>
+                    <i class="pi pi-bell"></i>
+
+                </div>
+
+                <div class="header-text">
+
+                    <h3>Notifications</h3>
+
+                    <span class="header-sub">
+
+                        @if (notificationService.getUnreadCount() > 0) {
+
+                            {{ notificationService.getUnreadCount() }}
+                            unread notification{{ notificationService.getUnreadCount() > 1 ? 's' : '' }}
+
+                        } @else {
+
+                            You're all caught up
+
+                        }
+
+                    </span>
+
+                </div>
 
             </div>
+
 
             <div class="header-actions">
 
-                <button pButton text rounded icon="pi pi-check" pTooltip="Mark all as read" (click)="markAllAsRead()">
-                </button>
+                @if (notificationService.getUnreadCount() > 0) {
 
-                <button pButton text rounded severity="danger" icon="pi pi-trash" pTooltip="Clear all"
-                    (click)="clearAll()">
-                </button>
+                    <button
+                        pButton
+                        text
+                        rounded
+                        icon="pi pi-check"
+                        pTooltip="Mark all as read"
+                        tooltipPosition="bottom"
+                        class="header-action-btn"
+                        (click)="markAllAsRead()">
+                    </button>
+
+                }
+
+                @if (notificationService.getNotifications().length > 0) {
+
+                    <button
+                        pButton
+                        text
+                        rounded
+                        severity="danger"
+                        icon="pi pi-trash"
+                        pTooltip="Clear all"
+                        tooltipPosition="bottom"
+                        class="header-action-btn danger"
+                        (click)="clearAll()">
+                    </button>
+
+                }
 
             </div>
 
         </div>
+
+
+        <!-- =====================================================
+             TABS
+        ====================================================== -->
 
         <div class="notification-tabs">
 
-            <button [class.active]="activeTab === 'ALL'" (click)="activeTab = 'ALL'">
+            <button
+                [class.active]="activeTab === 'ALL'"
+                (click)="activeTab = 'ALL'">
 
-                All ({{ notificationService.getNotifications().length }})
+                <span>All</span>
+
+                <small>
+                    {{ notificationService.getNotifications().length }}
+                </small>
 
             </button>
 
-            <button [class.active]="activeTab === 'UNREAD'" (click)="activeTab = 'UNREAD'">
 
-                Unread ({{ notificationService.getUnreadCount() }})
+            <button
+                [class.active]="activeTab === 'UNREAD'"
+                (click)="activeTab = 'UNREAD'">
+
+                <span>Unread</span>
+
+                <small class="unread-count">
+
+                    {{ notificationService.getUnreadCount() }}
+
+                </small>
 
             </button>
 
-            <button [class.active]="activeTab === 'READ'" (click)="activeTab = 'READ'">
 
-                Read ({{ notificationService.getNotifications().length - notificationService.getUnreadCount() }})
+            <button
+                [class.active]="activeTab === 'READ'"
+                (click)="activeTab = 'READ'">
+
+                <span>Read</span>
+
+                <small>
+
+                    {{
+                        notificationService.getNotifications().length
+                        - notificationService.getUnreadCount()
+                    }}
+
+                </small>
 
             </button>
 
         </div>
 
-        <div class="notification-list">
 
-           @for (notification of filteredNotifications; track notification.id) {
+        <!-- =====================================================
+             NOTIFICATION LIST
+        ====================================================== -->
 
-            <div class="notification-card" [class.notification-card--unread]="!notification.read"
-                (click)="openNotification(notification)">
+        <div class="notification-timeline">
 
-                <button pButton text rounded severity="danger" icon="pi pi-times" class="delete-btn"
-                    pTooltip="Clear notification" (click)="removeNotification(notification.id, $event)">
-                </button>
 
-                <!-- Icon -->
+            @for (
+                notification of filteredNotifications;
+                track notification.id
+            ) {
 
-                <div class="notification-icon">
-                
-                    <i [class]="getNotificationIcon(notification.actionType)">
-                    </i>
-                
-                </div>
 
-                <!-- Content -->
+                <div
+                    class="timeline-item"
+                    [class.unread]="!notification.read"
+                    (click)="openNotification(notification)">
 
-                <div class="notification-content">
 
-                    <div class="notification-top">
+                    <!-- Delete -->
 
-                        <span class="notification-title">
+                    <button
+                        pButton
+                        text
+                        rounded
+                        severity="danger"
+                        icon="pi pi-times"
+                        class="delete-btn"
+                        pTooltip="Clear notification"
+                        tooltipPosition="left"
+                        (click)="removeNotification(notification.id, $event)">
+                    </button>
 
-                              {{ getNotificationTitle(notification.actionType) }}
 
-                            @if (!notification.read) {
-                            <span class="unread-dot" aria-hidden="true"></span>
-                            }
+                    <!-- Timeline node -->
 
-                        </span>
+                    <div
+                        class="timeline-node"
+                        [class]="getNotificationSeverity(notification.actionType)">
 
-                        <small class="notification-time">
-
-                           {{ getRelativeTime(notification.createdAt) }}
-
-                        </small>
+                        <i
+                            [class]="getNotificationIcon(notification.actionType)">
+                        </i>
 
                     </div>
 
-                    <p class="notification-message">
 
-                        {{ notification.message }}
+                    <!-- Content -->
 
-                    </p>
+                    <div class="timeline-content">
 
-                    <!-- @if (notification.actionText) {
 
-                    <a [routerLink]="notification.actionUrl" class="notification-action">
+                        <div class="timeline-top">
 
-                        {{ notification.actionText }}
+                            <span class="timeline-title">
 
-                        <i class="pi pi-arrow-right"></i>
+                                {{ getNotificationTitle(notification.actionType) }}
 
-                    </a>
+                                @if (!notification.read) {
 
-                    } -->
+                                    <span
+                                        class="unread-dot"
+                                        aria-hidden="true">
+                                    </span>
+
+                                }
+
+                            </span>
+
+
+                            <small class="timeline-time">
+
+                                {{ getRelativeTime(notification.createdAt) }}
+
+                            </small>
+
+                        </div>
+
+
+                        <p class="timeline-message">
+
+                            {{ notification.message }}
+
+                        </p>
+
+
+                    </div>
 
                 </div>
 
-            </div>
+            }
 
-            } @empty {
 
-            <div class="notification-empty">
-                <i class="pi pi-bell"></i>
-                <span>You're all caught up</span>
-            </div>
+            @empty {
+
+                <div class="notification-empty">
+
+                    <div class="empty-icon">
+
+                        <i class="pi pi-check"></i>
+
+                    </div>
+
+                    <strong>You're all caught up</strong>
+
+                    <span>
+                        No new notifications right now.
+                    </span>
+
+                </div>
 
             }
 
         </div>
 
-        <div class="notification-footer">
 
-            View All Notifications
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <div
+            class="notification-footer">
+
+            <span>
+                View all notifications
+            </span>
+
             <i class="pi pi-arrow-right"></i>
 
         </div>

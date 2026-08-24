@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, interval, forkJoin } from 'rxjs';
 import { VersionInfo } from '../shared/modal/version-info';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class VersionServiceService {
     // Read both versions once
     forkJoin({
       frontend: this.http.get<any>('/version.json'),
-      backend: this.http.get<any>('https://api.cloudv.net.in/image-upload/version')
+      backend: this.http.get<any>(`${environment.apiUrl}/image-upload/version`)
     }).subscribe(res => {
 
       this.frontendInfo = res.frontend;
@@ -50,7 +51,7 @@ export class VersionServiceService {
 
     forkJoin({
       frontend: this.http.get<any>('/version.json?ts=' + Date.now()),
-      backend: this.http.get<any>('https://api.cloudv.net.in/image-upload/version?ts=' + Date.now())
+      backend: this.http.get<any>(`${environment.apiUrl}/image-upload/version?ts=${Date.now()}`)
     }).subscribe(res => {
 
       const frontendChanged =
