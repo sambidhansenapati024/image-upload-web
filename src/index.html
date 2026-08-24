@@ -7,12 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script type="application/javascript">
-  var global = window;
-</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!--
+    ============================================================
+    Browser compatibility
+    ============================================================
+    Some browser dependencies (onnxruntime-web, transformers.js)
+    expect Node's `global` and `process` globals. This must run
+    as a classic synchronous script (not type="module") so it
+    executes before the deferred Angular module bundles load.
+  -->
+  <script>
+    var global = window;
+    var process = { env: {} };
+  </script>
 </head>
 <body>
   <app-root></app-root>
