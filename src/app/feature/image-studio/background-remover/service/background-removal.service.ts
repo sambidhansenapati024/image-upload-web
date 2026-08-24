@@ -9,41 +9,46 @@ import {
   env,
 } from '@huggingface/transformers';
 
-
 /*
  * ============================================================
  * TRANSFORMERS.JS BROWSER CONFIGURATION
  * ============================================================
  */
 
-/*
- * Models are downloaded from Hugging Face.
- */
+// Models are downloaded from Hugging Face.
 env.allowLocalModels = false;
 env.allowRemoteModels = true;
 
 /*
- * Cache downloaded models in the browser whenever possible.
- */
-env.useBrowserCache = true;
-
-if (env.backends?.onnx?.wasm) {
-
-  // Don't use a separate WASM worker for now.
-  env.backends.onnx.wasm.proxy = false;
-
-  // WASM files are served by Angular from /public/ort/
-  // which becomes /ort/ after ng build.
-  env.backends.onnx.wasm.wasmPaths = '/ort/';
-}
-
-/*
- * WASM configuration.
+ * ============================================================
+ * ONNX WASM CONFIGURATION
+ * ============================================================
  *
- * Proxy keeps the WASM work away from the main UI thread.
+ * The ONNX WASM runtime files are copied to:
+ *
+ * public/ort/
+ *
+ * Angular serves that folder as:
+ *
+ * /ort/
+ *
+ * We use WASM only for now.
+ *
+ * We intentionally DO NOT use WebGPU fallback because your
+ * production deployment was reporting:
+ *
+ * "no available backend found"
+ *
+ * when WebGPU was attempted.
  */
+
 if (env.backends?.onnx?.wasm) {
+
+  // Run WASM directly instead of using a separate worker.
   env.backends.onnx.wasm.proxy = false;
+
+  // Tell ONNX Runtime exactly where the WASM files are.
+  env.backends.onnx.wasm.wasmPaths = '/ort/';
 }
 
 
@@ -69,41 +74,9 @@ export class BackgroundRemovalService {
     }> | null = null;
 
   /*
-   * Always start with WASM.
-   *
-   * This is intentional.
-   *
-   * Your deployed application was failing when WebGPU was
-   * selected even though navigator.gpu existed.
+   * We intentionally use WASM only.
    */
-  private device: 'webgpu' | 'wasm' = 'wasm';
-
-
-  /*
-   * ============================================================
-   * WEBGPU CHECK
-   * ============================================================
-   */
-
-  private isWebGPUPossiblyAvailable(): boolean {
-
-    if (typeof window === 'undefined') {
-      return false;
-    }
-
-    if (typeof navigator === 'undefined') {
-      return false;
-    }
-
-    /*
-     * Just checking navigator.gpu isn't enough to guarantee
-     * that WebGPU can actually create a working device.
-     *
-     * This function is only used as an optional optimization.
-     */
-    return 'gpu' in navigator &&
-      !!(navigator as any).gpu;
-  }
+  private device: 'wasm' = 'wasm';
 
 
   /*
@@ -118,8 +91,11 @@ export class BackgroundRemovalService {
   }> {
 
     /*
-     * Already loaded.
+     * ----------------------------------------------------------
+     * Already loaded
+     * ----------------------------------------------------------
      */
+
     if (
       this.model &&
       this.processor
@@ -129,29 +105,31 @@ export class BackgroundRemovalService {
         model: this.model,
         processor: this.processor,
       };
+
     }
 
 
     /*
-     * Another load operation is already running.
+     * ----------------------------------------------------------
+     * Prevent duplicate model loading
+     * ----------------------------------------------------------
      */
+
     if (this.loadingPromise) {
       return this.loadingPromise;
     }
 
 
     /*
-     * ========================================================
+     * ----------------------------------------------------------
      * MODEL LOADER
-     * ========================================================
+     * ----------------------------------------------------------
      */
 
-    const tryLoad = async (
-      device: 'webgpu' | 'wasm'
-    ) => {
+    const tryLoad = async () => {
 
       console.log(
-        `Loading RMBG-1.4 using ${device.toUpperCase()}...`
+        'Loading RMBG-1.4 using WASM...'
       );
 
 
@@ -165,15 +143,22 @@ export class BackgroundRemovalService {
         await AutoModel.from_pretrained(
           'briaai/RMBG-1.4',
           {
+
             /*
              * RMBG-1.4's config.json cannot be automatically
              * mapped to a standard pipeline task.
              */
+
             config: {
               model_type: 'custom',
             } as any,
 
-            device,
+            /*
+             * IMPORTANT:
+             *
+             * WASM only.
+             */
+            device: 'wasm',
           }
         );
 
@@ -188,10 +173,15 @@ export class BackgroundRemovalService {
         await AutoProcessor.from_pretrained(
           'briaai/RMBG-1.4',
           {
+
             config: {
+
               do_normalize: true,
+
               do_pad: false,
+
               do_rescale: true,
+
               do_resize: true,
 
               image_mean: [
@@ -220,148 +210,84 @@ export class BackgroundRemovalService {
               },
 
             } as any,
+
           }
         );
 
 
       /*
-       * Remember the backend that successfully loaded.
+       * --------------------------------------------------------
+       * Save successful model + processor
+       * --------------------------------------------------------
        */
-      this.device = device;
+
+      this.model = model;
+
+      this.processor = processor;
+
+      this.device = 'wasm';
+
+
+      console.log(
+        'RMBG-1.4 successfully loaded using WASM.'
+      );
 
 
       return {
         model,
         processor,
       };
+
     };
 
 
     /*
-     * ========================================================
-     * LOADING STRATEGY
-     * ========================================================
-     *
-     * IMPORTANT:
-     *
-     * WASM is our reliable production backend.
-     *
-     * WebGPU is optional.
-     *
-     * We don't want a WebGPU failure to break the entire
-     * background-removal feature.
+     * ==========================================================
+     * WASM ONLY LOADING
+     * ==========================================================
      */
 
-    this.loadingPromise = (async () => {
+    this.loadingPromise =
+      (async () => {
 
-      /*
-       * ------------------------------------------------------
-       * PRODUCTION-SAFE OPTION
-       * ------------------------------------------------------
-       *
-       * Start with WASM.
-       *
-       * This avoids the exact WebGPU problem you're seeing
-       * after deployment.
-       */
+        try {
 
-      try {
-
-        console.log(
-          'Starting background removal with WASM...'
-        );
-
-        const result =
-          await tryLoad('wasm');
-
-        this.model =
-          result.model;
-
-        this.processor =
-          result.processor;
-
-        this.device =
-          'wasm';
-
-        console.log(
-          'RMBG-1.4 successfully loaded using WASM.'
-        );
-
-        return result;
-
-      } catch (wasmError) {
-
-        console.error(
-          'WASM backend failed:',
-          wasmError
-        );
-
-        /*
-         * ----------------------------------------------------
-         * OPTIONAL WEBGPU FALLBACK
-         * ----------------------------------------------------
-         *
-         * If WASM fails, we can still attempt WebGPU.
-         */
-
-        if (
-          this.isWebGPUPossiblyAvailable()
-        ) {
-
-          console.warn(
-            'WASM failed. Trying WebGPU as a fallback...'
+          console.log(
+            'Starting background removal with WASM...'
           );
 
-          try {
+          const result =
+            await tryLoad();
 
-            const result =
-              await tryLoad('webgpu');
+          return result;
 
-            this.model =
-              result.model;
+        } catch (error) {
 
-            this.processor =
-              result.processor;
+          console.error(
+            'WASM backend failed:',
+            error
+          );
 
-            this.device =
-              'webgpu';
+          /*
+           * Do NOT attempt WebGPU.
+           *
+           * The production environment was previously
+           * failing during WebGPU initialization.
+           */
 
-            console.log(
-              'RMBG-1.4 successfully loaded using WebGPU.'
-            );
+          throw new Error(
+            'Background removal AI could not initialize using WASM.'
+          );
 
-            return result;
-
-          } catch (webGpuError) {
-
-            console.error(
-              'WebGPU fallback also failed:',
-              webGpuError
-            );
-
-            throw new Error(
-              'Background removal AI could not initialize. ' +
-              'Both WASM and WebGPU backends failed.'
-            );
-          }
         }
 
-        /*
-         * No WebGPU available.
-         */
-        throw new Error(
-          'Background removal AI could not initialize. ' +
-          'The WASM backend failed and WebGPU is unavailable.'
-        );
-      }
-
-    })();
+      })();
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * HANDLE LOADING FAILURE
-     * ========================================================
+     * ==========================================================
      */
 
     try {
@@ -371,8 +297,10 @@ export class BackgroundRemovalService {
     } catch (error) {
 
       /*
-       * Allow retryModelLoading() to work again.
+       * Allow the component's retryModelLoading()
+       * to attempt loading again.
        */
+
       this.loadingPromise = null;
 
       this.model = null;
@@ -380,7 +308,9 @@ export class BackgroundRemovalService {
       this.processor = null;
 
       throw error;
+
     }
+
   }
 
 
@@ -397,9 +327,10 @@ export class BackgroundRemovalService {
     /*
      * Make sure the model exists.
      */
+
     const {
       model,
-      processor
+      processor,
     } = await this.loadModel();
 
 
@@ -409,9 +340,9 @@ export class BackgroundRemovalService {
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * LOAD IMAGE
-     * ========================================================
+     * ==========================================================
      */
 
     const url =
@@ -427,37 +358,38 @@ export class BackgroundRemovalService {
     } finally {
 
       URL.revokeObjectURL(url);
+
     }
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * PRE-PROCESS
-     * ========================================================
+     * ==========================================================
      */
 
     const {
-      pixel_values
+      pixel_values,
     } = await processor(image);
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * MODEL INFERENCE
-     * ========================================================
+     * ==========================================================
      */
 
     const {
-      output
+      output,
     } = await model({
-      input: pixel_values
+      input: pixel_values,
     });
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * CREATE ALPHA MASK
-     * ========================================================
+     * ==========================================================
      */
 
     const maskTensor =
@@ -476,9 +408,9 @@ export class BackgroundRemovalService {
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * CREATE TRANSPARENT CANVAS
-     * ========================================================
+     * ==========================================================
      */
 
     const canvas =
@@ -500,12 +432,14 @@ export class BackgroundRemovalService {
       throw new Error(
         'Could not get canvas context.'
       );
+
     }
 
 
     /*
      * Draw original image.
      */
+
     ctx.drawImage(
       image.toCanvas(),
       0,
@@ -514,9 +448,9 @@ export class BackgroundRemovalService {
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * APPLY ALPHA MASK
-     * ========================================================
+     * ==========================================================
      */
 
     const pixelData =
@@ -538,6 +472,7 @@ export class BackgroundRemovalService {
         4 * i + 3
       ] =
         mask.data[i];
+
     }
 
 
@@ -549,9 +484,9 @@ export class BackgroundRemovalService {
 
 
     /*
-     * ========================================================
+     * ==========================================================
      * EXPORT PNG
-     * ========================================================
+     * ==========================================================
      */
 
     return await new Promise<Blob>(
@@ -571,6 +506,7 @@ export class BackgroundRemovalService {
                   'Failed to create PNG blob from canvas.'
                 )
               );
+
             }
 
           },
@@ -579,5 +515,7 @@ export class BackgroundRemovalService {
 
       }
     );
+
   }
+
 }
