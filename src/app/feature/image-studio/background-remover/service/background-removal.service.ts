@@ -9,46 +9,30 @@ import {
   env,
 } from '@huggingface/transformers';
 
-/*
- * ============================================================
- * TRANSFORMERS.JS BROWSER CONFIGURATION
- * ============================================================
- */
 
-// Models are downloaded from Hugging Face.
+// ============================================================
+// Transformers.js browser configuration
+// ============================================================
+
 env.allowLocalModels = false;
+
 env.allowRemoteModels = true;
 
-/*
- * ============================================================
- * ONNX WASM CONFIGURATION
- * ============================================================
- *
- * The ONNX WASM runtime files are copied to:
- *
- * public/ort/
- *
- * Angular serves that folder as:
- *
- * /ort/
- *
- * We use WASM only for now.
- *
- * We intentionally DO NOT use WebGPU fallback because your
- * production deployment was reporting:
- *
- * "no available backend found"
- *
- * when WebGPU was attempted.
- */
+env.useBrowserCache = true;
+
+env.useWasmCache = true;
+
+
+// ============================================================
+// ONNX Runtime WASM
+// ============================================================
 
 if (env.backends?.onnx?.wasm) {
 
-  // Run WASM directly instead of using a separate worker.
-  env.backends.onnx.wasm.proxy = false;
+  env.backends.onnx.wasm.proxy = true;
 
-  // Tell ONNX Runtime exactly where the WASM files are.
   env.backends.onnx.wasm.wasmPaths = '/ort/';
+
 }
 
 
