@@ -27,21 +27,23 @@ env.allowRemoteModels = true;
  */
 env.useBrowserCache = true;
 
+if (env.backends?.onnx?.wasm) {
+
+  // Don't use a separate WASM worker for now.
+  env.backends.onnx.wasm.proxy = false;
+
+  // WASM files are served by Angular from /public/ort/
+  // which becomes /ort/ after ng build.
+  env.backends.onnx.wasm.wasmPaths = '/ort/';
+}
+
 /*
  * WASM configuration.
  *
  * Proxy keeps the WASM work away from the main UI thread.
  */
 if (env.backends?.onnx?.wasm) {
-
-  env.backends.onnx.wasm.proxy = true;
-
-  /*
-   * Let Transformers.js use the browser's WASM files.
-   *
-   * We intentionally don't hard-code a path here because
-   * Transformers.js provides the correct browser WASM files.
-   */
+  env.backends.onnx.wasm.proxy = false;
 }
 
 
