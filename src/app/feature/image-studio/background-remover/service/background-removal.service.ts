@@ -29,7 +29,7 @@ env.useWasmCache = true;
 
 if (env.backends?.onnx?.wasm) {
 
-  env.backends.onnx.wasm.proxy = true;
+  env.backends.onnx.wasm.proxy = false;
 
   env.backends.onnx.wasm.wasmPaths = '/ort/';
 
