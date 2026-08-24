@@ -1,55 +1,173 @@
 <div class="cloud-card">
-    <h3>Personal Information</h3>
 
-    <div class="info-row">
+    <!-- Decorative background -->
+    <div class="card-glow glow-one"></div>
+    <div class="card-glow glow-two"></div>
 
-        <div class="label">
+    <div class="card-header">
+
+        <div>
+            <span class="eyebrow">
+                PROFILE DETAILS
+            </span>
+
+            <h3>Personal Information</h3>
+
+            <p>
+                Your basic account information
+            </p>
+        </div>
+
+        <div class="header-icon">
             <i class="pi pi-user"></i>
-            <span>Full Name</span>
-        </div>
-
-        <div class="value">
-           {{profile.fullName}}
         </div>
 
     </div>
 
-    <div class="info-row">
 
-        <div class="label">
-            <i class="pi pi-envelope"></i>
-            <span>Email</span>
+    <div class="info-list">
+
+        <!-- Full Name -->
+
+        <div class="info-row">
+
+            <div class="label">
+
+                <div class="icon-box blue">
+                    <i class="pi pi-user"></i>
+                </div>
+
+                <div class="label-text">
+
+                    <span>Full Name</span>
+
+                    <small>
+                        Account name
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="value">
+
+                {{ profile.fullName }}
+
+            </div>
+
         </div>
 
-        <div class="value">
-            {{profile.email}}
+
+        <!-- Email -->
+
+        <div class="info-row">
+
+            <div class="label">
+
+                <div class="icon-box violet">
+                    <i class="pi pi-envelope"></i>
+                </div>
+
+                <div class="label-text">
+
+                    <span>Email</span>
+
+                    <small>
+                        Registered email
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="value email">
+
+                {{ profile.email }}
+
+            </div>
+
+        </div>
+
+
+        <!-- Phone -->
+
+        <div class="info-row">
+
+            <div class="label">
+
+                <div class="icon-box green">
+                    <i class="pi pi-phone"></i>
+                </div>
+
+                <div class="label-text">
+
+                    <span>Phone</span>
+
+                    <small>
+                        Contact number
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="value">
+
+                {{ profile.phone || '-' }}
+
+            </div>
+
+        </div>
+
+
+        <!-- Joined -->
+
+        <div class="info-row">
+
+            <div class="label">
+
+                <div class="icon-box orange">
+                    <i class="pi pi-calendar"></i>
+                </div>
+
+                <div class="label-text">
+
+                    <span>Joined</span>
+
+                    <small>
+                        Account created
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="value">
+
+                {{ profile.joinedOn | date:'dd MMM yyyy' }}
+
+            </div>
+
         </div>
 
     </div>
 
-    <div class="info-row">
 
-        <div class="label">
-            <i class="pi pi-phone"></i>
-            <span>Phone</span>
+    <!-- Bottom status -->
+
+    <div class="info-footer">
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                Profile information
+            </span>
+
         </div>
 
-        <div class="value">
-           {{ profile.phone || '-' }}
-        </div>
-
-    </div>
-
-    <div class="info-row">
-
-        <div class="label">
-            <i class="pi pi-calendar"></i>
-            <span>Joined</span>
-        </div>
-
-        <div class="value">
-            {{ profile.joinedOn | date:'dd MMM yyyy' }}
-        </div>
+        <i class="pi pi-shield"></i>
 
     </div>
 

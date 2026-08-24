@@ -1,40 +1,156 @@
 <div class="security-card">
 
+    <!-- Decorative background -->
+    <div class="card-glow glow-one"></div>
+    <div class="card-glow glow-two"></div>
+
+    <!-- Header -->
     <div class="card-header">
 
-        <i class="pi pi-shield"></i>
+        <div class="header-icon">
 
-        <div>
+            <i class="pi pi-shield"></i>
 
-            <h3>Two-Factor Authentication</h3>
+        </div>
 
-            <p>Add an extra layer of security to your account.</p>
+        <div class="header-content">
+
+            <span class="eyebrow">
+                ACCOUNT SECURITY
+            </span>
+
+            <h3>
+                Two-Factor Authentication
+            </h3>
+
+            <p>
+                Add an extra layer of protection to your CloudVault account.
+            </p>
 
         </div>
 
     </div>
 
+
+    <!-- Security Content -->
     <div class="security-content">
 
-        <div class="status">
+        <!-- Security Illustration -->
+        <div class="security-visual">
 
-            <span class="label">Status</span>
+            <div class="shield-ring">
 
-            <span class="coming-soon-badge">
-                Coming Soon
+                <div class="shield-icon">
+
+                    <i class="pi pi-shield"></i>
+
+                </div>
+
+            </div>
+
+            <div class="floating-dot dot-one"></div>
+            <div class="floating-dot dot-two"></div>
+            <div class="floating-dot dot-three"></div>
+
+        </div>
+
+
+        <!-- Information -->
+        <div class="security-info">
+
+            <div class="status-row">
+
+                <span class="status-label">
+                    Current Status
+                </span>
+
+                <span class="coming-soon-badge">
+
+                    <span class="status-dot"></span>
+
+                    Coming Soon
+
+                </span>
+
+            </div>
+
+
+            <h4>
+                Protect your account with 2FA
+            </h4>
+
+            <p>
+                Two-factor authentication will provide an additional
+                verification step when signing in to your account.
+            </p>
+
+
+            <div class="security-features">
+
+                <div class="feature">
+
+                    <i class="pi pi-check-circle"></i>
+
+                    <span>
+                        Additional login protection
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <i class="pi pi-check-circle"></i>
+
+                    <span>
+                        Protect against stolen passwords
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <i class="pi pi-check-circle"></i>
+
+                    <span>
+                        Extra account security
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                pButton
+                type="button"
+                label="Coming Soon"
+                icon="pi pi-clock"
+                severity="secondary"
+                variant="outlined"
+                [disabled]="true">
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="security-footer">
+
+        <div>
+
+            <i class="pi pi-info-circle"></i>
+
+            <span>
+                Two-factor authentication will be available in a future update.
             </span>
 
         </div>
 
-        <button
-            pButton
-            type="button"
-            label="Coming Soon"
-            icon="pi pi-clock"
-            severity="secondary"
-            variant="outlined"
-            [disabled]="true">
-        </button>
+        <i class="pi pi-shield"></i>
 
     </div>
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { VersionServiceService } from './service/version-service.service';
 import { UpdateToastComponent } from "./shared/update-toast/update-toast.component";
-import { DashboardComponent } from "./feature/dashboard/dashboard.component";
 import { Toast } from "primeng/toast";
 import { ConfirmDialog } from "primeng/confirmdialog";
 import { CurrentUserService } from './service/current-user.service';

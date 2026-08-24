@@ -1,7 +1,16 @@
-<p-select
-    [options]="options"
-    optionLabel="label"
-    optionValue="value"
-    [(ngModel)]="selected"
-    (onChange)="sortChange.emit(selected)">
-</p-select>
+<div class="sort-select-wrapper">
+
+    <div class="sort-icon">
+        <i class="pi pi-sort-alt"></i>
+    </div>
+
+    <p-select
+        [options]="options"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="selected"
+        (onChange)="sortChange.emit(selected)"
+        placeholder="Sort by">
+    </p-select>
+
+</div>

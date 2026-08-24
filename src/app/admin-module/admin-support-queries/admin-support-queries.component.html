@@ -1,24 +1,37 @@
 <div class="admin-support-page">
 
-    <!-- Header -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <div class="page-header">
 
-        <div>
+        <div class="header-content">
 
-            <span class="eyebrow">
-                Administration
-            </span>
+            <div class="header-icon">
 
-            <h1>
-                Support Queries
-            </h1>
+                <i class="pi pi-comments"></i>
 
-            <p>
-                Manage and monitor support requests raised by users.
-            </p>
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    Administration
+                </span>
+
+                <h1>
+                    Support Queries
+                </h1>
+
+                <p>
+                    Manage and monitor support requests raised by users.
+                </p>
+
+            </div>
 
         </div>
+
 
         <button
             type="button"
@@ -35,83 +48,212 @@
                 ">
             </i>
 
-            Refresh
+            <span>
+                {{ isLoading ? 'Refreshing...' : 'Refresh' }}
+            </span>
 
         </button>
 
     </div>
 
-    <div class="filters-bar">
 
-    <!-- Search -->
+    <!-- =====================================================
+         STATISTICS
+         ===================================================== -->
 
-    <div class="search-box">
+    @if (!isLoading && !errorMessage && queries.length > 0) {
 
-        <i class="pi pi-search"></i>
+        <div class="stats-strip">
 
-        <input
-            type="text"
-            placeholder="Search by ID, user, email or query..."
-            [(ngModel)]="searchText"
-            (input)="applyFilters()">
+            <!-- Open -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot open"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('OPEN') }}
+                    </strong>
+
+                    <span>
+                        Open
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- In Progress -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot in_progress"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('IN_PROGRESS') }}
+                    </strong>
+
+                    <span>
+                        In Progress
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Resolved -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot resolved"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('RESOLVED') }}
+                    </strong>
+
+                    <span>
+                        Resolved
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Closed -->
+
+            <div class="panel stat-chip">
+
+                <span class="stat-dot closed"></span>
+
+                <div>
+
+                    <strong>
+                        {{ getCount('CLOSED') }}
+                    </strong>
+
+                    <span>
+                        Closed
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+
+
+    <!-- =====================================================
+         FILTER TOOLBAR
+         ===================================================== -->
+
+    <div class="panel filters-panel">
+
+        <div class="filters-bar">
+
+
+            <!-- Search -->
+
+            <div class="search-box">
+
+                <i class="pi pi-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search by ID, user, email or query..."
+                    [(ngModel)]="searchText"
+                    (input)="applyFilters()">
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="pill-group">
+
+                @for (
+                    status of statuses;
+                    track status
+                ) {
+
+                    <button
+                        type="button"
+                        [class.active]="selectedStatus === status"
+                        (click)="
+                            selectedStatus = status;
+                            applyFilters()
+                        ">
+
+                        {{
+                            status === 'ALL'
+                                ? 'All Status'
+                                : status
+                        }}
+
+                    </button>
+
+                }
+
+            </div>
+
+
+            <!-- Query Type -->
+
+            <select
+                class="type-select"
+                [(ngModel)]="selectedQueryType"
+                (change)="applyFilters()">
+
+                @for (
+                    type of queryTypes;
+                    track type
+                ) {
+
+                    <option [value]="type">
+
+                        {{
+                            type === 'ALL'
+                                ? 'All Types'
+                                : type
+                        }}
+
+                    </option>
+
+                }
+
+            </select>
+
+        </div>
 
     </div>
 
 
-    <!-- Query Type -->
-
-    <select
-        [(ngModel)]="selectedQueryType"
-        (change)="applyFilters()">
-
-        @for (type of queryTypes; track type) {
-
-            <option [value]="type">
-
-                {{ type === 'ALL'
-                    ? 'All Types'
-                    : type }}
-
-            </option>
-
-        }
-
-    </select>
-
-
-    <!-- Status -->
-
-    <select
-        [(ngModel)]="selectedStatus"
-        (change)="applyFilters()">
-
-        @for (status of statuses; track status) {
-
-            <option [value]="status">
-
-                {{ status === 'ALL'
-                    ? 'All Status'
-                    : status }}
-
-            </option>
-
-        }
-
-    </select>
-
-</div>
-
-
-    <!-- Loading -->
+    <!-- =====================================================
+         LOADING
+         ===================================================== -->
 
     @if (isLoading) {
 
-        <div class="state-container">
+        <div class="panel state-container">
 
             <i class="pi pi-spin pi-spinner"></i>
 
+            <h3>
+                Loading support queries
+            </h3>
+
             <p>
-                Loading support queries...
+                Please wait while we retrieve the latest support requests.
             </p>
 
         </div>
@@ -119,11 +261,13 @@
     }
 
 
-    <!-- Error -->
+    <!-- =====================================================
+         ERROR
+         ===================================================== -->
 
     @if (!isLoading && errorMessage) {
 
-        <div class="state-container error-state">
+        <div class="panel state-container error-state">
 
             <i class="pi pi-exclamation-circle"></i>
 
@@ -140,6 +284,8 @@
                 class="retry-button"
                 (click)="loadQueries()">
 
+                <i class="pi pi-refresh"></i>
+
                 Try Again
 
             </button>
@@ -149,7 +295,9 @@
     }
 
 
-    <!-- Empty -->
+    <!-- =====================================================
+         EMPTY
+         ===================================================== -->
 
     @if (
         !isLoading &&
@@ -157,7 +305,7 @@
         queries.length === 0
     ) {
 
-        <div class="state-container">
+        <div class="panel state-container">
 
             <i class="pi pi-inbox"></i>
 
@@ -166,7 +314,7 @@
             </h3>
 
             <p>
-                There are currently no support queries.
+                There are currently no support queries to display.
             </p>
 
         </div>
@@ -174,7 +322,9 @@
     }
 
 
-    <!-- Query Table -->
+    <!-- =====================================================
+         TICKET LIST
+         ===================================================== -->
 
     @if (
         !isLoading &&
@@ -182,186 +332,144 @@
         queries.length > 0
     ) {
 
-        <div class="table-card">
+        <div class="ticket-list">
 
-            <div class="table-wrapper">
+            @for (
+                query of filteredQueries;
+                track query.queryId
+            ) {
 
-                <table class="support-table">
+                <div
+                    class="panel ticket-card"
+                    (click)="viewQuery(query.queryId)">
 
-                    <thead>
 
-                        <tr>
+                    <!-- ================================
+                         QUERY ID
+                         ================================= -->
 
-                            <th>
-                                Query ID
-                            </th>
+                    <span class="ticket-id">
 
-                            <th>
-                                User
-                            </th>
+                        #{{ query.queryId }}
 
-                            <th>
-                                Email
-                            </th>
+                    </span>
 
-                            <th>
-                                Type
-                            </th>
 
-                            <th>
-                                Status
-                            </th>
+                    <!-- ================================
+                         USER + QUERY
+                         ================================= -->
 
-                            <th>
-                                Query
-                            </th>
+                    <div class="ticket-main">
 
-                            <th>
-                                Created
-                            </th>
 
-                            <th>
-                                Action
-                            </th>
+                        <!-- Avatar -->
 
-                        </tr>
+                        <div class="user-avatar">
 
-                    </thead>
+                            {{
+                                query.userName
+                                    ?.charAt(0)
+                                    ?.toUpperCase()
+                            }}
 
+                        </div>
 
-                    <tbody>
 
-                        @for (
-                        query of filteredQueries;
-                        track query.queryId
-                        ) {
+                        <!-- Text -->
 
-                            <tr>
+                        <div class="ticket-text">
 
-                                <!-- Query ID -->
+                            <p class="ticket-subject">
 
-                                <td>
+                                {{ query.query }}
 
-                                    <strong class="query-id">
-                                        #{{ query.queryId }}
-                                    </strong>
+                            </p>
 
-                                </td>
 
+                            <div class="ticket-sub">
 
-                                <!-- User -->
+                                <span>
 
-                                <td>
+                                    {{ query.userName }}
 
-                                    <div class="user-cell">
+                                </span>
 
-                                        <div class="user-avatar">
+                                <span class="dot-sep"></span>
 
-                                            {{ query.userName
-                                                ?.charAt(0)
-                                                ?.toUpperCase() }}
+                                <span>
 
-                                        </div>
+                                    {{ query.userEmail }}
 
-                                        <span>
-                                            {{ query.userName }}
-                                        </span>
+                                </span>
 
-                                    </div>
+                            </div>
 
-                                </td>
+                        </div>
 
+                    </div>
 
-                                <!-- Email -->
 
-                                <td>
+                    <!-- ================================
+                         QUERY TYPE
+                         ================================= -->
 
-                                    <span class="email">
-                                        {{ query.userEmail }}
-                                    </span>
+                    <span class="type-badge">
 
-                                </td>
+                        {{ query.queryType }}
 
+                    </span>
 
-                                <!-- Type -->
 
-                                <td>
+                    <!-- ================================
+                         STATUS
+                         ================================= -->
 
-                                    <span class="type-badge">
+                    <span
+                        class="status-badge"
+                        [ngClass]="
+                            'status-' +
+                            query.status.toLowerCase()
+                        ">
 
-                                        {{ query.queryType }}
+                        {{ query.status }}
 
-                                    </span>
+                    </span>
 
-                                </td>
 
+                    <!-- ================================
+                         DATE
+                         ================================= -->
 
-                                <!-- Status -->
+                    <span class="ticket-date">
 
-                                <td>
+                        {{ query.createdAt | date:'MMM d, h:mm a' }}
 
-                                    <span
-                                        class="status-badge"
-                                        [ngClass]="
-                                            'status-' +
-                                            query.status.toLowerCase()
-                                        ">
+                    </span>
 
-                                        {{ query.status }}
 
-                                    </span>
+                    <!-- ================================
+                         VIEW BUTTON
+                         ================================= -->
 
-                                </td>
+                    <button
+                        type="button"
+                        class="view-button"
+                        (click)="
+                            viewQuery(query.queryId);
+                            $event.stopPropagation()
+                        ">
 
+                        <i class="pi pi-eye"></i>
 
-                                <!-- Query -->
+                        <span>
+                            View
+                        </span>
 
-                                <td>
+                    </button>
 
-                                    <p class="query-preview">
+                </div>
 
-                                        {{ query.query }}
-
-                                    </p>
-
-                                </td>
-
-
-                                <!-- Created -->
-
-                                <td>
-
-                                    <span class="date">
-                                        {{ query.createdAt
-                                            | date:'medium' }}
-                                    </span>
-
-                                </td>
-
-
-                                <!-- Action -->
-
-                                <td>
-
-                                    <button type="button" class="view-button" (click)="viewQuery(query.queryId)">
-                                    
-                                        <i class="pi pi-eye"></i>
-                                    
-                                        View
-                                    
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-                        }
-
-                    </tbody>
-
-                </table>
-
-            </div>
+            }
 
         </div>
 

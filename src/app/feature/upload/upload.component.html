@@ -1,189 +1,445 @@
-
 <p-card styleClass="upload-card">
 
-  <div class="success-box" *ngIf="showSuccessMessage">
+    <!-- =========================
+         SUCCESS STATE
+    ========================== -->
 
-  <div class="success-animation">
+    @if (showSuccessMessage) {
 
-    <i class="pi pi-check-circle"></i>
+        <div class="success-box">
 
-</div>
+            <div class="success-animation">
 
-    <h2>
+                <div class="success-icon-ring">
 
-        {{ uploadedCount }}
-
-        {{ uploadedCount === 1 ? 'Image' : 'Images' }}
-
-        Uploaded Successfully
-
-    </h2>
-
-    <p>
-
-        Your images are now available in the gallery.
-
-    </p>
-
-    <div class="success-actions">
-
-        <p-button
-            label="View Gallery"
-            icon="pi pi-images"
-            (onClick)="goToGallery()">
-        </p-button>
-
-        <p-button
-            label="Upload More"
-            severity="secondary"
-            [outlined]="true"
-            icon="pi pi-plus"
-            (onClick)="uploadMore()">
-        </p-button>
-
-    </div>
-
-</div>
-
-    <div class="upload-zone"  *ngIf="uploadItems.length === 0 && !showSuccessMessage" [class.dragging]="isDragging" (dragover)="onDragOver($event)"
-        (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-
-        <i class="pi pi-cloud-upload upload-icon"></i>
-
-        <h2>
-            {{ isDragging ? 'Drop Images Here' : 'Drag & Drop Images Here' }}
-        </h2>
-
-        <p>
-            JPG • PNG • JPEG • WEBP
-        </p>
-
-        <input #fileInput hidden multiple type="file" accept="image/*" (change)="onFileSelected($event)">
-
-        <p-button label="Browse Files" icon="pi pi-folder-open" (onClick)="fileInput.click()">
-        </p-button>
-
-    </div>
-
-    <div class="queue"   *ngIf="uploadItems.length > 0 && !showSuccessMessage">
-
-        <div class="queue-header">
-
-            <h3>Upload Queue</h3>
-
-            <span>
-
-                {{ uploadItems.length }}
-
-                {{ uploadItems.length === 1 ? 'File' : 'Files' }}
-
-            </span>
-
-        </div>
-
-        <div class="upload-item" *ngFor="let item of uploadItems">
-
-            <img [src]="item.preview" class="preview-image">
-
-            <div class="details">
-
-                <h4>
-
-                    {{ item.file.name }}
-
-                </h4>
-
-                <small>
-
-                    {{ formatBytes(item.file.size) }}
-
-                </small>
-
-                <div *ngIf="item.uploading || item.uploaded">
-
-                    <p-progressBar [value]="item.progress">
-                    </p-progressBar>
-
-                    <div class="upload-info">
-
-                        <span>{{ item.progress }}%</span>
-
-                        <span>
-
-                            {{ item.uploadedSize }}
-
-                            /
-
-                            {{ item.totalSize }}
-
-                        </span>
-
-                    </div>
-
-                    <div class="upload-info">
-
-                        <span>{{ item.remainingTime }}</span>
-
-                        <span>{{ item.uploadSpeed }}</span>
-
-                    </div>
+                    <i class="pi pi-check"></i>
 
                 </div>
 
             </div>
 
-            <div class="actions">
+            <span class="success-label">
+                UPLOAD COMPLETE
+            </span>
 
-               <div class="actions">
+            <h2>
 
-    <span
-        *ngIf="item.uploading"
-        class="status uploading">
+                {{ uploadedCount }}
 
-        Uploading...
+                {{ uploadedCount === 1 ? 'Image' : 'Images' }}
 
-    </span>
+                Uploaded Successfully
 
-    <span
-        *ngIf="item.uploaded"
-        class="status uploaded">
+            </h2>
 
-        Uploaded
+            <p>
+                Your images are now available in the gallery.
+            </p>
 
-    </span>
+            <div class="success-actions">
 
-    <span
-        *ngIf="item.failed"
-        class="status failed">
+                <p-button
+                    label="View Gallery"
+                    icon="pi pi-images"
+                    styleClass="primary-btn"
+                    (onClick)="goToGallery()">
+                </p-button>
 
-        Failed
-
-    </span>
-
-    <p-button
-        *ngIf="!item.uploading && !item.uploaded && !item.failed"
-        icon="pi pi-times"
-        severity="danger"
-        [outlined]="true"
-        (onClick)="remove(item)">
-    </p-button>
-
-</div>
+                <p-button
+                    label="Upload More"
+                    severity="secondary"
+                    [outlined]="true"
+                    icon="pi pi-plus"
+                    styleClass="secondary-btn"
+                    (onClick)="uploadMore()">
+                </p-button>
 
             </div>
 
         </div>
 
-    </div>
-    <div class="queue-buttons">
+    }
 
-        <p-button label="Upload All" icon="pi pi-upload" [disabled]="isUploading" (onClick)="upload()">
-        </p-button>
 
-        <p-button label="Clear" icon="pi pi-trash" severity="secondary" [outlined]="true" [disabled]="isUploading"
-            (onClick)="clearQueue()">
-        </p-button>
+    <!-- =========================
+         UPLOAD AREA
+    ========================== -->
 
-    </div>
+    @if (uploadItems.length === 0 && !showSuccessMessage) {
+
+        <div
+            class="upload-zone"
+            [class.dragging]="isDragging"
+
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)">
+
+            <div class="upload-glow"></div>
+
+            <div class="upload-icon-wrapper">
+
+                <i class="pi pi-cloud-upload upload-icon"></i>
+
+            </div>
+
+            @if (!isDragging) {
+
+                <span class="upload-label">
+                    IMAGE UPLOAD
+                </span>
+
+                <h2>
+                    Drag & Drop Images Here
+                </h2>
+
+                <p>
+                    Upload your images securely to CloudVault
+                </p>
+
+            } @else {
+
+                <span class="upload-label dragging-label">
+                    READY TO UPLOAD
+                </span>
+
+                <h2>
+                    Drop Images Here
+                </h2>
+
+                <p>
+                    Release your files to add them to the queue
+                </p>
+
+            }
+
+            <div class="format-list">
+
+                <span>JPG</span>
+                <span>PNG</span>
+                <span>JPEG</span>
+                <span>WEBP</span>
+
+            </div>
+
+            <input
+                #fileInput
+                hidden
+                multiple
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event)">
+
+            <p-button
+                label="Browse Files"
+                icon="pi pi-folder-open"
+                styleClass="browse-btn"
+                (onClick)="fileInput.click()">
+            </p-button>
+
+            <small class="upload-hint">
+                Multiple images supported
+            </small>
+
+        </div>
+
+    }
+
+
+    <!-- =========================
+         UPLOAD QUEUE
+    ========================== -->
+
+    @if (uploadItems.length > 0 && !showSuccessMessage) {
+
+        <div class="queue">
+
+            <!-- Header -->
+
+            <div class="queue-header">
+
+                <div>
+
+                    <span class="queue-label">
+                        FILE MANAGER
+                    </span>
+
+                    <h3>
+                        Upload Queue
+                    </h3>
+
+                    <p>
+                        Review your images before uploading.
+                    </p>
+
+                </div>
+
+                <div class="queue-count">
+
+                    <strong>
+                        {{ uploadItems.length }}
+                    </strong>
+
+                    <span>
+                        {{ uploadItems.length === 1 ? 'File' : 'Files' }}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Files -->
+
+            <div class="upload-list">
+
+                @for (item of uploadItems; track item.file.name) {
+
+                    <div
+                        class="upload-item"
+
+                        [class.uploading-item]="item.uploading"
+                        [class.uploaded-item]="item.uploaded"
+                        [class.failed-item]="item.failed">
+
+
+                        <!-- Preview -->
+
+                        <div class="preview-wrapper">
+
+                            <img
+                                [src]="item.preview"
+                                [alt]="item.file.name"
+                                class="preview-image">
+
+                            @if (item.uploading) {
+
+                                <div class="image-status uploading-image">
+
+                                    <i class="pi pi-spin pi-spinner"></i>
+
+                                </div>
+
+                            }
+
+                            @if (item.uploaded) {
+
+                                <div class="image-status uploaded-image">
+
+                                    <i class="pi pi-check"></i>
+
+                                </div>
+
+                            }
+
+                            @if (item.failed) {
+
+                                <div class="image-status failed-image">
+
+                                    <i class="pi pi-times"></i>
+
+                                </div>
+
+                            }
+
+                        </div>
+
+
+                        <!-- Details -->
+
+                        <div class="details">
+
+                            <div class="file-heading">
+
+                                <h4>
+                                    {{ item.file.name }}
+                                </h4>
+
+                                <span>
+                                    {{ formatBytes(item.file.size) }}
+                                </span>
+
+                            </div>
+
+
+                            @if (item.uploading || item.uploaded) {
+
+                                <div class="progress-section">
+
+                                    <div class="progress-header">
+
+                                        <span>
+                                            {{ item.uploaded ? 'Uploaded' : 'Uploading...' }}
+                                        </span>
+
+                                        <strong>
+                                            {{ item.progress }}%
+                                        </strong>
+
+                                    </div>
+
+                                    <p-progressBar
+                                        [value]="item.progress"
+                                        [showValue]="false">
+                                    </p-progressBar>
+
+                                    <div class="upload-info">
+
+                                        <span>
+                                            {{ item.uploadedSize }}
+                                            /
+                                            {{ item.totalSize }}
+                                        </span>
+
+                                        <span>
+                                            {{ item.uploadSpeed }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            }
+
+
+                            @if (item.failed) {
+
+                                <div class="failed-message">
+
+                                    <i class="pi pi-exclamation-circle"></i>
+
+                                    Upload failed. Please retry.
+
+                                </div>
+
+                            }
+
+
+                            @if (!item.uploading && !item.uploaded && !item.failed) {
+
+                                <div class="waiting-message">
+
+                                    <i class="pi pi-clock"></i>
+
+                                    Waiting to upload
+
+                                </div>
+
+                            }
+
+                        </div>
+
+
+                        <!-- Actions -->
+
+                        <div class="actions">
+
+                            @if (item.uploading) {
+
+                                <span class="status uploading">
+                                    <span class="status-dot"></span>
+                                    Uploading
+                                </span>
+
+                            }
+
+                            @if (item.uploaded) {
+
+                                <span class="status uploaded">
+
+                                    <i class="pi pi-check"></i>
+
+                                    Uploaded
+
+                                </span>
+
+                            }
+
+                            @if (item.failed) {
+
+                                <span class="status failed">
+
+                                    <i class="pi pi-times-circle"></i>
+
+                                    Failed
+
+                                </span>
+
+                                <p-button
+                                    label="Retry"
+                                    icon="pi pi-refresh"
+                                    severity="warn"
+                                    [text]="true"
+                                    (onClick)="retry(item)">
+                                </p-button>
+
+                            }
+
+                            @if (!item.uploading && !item.uploaded && !item.failed) {
+
+                                <button
+                                    type="button"
+                                    class="remove-btn"
+                                    title="Remove"
+                                    (click)="remove(item)">
+
+                                    <i class="pi pi-times"></i>
+
+                                </button>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+
+            <!-- Queue actions -->
+
+            <div class="queue-buttons">
+
+                <div class="queue-summary">
+
+                    <i class="pi pi-cloud-upload"></i>
+
+                    <span>
+                        {{ uploadItems.length }}
+                        {{ uploadItems.length === 1 ? 'image' : 'images' }}
+                        ready
+                    </span>
+
+                </div>
+
+                <div class="queue-actions">
+
+                    <p-button
+                        label="Upload All"
+                        icon="pi pi-upload"
+                        styleClass="upload-all-btn"
+                        [disabled]="isUploading"
+                        (onClick)="upload()">
+                    </p-button>
+
+                    <p-button
+                        label="Clear"
+                        icon="pi pi-trash"
+                        severity="secondary"
+                        [outlined]="true"
+                        styleClass="clear-btn"
+                        [disabled]="isUploading"
+                        (onClick)="clearQueue()">
+                    </p-button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
 
 </p-card>

@@ -1,48 +1,125 @@
 <div class="storage-card">
 
+    <!-- Animated background elements -->
+    <div class="storage-glow"></div>
+    <div class="storage-orb orb-one"></div>
+    <div class="storage-orb orb-two"></div>
+
+
+    <!-- Header -->
+
     <div class="card-header">
 
-        <i class="pi pi-cloud"></i>
+        <div class="header-icon">
+
+            <i class="pi pi-cloud"></i>
+
+        </div>
 
         <div>
 
-            <h3>Storage</h3>
+            <span class="eyebrow">
+                CLOUD STORAGE
+            </span>
 
-            <p>Monitor your storage usage</p>
+            <h3>
+                Storage
+            </h3>
+
+            <p>
+                Monitor your storage usage
+            </p>
 
         </div>
 
     </div>
 
+
+    <!-- Storage Summary -->
+
     <div class="storage-summary">
 
-        <span class="used-storage">
+        <div class="storage-number">
 
-            {{ storageUsed }}
+            <span class="used-storage">
+                {{ storageUsed }}
+            </span>
 
-        </span>
+            <span class="total-storage">
+                of {{ storageLimit }} used
+            </span>
 
-        <span class="total-storage">
+        </div>
 
-            of {{ storageLimit }} used
+        <div class="storage-icon">
+
+            <i class="pi pi-database"></i>
+
+        </div>
+
+    </div>
+
+
+    <!-- Progress -->
+
+    <div class="progress-wrapper">
+
+        <div class="progress-track">
+
+            <div
+                class="progress-fill"
+                [style.width.%]="storagePercentage">
+
+                <div class="progress-shine"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="storage-footer">
+
+        <div class="usage">
+
+            <span class="usage-dot"></span>
+
+            <span>
+                {{ storagePercentage }}% Used
+            </span>
+
+        </div>
+
+        <span class="plan-badge">
+
+            <i class="pi pi-star"></i>
+
+            {{ storagePlan }}
 
         </span>
 
     </div>
 
-    <p-progressBar
-        [value]="storagePercentage"
-        [showValue]="false">
-    </p-progressBar>
 
-    <div class="storage-footer">
+    <!-- Storage status -->
 
-        <span>{{ storagePercentage }}% Used</span>
+    <div class="storage-status">
 
-        <span class="plan-badge">
+        <div>
 
-            {{ storagePlan }}
+            <i class="pi pi-check-circle"></i>
 
+            <span>
+                Storage is available
+            </span>
+
+        </div>
+
+        <span>
+            {{ storageLimit }} capacity
         </span>
 
     </div>

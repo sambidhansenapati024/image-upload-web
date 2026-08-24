@@ -1,87 +1,867 @@
-:host{
-    display:block;
-}
+:host {
 
-.faq-card{
-
-    background:var(--sidebar-bg);
-
-    border:1px solid #334155;
-
-    border-radius:16px;
-
-    padding:24px;
+    display: block;
 
 }
 
-.card-header{
 
-    display:flex;
+/* =========================================================
+   FAQ CARD
+========================================================= */
 
-    align-items:center;
+.faq-card {
 
-    gap:14px;
+    position: relative;
 
-    margin-bottom:20px;
+    overflow: hidden;
 
-}
+    background:
+        linear-gradient(
+            145deg,
+            #FFFFFF,
+            #FCFCFF
+        );
 
-.card-header i{
+    border:
+        1px solid #E9EAF4;
 
-    font-size:22px;
+    border-radius:
+        20px;
 
-    color:#3B82F6;
+    padding:
+        26px;
 
-}
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
 
-.card-header h3{
-
-    margin:0;
-
-    color:white;
-
-}
-
-.card-header p{
-
-    margin-top:4px;
-
-    color:#94A3B8;
-
-}
-
-:host ::ng-deep .p-accordionpanel{
-
-    background:#111827;
-
-    border:1px solid #334155;
-
-    border-radius:12px;
-
-    margin-bottom:12px;
-
-    overflow:hidden;
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease,
+        transform .3s ease;
 
 }
 
-:host ::ng-deep .p-accordionheader{
 
-    background:#111827;
+.faq-card:hover {
 
-    color:white;
+    border-color:
+        rgba(79, 110, 247, .22);
 
-}
-
-:host ::ng-deep .p-accordioncontent{
-
-    background:#111827;
-
-    color:#CBD5E1;
+    box-shadow:
+        0 18px 40px rgba(79, 110, 247, .10);
 
 }
 
-:host ::ng-deep .p-accordionheader:hover{
 
-    background:#1E293B;
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.faq-glow {
+
+    position: absolute;
+
+    width:
+        190px;
+
+    height:
+        190px;
+
+    right:
+        -80px;
+
+    top:
+        -90px;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .12),
+            transparent 70%
+        );
+
+    pointer-events:
+        none;
+
+    animation:
+        faqGlowFloat 7s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.card-header {
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    margin-bottom:
+        24px;
+
+}
+
+
+/* =========================================================
+   FAQ ICON
+========================================================= */
+
+.faq-icon {
+
+    width:
+        48px;
+
+    height:
+        48px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        14px;
+
+    color:
+        #FFFFFF;
+
+    font-size:
+        21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4F6EF7,
+            #9B5CF6
+        );
+
+    box-shadow:
+        0 8px 20px rgba(79, 110, 247, .22);
+
+    animation:
+        faqIconFloat 4s ease-in-out infinite;
+
+}
+
+
+.faq-icon i {
+
+    animation:
+        questionPulse 2.8s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   HEADER TEXT
+========================================================= */
+
+.eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        #4F6EF7;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.4px;
+
+}
+
+
+.card-header h3 {
+
+    margin:
+        0;
+
+    color:
+        #171A2B;
+
+    font-size:
+        19px;
+
+    font-weight:
+        700;
+
+}
+
+
+.card-header p {
+
+    margin:
+        4px 0 0;
+
+    color:
+        #767C93;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =========================================================
+   FAQ CONTENT
+========================================================= */
+
+.faq-content {
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
+}
+
+/* =========================================================
+   ACCORDION PANEL
+   ========================================================= */
+
+:host ::ng-deep .p-accordionpanel {
+    position: relative;
+
+    background: #F8F9FD !important;
+
+    border: 1px solid #E9EAF4 !important;
+
+    border-radius: 13px;
+
+    margin-bottom: 10px;
+
+    overflow: hidden;
+
+    color: #171A2B !important;
+
+    transition:
+        border-color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+/* =========================================================
+   ACTIVE / EXPANDED PANEL
+   ========================================================= */
+
+:host ::ng-deep .p-accordionpanel.p-accordionpanel-active {
+    background: #FFFFFF !important;
+
+    border-color: rgba(79, 110, 247, .25) !important;
+
+    color: #171A2B !important;
+
+    box-shadow:
+        0 10px 25px rgba(79, 110, 247, .08);
+}
+
+
+/* =========================================================
+   PANEL HOVER
+   ========================================================= */
+
+:host ::ng-deep .p-accordionpanel:hover {
+    background: #FFFFFF !important;
+
+    border-color: rgba(79, 110, 247, .25) !important;
+
+    transform: translateX(2px);
+
+    box-shadow:
+        0 7px 20px rgba(79, 110, 247, .07);
+}
+
+
+/* =========================================================
+   ACCORDION HEADER
+   ========================================================= */
+
+:host ::ng-deep .p-accordionheader {
+    min-height: 58px;
+
+    padding: 13px 15px;
+
+    background: #F8F9FD !important;
+
+    color: #171A2B !important;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    border: none !important;
+
+    transition:
+        color .25s ease,
+        background .25s ease;
+}
+
+
+/* Expanded header */
+
+:host ::ng-deep .p-accordionpanel-active .p-accordionheader {
+    background: #FFFFFF !important;
+
+    color: #171A2B !important;
+}
+
+
+/* Header hover */
+
+:host ::ng-deep .p-accordionheader:hover {
+    background: rgba(79, 110, 247, .035) !important;
+
+    color: #4F6EF7 !important;
+}
+
+
+/* =========================================================
+   HEADER TEXT
+   ========================================================= */
+
+:host ::ng-deep .p-accordionheader-content {
+    color: #171A2B !important;
+}
+
+
+/* Active header text */
+
+:host ::ng-deep
+.p-accordionpanel-active
+.p-accordionheader-content {
+    color: #171A2B !important;
+}
+
+
+/* =========================================================
+   EXPAND / COLLAPSE ICON
+   ========================================================= */
+
+:host ::ng-deep .p-accordionheader-toggle-icon {
+    color: #171A2B !important;
+}
+
+:host ::ng-deep .p-accordionpanel-active
+.p-accordionheader-toggle-icon {
+    color: #171A2B !important;
+}
+
+
+/* =========================================================
+   QUESTION
+   ========================================================= */
+
+.faq-question {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    width: 100%;
+
+    color: #171A2B;
+}
+
+
+/* =========================================================
+   QUESTION ICON
+   ========================================================= */
+
+.question-icon {
+    width: 31px;
+
+    height: 31px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color: #4F6EF7;
+
+    background: rgba(79, 110, 247, .08);
+
+    font-size: 12px;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        color .25s ease;
+}
+
+
+:host ::ng-deep
+.p-accordionpanel:hover
+.question-icon {
+
+    transform: scale(1.08);
+
+    background: rgba(79, 110, 247, .13);
+}
+
+
+/* =========================================================
+   ACCORDION CONTENT
+   ========================================================= */
+
+:host ::ng-deep .p-accordioncontent {
+    background: #FFFFFF !important;
+
+    color: #4A4F63 !important;
+
+    border: none !important;
+}
+
+
+:host ::ng-deep .p-accordioncontent-content {
+    padding: 0 15px 16px 57px;
+
+    background: #FFFFFF !important;
+
+    color: #4A4F63 !important;
+}
+
+
+/* =========================================================
+   ANSWER
+   ========================================================= */
+
+.faq-answer {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    padding: 12px 13px;
+
+    border-radius: 10px;
+
+    background: rgba(79, 110, 247, .035) !important;
+
+    border: 1px solid rgba(79, 110, 247, .07);
+
+    animation: answerReveal .3s ease;
+}
+
+
+.faq-answer > i {
+    margin-top: 2px;
+
+    flex-shrink: 0;
+
+    color: #4F6EF7;
+
+    font-size: 12px;
+}
+
+
+.faq-answer p {
+    margin: 0;
+
+    color: #767C93 !important;
+
+    font-size: 12px;
+
+    line-height: 1.65;
+}
+
+
+.faq-answer strong {
+    color: #4F6EF7;
+
+    font-weight: 600;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.faq-footer {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-top:
+        18px;
+
+    padding-top:
+        15px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+}
+
+
+.footer-status {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    color:
+        #767C93;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+}
+
+
+.status-dot {
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    border-radius:
+        50%;
+
+    background:
+        #22C55E;
+
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, .09),
+        0 0 10px rgba(34, 197, 94, .45);
+
+    animation:
+        supportPulse 2s ease-in-out infinite;
+
+}
+
+
+.footer-text {
+
+    color:
+        #A2A8BD;
+
+    font-size:
+        10px;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes faqGlowFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-15px, 15px)
+            scale(1.08);
+
+    }
+
+}
+
+
+@keyframes faqIconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px);
+
+    }
+
+}
+
+
+@keyframes questionPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.08);
+
+    }
+
+}
+
+
+@keyframes supportPulse {
+
+    0%,
+    100% {
+
+        opacity:
+            .65;
+
+        transform:
+            scale(.9);
+
+    }
+
+    50% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1.1);
+
+    }
+
+}
+
+
+@keyframes answerReveal {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-5px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .faq-card {
+
+        padding:
+            20px;
+
+        border-radius:
+            17px;
+
+    }
+
+
+    .card-header {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .faq-icon {
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        border-radius:
+            12px;
+
+        font-size:
+            18px;
+
+    }
+
+
+    .card-header h3 {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .card-header p {
+
+        font-size:
+            11px;
+
+    }
+
+
+    :host ::ng-deep .p-accordionheader {
+
+        min-height:
+            54px;
+
+        padding:
+            11px;
+
+    }
+
+
+    .faq-question {
+
+        gap:
+            9px;
+
+        font-size:
+            12px;
+
+    }
+
+
+    .question-icon {
+
+        width:
+            29px;
+
+        height:
+            29px;
+
+    }
+
+
+    :host ::ng-deep .p-accordioncontent-content {
+
+        padding:
+            0 11px 13px 49px;
+
+    }
+
+
+    .faq-answer {
+
+        padding:
+            10px;
+
+    }
+
+
+    .faq-footer {
+
+        align-items:
+            flex-start;
+
+        gap:
+            10px;
+
+        flex-direction:
+            column;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+
+    }
 
 }

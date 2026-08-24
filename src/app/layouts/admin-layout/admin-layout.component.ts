@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import {
   Router,
   RouterLink,
@@ -6,37 +7,96 @@ import {
   RouterOutlet
 } from '@angular/router';
 
+import {
+  trigger,
+  transition,
+  style,
+  query,
+  animate
+} from '@angular/animations';
+
 import { CurrentUserService } from '../../service/current-user.service';
 import { Profile } from '../../shared/modal/profile';
-import { Popover, PopoverModule } from 'primeng/popover';
+
+import {
+  Popover,
+  PopoverModule
+} from 'primeng/popover';
+
 import { AuthService } from '../../core/services/auth.service';
 import { ConfirmationService } from 'primeng/api';
 
+
 @Component({
   selector: 'app-admin-layout',
+
   standalone: true,
-imports: [
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-  PopoverModule
-],
+
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    PopoverModule
+  ],
+
+  animations: [
+
+    trigger('routeAnimations', [
+
+      transition('* <=> *', [
+
+        query(
+          ':enter',
+          [
+            style({
+              opacity: 0,
+              transform: 'translateY(8px)'
+            }),
+
+            animate(
+              '280ms cubic-bezier(.22, 1, .36, 1)',
+              style({
+                opacity: 1,
+                transform: 'translateY(0)'
+              })
+            )
+          ],
+          {
+            optional: true
+          }
+        )
+
+      ])
+
+    ])
+
+  ],
+
   templateUrl: './admin-layout.component.html',
+
   styleUrl: './admin-layout.component.css'
 })
+
+
 export class AdminLayoutComponent implements OnInit {
 
   @ViewChild('adminPopover')
-adminPopover!: Popover;
+  adminPopover!: Popover;
+
 
   user: Profile | null = null;
 
+
   constructor(
-  private router: Router,
-  private currentUserService: CurrentUserService,
-  private authService: AuthService,
-  private confirmationService: ConfirmationService
-) {}
+    private router: Router,
+
+    private currentUserService: CurrentUserService,
+
+    private authService: AuthService,
+
+    private confirmationService: ConfirmationService
+  ) {}
+
 
   ngOnInit(): void {
 
@@ -49,58 +109,94 @@ adminPopover!: Popover;
 
   }
 
+
+  /*
+   * Used by the route animation.
+   *
+   * The router URL changes whenever the user switches
+   * between Dashboard, Support Queries, etc.
+   */
+  getRouteAnimationData(): string {
+
+    return this.router.url;
+
+  }
+
+
+  /*
+   * Switch from Admin panel back to
+   * the normal user application.
+   */
   switchToUser(): void {
 
     this.router.navigate(['/home']);
 
   }
 
+
+  /*
+   * Navigate to Profile.
+   */
   goToProfile(): void {
 
-  this.adminPopover.hide();
+    this.adminPopover.hide();
 
-  this.router.navigate(['/profile']);
+    this.router.navigate(['/profile']);
 
-}
+  }
 
-goToSettings(): void {
 
-  this.adminPopover.hide();
+  /*
+   * Navigate to Settings.
+   */
+  goToSettings(): void {
 
-  this.router.navigate(['/settings']);
+    this.adminPopover.hide();
 
-}
+    this.router.navigate(['/settings']);
 
-goToSecurity(): void {
+  }
 
-  this.adminPopover.hide();
 
-  this.router.navigate(['/security']);
+  /*
+   * Navigate to Security.
+   */
+  goToSecurity(): void {
 
-}
+    this.adminPopover.hide();
 
-logout(): void {
+    this.router.navigate(['/security']);
 
-  this.confirmationService.confirm({
+  }
 
-    header: 'Logout',
 
-    message: 'Are you sure you want to logout?',
+  /*
+   * Logout confirmation.
+   */
+  logout(): void {
 
-    icon: 'pi pi-sign-out',
+    this.adminPopover.hide();
 
-    acceptLabel: 'Yes',
+    this.confirmationService.confirm({
 
-    rejectLabel: 'Cancel',
+      header: 'Logout',
 
-    accept: () => {
+      message: 'Are you sure you want to logout?',
 
-      this.authService.logout();
+      icon: 'pi pi-sign-out',
 
-    }
+      acceptLabel: 'Yes',
 
-  });
+      rejectLabel: 'Cancel',
 
-}
+      accept: () => {
+
+        this.authService.logout();
+
+      }
+
+    });
+
+  }
 
 }

@@ -1,95 +1,550 @@
-:host{
-    display:block;
+:host {
+    display: block;
 }
 
-.help-grid{
 
-    display:flex;
+/* =========================================================
+   HELP GRID
+========================================================= */
 
-    flex-direction:column;
+.help-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
-    gap:18px;
+
+/* =========================================================
+   HELP ITEM
+========================================================= */
+
+.help-item {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+
+    min-height: 105px;
+
+    background: linear-gradient(
+        135deg,
+        #FFFFFF,
+        #FCFCFF
+    );
+
+    border: 1px solid #E9EAF4;
+
+    border-radius: 18px;
+
+    padding: 20px 22px;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.help-item:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(79, 110, 247, .22);
+
+    box-shadow:
+        0 12px 28px rgba(79, 110, 247, .09),
+        0 0 0 1px rgba(79, 110, 247, .03);
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+========================================================= */
+
+.help-glow {
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -90px;
+    top: -90px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    opacity: .5;
+
+    transition:
+        transform .5s ease,
+        opacity .4s ease;
+}
+
+
+.help-item:hover .help-glow {
+    transform: scale(1.25);
+
+    opacity: .8;
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.help-icon {
+    position: relative;
+
+    width: 56px;
+    height: 56px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .11),
+            rgba(155, 92, 246, .10)
+        );
+
+    border: 1px solid rgba(79, 110, 247, .10);
+
+    box-shadow:
+        0 6px 18px rgba(79, 110, 247, .08);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+
+.help-icon i {
+    color: #4F6EF7;
+
+    font-size: 23px;
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+
+/* =========================================================
+   ICON HOVER
+========================================================= */
+
+.help-item:hover .help-icon {
+    transform:
+        translateY(-2px)
+        rotate(-2deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .14),
+            rgba(155, 92, 246, .13)
+        );
+
+    box-shadow:
+        0 9px 22px rgba(79, 110, 247, .13);
+}
+
+
+.help-item:hover .help-icon i {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.help-content {
+    position: relative;
+
+    z-index: 1;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.help-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #4F6EF7;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+}
+
+
+.help-content h3 {
+    margin: 0;
+
+    color: #171A2B;
+
+    font-size: 17px;
+
+    font-weight: 650;
+
+    transition: color .25s ease;
+}
+
+
+/*
+   Keep title dark on hover.
+   This makes the hover state more subtle.
+*/
+
+.help-item:hover .help-content h3 {
+    color: #171A2B;
+}
+
+
+.help-content p {
+    margin: 7px 0 0;
+
+    color: #767C93;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+    max-width: 700px;
+}
+
+/* =========================================================
+   ARROW BUTTON
+========================================================= */
+
+.help-arrow {
+    position: relative;
+
+    z-index: 2;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px !important;
+
+    border: 1px solid #D9DCE9 !important;
+
+    color: #767C93 !important;
+
+    background: #FFFFFF !important;
+
+    box-shadow: none !important;
+
+    transition:
+        transform .25s ease,
+        color .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.help-arrow i {
+    color: #767C93 !important;
+
+    transition:
+        transform .25s ease,
+        color .25s ease;
+}
+
+
+/* =========================================================
+   ARROW HOVER
+========================================================= */
+
+.help-item:hover .help-arrow {
+    color: #171A2B !important;
+
+    background: #F6F7FC !important;
+
+    border-color: #C7CBE6 !important;
+
+    box-shadow:
+        0 4px 12px rgba(23, 26, 43, .08) !important;
+
+    transform: translateX(1px);
+}
+
+
+.help-item:hover .help-arrow i {
+    color: #171A2B !important;
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   PRIME NG OVERRIDE
+========================================================= */
+
+:host ::ng-deep .help-arrow.p-button {
+    color: #767C93 !important;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid #D9DCE9 !important;
+
+    box-shadow: none !important;
+}
+
+
+:host ::ng-deep .help-arrow.p-button:hover {
+    color: #171A2B !important;
+
+    background: #F6F7FC !important;
+
+    border-color: #C7CBE6 !important;
+
+    box-shadow:
+        0 4px 12px rgba(23, 26, 43, .08) !important;
+}
+
+
+:host ::ng-deep .help-arrow.p-button .p-button-icon {
+    color: inherit !important;
+}
+
+/* =========================================================
+   ANIMATED SHIMMER
+========================================================= */
+
+.help-item::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, .45),
+            transparent
+        );
+
+    transform: skewX(-18deg);
+
+    pointer-events: none;
+}
+
+
+.help-item:hover::after {
+    animation: helpShimmer .75s ease;
+}
+
+
+/* =========================================================
+   FLOATING ICON ANIMATION
+========================================================= */
+
+.help-item:nth-child(1) .help-icon {
+    animation:
+        helpFloat 4s ease-in-out infinite;
+}
+
+
+.help-item:nth-child(2) .help-icon {
+    animation:
+        helpFloat 4.5s ease-in-out infinite .3s;
+}
+
+
+.help-item:nth-child(3) .help-icon {
+    animation:
+        helpFloat 5s ease-in-out infinite .6s;
+}
+
+
+.help-item:hover .help-icon {
+    animation-play-state: paused;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes helpFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
 
 }
 
-.help-item{
 
-    display:flex;
+@keyframes helpShimmer {
 
-    align-items:center;
+    0% {
+        left: -120%;
+    }
 
-    gap:20px;
-
-    background:var(--sidebar-bg);
-
-    border:1px solid #334155;
-
-    border-radius:16px;
-
-    padding:22px;
-
-    transition:.25s;
+    100% {
+        left: 150%;
+    }
 
 }
 
-.help-item:hover{
 
-    border-color:#3B82F6;
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-    transform:translateY(-2px);
+@media (max-width: 650px) {
+
+    .help-grid {
+        gap: 12px;
+    }
+
+
+    .help-item {
+        gap: 14px;
+
+        min-height: auto;
+
+        padding: 17px;
+
+        border-radius: 15px;
+    }
+
+
+    .help-icon {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 12px;
+    }
+
+
+    .help-icon i {
+        font-size: 19px;
+    }
+
+
+    .help-content h3 {
+        font-size: 15px;
+    }
+
+
+    .help-content p {
+        font-size: 11px;
+
+        line-height: 1.5;
+    }
+
+
+    .help-label {
+        font-size: 8px;
+    }
+
+
+    .help-arrow {
+        width: 36px;
+        height: 36px;
+    }
 
 }
 
-.help-icon{
 
-    width:56px;
+@media (max-width: 430px) {
 
-    height:56px;
+    .help-item {
+        align-items: flex-start;
+    }
 
-    border-radius:14px;
 
-    background:rgba(59,130,246,.12);
+    .help-icon {
+        width: 42px;
+        height: 42px;
+    }
 
-    display:flex;
 
-    justify-content:center;
+    .help-content p {
+        margin-top: 5px;
+    }
 
-    align-items:center;
 
-    flex-shrink:0;
-
-}
-
-.help-icon i{
-
-    color:#3B82F6;
-
-    font-size:24px;
+    .help-arrow {
+        width: 32px;
+        height: 32px;
+    }
 
 }
 
-.help-content{
 
-    flex:1;
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-}
+@media (prefers-reduced-motion: reduce) {
 
-.help-content h3{
+    .help-item,
+    .help-icon,
+    .help-arrow,
+    .help-glow,
+    .help-content h3 {
+        transition: none !important;
+        animation: none !important;
+    }
 
-    margin:0;
 
-    color:white;
-
-    font-size:18px;
-
-}
-
-.help-content p{
-
-    margin-top:8px;
-
-    color:#94A3B8;
-
-    line-height:1.6;
+    .help-item::after {
+        display: none;
+    }
 
 }

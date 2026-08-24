@@ -1,324 +1,565 @@
 <div class="dashboard">
 
-    <div class="dashboard-header">
+    <!-- Ambient background -->
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+    <div class="ambient ambient-3"></div>
+    <div class="grid-pattern"></div>
 
-        <div>
+    <div class="dashboard-shell">
 
-            <h1>Welcome back 👋</h1>
+        <!-- ================= HEADER ================= -->
 
-            <p>
-                Manage your cloud images, monitor storage usage and access
-                your files securely.
-            </p>
+        <header class="dashboard-header">
 
-        </div>
+            <div class="header-copy">
 
-    </div>
+                <span class="eyebrow">
+                    <span class="live-dot"></span>
+                    CLOUD WORKSPACE
+                </span>
 
-    <div class="stats-grid">
+                <h1>
+                    Welcome back <span class="wave">👋</span>
+                </h1>
 
-        <div class="stat-card">
-
-            <div class="images-icon">
-                <i class="pi pi-images"></i>
-            </div>
-
-            <div>
-                <h2>{{ stats?.totalImages ?? 0 }}</h2>
-                <span>Total Images</span>
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="storage-icon">
-                <i class="pi pi-cloud"></i>
-            </div>
-
-            <div>
-
-                <span>Storage Used</span>
-
-                <h2>{{ formatStorage(stats?.totalStorage ?? 0) }}</h2>
+                <p>
+                    Everything you need to manage, transform and protect your images.
+                </p>
 
             </div>
 
-        </div>
+            <div class="header-actions">
 
-        <div class="stat-card">
+                <button
+                    type="button"
+                    class="header-btn"
+                    routerLink="/upload">
 
-            <div class="upload-icon">
-                <i class="pi pi-upload"></i>
-            </div>
+                    <i class="pi pi-upload"></i>
 
-            <div>
+                    <span>Upload image</span>
 
-                <span>Uploads Today</span>
-
-                <h2>12</h2>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="aws-icon">
-                <i class="pi pi-check-circle"></i>
-            </div>
-
-            <div>
-
-                <span>AWS Status</span>
-
-                <h2>Online</h2>
+                </button>
 
             </div>
 
-        </div>
+        </header>
 
-    </div>
 
-    <!-- Quick Actions -->
-    <div class="quick-actions-panel">
+        <!-- ================= OVERVIEW ================= -->
 
-        <h2>Quick Actions</h2>
+        <section class="overview-grid">
 
-        <div class="action-grid">
+            <!-- Main welcome card -->
 
-            <div class="action-item" routerLink="/upload">
+            <div class="welcome-card">
 
-                <div class="action-left">
+                <div class="welcome-content">
 
-                    <div class="action-icon icon-blue">
-                        <i class="pi pi-upload"></i>
+                    <span class="welcome-label">
+                        YOUR WORKSPACE
+                    </span>
+
+                    <h2>
+                        Your images,
+                        <span>simplified.</span>
+                    </h2>
+
+                    <p>
+                        Upload, organize, edit and transform your images
+                        from one secure workspace.
+                    </p>
+
+                    <div class="welcome-actions">
+
+                        <button
+                            type="button"
+                            class="primary-action"
+                            routerLink="/upload">
+
+                            <i class="pi pi-cloud-upload"></i>
+
+                            Upload image
+
+                            <i class="pi pi-arrow-up-right arrow-icon"></i>
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="secondary-action"
+                            routerLink="/gallery">
+
+                            View gallery
+
+                            <i class="pi pi-arrow-right"></i>
+
+                        </button>
+
                     </div>
+
+                </div>
+
+
+                <!-- Decorative image/cloud visual -->
+
+                <div class="welcome-visual">
+
+                    <div class="visual-glow"></div>
+
+                    <div class="visual-orbit orbit-a"></div>
+                    <div class="visual-orbit orbit-b"></div>
+
+                    <div class="cloud-visual">
+
+                        <i class="pi pi-cloud"></i>
+
+                    </div>
+
+                    <div class="floating-file file-a">
+                        <i class="pi pi-image"></i>
+                    </div>
+
+                    <div class="floating-file file-b">
+                        <i class="pi pi-file"></i>
+                    </div>
+
+                    <div class="floating-file file-c">
+                        <i class="pi pi-shield"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Storage card -->
+
+            <div class="storage-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="pi pi-database"></i>
+                    </div>
+
+                    <span>
+                        STORAGE
+                    </span>
+
+                </div>
+
+                <div class="storage-value">
+                    {{ formatStorage(stats?.totalStorage ?? 0) }}
+                </div>
+
+                <div class="storage-label">
+                    Total storage used
+                </div>
+
+                <div class="storage-line">
+
+                    <span></span>
+
+                </div>
+
+                <div class="storage-footer">
+
+                    <span>
+                        <i class="pi pi-cloud"></i>
+                        Cloud storage
+                    </span>
+
+                    <span class="secure">
+                        <i class="pi pi-check-circle"></i>
+                        Secure
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="pi pi-images"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        TOTAL IMAGES
+                    </span>
+
+                    <strong>
+                        {{ stats?.totalImages ?? 0 }}
+                    </strong>
+
+                    <span class="stat-meta">
+                        Files in your workspace
+                    </span>
+
+                </div>
+
+                <div class="stat-decoration">
+                    <i class="pi pi-images"></i>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon violet">
+                    <i class="pi pi-upload"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        UPLOADS TODAY
+                    </span>
+
+                    <strong>
+                        12
+                    </strong>
+
+                    <span class="stat-meta">
+                        Images uploaded today
+                    </span>
+
+                </div>
+
+                <div class="stat-decoration">
+                    <i class="pi pi-chart-line"></i>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    <i class="pi pi-shield"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        SECURITY
+                    </span>
+
+                    <strong>
+                        Protected
+                    </strong>
+
+                    <span class="stat-meta">
+                        Your files are secure
+                    </span>
+
+                </div>
+
+                <div class="stat-decoration">
+                    <i class="pi pi-lock"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TOOLS ================= -->
+
+        <section class="content-grid">
+
+            <div class="tools-panel">
+
+                <div class="section-heading">
 
                     <div>
 
-                        <h4>Upload Images</h4>
+                        <span class="section-kicker">
+                            WORKSPACE
+                        </span>
 
-                        <small>Add new files to CloudVault</small>
+                        <h3>
+                            Quick tools
+                        </h3>
+
+                    </div>
+
+                    <span class="tool-count">
+                        8 tools
+                    </span>
+
+                </div>
+
+
+                <div class="tool-grid">
+
+                    <div
+                        class="tool-item"
+                        routerLink="/upload">
+
+                        <div class="tool-icon upload">
+                            <i class="pi pi-upload"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>Upload</strong>
+                            <span>Add new images</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/gallery">
+
+                        <div class="tool-icon gallery">
+                            <i class="pi pi-images"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>Gallery</strong>
+                            <span>Browse your files</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/image-editor">
+
+                        <div class="tool-icon editor">
+                            <i class="pi pi-sliders-h"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>Image Editor</strong>
+                            <span>Edit your images</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/format-converter">
+
+                        <div class="tool-icon convert">
+                            <i class="pi pi-sync"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>Convert</strong>
+                            <span>Change file formats</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/recycle-bin">
+
+                        <div class="tool-icon recycle">
+                            <i class="pi pi-trash"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>Recycle Bin</strong>
+                            <span>Recover deleted files</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/pdf-maker">
+
+                        <div class="tool-icon pdf">
+                            <i class="pi pi-file-pdf"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>PDF Maker</strong>
+                            <span>Create PDF files</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/collage">
+
+                        <div class="tool-icon collage">
+                            <i class="pi pi-th-large"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>Collage</strong>
+                            <span>Combine images</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
+
+                    </div>
+
+
+                    <div
+                        class="tool-item"
+                        routerLink="/readme-generator">
+
+                        <div class="tool-icon readme">
+                            <i class="pi pi-book"></i>
+                        </div>
+
+                        <div class="tool-copy">
+                            <strong>README</strong>
+                            <span>Generate documentation</span>
+                        </div>
+
+                        <i class="pi pi-arrow-up-right tool-arrow"></i>
 
                     </div>
 
                 </div>
 
-                <i class="pi pi-angle-right action-arrow"></i>
-
             </div>
 
-            <div class="action-item" routerLink="/gallery">
 
-                <div class="action-left">
+            <!-- ================= RECENT UPLOADS ================= -->
 
-                    <div class="action-icon icon-blue">
-                        <i class="pi pi-images"></i>
-                    </div>
+            <div class="recent-panel">
+
+                <div class="section-heading">
 
                     <div>
 
-                        <h4>Open Gallery</h4>
+                        <span class="section-kicker">
+                            ACTIVITY
+                        </span>
 
-                        <small>Browse all uploaded images</small>
+                        <h3>
+                            Recent uploads
+                        </h3>
 
                     </div>
+
+                    <a
+                        routerLink="/gallery"
+                        class="view-all">
+
+                        View all
+
+                        <i class="pi pi-arrow-right"></i>
+
+                    </a>
 
                 </div>
 
-                <i class="pi pi-angle-right action-arrow"></i>
 
-            </div>
+                <div class="upload-list">
 
-            <div class="action-item" routerLink="/recycle-bin">
+                    @for (
+                        image of recentUploads;
+                        track image.id
+                    ) {
 
-                <div class="action-left">
+                        <div class="recent-upload">
 
-                    <div class="action-icon icon-blue">
-                        <i class="pi pi-trash"></i>
-                    </div>
+                            <div class="thumbnail">
 
-                    <div>
+                                <img
+                                    [src]="image.imageUrl"
+                                    [alt]="image.originalFileName">
 
-                        <h4>Recycle Bin</h4>
+                            </div>
 
-                        <small>Restore deleted images</small>
+                            <div class="upload-info">
 
-                    </div>
+                                <strong>
+                                    {{ image.originalFileName }}
+                                </strong>
 
-                </div>
+                                <span>
+                                    {{ formatStorage(image.fileSize) }}
+                                    ·
+                                    {{ getTimeAgo(image.uploadedAt) }}
+                                </span>
 
-                <i class="pi pi-angle-right action-arrow"></i>
+                            </div>
 
-            </div>
+                            <button
+                                type="button"
+                                class="upload-more">
 
-            <div class="action-item" routerLink="/pdf-maker">
+                                <i class="pi pi-ellipsis-v"></i>
 
-                <div class="action-left">
+                            </button>
 
-                    <div class="action-icon icon-red">
-                        <i class="pi pi-file-pdf"></i>
-                    </div>
+                        </div>
 
-                    <div>
+                    } @empty {
 
-                        <h4>PDF Maker</h4>
+                        <div class="empty-state">
 
-                        <small>Convert images into a PDF</small>
+                            <div class="empty-icon">
+                                <i class="pi pi-images"></i>
+                            </div>
 
-                    </div>
+                            <strong>
+                                No uploads yet
+                            </strong>
 
-                </div>
+                            <span>
+                                Upload your first image to see it here.
+                            </span>
 
-                <i class="pi pi-angle-right action-arrow"></i>
+                            <button
+                                type="button"
+                                class="empty-action"
+                                routerLink="/upload">
 
-            </div>
+                                <i class="pi pi-upload"></i>
+                                Upload image
 
-            <div class="action-item" routerLink="/image-editor">
+                            </button>
 
-                <div class="action-left">
+                        </div>
 
-                    <div class="action-icon icon-purple">
-                        <i class="pi pi-sliders-h"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Image Editor</h4>
-
-                        <small>Crop, resize & adjust images</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/format-converter">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-green">
-                        <i class="pi pi-sync"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Format Converter</h4>
-
-                        <small>PNG ⇄ JPEG & more formats</small>
-
-                    </div>
+                    }
 
                 </div>
 
-                <i class="pi pi-angle-right action-arrow"></i>
-
             </div>
 
-            <div class="action-item" routerLink="/collage">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-orange">
-                        <i class="pi pi-th-large"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Collage Maker</h4>
-
-                        <small>Combine images into one layout</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-            <div class="action-item" routerLink="/readme-generator">
-
-                <div class="action-left">
-
-                    <div class="action-icon icon-slate">
-                        <i class="pi pi-book"></i>
-                    </div>
-
-                    <div>
-
-                        <h4>Git README Template</h4>
-
-                        <small>Generate a project README</small>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-angle-right action-arrow"></i>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Recent Uploads -->
-    <div class="recent-uploads-panel">
-
-        <div class="panel-header">
-
-            <h2>Recent Uploads</h2>
-
-            <a routerLink="/gallery">View All</a>
-
-        </div>
-
-        <div class="upload-list">
-
-            @for (image of recentUploads; track image.id) {
-
-            <div class="upload-item">
-
-                <div class="upload-thumbnail">
-                    <img [src]="image.imageUrl" [alt]="image.originalFileName">
-                </div>
-
-                <div class="upload-info">
-
-                    <h4>{{ image.originalFileName }}</h4>
-
-                    <div class="upload-meta">
-
-                        <span>{{ formatStorage(image.fileSize) }}</span>
-                        <span>•</span>
-                        <span>{{ getTimeAgo(image.uploadedAt) }}</span>
-
-                    </div>
-
-                </div>
-
-                <i class="pi pi-ellipsis-v upload-menu"></i>
-
-            </div>
-
-            } @empty {
-
-            <div class="empty-state">
-
-                <i class="pi pi-images"></i>
-
-                <p>No uploads yet</p>
-
-            </div>
-
-            }
-
-        </div>
+        </section>
 
     </div>
 

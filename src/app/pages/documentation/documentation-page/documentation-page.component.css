@@ -1,66 +1,725 @@
 :host {
     display: block;
+
+    --cv-text: #171A2B;
+    --cv-muted: #767C93;
+    --cv-border: #E9EAF4;
+    --cv-primary: #4F6EF7;
+    --cv-purple: #9B5CF6;
 }
+
+
+/* =========================================================
+   PAGE
+========================================================= */
 
 .documentation-page {
 
+    position: relative;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
+
+    min-height: 100%;
+
+    padding: 8px 4px 40px;
+
+    overflow: hidden;
 
 }
+
+
+/* =========================================================
+   FLOATING BACKGROUND GLOWS
+========================================================= */
+
+.documentation-page::before,
+.documentation-page::after {
+
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+}
+
+
+/* Blue glow */
+
+.documentation-page::before {
+
+    width: 300px;
+    height: 300px;
+
+    top: -140px;
+    left: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .10),
+            transparent 70%
+        );
+
+    animation:
+        floatingGlow 8s ease-in-out infinite;
+
+}
+
+
+/* Purple glow */
+
+.documentation-page::after {
+
+    width: 350px;
+    height: 350px;
+
+    right: -160px;
+    bottom: -160px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(155, 92, 246, .09),
+            transparent 70%
+        );
+
+    animation:
+        floatingGlowReverse 10s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
 
 .page-header {
 
+    position: relative;
+
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 24px;
+
+    padding: 4px 2px;
+
+    animation:
+        headerEnter .55s ease both;
 
 }
+
+
+.page-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -10px;
+
+    width: 75px;
+
+    height: 3px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--cv-primary),
+            var(--cv-purple)
+        );
+
+    animation:
+        lineGrow .7s ease .25s both;
+
+}
+
 
 .page-header h2 {
 
     margin: 0;
-    color: white;
+
+    color: var(--cv-text);
+
     font-size: 2rem;
+
     font-weight: 700;
 
+    letter-spacing: -.5px;
+
 }
+
+
+.page-header h2::after {
+
+    content: " ✦";
+
+    font-size: 15px;
+
+    color: var(--cv-primary);
+
+    vertical-align: top;
+
+    opacity: .7;
+
+}
+
 
 .page-header p {
 
-    color: #94A3B8;
+    margin: 8px 0 0;
+
+    color: var(--cv-muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
 
 }
+
+
+/* =========================================================
+   SEARCH AREA
+========================================================= */
+
+app-docs-search {
+
+    flex-shrink: 0;
+
+    animation:
+        searchEnter .55s ease .1s both;
+
+}
+
+
+/* =========================================================
+   MAIN DOCUMENTATION LAYOUT
+========================================================= */
 
 .docs-layout {
 
-    display: flex;
+    position: relative;
 
-    align-items: flex-start;
+    display: grid;
+
+    grid-template-columns:
+        240px
+        minmax(0, 1fr)
+        240px;
+
+    align-items: start;
 
     gap: 24px;
 
-}
-
-app-docs-toc {
-
-    width: 240px;
-
-    flex-shrink: 0;
+    width: 100%;
 
 }
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 app-docs-sidebar {
 
-    width: 320px;
-    flex-shrink: 0;
+    width: 100%;
+
+    min-width: 0;
+
+    animation:
+        panelLeftEnter .55s ease .12s both;
 
 }
 
+
+/* =========================================================
+   DOCUMENT CONTENT
+========================================================= */
+
 app-docs-content {
 
-    flex: 1;
+    width: 100%;
+
     min-width: 0;
+
+    animation:
+        contentEnter .6s ease .18s both;
+
+}
+
+
+/* =========================================================
+   TABLE OF CONTENTS
+========================================================= */
+
+app-docs-toc {
+
+    width: 100%;
+
+    min-width: 0;
+
+    animation:
+        panelRightEnter .55s ease .24s both;
+
+}
+
+
+/* =========================================================
+   CARD DEPTH
+========================================================= */
+
+app-docs-sidebar,
+app-docs-content,
+app-docs-toc {
+
+    transition:
+        transform .3s ease,
+        filter .3s ease;
+
+}
+
+
+/* Slight hover lift */
+
+app-docs-sidebar:hover,
+app-docs-toc:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — LARGE TABLETS
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .docs-layout {
+
+        grid-template-columns:
+            220px
+            minmax(0, 1fr)
+            210px;
+
+        gap: 18px;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .docs-layout {
+
+        grid-template-columns:
+            220px
+            minmax(0, 1fr);
+
+    }
+
+    app-docs-toc {
+
+        grid-column:
+            1 / -1;
+
+        width:
+            100%;
+
+    }
+
+    app-docs-toc ::ng-deep .docs-toc {
+
+        position:
+            relative;
+
+        top:
+            auto;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 720px) {
+
+    .documentation-page {
+
+        gap:
+            18px;
+
+        padding:
+            4px 0 30px;
+
+    }
+
+
+    .page-header {
+
+        align-items:
+            stretch;
+
+        gap:
+            18px;
+
+    }
+
+
+    .page-header h2 {
+
+        font-size:
+            1.65rem;
+
+    }
+
+
+    app-docs-search {
+
+        width:
+            100%;
+
+    }
+
+
+    .docs-layout {
+
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        gap:
+            18px;
+
+    }
+
+
+    app-docs-sidebar,
+    app-docs-content,
+    app-docs-toc {
+
+        width:
+            100%;
+
+    }
+
+
+    app-docs-sidebar {
+
+        order:
+            1;
+
+    }
+
+
+    app-docs-content {
+
+        order:
+            2;
+
+    }
+
+
+    app-docs-toc {
+
+        order:
+            3;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .documentation-page {
+
+        padding:
+            0 0 24px;
+
+    }
+
+
+    .page-header h2 {
+
+        font-size:
+            1.45rem;
+
+    }
+
+
+    .page-header p {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .docs-layout {
+
+        gap:
+            14px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes headerEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-12px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes searchEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+@keyframes panelLeftEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(-18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+@keyframes contentEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes panelRightEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+@keyframes lineGrow {
+
+    from {
+
+        width:
+            0;
+
+        opacity:
+            0;
+
+    }
+
+    to {
+
+        width:
+            75px;
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+@keyframes floatingGlow {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(30px, 20px)
+            scale(1.08);
+
+    }
+
+}
+
+
+@keyframes floatingGlowReverse {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-25px, -20px)
+            scale(1.06);
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .documentation-page::before,
+    .documentation-page::after,
+    .page-header,
+    app-docs-search,
+    app-docs-sidebar,
+    app-docs-content,
+    app-docs-toc,
+    .page-header::after {
+
+        animation:
+            none !important;
+
+    }
+
+    app-docs-sidebar,
+    app-docs-content,
+    app-docs-toc {
+
+        transition:
+            none !important;
+
+    }
 
 }

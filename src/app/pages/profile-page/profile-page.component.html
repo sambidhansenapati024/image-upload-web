@@ -1,24 +1,40 @@
 <div class="profile-page">
 
-<app-profile-header
-    *ngIf="profile"
-    [profile]="profile"
-    (editProfile)="openEditDialog()"
-    (imageSelected)="uploadProfileImage($event)">
-</app-profile-header>
+    <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
 
-<div class="profile-grid">
+        <i class="pi pi-arrow-left"></i>
 
-    <app-profile-info-card
+        Back
+
+    </button>
+
+
+    <app-profile-header
         *ngIf="profile"
-        [profile]="profile">
-    </app-profile-info-card>
+        [profile]="profile"
+        (editProfile)="openEditDialog()"
+        (imageSelected)="uploadProfileImage($event)">
+    </app-profile-header>
 
-    <app-storage-stats-card>
-    </app-storage-stats-card>
+
+    <div class="profile-grid">
+
+        <app-profile-info-card
+            *ngIf="profile"
+            [profile]="profile">
+        </app-profile-info-card>
+
+
+        <app-storage-stats-card>
+        </app-storage-stats-card>
+
+    </div>
 
 </div>
-</div>
+
 
 <app-profile-edit-dialog
     *ngIf="profile"

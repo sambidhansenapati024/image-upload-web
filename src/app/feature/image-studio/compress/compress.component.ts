@@ -104,6 +104,45 @@ uploadCompressedImage(): void {
     });
 }
 
+private getOutputMimeType(): string {
+  if (!this.selectedFile) {
+    return 'image/jpeg';
+  }
+
+  const type = this.selectedFile.type.toLowerCase();
+
+  if (type === 'image/png') {
+    return 'image/png';
+  }
+
+  if (type === 'image/webp') {
+    return 'image/webp';
+  }
+
+  if (type === 'image/jpeg' || type === 'image/jpg') {
+    return 'image/jpeg';
+  }
+
+  // Fallback
+  return 'image/jpeg';
+}
+
+private getOutputExtension(): string {
+  const mimeType = this.getOutputMimeType();
+
+  switch (mimeType) {
+    case 'image/png':
+      return 'png';
+
+    case 'image/webp':
+      return 'webp';
+
+    case 'image/jpeg':
+    default:
+      return 'jpg';
+  }
+}
+
   onFileSelected(event: Event): void {
 
     const input =
@@ -319,7 +358,7 @@ if (this.compressionMode === 'custom') {
 
         canvas.toBlob(
           resolve,
-          'image/jpeg',
+          this.getOutputMimeType(),
           quality
         );
 
@@ -338,7 +377,7 @@ const compressedFile = new File(
   [blob],
   this.getCompressedFileName(),
   {
-    type: 'image/jpeg'
+    type: this.getOutputMimeType()
   }
 );
 
@@ -446,7 +485,10 @@ private getCompressedFileName(): string {
       ? originalName.substring(0, dotIndex)
       : originalName;
 
-  return `${name}-compressed.jpg`;
+  const extension =
+    this.getOutputExtension();
+
+  return `${name}-compressed.${extension}`;
 }
 
 private loadImage(
@@ -584,7 +626,7 @@ private async compressToTargetSize(
 
             canvas.toBlob(
               resolve,
-              'image/jpeg',
+              this.getOutputMimeType(),
               quality
             );
 

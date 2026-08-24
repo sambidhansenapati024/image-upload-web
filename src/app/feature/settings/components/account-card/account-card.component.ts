@@ -7,7 +7,7 @@ import { ProgressBar } from "primeng/progressbar";
 
 @Component({
   selector: 'app-account-card',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, ProgressBar],
   templateUrl: './account-card.component.html',
   styleUrl: './account-card.component.css'
 })

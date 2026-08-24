@@ -1,79 +1,743 @@
-:host{
+:host {
 
-    display:block;
+    display: block;
 
-    margin-top:24px;
-
-}
-
-.info-card{
-
-    border-radius:20px;
+    margin-top: 24px;
 
 }
 
-.info-row{
 
-    display:flex;
+/* =========================================================
+   MAIN CARD
+========================================================= */
 
-    justify-content:space-between;
+.cloud-card {
 
-    align-items:center;
+    position: relative;
 
-    padding:16px 0;
+    overflow: hidden;
 
-    border-bottom:1px solid #334155;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #fcfcff 60%,
+            #f8f7ff 100%
+        );
 
-}
+    border: 1px solid #E9EAF4;
 
-.info-row:last-child{
+    border-radius: 22px;
 
-    border-bottom:none;
+    padding: 26px;
 
-}
+    box-sizing: border-box;
 
-.label{
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
 
-    display:flex;
+    transition:
+        transform .35s
+        cubic-bezier(.22, 1, .36, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
 
-    align-items:center;
-
-    gap:12px;
-
-    color:#CBD5E1;
-
-    font-weight:500;
-
-}
-
-.label i{
-
-    color:#2563EB;
-
-    font-size:18px;
-
-}
-
-.value{
-
-    color:#94A3B8;
-
-    font-weight:500;
+    animation:
+        cardReveal .55s
+        cubic-bezier(.22, 1, .36, 1);
 
 }
 
-.cloud-card{
 
-    background:#1E293B;
+.cloud-card:hover {
 
-    border:1px solid #334155;
+    transform: translateY(-3px);
 
-    border-radius:20px;
+    border-color:
+        rgba(79, 110, 247, .18);
 
-    padding:24px;
+    box-shadow:
+        0 4px 10px rgba(23, 26, 43, .04),
+        0 18px 40px rgba(79, 110, 247, .09);
 
 }
 
-.cloud-card h3{
-    color: azure;
+
+@keyframes cardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOWS
+========================================================= */
+
+.card-glow {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(60px);
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    width: 180px;
+
+    height: 180px;
+
+    top: -120px;
+
+    right: -50px;
+
+    background:
+        rgba(79, 110, 247, .13);
+
+    animation:
+        cardGlowOne 9s
+        ease-in-out infinite;
+
+}
+
+
+.glow-two {
+
+    width: 150px;
+
+    height: 150px;
+
+    bottom: -100px;
+
+    left: 30%;
+
+    background:
+        rgba(155, 92, 246, .10);
+
+    animation:
+        cardGlowTwo 11s
+        ease-in-out infinite;
+
+}
+
+
+@keyframes cardGlowOne {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-20px, 15px)
+            scale(1.15);
+
+    }
+
+}
+
+
+@keyframes cardGlowTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0, 0);
+
+    }
+
+    50% {
+
+        transform:
+            translate(20px, -15px);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.card-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #4F6EF7;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
+
+.card-header h3 {
+
+    margin: 0;
+
+    color: #171A2B;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    letter-spacing: -.015em;
+
+}
+
+
+.card-header p {
+
+    margin: 5px 0 0;
+
+    color: #767C93;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.header-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        );
+
+    color: #4F6EF7;
+
+    border:
+        1px solid
+        rgba(79, 110, 247, .10);
+
+    animation:
+        headerIconFloat 4s
+        ease-in-out infinite;
+
+}
+
+
+.header-icon i {
+
+    font-size: 17px;
+
+}
+
+
+@keyframes headerIconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px)
+            rotate(-3deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   INFORMATION LIST
+========================================================= */
+
+.info-list {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/* =========================================================
+   INFORMATION ROW
+========================================================= */
+
+.info-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    min-height: 68px;
+
+    padding: 10px 0;
+
+    border-bottom:
+        1px solid #E9EAF4;
+
+    transition:
+        padding .25s ease,
+        transform .25s ease;
+
+}
+
+
+.info-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.info-row:hover {
+
+    padding-left: 5px;
+
+    padding-right: 5px;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+}
+
+
+/* =========================================================
+   ICON BOX
+========================================================= */
+
+.icon-box {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+.info-row:hover .icon-box {
+
+    transform:
+        translateY(-2px)
+        scale(1.05);
+
+}
+
+
+.icon-box i {
+
+    font-size: 15px;
+
+}
+
+
+/* Blue */
+
+.icon-box.blue {
+
+    color: #4F6EF7;
+
+    background:
+        rgba(79, 110, 247, .10);
+
+}
+
+
+/* Violet */
+
+.icon-box.violet {
+
+    color: #9B5CF6;
+
+    background:
+        rgba(155, 92, 246, .10);
+
+}
+
+
+/* Green */
+
+.icon-box.green {
+
+    color: #16A34A;
+
+    background:
+        rgba(22, 163, 74, .10);
+
+}
+
+
+/* Orange */
+
+.icon-box.orange {
+
+    color: #EA580C;
+
+    background:
+        rgba(234, 88, 12, .10);
+
+}
+
+
+/* =========================================================
+   LABEL TEXT
+========================================================= */
+
+.label-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+
+}
+
+
+.label-text span {
+
+    color: #171A2B;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.label-text small {
+
+    color: #A2A8BD;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   VALUE
+========================================================= */
+
+.value {
+
+    max-width: 55%;
+
+    color: #4A4F63;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-align: right;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.value.email {
+
+    color: #4F6EF7;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.info-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 18px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid #E9EAF4;
+
+}
+
+
+.footer-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #767C93;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #22C55E;
+
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, .10);
+
+    animation:
+        statusPulse 2s
+        ease-in-out infinite;
+
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 3px
+            rgba(34, 197, 94, .08);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 6px
+            rgba(34, 197, 94, .14);
+
+    }
+
+}
+
+
+.info-footer > i {
+
+    color: #A2A8BD;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .cloud-card {
+
+        padding: 22px;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .cloud-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .card-header h3 {
+
+        font-size: 17px;
+
+    }
+
+
+    .info-row {
+
+        gap: 10px;
+
+    }
+
+
+    .icon-box {
+
+        width: 36px;
+
+        height: 36px;
+
+        border-radius: 10px;
+
+    }
+
+
+    .label-text small {
+
+        display: none;
+
+    }
+
+
+    .value {
+
+        max-width: 48%;
+
+        font-size: 11px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cloud-card *,
+    .cloud-card *::before,
+    .cloud-card *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
 }

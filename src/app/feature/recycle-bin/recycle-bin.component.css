@@ -1,73 +1,121 @@
-.recycle-header{
+:host {
+    display: block;
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-end;
-
-    margin:20px 0 30px;
-
+    --cv-primary: #4F6EF7;
+    --cv-purple: #9B5CF6;
+    --cv-bg: #FFFFFF;
+    --cv-bg-soft: #F6F7FC;
+    --cv-border: #E9EAF4;
+    --cv-text: #171A2B;
+    --cv-muted: #767C93;
 }
 
-.recycle-title h2{
 
-    margin:0;
+/* =========================================================
+   PAGE
+========================================================= */
 
-    color:white;
-
-    font-size:24px;
-
+.recycle-page {
+    position: relative;
+    width: 100%;
 }
 
-.recycle-title span{
 
-    color:#94A3B8;
-
-    font-size:13px;
-
-    display:block;
-
-    margin-top:4px;
-
-}
-
-.recycle-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-
-    gap:20px;
-
-}
+/* =========================================================
+   HEADER
+========================================================= */
 
 .recycle-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+
+    gap: 24px;
+
     margin: 20px 0 30px;
+
+    position: relative;
+}
+
+
+/* Decorative glow */
+
+.recycle-header::before {
+    content: "";
+
+    position: absolute;
+
+    width: 140px;
+    height: 140px;
+
+    top: -55px;
+    left: -45px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .10),
+            transparent 70%
+        );
+
+    filter: blur(10px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.recycle-title {
+    position: relative;
+    z-index: 1;
 }
 
 .recycle-title h2 {
     margin: 0;
-    color: white;
+
+    color: var(--cv-text);
+
     font-size: 24px;
-    font-weight: 600;
+
+    font-weight: 700;
+
+    letter-spacing: -.3px;
 }
 
 .recycle-title span {
     display: block;
-    margin-top: 4px;
-    color: #94A3B8;
+
+    margin-top: 5px;
+
+    color: var(--cv-muted);
+
     font-size: 13px;
 }
 
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
 .recycle-toolbar {
     display: flex;
+
     align-items: center;
+
     gap: 16px;
+
+    position: relative;
+
+    z-index: 2;
 }
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .recycle-toolbar .p-iconfield {
     width: 300px;
@@ -75,125 +123,575 @@
 
 .recycle-toolbar input {
     width: 100%;
-    background: #1E293B;
-    border: 1px solid #334155;
-    color: white;
-    border-radius: 10px;
-    padding: 10px 12px 10px 38px;
+
+    height: 44px;
+
+    box-sizing: border-box;
+
+    background: var(--cv-bg-soft) !important;
+
+    border:
+        1px solid var(--cv-border) !important;
+
+    color: var(--cv-text) !important;
+
+    border-radius: 12px;
+
+    padding:
+        10px 14px 10px 40px;
+
+    font-size: 14px;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .2s ease;
 }
 
 .recycle-toolbar input::placeholder {
-    color: #94A3B8;
+    color: #A2A8BD;
+}
+
+.recycle-toolbar input:hover {
+    border-color:
+        rgba(79, 110, 247, .45) !important;
+
+    background:
+        #FFFFFF !important;
 }
 
 .recycle-toolbar input:focus {
-    border-color: #2563EB;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    border-color:
+        var(--cv-primary) !important;
+
+    background:
+        #FFFFFF !important;
+
+    box-shadow:
+        0 0 0 3px rgba(79, 110, 247, .12),
+        0 8px 20px rgba(79, 110, 247, .08);
+
+    outline:
+        none;
 }
 
-.empty-gallery{
 
-    height:400px;
+/* Search icon */
 
-    display:flex;
+:host ::ng-deep .recycle-toolbar .p-inputicon {
+    color:
+        var(--cv-muted);
 
-    flex-direction:column;
+    transition:
+        color .25s ease,
+        transform .25s ease;
+}
 
-    justify-content:center;
+.recycle-toolbar .p-iconfield:focus-within
+.p-inputicon {
+    color:
+        var(--cv-primary);
 
-    align-items:center;
+    transform:
+        scale(1.08);
+}
 
-    color:#94A3B8;
 
-    border:2px dashed #334155;
+/* =========================================================
+   GRID
+========================================================= */
 
-    border-radius:20px;
+.recycle-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(250px, 1fr)
+        );
+
+    gap: 20px;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-gallery {
+    position: relative;
+
+    min-height: 400px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    color: var(--cv-muted);
+
+    border:
+        2px dashed var(--cv-border);
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #FAFAFE
+        );
+
+    overflow: hidden;
+
+    animation:
+        emptyFade .5s ease;
+}
+
+
+/* Floating glow */
+
+.empty-gallery::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -100px;
+    left: -80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 110, 247, .12),
+            transparent 70%
+        );
+
+    animation:
+        floatGlow 5s ease-in-out infinite;
+}
+
+
+/* Second glow */
+
+.empty-gallery::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -70px;
+    bottom: -80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(155, 92, 246, .10),
+            transparent 70%
+        );
+
+    animation:
+        floatGlow 6s ease-in-out infinite reverse;
+}
+
+
+.empty-gallery i {
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    font-size: 42px;
+
+    color: var(--cv-primary);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(79, 110, 247, .12);
+
+    margin-bottom: 22px;
+
+    animation:
+        recycleFloat 3.5s ease-in-out infinite;
+}
+
+
+.empty-gallery h2 {
+    position: relative;
+
+    z-index: 1;
+
+    margin:
+        0 0 10px;
+
+    color:
+        var(--cv-text);
+
+    font-size:
+        21px;
+
+    font-weight:
+        700;
+}
+
+
+.empty-gallery p {
+    position: relative;
+
+    z-index: 1;
+
+    margin:
+        0;
+
+    color:
+        var(--cv-muted);
+
+    font-size:
+        14px;
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.recycle-pagination {
+    margin-top: 60px;
+    padding-bottom: 20px;
+}
+
+
+::ng-deep .recycle-pagination .p-paginator {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    background:
+        #FFFFFF !important;
+
+    border:
+        1px solid var(--cv-border) !important;
+
+    border-radius:
+        16px;
+
+    padding:
+        14px 18px;
+
+    box-shadow:
+        0 1px 2px rgba(23, 26, 43, .04),
+        0 8px 24px rgba(23, 26, 43, .06);
 
 }
 
-.empty-gallery i{
 
-    font-size:70px;
+/* Pages */
 
-    color:#2563EB;
+::ng-deep .recycle-pagination
+.p-paginator-page {
 
-    margin-bottom:20px;
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border-radius:
+        10px;
+
+    color:
+        #4A4F63;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+
+::ng-deep .recycle-pagination
+.p-paginator-page:hover {
+
+    background:
+        #F6F7FC;
+
+    color:
+        var(--cv-text);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* Selected */
+
+::ng-deep .recycle-pagination
+.p-paginator-page.p-paginator-page-selected {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--cv-primary),
+            var(--cv-purple)
+        );
+
+    color:
+        #FFFFFF;
+
+    box-shadow:
+        0 6px 16px rgba(79, 110, 247, .25);
+}
+
+
+/* Navigation buttons */
+
+::ng-deep .recycle-pagination
+.p-paginator-prev,
+
+::ng-deep .recycle-pagination
+.p-paginator-next,
+
+::ng-deep .recycle-pagination
+.p-paginator-first,
+
+::ng-deep .recycle-pagination
+.p-paginator-last {
+
+    border-radius:
+        10px;
+
+    color:
+        #4A4F63;
+
+    transition:
+        all .2s ease;
+}
+
+
+::ng-deep .recycle-pagination
+.p-paginator-prev:hover,
+
+::ng-deep .recycle-pagination
+.p-paginator-next:hover,
+
+::ng-deep .recycle-pagination
+.p-paginator-first:hover,
+
+::ng-deep .recycle-pagination
+.p-paginator-last:hover {
+
+    background:
+        #F6F7FC;
+
+    color:
+        var(--cv-text);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* Rows select */
+
+::ng-deep .recycle-pagination
+.p-select {
+
+    min-width:
+        90px;
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid var(--cv-border);
+
+    background:
+        #FFFFFF;
 
 }
 
-.empty-gallery h2{
 
-    color:white;
+/* =========================================================
+   ANIMATIONS
+========================================================= */
 
-    margin-bottom:10px;
+@keyframes recycleFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-8px)
+            rotate(-3deg);
+    }
+}
+
+
+@keyframes floatGlow {
+
+    0%,
+    100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(15px, 12px)
+            scale(1.08);
+    }
+}
+
+
+@keyframes emptyFade {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .recycle-header {
+        align-items:
+            stretch;
+
+        flex-direction:
+            column;
+    }
+
+    .recycle-toolbar {
+        width:
+            100%;
+    }
+
+    .recycle-toolbar .p-iconfield {
+        width:
+            100%;
+    }
 
 }
-.recycle-pagination{
 
-    margin-top:70px;
 
-}
+@media (max-width: 600px) {
 
-::ng-deep .recycle-pagination .p-paginator{
+    .recycle-title h2 {
+        font-size:
+            21px;
+    }
 
-    background:#1E293B;
+    .recycle-toolbar {
+        flex-direction:
+            column;
 
-    border:1px solid #334155;
+        align-items:
+            stretch;
 
-    border-radius:16px;
+        gap:
+            10px;
+    }
 
-    padding:16px 20px;
+    .recycle-grid {
+        grid-template-columns:
+            1fr;
 
-}
-::ng-deep .recycle-pagination .p-paginator-page{
+        gap:
+            16px;
+    }
 
-    width:40px;
+    .empty-gallery {
+        min-height:
+            340px;
 
-    height:40px;
+        padding:
+            30px 20px;
+    }
 
-    border-radius:10px;
-
-    color:#CBD5E1;
-
-    transition:all .2s ease;
-
-}
-::ng-deep .recycle-pagination .p-paginator-page:hover{
-
-    background:#334155;
-
-    color:white;
-
-}
-::ng-deep .recycle-pagination .p-paginator-page.p-paginator-page-selected{
-
-    background:#2563EB;
-
-    color:white;
+    .recycle-pagination {
+        margin-top:
+            40px;
+    }
 
 }
-::ng-deep .recycle-pagination .p-paginator-prev,
-::ng-deep .recycle-pagination .p-paginator-next,
-::ng-deep .recycle-pagination .p-paginator-first,
-::ng-deep .recycle-pagination .p-paginator-last{
 
-    border-radius:10px;
 
-    color:#CBD5E1;
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-}
-::ng-deep .recycle-pagination .p-paginator-prev:hover,
-::ng-deep .recycle-pagination .p-paginator-next:hover,
-::ng-deep .recycle-pagination .p-paginator-first:hover,
-::ng-deep .recycle-pagination .p-paginator-last:hover{
+@media (prefers-reduced-motion: reduce) {
 
-    background:#334155;
+    *,
+    *::before,
+    *::after {
 
-    color:white;
+        animation-duration:
+            .01ms !important;
 
-}
-::ng-deep .recycle-pagination .p-select{
+        animation-iteration-count:
+            1 !important;
 
-    min-width:90px;
+        transition-duration:
+            .01ms !important;
+
+        scroll-behavior:
+            auto !important;
+    }
 
 }

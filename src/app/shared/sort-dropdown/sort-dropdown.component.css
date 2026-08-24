@@ -1,0 +1,442 @@
+:host {
+    display: block;
+
+    --cv-primary: #4F6EF7;
+    --cv-purple: #9B5CF6;
+    --cv-bg: #FFFFFF;
+    --cv-bg-soft: #F6F7FC;
+    --cv-border: #E9EAF4;
+    --cv-text: #171A2B;
+    --cv-muted: #767C93;
+}
+
+
+/* =========================================================
+   SORT WRAPPER
+========================================================= */
+
+.sort-select-wrapper {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    min-width: 190px;
+
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+========================================================= */
+
+.sort-select-wrapper::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -2px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(79, 110, 247, .18),
+            rgba(155, 92, 246, .18),
+            transparent
+        );
+
+    background-size: 200% 100%;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity .3s ease;
+
+    animation:
+        sortGlow 4s linear infinite;
+
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.sort-icon {
+
+    position: absolute;
+
+    left: 14px;
+
+    z-index: 3;
+
+    width: 22px;
+
+    height: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    pointer-events: none;
+
+}
+
+.sort-icon i {
+
+    color: var(--cv-muted);
+
+    font-size: 14px;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+
+}
+
+
+/* =========================================================
+   PRIME SELECT
+========================================================= */
+
+:host ::ng-deep .p-select {
+
+    width: 100%;
+
+    min-width: 190px;
+
+    height: 46px;
+
+    padding-left: 34px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #F8F9FE
+        ) !important;
+
+    border: 1px solid var(--cv-border) !important;
+
+    border-radius: 12px !important;
+
+    color: var(--cv-text) !important;
+
+    box-shadow:
+        0 1px 2px
+        rgba(23, 26, 43, .03);
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease,
+        background .25s ease;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+:host ::ng-deep .p-select-label {
+
+    color: var(--cv-text) !important;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================================
+   DROPDOWN ICON
+========================================================= */
+
+:host ::ng-deep .p-select-dropdown {
+
+    color: var(--cv-muted) !important;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+:host ::ng-deep .p-select:hover {
+
+    border-color:
+        rgba(79, 110, 247, .4) !important;
+
+    background: #FFFFFF !important;
+
+    box-shadow:
+        0 6px 20px
+        rgba(23, 26, 43, .06);
+
+    transform:
+        translateY(-1px);
+
+}
+
+.sort-select-wrapper:hover
+.sort-icon i {
+
+    color:
+        var(--cv-primary);
+
+    transform:
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+:host ::ng-deep .p-select.p-focus {
+
+    border-color:
+        var(--cv-primary) !important;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(79, 110, 247, .10),
+        0 8px 25px
+        rgba(79, 110, 247, .10) !important;
+
+    transform:
+        translateY(-1px);
+
+}
+
+.sort-select-wrapper:focus-within::before {
+
+    opacity: 1;
+
+}
+
+.sort-select-wrapper:focus-within
+.sort-icon i {
+
+    color:
+        var(--cv-primary);
+
+    transform:
+        scale(1.08)
+        rotate(-5deg);
+
+}
+
+
+/* =========================================================
+   DROPDOWN PANEL
+========================================================= */
+
+:host ::ng-deep .p-select-overlay {
+
+    margin-top: 8px;
+
+    background: #FFFFFF !important;
+
+    border: 1px solid var(--cv-border) !important;
+
+    border-radius: 14px !important;
+
+    box-shadow:
+        0 15px 45px
+        rgba(23, 26, 43, .14),
+        0 0 25px
+        rgba(79, 110, 247, .05);
+
+    overflow: hidden;
+
+    animation:
+        dropdownEnter .2s ease;
+
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+:host ::ng-deep .p-select-option {
+
+    margin: 4px;
+
+    padding:
+        10px 12px;
+
+    border-radius: 9px;
+
+    color: var(--cv-text) !important;
+
+    font-size: 13px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+
+}
+
+
+/* Hover option */
+
+:host ::ng-deep .p-select-option:not(.p-select-option-selected):hover {
+
+    background:
+        rgba(79, 110, 247, .07) !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    transform:
+        translateX(3px);
+
+}
+
+
+/* Selected option */
+
+:host ::ng-deep .p-select-option.p-select-option-selected {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 110, 247, .10),
+            rgba(155, 92, 246, .10)
+        ) !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes sortGlow {
+
+    0% {
+
+        background-position:
+            200% 50%;
+
+    }
+
+    100% {
+
+        background-position:
+            -200% 50%;
+
+    }
+
+}
+
+
+@keyframes dropdownEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-6px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .sort-select-wrapper {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+    :host ::ng-deep .p-select {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    :host ::ng-deep .p-select {
+
+        height: 44px;
+
+        border-radius: 11px !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .01ms !important;
+
+    }
+
+}
+
+/* Remove */

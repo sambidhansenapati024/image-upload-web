@@ -1,98 +1,259 @@
 <p-dialog
-    header="Edit Profile"
     [(visible)]="visible"
     (visibleChange)="visibleChange.emit($event)"
     [modal]="true"
     [draggable]="false"
     [resizable]="false"
+    [showHeader]="false"
     [style]="{ width: '720px' }"
     [breakpoints]="{
-        '960px':'90vw',
-        '640px':'95vw'
-    }">
+        '960px': '90vw',
+        '640px': '95vw'
+    }"
+    styleClass="profile-edit-dialog">
 
-    <form [formGroup]="profileForm">
+    <!-- =========================================
+         CUSTOM HEADER
+    ========================================== -->
+
+    <div class="dialog-header">
+
+        <div class="header-icon">
+
+            <i class="pi pi-user-edit"></i>
+
+        </div>
+
+        <div class="header-content">
+
+            <div class="header-title-row">
+
+                <h2>
+                    Edit Profile
+                </h2>
+
+                <span class="header-badge">
+                    <i class="pi pi-sparkles"></i>
+                    Profile
+                </span>
+
+            </div>
+
+            <p>
+                Update your personal information and profile details.
+            </p>
+
+        </div>
+
+        <div class="header-decoration">
+
+            <span class="decoration-card card-one">
+                <i class="pi pi-user"></i>
+            </span>
+
+            <span class="decoration-card card-two">
+                <i class="pi pi-cloud"></i>
+            </span>
+
+            <span class="decoration-card card-three">
+                <i class="pi pi-pencil"></i>
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FORM
+    ========================================== -->
+
+    <form
+        [formGroup]="profileForm"
+        class="profile-form">
 
         <div class="form-grid">
 
+            <!-- PHONE -->
+
             <div class="field">
 
-                <p-floatLabel>
+                <label
+                    class="field-label"
+                    for="phone">
+
+                    <span class="label-icon">
+                        <i class="pi pi-phone"></i>
+                    </span>
+
+                    Phone
+
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="pi pi-phone input-icon"></i>
 
                     <input
                         pInputText
                         id="phone"
-                        formControlName="phone">
+                        formControlName="phone"
+                        placeholder="Enter your phone number">
 
-                    <label for="phone">Phone</label>
-
-                </p-floatLabel>
+                </div>
 
             </div>
 
+
+            <!-- COUNTRY -->
+
             <div class="field">
 
-                <p-floatLabel>
+                <label
+                    class="field-label"
+                    for="country">
+
+                    <span class="label-icon">
+                        <i class="pi pi-globe"></i>
+                    </span>
+
+                    Country
+
+                </label>
+
+                <div class="input-wrapper">
+
+                    <i class="pi pi-globe input-icon"></i>
 
                     <input
                         pInputText
                         id="country"
-                        formControlName="country">
+                        formControlName="country"
+                        placeholder="Enter your country">
 
-                    <label for="country">Country</label>
-
-                </p-floatLabel>
+                </div>
 
             </div>
 
+
+            <!-- TIMEZONE -->
+
             <div class="field full-width">
 
-    <p-floatLabel>
+                <label
+                    class="field-label"
+                    for="timezone">
 
-        <input
-            pInputText
-            id="timezone"
-            formControlName="timezone">
+                    <span class="label-icon">
+                        <i class="pi pi-clock"></i>
+                    </span>
 
-        <label for="timezone">Timezone</label>
+                    Timezone
 
-    </p-floatLabel>
+                </label>
 
-</div>
+                <div class="input-wrapper">
 
-           <div class="field full-width">
+                    <i class="pi pi-clock input-icon"></i>
 
-    <label class="field-label" for="bio">Bio</label>
+                    <input
+                        pInputText
+                        id="timezone"
+                        formControlName="timezone"
+                        placeholder="e.g. Asia/Kolkata">
 
-    <textarea 
-          pTextarea
-        id="bio"
-        rows="5"
-        formControlName="bio">
-    </textarea>
+                </div>
 
-</div>
+            </div>
+
+
+            <!-- BIO -->
+
+            <div class="field full-width bio-field">
+
+                <div class="bio-label-row">
+
+                    <label
+                        class="field-label"
+                        for="bio">
+
+                        <span class="label-icon">
+                            <i class="pi pi-align-left"></i>
+                        </span>
+
+                        About you
+
+                    </label>
+
+                    <span class="character-hint">
+                        Tell us a little about yourself
+                    </span>
+
+                </div>
+
+                <div class="textarea-wrapper">
+
+                    <i class="pi pi-pencil textarea-icon"></i>
+
+                    <textarea
+                        pTextarea
+                        id="bio"
+                        rows="5"
+                        formControlName="bio"
+                        placeholder="Write something about yourself...">
+                    </textarea>
+
+                </div>
+
+            </div>
 
         </div>
 
     </form>
 
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
     <ng-template pTemplate="footer">
 
-        <button
-            pButton
-            type="button"
-            label="Cancel"
-            severity="secondary"
-            (click)="onCancel()">
-        </button>
+        <div class="dialog-footer">
 
-        <button
-            pButton
-            type="button"
-            label="Save Changes"
-            (click)="onSave()">
-        </button>
+            <div class="footer-hint">
+
+                <i class="pi pi-info-circle"></i>
+
+                <span>
+                    Your changes will be saved to your profile.
+                </span>
+
+            </div>
+
+            <div class="footer-actions">
+
+                <button
+                    pButton
+                    type="button"
+                    label="Cancel"
+                    icon="pi pi-times"
+                    severity="secondary"
+                    class="cancel-btn"
+                    (click)="onCancel()">
+                </button>
+
+                <button
+                    pButton
+                    type="button"
+                    label="Save Changes"
+                    icon="pi pi-check"
+                    class="save-btn"
+                    (click)="onSave()">
+                </button>
+
+            </div>
+
+        </div>
 
     </ng-template>
 

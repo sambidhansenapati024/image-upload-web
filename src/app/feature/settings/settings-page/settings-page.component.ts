@@ -3,6 +3,7 @@ import { AccountCardComponent } from '../components/account-card/account-card.co
 import { StorageCardComponent } from '../components/storage-card/storage-card.component';
 import { PreferencesCardComponent } from '../components/preferences-card/preferences-card.component';
 import { DangerZoneCardComponent } from '../components/danger-zone-card/danger-zone-card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings-page',
@@ -11,5 +12,13 @@ import { DangerZoneCardComponent } from '../components/danger-zone-card/danger-z
   styleUrl: './settings-page.component.css'
 })
 export class SettingsPageComponent {
+
+  constructor(
+    private router: Router
+) {}
+
+goBack(): void {
+    this.router.navigate(['/home']);
+}
 
 }

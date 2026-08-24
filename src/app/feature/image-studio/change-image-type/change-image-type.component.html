@@ -1,0 +1,461 @@
+<div class="converter-page">
+
+  <!-- HEADER -->
+  <section class="hero-section">
+
+    <div class="hero-badge">
+      <i class="pi pi-sync"></i>
+      IMAGE CONVERTER
+    </div>
+
+    <h1>
+      Change your
+      <span>image format</span>
+    </h1>
+
+    <p>
+      Convert your images to JPG, PNG or WEBP
+      directly in your browser.
+      Fast, private and completely free.
+    </p>
+
+  </section>
+
+
+  <!-- MAIN CARD -->
+  <section class="converter-card">
+
+    <!-- UPLOAD -->
+    @if (!hasFile) {
+
+      <div
+        class="upload-zone"
+        [class.dragging]="dragOver"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+      >
+
+        <div class="upload-icon">
+          <i class="pi pi-cloud-upload"></i>
+        </div>
+
+        <h2>
+          Drop your image here
+        </h2>
+
+        <p>
+          or choose an image from your device
+        </p>
+
+        <label class="browse-button">
+
+          <i class="pi pi-folder-open"></i>
+
+          Choose Image
+
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            hidden
+            (change)="onFileSelected($event)"
+          />
+
+        </label>
+
+        <div class="supported-formats">
+
+          <span>Supports</span>
+
+          <b>JPG</b>
+          <b>PNG</b>
+          <b>WEBP</b>
+          <b>GIF</b>
+
+        </div>
+
+      </div>
+
+    }
+
+
+    <!-- WORKSPACE -->
+    @if (hasFile) {
+
+      <div class="workspace">
+
+        <!-- ORIGINAL IMAGE -->
+        <div class="image-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <span class="panel-label">
+                ORIGINAL
+              </span>
+
+              <h3>
+                {{ selectedFile?.name }}
+              </h3>
+            </div>
+
+            <button
+              type="button"
+              class="icon-button"
+              title="Remove image"
+              (click)="reset()"
+            >
+              <i class="pi pi-times"></i>
+            </button>
+
+          </div>
+
+
+          <div class="image-preview">
+
+            @if (originalPreview) {
+
+              <img
+                [src]="originalPreview"
+                alt="Original image"
+              />
+
+            }
+
+          </div>
+
+
+          <div class="image-info">
+
+            <span>
+              <i class="pi pi-file"></i>
+              {{ selectedFile?.type }}
+            </span>
+
+            <span>
+              <i class="pi pi-database"></i>
+              {{ (selectedFile!.size / 1024 / 1024).toFixed(2) }} MB
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- ARROW -->
+        <div class="conversion-arrow">
+
+          <div class="arrow-circle">
+
+            <i class="pi pi-arrow-right"></i>
+
+          </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div class="image-panel result-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <span class="panel-label">
+                CONVERTED
+              </span>
+
+              <h3>
+                {{ selectedFormatInfo.label }}
+              </h3>
+            </div>
+
+            @if (hasConvertedImage) {
+
+              <div class="success-icon">
+                <i class="pi pi-check"></i>
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="image-preview">
+
+            @if (convertedPreview) {
+
+              <img
+                [src]="convertedPreview"
+                alt="Converted image"
+              />
+
+            } @else {
+
+              <div class="empty-result">
+
+                <div class="empty-icon">
+                  <i class="pi pi-image"></i>
+                </div>
+
+                <span>
+                  Your converted image
+                  will appear here
+                </span>
+
+              </div>
+
+            }
+
+            @if (isGenerating) {
+
+              <div class="generating-overlay">
+
+                <div class="loader"></div>
+
+                <span>
+                  Converting...
+                </span>
+
+              </div>
+
+            }
+
+          </div>
+
+
+          @if (hasConvertedImage) {
+
+            <div class="image-info success-info">
+
+              <span>
+                <i class="pi pi-file"></i>
+                {{ selectedFormatInfo.label }}
+              </span>
+
+              <span>
+                <i class="pi pi-database"></i>
+                {{ (convertedBlob!.size / 1024 / 1024).toFixed(2) }} MB
+              </span>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- FORMAT SELECTOR -->
+      <div class="format-section">
+
+        <div class="section-heading">
+
+          <div>
+
+            <span class="eyebrow">
+              OUTPUT FORMAT
+            </span>
+
+            <h2>
+              Choose your format
+            </h2>
+
+          </div>
+
+          <span class="selected-format">
+            {{ selectedFormatInfo.label }}
+          </span>
+
+        </div>
+
+
+        <div class="format-grid">
+
+          @for (format of formats; track format.value) {
+
+            <button
+              type="button"
+              class="format-card"
+              [class.selected]="selectedFormat === format.value"
+              (click)="selectFormat(format.value)"
+            >
+
+              <div class="format-icon">
+
+                <i [class]="format.icon"></i>
+
+              </div>
+
+              <div class="format-content">
+
+                <strong>
+                  {{ format.label }}
+                </strong>
+
+                <span>
+                  {{ format.description }}
+                </span>
+
+              </div>
+
+              <div class="format-check">
+
+                @if (selectedFormat === format.value) {
+                  <i class="pi pi-check"></i>
+                }
+
+              </div>
+
+            </button>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+      <div class="action-section">
+
+        <button
+          type="button"
+          class="generate-button"
+          [disabled]="isGenerating"
+          (click)="generate()"
+        >
+
+          @if (isGenerating) {
+
+            <i class="pi pi-spin pi-spinner"></i>
+
+            Converting...
+
+          } @else {
+
+            <i class="pi pi-sync"></i>
+
+            Generate {{ selectedFormatInfo.label }}
+
+          }
+
+        </button>
+
+
+        @if (hasConvertedImage) {
+
+          <button
+            type="button"
+            class="download-button"
+            (click)="download()"
+          >
+
+            <i class="pi pi-download"></i>
+
+            Download
+            {{ selectedFormatInfo.label }}
+
+          </button>
+
+        }
+
+      </div>
+
+
+      <!-- ERROR -->
+      @if (errorMessage) {
+
+        <div class="error-message">
+
+          <i class="pi pi-exclamation-triangle"></i>
+
+          <span>
+            {{ errorMessage }}
+          </span>
+
+        </div>
+
+      }
+
+
+      <!-- RESET -->
+      <button
+        type="button"
+        class="change-image-button"
+        (click)="reset()"
+      >
+
+        <i class="pi pi-refresh"></i>
+
+        Convert another image
+
+      </button>
+
+    }
+
+  </section>
+
+
+  <!-- FEATURES -->
+  <section class="features">
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        <i class="pi pi-shield"></i>
+      </div>
+
+      <div>
+        <strong>
+          Private
+        </strong>
+
+        <span>
+          Your image stays in your browser
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        <i class="pi pi-bolt"></i>
+      </div>
+
+      <div>
+        <strong>
+          Fast
+        </strong>
+
+        <span>
+          No server upload required
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        <i class="pi pi-file"></i>
+      </div>
+
+      <div>
+        <strong>
+          Multiple formats
+        </strong>
+
+        <span>
+          JPG, PNG and WEBP
+        </span>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
