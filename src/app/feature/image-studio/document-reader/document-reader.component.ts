@@ -7,6 +7,7 @@ import { TranslationService } from './service/translation.service';
 import { SummarizationService } from './service/summarization.service';
 import { TextToSpeechService } from './service/text-to-speech.service.service';
 import { SpeechToTextService } from './service/speech-to-text.service';
+import { TextToSpeechDownloadService } from './service/text-to-speech-download.service';
 
 interface LanguageOption {
   code: string;
@@ -78,6 +79,11 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
   speechError = '';
   speechLanguage = 'en-US';
 
+  // Browser-side downloadable TTS
+  downloadingVoiceTarget: SpeechTarget = null;
+  downloadingVoice = false;
+  voiceDownloadError = '';
+
   // Speech to text
   speechText = '';
   speechListening = false;
@@ -88,7 +94,8 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
     private translationService: TranslationService,
     private summarizationService: SummarizationService,
     private textToSpeechService: TextToSpeechService,
-    private speechToTextService: SpeechToTextService
+    private speechToTextService: SpeechToTextService,
+    private textToSpeechDownloadService: TextToSpeechDownloadService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -116,6 +123,7 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
     }
 
     this.speechError = '';
+    this.voiceDownloadError = '';
 
     this.speechToTextService.start(
       (text: string) => {
@@ -339,6 +347,59 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
       this.speechTarget = null;
       this.speechError = 'Unable to start text-to-speech.';
     }
+  }
+
+  async downloadVoice(
+    target: SpeechTarget,
+    text: string,
+    language: string = 'en-US'
+  ): Promise<void> {
+    if (!text?.trim() || this.downloadingVoice) {
+      return;
+    }
+
+    this.downloadingVoice = true;
+    this.downloadingVoiceTarget = target;
+    this.voiceDownloadError = '';
+    this.stopSpeech();
+
+    try {
+      const blob = await this.textToSpeechDownloadService.generateWav(
+        text,
+        language
+      );
+
+      const safeTarget = target === 'translation'
+        ? 'hindi-translation'
+        : target === 'summary'
+          ? 'summary'
+          : 'extracted-text';
+
+      const fileName = `${safeTarget}-${Date.now()}.wav`;
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+
+      anchor.href = url;
+      anchor.download = fileName;
+      anchor.style.display = 'none';
+
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (error) {
+      console.error('Voice download failed:', error);
+      this.voiceDownloadError =
+        'Unable to generate the voice file. Please try again.';
+    } finally {
+      this.downloadingVoice = false;
+      this.downloadingVoiceTarget = null;
+    }
+  }
+
+  isDownloadingVoice(target: SpeechTarget): boolean {
+    return this.downloadingVoice && this.downloadingVoiceTarget === target;
   }
 
   toggleSpeech(): void {

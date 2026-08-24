@@ -216,6 +216,20 @@
                 </div>
               }
 
+              <button
+                type="button"
+                class="soft-action download-voice"
+                [disabled]="downloadingVoice"
+                (click)="downloadVoice('extracted', extractedText, 'en-US')">
+                @if (isDownloadingVoice('extracted')) {
+                  <i class="pi pi-spin pi-spinner"></i>
+                  Generating voice...
+                } @else {
+                  <i class="pi pi-download"></i>
+                  Download voice
+                }
+              </button>
+
               <button type="button" class="soft-action" (click)="reset()">
                 <i class="pi pi-plus"></i>
                 New document
@@ -333,6 +347,20 @@
                   <button type="button" class="danger" (click)="stopSpeech()">Stop</button>
                 </div>
               }
+
+              <button
+                type="button"
+                class="soft-action download-voice"
+                [disabled]="downloadingVoice"
+                (click)="downloadVoice('translation', translationText, 'hi-IN')">
+                @if (isDownloadingVoice('translation')) {
+                  <i class="pi pi-spin pi-spinner"></i>
+                  Generating voice...
+                } @else {
+                  <i class="pi pi-download"></i>
+                  Download Hindi voice
+                }
+              </button>
             </div>
           </div>
         }
@@ -404,6 +432,20 @@
                   <button type="button" class="danger" (click)="stopSpeech()">Stop</button>
                 </div>
               }
+
+              <button
+                type="button"
+                class="soft-action download-voice"
+                [disabled]="downloadingVoice"
+                (click)="downloadVoice('summary', summaryText, 'en-US')">
+                @if (isDownloadingVoice('summary')) {
+                  <i class="pi pi-spin pi-spinner"></i>
+                  Generating voice...
+                } @else {
+                  <i class="pi pi-download"></i>
+                  Download summary voice
+                }
+              </button>
             </div>
           </div>
         }

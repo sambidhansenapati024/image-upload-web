@@ -1349,3 +1349,29 @@ textarea:focus {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* =========================================================
+   DOWNLOADABLE VOICE
+   ========================================================= */
+
+.download-voice {
+  border-color: #d9ddfb;
+  color: #5361d9;
+  background: #f7f8ff;
+}
+
+.download-voice:hover:not(:disabled) {
+  border-color: #aeb7f7;
+  color: #4552cf;
+  background: #f0f2ff;
+}
+
+.download-voice:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.download-voice i {
+  font-size: 10px;
+}
