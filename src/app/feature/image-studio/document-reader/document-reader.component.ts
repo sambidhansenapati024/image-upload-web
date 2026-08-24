@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { OcrService } from './service/ocr.service';
 import { TranslationService, TranslationLanguage } from './service/translation.service';
 import { SummarizationService } from './service/summarization.service';
-import { TextToSpeechService } from './service/text-to-speech.service.service';
 import { SpeechToTextService } from './service/speech-to-text.service';
 import { TextToSpeechDownloadService } from './service/text-to-speech-download.service';
+import { TextToSpeechService } from './service/text-to-speech.service.service';
 
 interface LanguageOption {
   code: string;
@@ -28,6 +28,7 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
   // File / OCR
   selectedFile: File | null = null;
   imagePreview: string | null = null;
+  voiceProgressLabel = '';
   isPdf = false;
 
   extractedText = '';
@@ -408,53 +409,68 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
   }
 
   async downloadVoice(
-    target: SpeechTarget,
-    text: string,
-    language: string = 'en-US'
-  ): Promise<void> {
-    if (!text?.trim() || this.downloadingVoice) {
-      return;
-    }
-
-    this.downloadingVoice = true;
-    this.downloadingVoiceTarget = target;
-    this.voiceDownloadError = '';
-    this.stopSpeech();
-
-    try {
-      const blob = await this.textToSpeechDownloadService.generateWav(
-        text,
-        language
-      );
-
-      const safeTarget = target === 'translation'
-        ? `${this.translationTargetCode}-translation`
-        : target === 'summary'
-          ? 'summary'
-          : 'extracted-text';
-
-      const fileName = `${safeTarget}-${Date.now()}.wav`;
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-
-      anchor.href = url;
-      anchor.download = fileName;
-      anchor.style.display = 'none';
-
-      document.body.appendChild(anchor);
-      anchor.click();
-      anchor.remove();
-
-      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-    } catch (error) {
-      console.error('Voice download failed:', error);
-      this.voiceDownloadError =
-        'Unable to generate the voice file. Please try again.';
-    } finally {
-      this.downloadingVoice = false;
-      this.downloadingVoiceTarget = null;
-    }
+  target: SpeechTarget,
+  text: string,
+  language: string = 'en-US'
+): Promise<void> {
+  if (!text?.trim() || this.downloadingVoice) {
+    return;
   }
+ 
+  this.downloadingVoice = true;
+  this.downloadingVoiceTarget = target;
+  this.voiceDownloadError = '';
+  this.voiceProgressLabel = 'Starting...';
+  this.stopSpeech();
+ 
+  try {
+    const blob = await this.textToSpeechDownloadService.generateWav(
+      text,
+      language,
+      (progress) => {
+        if (progress.stage === 'loading-model') {
+          this.voiceProgressLabel =
+            `Downloading voice model... ${progress.modelPercent ?? 0}%`;
+        } else if (progress.stage === 'generating') {
+          this.voiceProgressLabel =
+            `Generating audio... chunk ${progress.chunkIndex} of ${progress.chunkTotal}`;
+        } else {
+          this.voiceProgressLabel = 'Finishing up...';
+        }
+      }
+    );
+ 
+    const safeTarget = target === 'translation'
+      ? `${this.translationTargetCode}-translation`
+      : target === 'summary'
+        ? 'summary'
+        : 'extracted-text';
+ 
+    const fileName = `${safeTarget}-${Date.now()}.wav`;
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+ 
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.style.display = 'none';
+ 
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+ 
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (error) {
+    console.error('Voice download failed:', error);
+    this.voiceDownloadError =
+      error instanceof Error
+        ? error.message
+        : 'Unable to generate the voice file. Please try again.';
+  } finally {
+    this.downloadingVoice = false;
+    this.downloadingVoiceTarget = null;
+    this.voiceProgressLabel = '';
+  }
+}
 
   isDownloadingVoice(target: SpeechTarget): boolean {
     return this.downloadingVoice && this.downloadingVoiceTarget === target;

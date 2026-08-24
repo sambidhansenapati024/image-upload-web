@@ -8,6 +8,22 @@ type TtsOutput = {
 
 type TtsPipeline = (text: string) => Promise<TtsOutput>;
 
+export interface VoiceProgress {
+  stage: 'loading-model' | 'generating' | 'done';
+  // 0-100 while stage === 'loading-model' (based on file download progress)
+  modelPercent?: number;
+  // set while stage === 'generating'
+  chunkIndex?: number;
+  chunkTotal?: number;
+}
+
+export type VoiceProgressCallback = (progress: VoiceProgress) => void;
+
+// If a single generateWav() call takes longer than this, we abort
+// with a clear error instead of spinning forever. Long OCR text on
+// CPU/WASM can legitimately take a while, so this is generous.
+const GENERATION_TIMEOUT_MS = 3 * 60 * 1000; // 3 minutes
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +48,8 @@ export class TextToSpeechDownloadService {
 
   async generateWav(
     text: string,
-    language: string = 'en-US'
+    language: string = 'en-US',
+    onProgress?: VoiceProgressCallback
   ): Promise<Blob> {
 
     const cleanText = text?.trim();
@@ -41,28 +58,52 @@ export class TextToSpeechDownloadService {
       throw new Error('No text provided for voice generation.');
     }
 
+    const work = this.generateWavInternal(cleanText, language, onProgress);
+
+    return this.withTimeout(work, GENERATION_TIMEOUT_MS);
+  }
+
+  private async generateWavInternal(
+    cleanText: string,
+    language: string,
+    onProgress?: VoiceProgressCallback
+  ): Promise<Blob> {
+
     const languageCode = this.getLanguageCode(language);
 
     const model =
       this.models[languageCode] ??
       this.models['en'];
 
-    const tts = await this.getPipeline(model);
+    console.log(`[TTS] Preparing voice model for "${languageCode}" (${model})`);
+
+    const tts = await this.getPipeline(model, onProgress);
 
     /*
      * Split large OCR text into smaller chunks.
      */
     const chunks = this.splitText(cleanText, 400);
 
+    console.log(`[TTS] Text split into ${chunks.length} chunk(s).`);
+
     const audioChunks: Float32Array[] = [];
 
     let sampleRate = 16000;
 
-    for (const chunk of chunks) {
+    for (let i = 0; i < chunks.length; i++) {
 
-      const result = await tts(chunk);
+      console.log(`[TTS] Generating audio for chunk ${i + 1}/${chunks.length}...`);
+
+      onProgress?.({
+        stage: 'generating',
+        chunkIndex: i + 1,
+        chunkTotal: chunks.length
+      });
+
+      const result = await tts(chunks[i]);
 
       if (!result?.audio?.length) {
+        console.warn(`[TTS] Chunk ${i + 1} produced no audio, skipping.`);
         continue;
       }
 
@@ -77,6 +118,10 @@ export class TextToSpeechDownloadService {
       throw new Error('No audio was generated.');
     }
 
+    console.log('[TTS] All chunks generated, encoding WAV file...');
+
+    onProgress?.({ stage: 'done' });
+
     const combinedAudio =
       this.combineAudio(audioChunks);
 
@@ -87,7 +132,8 @@ export class TextToSpeechDownloadService {
   }
 
   private async getPipeline(
-    model: string
+    model: string,
+    onProgress?: VoiceProgressCallback
   ): Promise<TtsPipeline> {
 
     let existingPipeline =
@@ -100,17 +146,76 @@ export class TextToSpeechDownloadService {
           'text-to-speech',
           model,
           {
-            dtype: 'q8'
-          }
-        ) as unknown as Promise<TtsPipeline>;
+            dtype: 'q8',
+            progress_callback: (progress: any) => {
+
+              // transformers.js reports { status, file, progress, loaded, total }
+              // while files are downloading.
+              if (progress?.status === 'progress' && typeof progress.progress === 'number') {
+
+                const percent = Math.round(progress.progress);
+
+                console.log(`[TTS] Downloading ${model} — ${progress.file ?? ''} ${percent}%`);
+
+                onProgress?.({
+                  stage: 'loading-model',
+                  modelPercent: percent
+                });
+
+              } else if (progress?.status === 'done') {
+
+                console.log(`[TTS] Finished downloading ${progress.file ?? model}.`);
+
+              }
+
+            }
+          } as any
+        ).then((p) => {
+          console.log(`[TTS] Model ready: ${model}`);
+          return p as unknown as TtsPipeline;
+        }).catch((error) => {
+          // Drop the failed promise from the cache so a later retry
+          // doesn't just re-await the same rejection forever.
+          this.pipelines.delete(model);
+          console.error(`[TTS] Failed to load model ${model}:`, error);
+          throw new Error(
+            `Could not load the voice model for this language (${model}). ` +
+            `It may not support the requested precision, or the download failed.`
+          );
+        });
 
       this.pipelines.set(
         model,
         existingPipeline
       );
+    } else {
+      console.log(`[TTS] Reusing already-loaded model: ${model}`);
     }
 
     return existingPipeline;
+  }
+
+  private withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+
+      const timer = setTimeout(() => {
+        reject(new Error(
+          `Voice generation timed out after ${Math.round(ms / 1000)}s. ` +
+          `Try again, or shorten the text.`
+        ));
+      }, ms);
+
+      promise
+        .then((result) => {
+          clearTimeout(timer);
+          resolve(result);
+        })
+        .catch((error) => {
+          clearTimeout(timer);
+          reject(error);
+        });
+
+    });
   }
 
   private getLanguageCode(

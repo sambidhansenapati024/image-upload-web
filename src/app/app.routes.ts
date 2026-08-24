@@ -28,6 +28,7 @@ import { AdminSupportQueriesComponent } from './admin-module/admin-support-queri
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminSupportQueryDetailsComponent } from './admin-module/admin-support-query-details/admin-support-query-details.component';
 import { DocumentReaderComponent } from './feature/image-studio/document-reader/document-reader.component';
+import { ChangeImageTypeComponent } from './feature/image-studio/change-image-type/change-image-type.component';
 
 export const routes: Routes = [
 
@@ -155,6 +156,10 @@ export const routes: Routes = [
             {
                 path: 'document-reader',
                 component: DocumentReaderComponent
+            },
+             {
+                path: 'change-type',
+                component: ChangeImageTypeComponent
             },
             {
                 path: 'support-queries/:queryId',

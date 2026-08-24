@@ -216,19 +216,17 @@
                 </div>
               }
 
-              <button
-                type="button"
-                class="soft-action download-voice"
-                [disabled]="downloadingVoice"
+            <button type="button" class="soft-action download-voice" [disabled]="downloadingVoice"
                 (click)="downloadVoice('extracted', extractedText, 'en-US')">
                 @if (isDownloadingVoice('extracted')) {
-                  <i class="pi pi-spin pi-spinner"></i>
-                  Generating voice...
+                <i class="pi pi-spin pi-spinner"></i>
+                {{ voiceProgressLabel || 'Generating voice...' }}
                 } @else {
-                  <i class="pi pi-download"></i>
-                  Download voice
+                <i class="pi pi-download"></i>
+                Download voice
                 }
-              </button>
+            </button>
+ 
 
               <button type="button" class="soft-action" (click)="reset()">
                 <i class="pi pi-plus"></i>
