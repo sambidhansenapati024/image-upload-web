@@ -275,7 +275,30 @@
           <div>
             <span class="section-kicker">03 · TRANSLATION</span>
             <h2>Translate your extracted text</h2>
-            <p>Convert the OCR result into {{ translationTarget }}.</p>
+            <p>Convert the OCR result into {{ translationTargetLabel }}.</p>
+          </div>
+        </div>
+
+        <!-- TARGET LANGUAGE PICKER -->
+        <div class="language-area" style="margin-bottom: 16px;">
+          <div class="field-title">
+            <span>Translate to</span>
+          </div>
+
+          <div class="language-chips">
+            @for (lang of translationLanguages; track lang.code) {
+              <button
+                type="button"
+                class="language-chip"
+                [class.selected]="translationTargetCode === lang.code"
+                [disabled]="loadingTranslation"
+                (click)="setTranslationTarget(lang.code)">
+                <span class="chip-check">
+                  <i class="pi pi-check"></i>
+                </span>
+                {{ lang.label }}
+              </button>
+            }
           </div>
         </div>
 
@@ -283,8 +306,8 @@
           <div class="translate-context">
             <span class="language-circle">EN</span>
             <i class="pi pi-arrow-right"></i>
-            <span class="language-circle target">HI</span>
-            <span>English → {{ translationTarget }}</span>
+            <span class="language-circle target">{{ translationTargetCode.toUpperCase() }}</span>
+            <span>English → {{ translationTargetLabel }}</span>
           </div>
 
           <button
@@ -315,7 +338,7 @@
             <div class="translated-result-head">
               <div>
                 <span class="section-kicker">TRANSLATION COMPLETE</span>
-                <h3>Hindi translation</h3>
+                <h3>{{ translationTargetLabel }} translation</h3>
               </div>
               <span class="success-pill">
                 <i class="pi pi-check"></i>
@@ -333,13 +356,13 @@
                 <button
                   type="button"
                   class="soft-action"
-                  (click)="speakText('translation', translationText, 'hi-IN')">
+                  (click)="speakText('translation', translationText, translationSpeechLocale)">
                   <i class="pi pi-volume-up"></i>
-                  Read Hindi aloud
+                  Read {{ translationTargetLabel }} aloud
                 </button>
               } @else {
                 <div class="mini-player">
-                  <span><i class="pi pi-volume-up"></i> Reading Hindi</span>
+                  <span><i class="pi pi-volume-up"></i> Reading {{ translationTargetLabel }}</span>
                   <button type="button" (click)="toggleSpeech()">
                     <i [class]="speechPaused ? 'pi pi-play' : 'pi pi-pause'"></i>
                     {{ speechPaused ? 'Resume' : 'Pause' }}
@@ -352,13 +375,13 @@
                 type="button"
                 class="soft-action download-voice"
                 [disabled]="downloadingVoice"
-                (click)="downloadVoice('translation', translationText, 'hi-IN')">
+                (click)="downloadVoice('translation', translationText, translationSpeechLocale)">
                 @if (isDownloadingVoice('translation')) {
                   <i class="pi pi-spin pi-spinner"></i>
                   Generating voice...
                 } @else {
                   <i class="pi pi-download"></i>
-                  Download Hindi voice
+                  Download {{ translationTargetLabel }} voice
                 }
               </button>
             </div>

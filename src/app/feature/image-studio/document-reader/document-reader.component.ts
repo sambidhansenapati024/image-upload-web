@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { OcrService } from './service/ocr.service';
-import { TranslationService } from './service/translation.service';
+import { TranslationService, TranslationLanguage } from './service/translation.service';
 import { SummarizationService } from './service/summarization.service';
 import { TextToSpeechService } from './service/text-to-speech.service.service';
 import { SpeechToTextService } from './service/speech-to-text.service';
@@ -41,7 +41,7 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
   currentPage = 0;
   totalPages = 0;
 
-  // Languages
+  // Languages (OCR)
   availableLanguages: LanguageOption[] = [
     { code: 'eng', label: 'English' },
     { code: 'fra', label: 'French' },
@@ -61,10 +61,27 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
   selectedLanguages: string[] = ['eng'];
 
   // Translation
+  translationLanguages: TranslationLanguage[] = [];
+  translationTargetCode = 'hi';
   translationText = '';
   loadingTranslation = false;
   translationError = '';
-  translationTarget = 'Hindi';
+
+  // Maps a translation language code to a speechSynthesis locale
+  // for "Read aloud" / voice download. Extend when adding a new
+  // language above, if you want spoken playback for it too.
+  private readonly speechLocales: Record<string, string> = {
+    hi: 'hi-IN',
+    fr: 'fr-FR',
+    es: 'es-ES',
+    ar: 'ar-SA',
+    zh: 'zh-CN',
+    ru: 'ru-RU',
+    it: 'it-IT',
+    vi: 'vi-VN',
+    id: 'id-ID',
+    hu: 'hu-HU',
+  };
 
   // Summary
   summaryText = '';
@@ -100,6 +117,7 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.speechSupported = this.speechToTextService.isSupported();
+    this.translationLanguages = this.translationService.getSupportedLanguages();
 
     try {
       await this.ocrService.loadModel(this.selectedLanguages);
@@ -111,6 +129,40 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
       this.loadingModel = false;
     }
   }
+
+  // =========================================================
+  // TRANSLATION LANGUAGE SELECTION
+  // =========================================================
+
+  get translationTargetLabel(): string {
+    return this.translationLanguages.find(
+      l => l.code === this.translationTargetCode
+    )?.label ?? this.translationTargetCode;
+  }
+
+  get translationSpeechLocale(): string {
+    return this.speechLocales[this.translationTargetCode] ?? 'en-US';
+  }
+
+  setTranslationTarget(code: string): void {
+    if (this.translationTargetCode === code) {
+      return;
+    }
+
+    this.translationTargetCode = code;
+
+    // Clear any previous result — it was translated to the old language
+    this.translationText = '';
+    this.translationError = '';
+
+    if (this.isSpeechActive('translation')) {
+      this.stopSpeech();
+    }
+  }
+
+  // =========================================================
+  // SPEECH TO TEXT
+  // =========================================================
 
   startSpeechRecognition(): void {
     if (!this.speechSupported) {
@@ -282,10 +334,16 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
     this.translationText = '';
 
     try {
-      this.translationText = await this.translationService.translate(this.extractedText);
+      this.translationText = await this.translationService.translate(
+        this.extractedText,
+        this.translationTargetCode
+      );
     } catch (error) {
       console.error('Translation failed:', error);
-      this.translationError = 'Unable to translate the text. Please try again.';
+      this.translationError =
+        error instanceof Error
+          ? error.message
+          : 'Unable to translate the text. Please try again.';
     } finally {
       this.loadingTranslation = false;
     }
@@ -370,7 +428,7 @@ export class DocumentReaderComponent implements OnInit, OnDestroy {
       );
 
       const safeTarget = target === 'translation'
-        ? 'hindi-translation'
+        ? `${this.translationTargetCode}-translation`
         : target === 'summary'
           ? 'summary'
           : 'extracted-text';
