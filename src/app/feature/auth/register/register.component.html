@@ -364,6 +364,44 @@
                             }
 
 
+                            <!-- Terms & Conditions -->
+
+                            <div class="terms-field">
+
+                                <label class="terms-checkbox">
+
+                                    <input
+                                        type="checkbox"
+                                        formControlName="agreeToTerms">
+
+                                    <span class="checkbox-box">
+                                        <i class="pi pi-check"></i>
+                                    </span>
+
+                                    <span class="terms-text">
+                                        By checking this box, you agree to our
+                                        <a href="javascript:void(0)" (click)="openTermsModal($event)">Terms &amp; Conditions</a>
+                                        and
+                                        <a href="javascript:void(0)" (click)="openTermsModal($event)">Privacy Policy</a>.
+                                    </span>
+
+                                </label>
+
+                                @if (
+                                    registerForm.get('agreeToTerms')?.touched &&
+                                    registerForm.get('agreeToTerms')?.invalid
+                                ) {
+
+                                    <small class="error">
+                                        <i class="pi pi-exclamation-circle"></i>
+                                        <span>You must accept the Terms &amp; Conditions to continue.</span>
+                                    </small>
+
+                                }
+
+                            </div>
+
+
                             <!-- Submit -->
 
                             <button
@@ -420,5 +458,108 @@
         (cancel)="onOtpCancelled()">
 
     </app-otp-verification>
+
+}
+
+
+<!-- ================= TERMS & CONDITIONS MODAL ================= -->
+
+@if (showTermsModal) {
+
+    <div class="terms-overlay" (click)="closeTermsModal()">
+
+        <div class="terms-modal" (click)="$event.stopPropagation()">
+
+            <div class="terms-modal-header">
+
+                <h3>Terms &amp; Conditions</h3>
+
+                <button
+                    type="button"
+                    class="terms-close"
+                    (click)="closeTermsModal()">
+
+                    <i class="pi pi-times"></i>
+
+                </button>
+
+            </div>
+
+            <div class="terms-modal-body">
+
+                <h4>1. Acceptance of Terms</h4>
+
+                <p>
+                    By creating an account with CloudVault, you agree to be bound by these
+                    Terms &amp; Conditions and our Privacy Policy. If you do not agree,
+                    please do not register for an account or use our services.
+                </p>
+
+                <h4>2. Use of Service</h4>
+
+                <p>
+                    You agree to use CloudVault only for lawful purposes and in accordance
+                    with these terms. You are responsible for maintaining the confidentiality
+                    of your account credentials and for all activities that occur under
+                    your account.
+                </p>
+
+                <h4>3. Privacy Policy</h4>
+
+                <p>
+                    We collect and process your personal data solely to provide and improve
+                    our storage services. Your files are stored securely and are never
+                    shared with third parties without your explicit consent, except where
+                    required by applicable law.
+                </p>
+
+                <h4>4. Data Storage &amp; Security</h4>
+
+                <p>
+                    Files uploaded to CloudVault are encrypted both at rest and in transit.
+                    You retain full ownership of your content at all times, and you may
+                    delete your data permanently at any point.
+                </p>
+
+                <h4>5. Account Termination</h4>
+
+                <p>
+                    We reserve the right to suspend or terminate accounts that violate
+                    these terms, engage in fraudulent activity, or misuse the service in
+                    any way that harms other users or CloudVault infrastructure.
+                </p>
+
+                <h4>6. Changes to These Terms</h4>
+
+                <p>
+                    We may update these Terms &amp; Conditions from time to time. Continued
+                    use of the service after changes are published constitutes your
+                    acceptance of the revised terms.
+                </p>
+
+                <h4>7. Contact</h4>
+
+                <p>
+                    If you have any questions about these terms or our privacy practices,
+                    please reach out to our support team.
+                </p>
+
+            </div>
+
+            <div class="terms-modal-footer">
+
+                <button
+                    pButton
+                    type="button"
+                    label="Close"
+                    (click)="closeTermsModal()">
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 }

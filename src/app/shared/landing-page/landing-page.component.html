@@ -1,0 +1,461 @@
+<div class="landing-page">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="navbar-inner">
+
+      <a class="brand" routerLink="/">
+        <span class="brand-mark"><i class="pi pi-cloud"></i></span>
+        <span class="brand-name">Cloud<span>Vault</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#tools">Tools</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">Process</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="login-btn" routerLink="/login">Log in</button>
+        <button class="register-btn" routerLink="/register">
+          Start free
+          <i class="pi pi-arrow-up-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+
+      <div class="hero-grid">
+
+        <div class="hero-content">
+
+          <div class="hero-eyebrow">
+            <span class="eyebrow-dot"></span>
+            BROWSER-BASED IMAGE STUDIO
+          </div>
+
+          <h1 class="hero-title">
+            <span class="split-layer layer-cyan" aria-hidden="true">
+              Edit images.<br>Keep the file.
+            </span>
+            <span class="split-layer layer-magenta" aria-hidden="true">
+              Edit images.<br>Keep the file.
+            </span>
+            <span class="split-layer layer-ink">
+              Edit images.<br>Keep the file.
+            </span>
+          </h1>
+
+          <p class="hero-description">
+            Remove backgrounds, resize, compress and convert — processed
+            right in your browser. Store the results in a vault that's
+            actually yours.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-btn" routerLink="/register">
+              Open the studio
+              <i class="pi pi-arrow-right"></i>
+            </button>
+
+            <a class="secondary-btn" href="#tools">
+              See the tools
+              <i class="pi pi-arrow-down"></i>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat"><span>06</span>tools</div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span>0kb</span>uploaded for on-device tools</div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span>100gb</span>per vault</div>
+          </div>
+
+        </div>
+
+
+        <!-- ================= HERO VISUAL: COMPARE SLIDER ================= -->
+
+        <div class="hero-visual">
+
+          <div class="compare-panel">
+
+            <div class="compare-frame">
+
+              <div class="compare-bg-photo"></div>
+
+              <div
+                class="compare-bg-alpha"
+                [style.clip-path]="'inset(0 0 0 ' + sliderValue + '%)'">
+              </div>
+
+              <svg class="compare-object" viewBox="0 0 200 200" aria-hidden="true">
+                <ellipse cx="100" cy="172" rx="44" ry="7" class="obj-shadow"/>
+                <g class="obj-leaves">
+                  <path d="M100 96 C82 66 74 34 92 12 C102 42 101 68 100 96 Z" class="leaf-a"/>
+                  <path d="M100 96 C119 60 133 40 121 10 C104 32 99 62 100 96 Z" class="leaf-b"/>
+                  <path d="M100 96 C91 60 62 50 42 58 C62 68 86 80 100 96 Z" class="leaf-a"/>
+                </g>
+                <path d="M62 92 H138 L129 158 A9 9 0 0 1 120 166 H80 A9 9 0 0 1 71 158 Z" class="obj-mug"/>
+                <path d="M138 100 Q160 106 158 126 Q156 144 134 142" class="obj-handle" fill="none"/>
+              </svg>
+
+              <div class="compare-handle" [style.left.%]="sliderValue">
+                <div class="handle-line"></div>
+                <div class="handle-grip">
+                  <i class="pi pi-arrows-h"></i>
+                </div>
+              </div>
+
+              <input
+                type="range"
+                class="compare-input"
+                min="8"
+                max="92"
+                [value]="sliderValue"
+                (input)="onSliderInput($event)"
+                aria-label="Drag to compare original and background-removed image">
+
+              <span class="compare-tag tag-before">ORIGINAL</span>
+              <span class="compare-tag tag-after">ALPHA CHANNEL</span>
+
+            </div>
+
+            <div class="compare-meta">
+              <span>BACKGROUND REMOVAL</span>
+              <span>PNG · 1024×1024</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= TOOLS ================= -->
+
+    <section class="tools-section" id="tools">
+
+      <div class="section-header">
+        <span class="section-label">SIX TOOLS, ONE VAULT</span>
+        <h2>Everything runs where <span>your image already is.</span></h2>
+        <p>No round trip to a server for the tools that don't need one — your files stay on your machine until you choose to save them.</p>
+      </div>
+
+      <div class="tools-grid">
+
+        <div class="tool-card">
+          <span class="tool-tag">REMOVE</span>
+          <div class="tool-icon purple"><i class="pi pi-user-minus"></i></div>
+          <h3>Background Remover</h3>
+          <p>Lift the subject out cleanly using on-device AI — no upload required.</p>
+          <a href="#">Try it<i class="pi pi-arrow-right"></i></a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-tag">RESIZE</span>
+          <div class="tool-icon blue"><i class="pi pi-expand"></i></div>
+          <h3>Image Resizer</h3>
+          <p>Hit exact dimensions for any platform, without losing the crop you meant.</p>
+          <a href="#">Try it<i class="pi pi-arrow-right"></i></a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-tag">COMPRESS</span>
+          <div class="tool-icon cyan"><i class="pi pi-compress"></i></div>
+          <h3>Image Compressor</h3>
+          <p>Cut file size hard, keep the detail that actually matters to the eye.</p>
+          <a href="#">Try it<i class="pi pi-arrow-right"></i></a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-tag">CONVERT</span>
+          <div class="tool-icon pink"><i class="pi pi-sync"></i></div>
+          <h3>Image Converter</h3>
+          <p>Move between formats — PNG, JPG, WebP — without a re-export dance.</p>
+          <a href="#">Try it<i class="pi pi-arrow-right"></i></a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-tag">OPTIMIZE</span>
+          <div class="tool-icon orange"><i class="pi pi-image"></i></div>
+          <h3>Image Optimizer</h3>
+          <p>Ship web-ready assets tuned for the platform they're headed to.</p>
+          <a href="#">Try it<i class="pi pi-arrow-right"></i></a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-tag">STORE</span>
+          <div class="tool-icon green"><i class="pi pi-cloud"></i></div>
+          <h3>Cloud Storage</h3>
+          <p>Keep the originals and the edits together, organized by project.</p>
+          <a href="#">Explore<i class="pi pi-arrow-right"></i></a>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features-section" id="features">
+
+      <div class="features-content">
+        <span class="section-label">WHY CLOUD VAULT</span>
+        <h2>A workspace built <span>around the file,</span> not the upload button.</h2>
+        <p>Cloud Vault pairs real storage with tools that respect where your images already live.</p>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="check-icon"><i class="pi pi-check"></i></div>
+            <div>
+              <h3>Secure cloud storage</h3>
+              <p>Every file organized and reachable the moment you need it.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="check-icon"><i class="pi pi-check"></i></div>
+            <div>
+              <h3>Real image processing</h3>
+              <p>Resize, compress, convert and lift backgrounds without a plugin.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="check-icon"><i class="pi pi-check"></i></div>
+            <div>
+              <h3>Nothing leaves your browser unless you say so</h3>
+              <p>On-device tools process locally — you decide what gets saved to the vault.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-visual">
+        <div class="dashboard-card">
+
+          <div class="dashboard-top">
+            <div class="mini-logo"><i class="pi pi-cloud"></i></div>
+            <div class="dashboard-title">
+              <strong>Cloud Vault</strong>
+              <span>My Workspace</span>
+            </div>
+            <i class="pi pi-ellipsis-h"></i>
+          </div>
+
+          <div class="storage-box">
+            <div class="storage-header">
+              <span>Storage</span>
+              <strong>68.4 / 100 GB</strong>
+            </div>
+            <div class="storage-bar"><div></div></div>
+          </div>
+
+          <div class="dashboard-files">
+            <div class="file-card"><i class="pi pi-image"></i><span>Photos</span><strong>842</strong></div>
+            <div class="file-card"><i class="pi pi-folder"></i><span>Projects</span><strong>128</strong></div>
+            <div class="file-card"><i class="pi pi-file"></i><span>Documents</span><strong>314</strong></div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="how-section" id="how-it-works">
+
+      <div class="section-header">
+        <span class="section-label">HOW IT WORKS</span>
+        <h2>Three steps, <span>start to finish.</span></h2>
+        <p>Get a working vault in the time it takes to read this line.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h3>Create your account</h3>
+          <p>Register for Cloud Vault and set up your workspace.</p>
+        </div>
+
+        <div class="step-line"></div>
+
+        <div class="step">
+          <div class="step-number">02</div>
+          <h3>Bring your images</h3>
+          <p>Upload what you want stored — process the rest on the fly.</p>
+        </div>
+
+        <div class="step-line"></div>
+
+        <div class="step">
+          <div class="step-number">03</div>
+          <h3>Use the tools</h3>
+          <p>Edit, compress, resize and transform whenever you need to.</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta-section">
+
+      <div class="cta-checker"></div>
+
+      <div class="cta-content">
+        <span class="section-label">GET STARTED WITH CLOUD VAULT</span>
+        <h2>Your images deserve <span>a real workspace.</span></h2>
+        <p>Store, edit and transform your images without the friction.</p>
+
+        <div class="cta-actions">
+          <button class="cta-primary" routerLink="/register">
+            Create your vault
+            <i class="pi pi-arrow-right"></i>
+          </button>
+          <button class="cta-secondary" routerLink="/login">
+            Log in to Cloud Vault
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ================= SHOWCASE ================= -->
+
+    <section class="showcase-section" id="showcase">
+
+      <div class="section-header">
+        <span class="section-label">SEE IT WORK</span>
+        <h2>Every tool, <span>doing its thing.</span></h2>
+        <p>A closer look at what happens the moment you drop a file in.</p>
+      </div>
+
+      <div class="showcase-row">
+        <div class="showcase-visual">
+          <div class="demo-frame">
+            <div class="upload-drop">
+              <i class="pi pi-cloud-upload"></i>
+              <span>image-final.png</span>
+            </div>
+            <div class="upload-track"><div class="upload-fill"></div></div>
+            <div class="upload-success">
+              <div class="success-check"><i class="pi pi-check"></i></div>
+              <span>Uploaded to your vault</span>
+            </div>
+          </div>
+        </div>
+        <div class="showcase-text">
+          <span class="showcase-tag">UPLOAD</span>
+          <h3>Drop it in, watch it land.</h3>
+          <p>Drag a file onto Cloud Vault and it's synced, organized, and ready to reopen from any device — no spinner-and-hope uploads.</p>
+        </div>
+      </div>
+
+      <div class="showcase-row reverse">
+        <div class="showcase-visual">
+          <div class="demo-frame">
+            <div class="compress-icon"><i class="pi pi-image"></i></div>
+            <div class="compress-track"><div class="compress-fill"></div></div>
+            <div class="compress-sizes">
+              <span class="size-before">8.4 MB</span>
+              <span class="size-after">1.2 MB</span>
+            </div>
+          </div>
+        </div>
+        <div class="showcase-text">
+          <span class="showcase-tag">COMPRESS</span>
+          <h3>Smaller files, same detail.</h3>
+          <p>The compressor squeezes file size down hard while keeping the parts of the image your eye actually notices — great for fast page loads.</p>
+        </div>
+      </div>
+
+      <div class="showcase-row">
+        <div class="showcase-visual">
+          <div class="demo-frame">
+            <div class="convert-track">
+              <span class="convert-chip">PNG</span>
+              <span class="convert-chip">JPG</span>
+              <span class="convert-chip">WEBP</span>
+              <span class="convert-highlight"></span>
+            </div>
+            <div class="convert-arrow"><i class="pi pi-sync"></i></div>
+          </div>
+        </div>
+        <div class="showcase-text">
+          <span class="showcase-tag">CONVERT</span>
+          <h3>Any format, one click.</h3>
+          <p>Move between PNG, JPG and WebP instantly. No re-export dance, no losing track of which version is the one you actually need.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="footer">
+
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <a class="brand" routerLink="/">
+          <span class="brand-mark"><i class="pi pi-cloud"></i></span>
+          <span class="brand-name">Cloud<span>Vault</span></span>
+        </a>
+        <p>Your personal cloud workspace for images and digital files.</p>
+      </div>
+
+      <div class="footer-links">
+        <div>
+          <h4>Product</h4>
+          <a href="#tools">Image Tools</a>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+        </div>
+
+        <div>
+          <h4>Account</h4>
+          <a routerLink="/login">Login</a>
+          <a routerLink="/register">Register</a>
+        </div>
+
+        <div>
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Cloud Vault. All rights reserved.</span>
+      <div>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+
+  </footer>
+
+</div>
