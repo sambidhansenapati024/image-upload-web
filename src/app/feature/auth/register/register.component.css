@@ -1376,6 +1376,248 @@ form {
 
 
 /* =========================================================
+   TERMS CHECKBOX
+   ========================================================= */
+
+.terms-field {
+    grid-column: 1 / -1;
+}
+
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.checkbox-box {
+    flex-shrink: 0;
+
+    width: 18px;
+    height: 18px;
+
+    margin-top: 1px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1.5px solid var(--border-strong);
+    border-radius: 6px;
+
+    background: var(--field-bg);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.checkbox-box i {
+    font-size: 10px;
+    color: #fff;
+
+    opacity: 0;
+    transform: scale(.5);
+
+    transition:
+        opacity .15s ease,
+        transform .15s ease;
+}
+
+.terms-checkbox input[type="checkbox"]:checked + .checkbox-box {
+    border-color: var(--indigo);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--indigo),
+            var(--violet)
+        );
+}
+
+.terms-checkbox input[type="checkbox"]:checked + .checkbox-box i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.terms-checkbox input[type="checkbox"]:focus-visible + .checkbox-box {
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, .18);
+}
+
+.terms-text {
+    font-size: 12.5px;
+    line-height: 1.5;
+
+    color: var(--text-secondary);
+}
+
+.terms-text a {
+    color: var(--indigo);
+    font-weight: 700;
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+.terms-text a:hover {
+    color: var(--violet);
+}
+
+
+/* =========================================================
+   TERMS MODAL
+   ========================================================= */
+
+.terms-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(23, 26, 43, .45);
+    backdrop-filter: blur(3px);
+
+    animation: overlay-in .2s ease-out;
+}
+
+@keyframes overlay-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.terms-modal {
+    width: 100%;
+    max-width: 560px;
+    max-height: min(640px, 85vh);
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--card);
+
+    border-radius: 18px;
+
+    box-shadow: 0 30px 80px rgba(23, 26, 43, .3);
+
+    animation:
+        modal-in .25s
+        cubic-bezier(.2, .8, .3, 1);
+}
+
+@keyframes modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.terms-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.terms-modal-header h3 {
+    margin: 0;
+
+    color: var(--text-primary);
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.terms-close {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--field-bg);
+    color: var(--text-secondary);
+
+    cursor: pointer;
+
+    transition:
+        background .15s ease,
+        color .15s ease;
+}
+
+.terms-close:hover {
+    background: rgba(220, 38, 38, .08);
+    color: var(--error);
+}
+
+.terms-modal-body {
+    padding: 20px 24px;
+
+    overflow-y: auto;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.terms-modal-body h4 {
+    margin: 18px 0 6px;
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+}
+
+.terms-modal-body h4:first-child {
+    margin-top: 0;
+}
+
+.terms-modal-body p {
+    margin: 0;
+}
+
+.terms-modal-footer {
+    padding: 16px 24px;
+
+    border-top: 1px solid var(--border);
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* =========================================================
    BUTTON
    ========================================================= */
 
@@ -1609,6 +1851,10 @@ form {
     }
 
     .password-mismatch {
+        grid-column: 1;
+    }
+
+    .terms-field {
         grid-column: 1;
     }
 }

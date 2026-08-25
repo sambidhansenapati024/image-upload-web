@@ -67,6 +67,8 @@ export class RegisterComponent implements OnInit {
     showOtpVerification = false;
     pendingRegisterRequest!: RegisterRequest;
 
+    showTermsModal = false;
+
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
@@ -90,11 +92,27 @@ export class RegisterComponent implements OnInit {
                 Validators.minLength(8)
             ]],
 
-            confirmPassword: ['', Validators.required]
+            confirmPassword: ['', Validators.required],
+
+            agreeToTerms: [false, Validators.requiredTrue]
 
         }, {
             validators: passwordMatchValidator
         });
+
+    }
+
+    openTermsModal(event: Event): void {
+
+        event.preventDefault();
+
+        this.showTermsModal = true;
+
+    }
+
+    closeTermsModal(): void {
+
+        this.showTermsModal = false;
 
     }
 
