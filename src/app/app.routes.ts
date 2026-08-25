@@ -29,12 +29,13 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminSupportQueryDetailsComponent } from './admin-module/admin-support-query-details/admin-support-query-details.component';
 import { DocumentReaderComponent } from './feature/image-studio/document-reader/document-reader.component';
 import { ChangeImageTypeComponent } from './feature/image-studio/change-image-type/change-image-type.component';
+import { LandingPageComponent } from './shared/landing-page/landing-page.component';
 
 export const routes: Routes = [
 
     {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'landing',
         pathMatch: 'full'
     },
 
@@ -46,6 +47,11 @@ export const routes: Routes = [
             {
                 path: 'login',
                 component: LoginComponent,
+                canActivate: [guestGuard]
+            },
+             {
+                path: 'landing',
+                component: LandingPageComponent,
                 canActivate: [guestGuard]
             },
 
